@@ -1,4 +1,4 @@
-from aoc_2022 import get_input_lines
+from aoc_2022 import Input
 
 DIRECTIONS = {"U": (-1, 0), "D": (1, 0), "R": (0, 1), "L": (0, -1)}
 
@@ -34,7 +34,7 @@ def count(moves, chains):
 
 
 if __name__ == "__main__":
-    input_lines = get_input_lines()
+    input_lines = Input().get_lines()
 
     print(f"part_a: {count(input_lines, 2)}")
     print(f"part_b: {count(input_lines, 10)}")

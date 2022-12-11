@@ -1,4 +1,4 @@
-from aoc_2022 import get_input_lines
+from aoc_2022 import Input
 
 
 def find_unique(text, length) -> int:
@@ -8,6 +8,6 @@ def find_unique(text, length) -> int:
 
 
 if __name__ == "__main__":
-    line = get_input_lines()[0]
+    line = Input().get_lines()[0]
     print(f"part_a: {find_unique(line, 4)}")
     print(f"part_a: {find_unique(line, 14)}")

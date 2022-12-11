@@ -1,11 +1,11 @@
-from aoc_2022 import get_input_lines
+from aoc_2022 import Input
 
 
 if __name__ == "__main__":
     capacities = []
     sums = 0
 
-    for line in get_input_lines(0):
+    for line in Input().get_lines():
         if line:
             sums += int(line)
         else:

@@ -1,7 +1,7 @@
-from aoc_2022 import get_input_lines
+from aoc_2022 import Input
 
 if __name__ == "__main__":
-    input_lines = get_input_lines()
+    input_lines = Input().get_lines()
 
     timeline = [1]
     for line in input_lines:

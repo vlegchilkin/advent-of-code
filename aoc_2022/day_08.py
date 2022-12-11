@@ -1,6 +1,6 @@
 from itertools import product
 
-from aoc_2022 import get_input_lines
+from aoc_2022 import Input
 
 
 def see_side(x_list, y_list, height) -> (int, bool):
@@ -28,7 +28,7 @@ def look_around(x, y) -> (int, bool):
 
 
 if __name__ == "__main__":
-    forest = get_input_lines()
+    forest = Input().get_lines()
     n = len(forest)
     m = len(forest[0])
 

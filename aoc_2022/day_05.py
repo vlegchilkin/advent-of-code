@@ -2,13 +2,13 @@ import copy
 import re
 import string
 
-from aoc_2022 import get_input_iter
+from aoc_2022 import Input
 
 r = re.compile(r'^move (\d+) from (\d+) to (\d+)$')
 
 if __name__ == "__main__":
     stacks = None
-    input_iter = get_input_iter()
+    input_iter = Input().get_iter()
     while (line := next(input_iter, None)) and (line[1] != "1"):
         if not stacks:
             stacks = [[] for _ in range((len(line) + 1) // 4)]

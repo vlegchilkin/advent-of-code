@@ -1,4 +1,4 @@
-from aoc_2022 import get_input_iter
+from aoc_2022 import Input
 
 
 def part_a_sol(node) -> int:
@@ -31,7 +31,7 @@ def count_total(node) -> int:
 
 
 if __name__ == "__main__":
-    input_iter = get_input_iter()
+    input_iter = Input().get_iter()
 
     root = node = {'children': {}}
     line = next(input_iter)

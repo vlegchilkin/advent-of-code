@@ -2,7 +2,7 @@ import math
 import string
 from functools import reduce
 
-from aoc_2022 import get_input_lines
+from aoc_2022 import Input
 
 
 def sol(items) -> int:
@@ -13,7 +13,7 @@ def sol(items) -> int:
 
 
 if __name__ == "__main__":
-    lines = get_input_lines()
+    lines = Input().get_lines()
 
     total_a = sum([sol([line[:len(line) // 2], line[len(line) // 2:]]) for line in lines])
     total_b = sum([sol(lines[i:i + 3]) for i in range(0, len(lines), 3)])
