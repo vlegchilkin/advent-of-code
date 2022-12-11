@@ -1,7 +1,7 @@
 import inspect
 import re
 from pathlib import Path
-from typing import Union, Iterator
+from typing import Union, Iterator, Any
 from addict import Dict
 
 from ttp import ttp
@@ -46,6 +46,10 @@ class Input:
 
     def get_objects(self, ttp_template: str) -> list[Dict]:
         return parse_with_template(self._text, ttp_template)
+
+    def get_lists(self, ttp_template: str) -> list[list[Any]]:
+        objects = self.get_objects(ttp_template)
+        return [list(o.values()) for o in objects]
 
     def get_text(self) -> str:
         return self._text
