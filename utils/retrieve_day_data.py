@@ -61,8 +61,16 @@ def slice_content(content: str, from_tags, to_tags) -> list[str]:
 if __name__ == "__main__":
     context = Context(*sys.argv[1:])
 
+    if not (source_file := context.source()).exists():
+        source_file.copy(day_template.__file__)
+
     if not (input_file := context.resource("task.in")).exists():
-        input_file.write(context.request("/input").text)
+        resp = context.request("/input")
+        if resp.status_code < 300:
+            input_file.write(resp.text)
+        else:
+            print(resp.text)
+            exit(0)
 
     if not (task_file := context.resource("task.html")).exists():
         r_src = context.request()
@@ -78,6 +86,3 @@ if __name__ == "__main__":
             parser = AoCHTMLParser()
             parser.feed(unescaped)
             input_i_file.write(parser.output)
-
-    if not (source_file := context.source()).exists():
-        source_file.copy(day_template.__file__)

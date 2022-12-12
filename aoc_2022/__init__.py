@@ -38,7 +38,7 @@ class Input:
         with open(RESOURCES_ROOT / day / f"{test_case}.in", "r") as file:
             self._text = file.read()
 
-    def get_lines(self) -> list[str]:
+    def get_lines(self) -> list:
         return self._text.splitlines()
 
     def get_iter(self) -> Iterator[str]:
@@ -50,6 +50,12 @@ class Input:
     def get_lists(self, ttp_template: str) -> list[list[Any]]:
         objects = self.get_objects(ttp_template)
         return [list(o.values()) for o in objects]
+
+    def get_matrix(self, sep: str = None) -> (list[list], int, int):
+        lines = self._text.splitlines()
+        n = len(lines)
+        m = len(lines[0]) if lines else 0
+        return [list(line) if not sep else line.split(sep) for line in lines], n, m
 
     def get_text(self) -> str:
         return self._text
