@@ -80,22 +80,38 @@ D_ALL = tuple(Direction)
 
 
 class Spacer:
-    def __init__(self, south, east, north=0, west=0, *, default_directions: Iterable[tuple] = D_ALL):
+    def __init__(self, south, east, north_inclusive=0, west_inclusive=0, *,
+                 default_directions: Iterable[tuple] = D_ALL):
         self.south = south
         self.east = east
-        self.north = north
-        self.west = west
+        self.north_inclusive = north_inclusive
+        self.west_inclusive = west_inclusive
         self.default_directions = D_ALL if default_directions is None else default_directions
 
-    def get_links(self, row, column, *,
-                  directions: Iterable[tuple] = None, test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
+    def get_links(self, from_pos, *,
+                  directions: Iterable[tuple] = None,
+                  test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
         if directions is None:
             directions = self.default_directions
 
         for direct in directions:
-            _row, _column = row + direct[0], column + direct[1]
-            if not self.north <= _row < self.south or not self.west <= _column < self.east:
+            to_pos = from_pos[0] + direct[0], from_pos[1] + direct[1]
+            if not self.north_inclusive <= to_pos[0] < self.south or not self.west_inclusive <= to_pos[1] < self.east:
                 continue
-            if test and not test((_row, _column)):
+            if test and not test(to_pos):
                 continue
-            yield _row, _column
+            yield to_pos
+
+    def iter(self, test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
+        for i in range(self.north_inclusive, self.south):
+            for j in range(self.west_inclusive, self.east):
+                if test and not test((i, j)):
+                    continue
+                yield i, j
+
+    def new_array(self, fill_value, *, dtype=int):
+        return np.full(
+            shape=(self.south, self.east),
+            fill_value=fill_value,
+            dtype=dtype,
+        )
