@@ -1,7 +1,10 @@
 import inspect
 import re
+from enum import Enum
+
+import numpy as np
 from pathlib import Path
-from typing import Union, Iterator, Any
+from typing import Union, Iterator, Any, Tuple, Iterable, Callable
 from addict import Dict
 
 from ttp import ttp
@@ -51,11 +54,48 @@ class Input:
         objects = self.get_objects(ttp_template)
         return [list(o.values()) for o in objects]
 
-    def get_matrix(self, sep: str = None) -> (list[list], int, int):
+    def get_array(self, sep: str = None) -> (np.ndarray, Tuple):
         lines = self._text.splitlines()
-        n = len(lines)
-        m = len(lines[0]) if lines else 0
-        return [list(line) if not sep else line.split(sep) for line in lines], n, m
+        array = np.array([list(line) if not sep else line.split(sep) for line in lines])
+        return array, array.shape
 
     def get_text(self) -> str:
         return self._text
+
+
+class Direction(Tuple, Enum):
+    NORTH = (-1, 0)
+    NORTH_EAST = (-1, 1)
+    EAST = (0, 1)
+    SOUTH_EAST = (1, 1)
+    SOUTH = (1, 0)
+    SOUTH_WEST = (1, -1)
+    WEST = (0, -1)
+    NORTH_WEST = (-1, -1)
+
+
+D_DIAGONALS = (Direction.NORTH_EAST, Direction.SOUTH_EAST, Direction.SOUTH_WEST, Direction.NORTH_WEST)
+D_BORDERS = (Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST)
+D_ALL = tuple(Direction)
+
+
+class Spacer:
+    def __init__(self, south, east, north=0, west=0, *, default_directions: Iterable[tuple] = D_ALL):
+        self.south = south
+        self.east = east
+        self.north = north
+        self.west = west
+        self.default_directions = D_ALL if default_directions is None else default_directions
+
+    def get_links(self, row, column, *,
+                  directions: Iterable[tuple] = None, test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
+        if directions is None:
+            directions = self.default_directions
+
+        for direct in directions:
+            _row, _column = row + direct[0], column + direct[1]
+            if not self.north <= _row < self.south or not self.west <= _column < self.east:
+                continue
+            if test and not test((_row, _column)):
+                continue
+            yield _row, _column
