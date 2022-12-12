@@ -1,5 +1,5 @@
 import copy
-from functools import reduce
+import math
 
 from aoc_2022 import Input
 
@@ -15,7 +15,7 @@ def test(monkey, value, reduce_factor) -> (int, int):
         new_value = new_value // reduce_factor
 
     return (
-        new_value % modulus,
+        new_value % lcm,
         monkey.if_true if new_value % monkey.test == 0 else monkey.if_false
     )
 
@@ -52,7 +52,7 @@ Monkey {{ id | to_int | let(turns, 0) }}:
 if __name__ == "__main__":
     input_monkeys = Input().get_objects(ttp_template)
     input_monkeys.sort(key=lambda m: m.id)
-    modulus = reduce(lambda a, b: a * b, [m.test for m in input_monkeys])
+    lcm = math.lcm(*[m.test for m in input_monkeys])
     print("part_a:")
     simulate(copy.deepcopy(input_monkeys), 20, 3)
 
