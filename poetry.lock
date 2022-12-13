@@ -26,6 +26,17 @@ python-versions = ">=3.6.0"
 unicode_backport = ["unicodedata2"]
 
 [[package]]
+name = "dijkstra"
+version = "0.2.1"
+description = "dijkstra is a native Python implementation of famous Dijkstra's shortest path algorithm. The implemented algorithm can be used to analyze reasonably large networks. The primary goal in design is the clarity of the program code. Thus, program code tends to be more educational than effective."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+test = ["pytest", "pytest-cov", "pytest-flake8", "pytest-pep8", "pytest-pycodestyle"]
+
+[[package]]
 name = "idna"
 version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -87,7 +98,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "657d34c38d0d3dcab4567fe495b622a26a93b65e98b389c96ec943bee9f4a2e6"
+content-hash = "fe51370c54b1c49bb08ddfbe31586912c4f4656c967b6520ec93125d7f2989d7"
 
 [metadata.files]
 addict = [
@@ -101,6 +112,10 @@ certifi = [
 charset-normalizer = [
     {file = "charset-normalizer-2.1.1.tar.gz", hash = "sha256:5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845"},
     {file = "charset_normalizer-2.1.1-py3-none-any.whl", hash = "sha256:83e9a75d1911279afd89352c68b45348559d1fc0506b054b346651b5e7fee29f"},
+]
+dijkstra = [
+    {file = "dijkstra-0.2.1-py3-none-any.whl", hash = "sha256:52c2774a739399bbf012879fb0ba620d467bdd58e05e8442e8d7a7a94cb03762"},
+    {file = "dijkstra-0.2.1.tar.gz", hash = "sha256:4773decbba0e999945313f93d1ab523fc9c4c20769b2921330a6b5c137186ccb"},
 ]
 idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
