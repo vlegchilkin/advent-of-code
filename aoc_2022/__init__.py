@@ -88,8 +88,9 @@ class Spacer:
         self.west_inclusive = west_inclusive
         self.default_directions = D_ALL if default_directions is None else default_directions
 
-    def get_links(self, from_pos, *,
+    def get_links(self, from_pos,
                   directions: Iterable[tuple] = None,
+                  *,
                   test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
         if directions is None:
             directions = self.default_directions
