@@ -26,16 +26,15 @@ def to_optional_int(data, no_value="old"):
 
 def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
     parser = ttp(data=text, template=ttp_template)
-    parser.add_function(to_int_list, scope='match')
-    parser.add_function(to_optional_int, scope='match')
+    parser.add_function(to_int_list, scope="match")
+    parser.add_function(to_optional_int, scope="match")
     parser.parse()
     objects = parser.result(structure="flat_list")
     return [Dict(obj) for obj in objects]
 
 
 class Input:
-
-    def __init__(self, test_case: Union[str, int] = 'task'):
+    def __init__(self, test_case: Union[str, int] = "task"):
         caller_filename = inspect.stack()[1].filename
         day = DAY_SOURCE_REG.match(caller_filename).groups()[0]
         with open(RESOURCES_ROOT / day / f"{test_case}.in", "r") as file:
@@ -80,18 +79,18 @@ D_ALL = tuple(Direction)
 
 
 class Spacer:
-    def __init__(self, south, east, north_inclusive=0, west_inclusive=0, *,
-                 default_directions: Iterable[tuple] = D_ALL):
+    def __init__(
+        self, south, east, north_inclusive=0, west_inclusive=0, *, default_directions: Iterable[tuple] = D_ALL
+    ):
         self.south = south
         self.east = east
         self.north_inclusive = north_inclusive
         self.west_inclusive = west_inclusive
         self.default_directions = D_ALL if default_directions is None else default_directions
 
-    def get_links(self, from_pos,
-                  directions: Iterable[tuple] = None,
-                  *,
-                  test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
+    def get_links(
+        self, from_pos, directions: Iterable[tuple] = None, *, test: Callable[[tuple], bool] = None
+    ) -> Iterator[tuple]:
         if directions is None:
             directions = self.default_directions
 

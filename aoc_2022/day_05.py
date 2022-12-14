@@ -4,7 +4,7 @@ import string
 
 from aoc_2022 import Input
 
-r = re.compile(r'^move (\d+) from (\d+) to (\d+)$')
+r = re.compile(r"^move (\d+) from (\d+) to (\d+)$")
 
 if __name__ == "__main__":
     stacks = None

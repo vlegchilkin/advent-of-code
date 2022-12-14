@@ -13,7 +13,13 @@ numpy = "^1.23.5"
 dijkstra = "^0.2.1"
 
 [tool.poetry.dev-dependencies]
+pre-commit = { version = "*", source = "pypi" }
+black = { extras = ["d"], version = "*", source = "pypi" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']

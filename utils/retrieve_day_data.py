@@ -18,7 +18,7 @@ class Resource:
         return os.path.exists(self.path)
 
     def write(self, content):
-        with open(self.path, 'w') as out_f:
+        with open(self.path, "w") as out_f:
             out_f.write(content)
 
     def read(self) -> str:
@@ -53,7 +53,7 @@ def slice_content(content: str, from_tags, to_tags) -> list[str]:
     last_pos = 0
     while (start_index := content.find(from_tags, last_pos)) >= 0:
         finish_index = content.find(to_tags, last_pos)
-        result.append(content[start_index + len(from_tags):finish_index])
+        result.append(content[start_index + len(from_tags) : finish_index])
         last_pos = finish_index + len(to_tags)
     return result
 

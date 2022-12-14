@@ -6,7 +6,7 @@ from aoc_2022 import Input
 
 def test(monkey, value, reduce_factor) -> (int, int):
     op_value = monkey.op_right if monkey.op_right else value
-    if monkey.op_sign == '+':
+    if monkey.op_sign == "+":
         new_value = value + op_value
     else:
         new_value = value * op_value
@@ -14,10 +14,7 @@ def test(monkey, value, reduce_factor) -> (int, int):
     if reduce_factor:
         new_value = new_value // reduce_factor
 
-    return (
-        new_value % lcm,
-        monkey.if_true if new_value % monkey.test == 0 else monkey.if_false
-    )
+    return new_value % lcm, monkey.if_true if new_value % monkey.test == 0 else monkey.if_false
 
 
 def turn(monkeys, reduce_factor):

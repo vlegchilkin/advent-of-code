@@ -23,13 +23,13 @@ if __name__ == "__main__":
     for line in lines:
         points = [[int(x) for x in reversed(step.split(","))] for step in line.split(" -> ")]
         for i in range(1, len(points)):
-            s, t = sorted([points[i-1], points[i]])
-            a[s[0]:t[0] + 1, s[1]:t[1] + 1] = 1
+            s, t = sorted([points[i - 1], points[i]])
+            a[s[0] : t[0] + 1, s[1] : t[1] + 1] = 1
             max_row = max(max_row, t[0])
 
     source = (0, 500)
     floor = max_row + 2
-    a[floor, ] = 1
+    a[floor, :] = 1
 
     count = 0
     while drop(source, max_row):

@@ -10,4 +10,3 @@ from aoc_2022 import Input
 
 if __name__ == "__main__":
     lines = Input(0).get_lines()
-

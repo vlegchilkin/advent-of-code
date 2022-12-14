@@ -26,7 +26,7 @@ if __name__ == "__main__":
     part_a = 0
     for i in range(0, len(lists), 2):
         if cmp(lists[i], lists[i + 1]) < 0:
-            part_a += (i // 2 + 1)
+            part_a += i // 2 + 1
     print(f"part_a: {part_a}")
 
     markers = [[[2]], [[6]]]

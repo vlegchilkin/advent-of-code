@@ -3,7 +3,6 @@ from html.parser import HTMLParser
 
 
 class AoCHTMLParser(HTMLParser):
-
     def __init__(self, skip_tags=True, *, convert_charrefs: bool = True):
         super().__init__(convert_charrefs=convert_charrefs)
         self.skip_tags = skip_tags

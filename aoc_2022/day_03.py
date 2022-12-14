@@ -15,8 +15,8 @@ def sol(items) -> int:
 if __name__ == "__main__":
     lines = Input().get_lines()
 
-    total_a = sum([sol([line[:len(line) // 2], line[len(line) // 2:]]) for line in lines])
-    total_b = sum([sol(lines[i:i + 3]) for i in range(0, len(lines), 3)])
+    total_a = sum([sol([line[: len(line) // 2], line[len(line) // 2 :]]) for line in lines])
+    total_b = sum([sol(lines[i : i + 3]) for i in range(0, len(lines), 3)])
 
     print(f"part_a: {total_a}")
     print(f"part_b: {total_b}")

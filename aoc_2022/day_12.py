@@ -10,13 +10,13 @@ if __name__ == "__main__":
     a = spacer.new_array(0)
     for x in spacer.iter():
         ch = inp[x]
-        if ch == 'S':
+        if ch == "S":
             start = x
-            ch = 'a'
-        elif ch == 'E':
+            ch = "a"
+        elif ch == "E":
             finish = x
-            ch = 'z'
-        a[x] = ord(ch) - ord('a')
+            ch = "z"
+        a[x] = ord(ch) - ord("a")
 
     visited = spacer.new_array(-1)
     visited[finish] = 0

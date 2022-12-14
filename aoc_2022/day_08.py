@@ -21,10 +21,7 @@ def look_around(x, y) -> (int, bool):
     w_trees, w_side_view = see_side([x], reversed(range(y)), forest[x][y])
     e_trees, e_side_view = see_side([x], range(y + 1, m), forest[x][y])
 
-    return (
-        n_trees * s_trees * w_trees * e_trees,
-        n_side_view | s_side_view | w_side_view | e_side_view
-    )
+    return n_trees * s_trees * w_trees * e_trees, n_side_view | s_side_view | w_side_view | e_side_view
 
 
 if __name__ == "__main__":
