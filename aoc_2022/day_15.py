@@ -25,7 +25,7 @@ Sensor at x={{ sx | to_int }}, y={{ sy | to_int }}: closest beacon is at x={{ bx
 """
 
 if __name__ == "__main__":
-    data = [[(r["sx"], r["sy"]), (r["bx"], r["by"])] for r in Input().get_objects(ttp_template)]
+    data = [[(r.sx, r.sy), (r.bx, r.by)] for r in Input().get_objects(ttp_template)]
     sensors = [(d[0], dist(*d)) for d in data]
 
     part_a_y = 2000000  # 10
