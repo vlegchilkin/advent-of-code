@@ -1,4 +1,5 @@
 import inspect
+import math
 import re
 from enum import Enum
 
@@ -115,3 +116,10 @@ class Spacer:
             fill_value=fill_value,
             dtype=dtype,
         )
+
+
+def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
+    if manhattan:
+        return abs(x[0] - y[0]) + abs(x[1] - y[1])
+    else:
+        return math.dist(x, y)
