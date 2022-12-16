@@ -11,6 +11,8 @@ ttp = "*"
 addict = "*"
 numpy = "*"
 networkx = "*"
+matplotlib = "*"
+scipy = "*"
 
 [tool.poetry.dev-dependencies]
 pre-commit = { version = "*", source = "pypi" }
