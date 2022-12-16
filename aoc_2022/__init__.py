@@ -14,6 +14,10 @@ RESOURCES_ROOT = Path(__file__).parent / "resources"
 DAY_SOURCE_REG = re.compile(r"^.*day_(\d+).py$")
 
 
+def to_str_list(data, sep=","):
+    return data.split(sep), None
+
+
 def to_int_list(data, sep=","):
     return [int(el) for el in data.split(sep)], None
 
@@ -28,6 +32,7 @@ def to_optional_int(data, no_value="old"):
 def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
     parser = ttp(data=text, template=ttp_template)
     parser.add_function(to_int_list, scope="match")
+    parser.add_function(to_str_list, scope="match")
     parser.add_function(to_optional_int, scope="match")
     parser.parse()
     objects = parser.result(structure="flat_list")
@@ -123,3 +128,35 @@ def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
         return abs(x[0] - y[0]) + abs(x[1] - y[1])
     else:
         return math.dist(x, y)
+
+
+class Graph:
+    def __init__(self, links):
+        self.n = len(links)
+        self.g = np.full((self.n, self.n), dtype=object, fill_value=None)
+
+        for node, neighbours in links.items():
+            self.g[node, node] = 0
+            for destination, weight in neighbours:
+                self.g[node][destination] = weight
+
+    def floyd(self) -> "Graph":
+        for r in range(self.n):
+            for p in range(self.n):
+                for q in range(self.n):
+                    if self.g[p][r] is not None and self.g[r][q] is not None:
+                        if self.g[p][q] is None:
+                            self.g[p][q] = self.g[p][r] + self.g[r][q]
+                        else:
+                            self.g[p][q] = min(self.g[p][q], self.g[p][r] + self.g[r][q])
+        return self
+
+    def add_weight(self, weight) -> "Graph":
+        for i in range(self.n):
+            for j in range(self.n):
+                if self.g[i][j] is not None:
+                    self.g[i][j] += weight
+        return self
+
+    def to_list(self):
+        return self.g.tolist()
