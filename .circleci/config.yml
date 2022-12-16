@@ -9,3 +9,4 @@ workflows:
       - python/test:
           pkg-manager: poetry
           version: "3.10"
+          parallelism: 2
