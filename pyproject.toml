@@ -15,6 +15,7 @@ matplotlib = "*"
 scipy = "*"
 
 [tool.poetry.dev-dependencies]
+pytest = "^7.2.0"
 pre-commit = { version = "*", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
 
@@ -25,3 +26,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.black]
 line-length = 120
 target-version = ['py310']
+
+[tool.pytest.ini_options]
+python_files = "day_*.py"
+python_functions = "test_*"

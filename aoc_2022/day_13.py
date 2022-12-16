@@ -6,31 +6,45 @@ import math
 from aoc_2022 import Input
 
 
-def cmp(left, right) -> int:
-    l_int, r_int = isinstance(left, int), isinstance(right, int)
-    if l_int and r_int:
-        return left - right
+class Solution:
+    def __init__(self, inp: Input):
+        self.lists = [json.loads(line) for line in inp.get_iter() if line]
 
-    left = [left] if l_int else left
-    right = [right] if r_int else right
+    @staticmethod
+    def cmp(left, right) -> int:
+        l_int, r_int = isinstance(left, int), isinstance(right, int)
+        if l_int and r_int:
+            return left - right
 
-    for left_v, right_v in zip(left, right):
-        if c := cmp(left_v, right_v):
-            return c
+        left = [left] if l_int else left
+        right = [right] if r_int else right
 
-    return len(left) - len(right)
+        for left_v, right_v in zip(left, right):
+            if c := Solution.cmp(left_v, right_v):
+                return c
+
+        return len(left) - len(right)
+
+    def part_a(self) -> int:
+        part_a = 0
+        for i in range(0, len(self.lists), 2):
+            if Solution.cmp(self.lists[i], self.lists[i + 1]) < 0:
+                part_a += i // 2 + 1
+        return part_a
+
+    def part_b(self) -> int:
+        markers = [[[2]], [[6]]]
+        lists = sorted(self.lists + markers, key=cmp_to_key(Solution.cmp))
+        return math.prod([(i + 1) for i, v in enumerate(lists) if v in markers])
 
 
-if __name__ == "__main__":
-    lists = [json.loads(line) for line in Input().get_iter() if line]
-    part_a = 0
-    for i in range(0, len(lists), 2):
-        if cmp(lists[i], lists[i + 1]) < 0:
-            part_a += i // 2 + 1
-    print(f"part_a: {part_a}")
+def test_simple():
+    solution = Solution(Input(0))
+    assert solution.part_a() == 13
+    assert solution.part_b() == 140
 
-    markers = [[[2]], [[6]]]
-    lists.extend(markers)
-    lists = sorted(lists, key=cmp_to_key(cmp))
-    part_b = math.prod([(i + 1) for i, v in enumerate(lists) if v in markers])
-    print(f"part_b: {part_b}")
+
+def test_challenge():
+    solution = Solution(Input())
+    assert solution.part_a() == 5003
+    assert solution.part_b() == 20280

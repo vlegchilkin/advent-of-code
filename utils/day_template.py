@@ -1,12 +1,24 @@
-import copy
-import re
-import string
-from itertools import product
-
 from aoc_2022 import Input
 
-# r = re.compile(r'^xx (\d+) yy$', re.DOTALL)
-# int_list = list(map(int, r.match(line).groups()))
 
-if __name__ == "__main__":
-    lines = Input(0).get_lines()
+class Solution:
+    def __init__(self, inp: Input):
+        pass
+
+    def part_a(self):
+        return None
+
+    def part_b(self):
+        return None
+
+
+def test_simple():
+    solution = Solution(Input(0))
+    assert solution.part_a() is None
+    assert solution.part_b() is None
+
+
+def test_challenge():
+    solution = Solution(Input())
+    assert solution.part_a() is None
+    assert solution.part_b() is None
