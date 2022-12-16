@@ -1,0 +1,11 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@2.1.1
+
+workflows:
+  main:
+    jobs:
+      - python/test:
+          pkg-manager: poetry
+          version: "3.10"
