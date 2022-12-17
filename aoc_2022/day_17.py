@@ -56,15 +56,19 @@ class Solution:
         self.rocks = [[[1 if c == "#" else 0 for c in line] for line in reversed(block)] for block in blocks]
         self.moves = [1 if c == ">" else -1 for c in inp.get_text().strip()]
 
-    def build_sim(self):
+    def _build_sim(self):
         return Simulation(self.rocks, self.moves)
 
     def part_a(self):
-        return self.build_sim().run(2022)
+        return self._build_sim().run(2022)
 
     @staticmethod
     def _find_cycle(d) -> Optional[tuple[int, int]]:
-        if len(d) < 6:
+        """
+        Finds 4x repeated sequence at the end of deltas list [_XXXX]
+        :return sequence length and total of sequence.
+        """
+        if len(d) < 10:
             return
         for size in range(len(d) // 6, len(d) // 5):
             for i in range(size):
@@ -74,20 +78,19 @@ class Solution:
                 return size, sum(d[-size:])
 
     def part_b(self):
-        count = 1000000000000
-        simulation = self.build_sim()
-        iteration, prev_height, deltas = 0, 0, []
+        iterations = 1000000000000
+        simulation = self._build_sim()
 
-        while not (loop := self._find_cycle(deltas)) and iteration < count:
-            iteration += 1
+        top_height, deltas = 0, []
+        while not (loop := self._find_cycle(deltas)) and len(deltas) < iterations:
             new_height = simulation.run()
-            deltas.append(new_height - prev_height)
-            prev_height = new_height
+            deltas.append(new_height - top_height)
+            top_height = new_height
 
-        if remains := count - iteration:
+        if remains := iterations - len(deltas):
             return (remains // loop[0]) * loop[1] + simulation.run(remains % loop[0])
         else:
-            return prev_height
+            return top_height
 
 
 def test_simple():
