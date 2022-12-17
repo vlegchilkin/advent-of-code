@@ -11,7 +11,7 @@ from addict import Dict
 from ttp import ttp
 
 RESOURCES_ROOT = Path(__file__).parent / "resources"
-DAY_SOURCE_REG = re.compile(r"^.*day_(\d+).py$")
+DAY_SOURCE_REG = re.compile(r"^.*day_(\d+)(_)?.py$")
 
 
 def to_str_list(data, sep=","):
@@ -51,6 +51,17 @@ class Input:
 
     def get_iter(self) -> Iterator[str]:
         return iter(self.get_lines())
+
+    def get_blocks(self) -> list[list]:
+        line_iter = self.get_iter()
+        blocks = []
+        while line := next(line_iter, None):
+            block = []
+            while line:
+                block.append(line)
+                line = next(line_iter, None)
+            blocks.append(block)
+        return blocks
 
     def get_objects(self, ttp_template: str) -> list[Dict]:
         return parse_with_template(self._text, ttp_template)
