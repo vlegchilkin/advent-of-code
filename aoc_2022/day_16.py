@@ -3,7 +3,7 @@ import networkx as nx
 
 from aoc_2022 import Input
 
-ttp_template = """\
+TTP_TEMPLATE = """\
 Valve {{ src }} has flow rate={{ rate | to_int }}; \
 {{ ignore(r"tunnel(s)? lead(s)? to valve(s)?") }} {{dst | ORPHRASE | split(", ")}}
 """
@@ -11,7 +11,7 @@ Valve {{ src }} has flow rate={{ rate | to_int }}; \
 
 class Solution:
     def __init__(self, inp: Input):
-        input_data = {d.src: (d.rate, d.dst) for d in inp.get_objects(ttp_template)}
+        input_data = {d.src: (d.rate, d.dst) for d in inp.get_objects(TTP_TEMPLATE)}
         keys = sorted(input_data)
         self.rates = [input_data[k][0] for k in keys]
         self.closed_valves = {valve for valve, rate in enumerate(self.rates) if rate > 0}

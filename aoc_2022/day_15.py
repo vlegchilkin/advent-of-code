@@ -1,6 +1,6 @@
 from aoc_2022 import Input, dist
 
-ttp_template = """\
+TTP_TEMPLATE = """\
 Sensor at x={{ sx | to_int }}, y={{ sy | to_int }}: closest beacon is at x={{ bx | to_int }}, y={{ by | to_int }}
 """
 
@@ -8,7 +8,7 @@ Sensor at x={{ sx | to_int }}, y={{ sy | to_int }}: closest beacon is at x={{ bx
 class Solution:
     def __init__(self, inp: Input, part_a_row):
         self.part_a_row = part_a_row
-        self.data = [[(r.sx, r.sy), (r.bx, r.by)] for r in inp.get_objects(ttp_template)]
+        self.data = [[(r.sx, r.sy), (r.bx, r.by)] for r in inp.get_objects(TTP_TEMPLATE)]
         self.sensors = [(d[0], dist(*d)) for d in self.data]
 
     def find_x_areas(self, y):
