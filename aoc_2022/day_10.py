@@ -1,22 +1,56 @@
 from aoc_2022 import Input
 
-if __name__ == "__main__":
-    input_lines = Input().get_lines()
 
-    timeline = [1]
-    for line in input_lines:
-        timeline.append(timeline[-1])
-        if line != "noop":
-            timeline.append(timeline[-1] + (int(line.split(" ")[1])))
+class Solution:
+    def __init__(self, inp: Input):
+        input_lines = inp.get_lines()
 
-    cycles = [20 + i * 40 for i in range(6)]
-    part_a = sum([timeline[c - 1] * c for c in cycles])
-    print(f"part_a: {part_a}")
+        self.timeline = [1]
+        for line in input_lines:
+            self.timeline.append(self.timeline[-1])
+            if line != "noop":
+                self.timeline.append(self.timeline[-1] + (int(line.split(" ")[1])))
 
-    crt = [[], [], [], [], [], []]
-    for i in range(40 * 6):
-        pixel = "#" if i % 40 in (timeline[i] - 1, timeline[i], timeline[i] + 1) else "."
-        crt[i // 40].append(pixel)
+    def part_a(self):
+        cycles = [20 + i * 40 for i in range(6)]
+        part_a = sum([self.timeline[c - 1] * c for c in cycles])
+        return part_a
 
-    print("part_b:")
-    print("\n".join([" ".join(line) for line in crt]))
+    def part_b(self):
+        crt = [[], [], [], [], [], []]
+        for i in range(40 * 6):
+            pixel = "#" if i % 40 in (self.timeline[i] - 1, self.timeline[i], self.timeline[i] + 1) else "."
+            crt[i // 40].append(pixel)
+        return "\n".join([" ".join(line) for line in crt]) + "\n"
+
+
+def test_simple():
+    solution = Solution(Input(1))
+    assert solution.part_a() == 13140
+    assert (
+        solution.part_b()
+        == """\
+# # . . # # . . # # . . # # . . # # . . # # . . # # . . # # . . # # . . # # . .
+# # # . . . # # # . . . # # # . . . # # # . . . # # # . . . # # # . . . # # # .
+# # # # . . . . # # # # . . . . # # # # . . . . # # # # . . . . # # # # . . . .
+# # # # # . . . . . # # # # # . . . . . # # # # # . . . . . # # # # # . . . . .
+# # # # # # . . . . . . # # # # # # . . . . . . # # # # # # . . . . . . # # # #
+# # # # # # # . . . . . . . # # # # # # # . . . . . . . # # # # # # # . . . . .
+"""
+    )
+
+
+def test_challenge():
+    solution = Solution(Input())
+    assert solution.part_a() == 13180
+    assert (
+        solution.part_b()
+        == """\
+# # # # . # # # # . # # # # . . # # . . # . . # . . . # # . . # # . . # # # . .
+# . . . . . . . # . # . . . . # . . # . # . . # . . . . # . # . . # . # . . # .
+# # # . . . . # . . # # # . . # . . . . # # # # . . . . # . # . . # . # # # . .
+# . . . . . # . . . # . . . . # . . . . # . . # . . . . # . # # # # . # . . # .
+# . . . . # . . . . # . . . . # . . # . # . . # . # . . # . # . . # . # . . # .
+# # # # . # # # # . # . . . . . # # . . # . . # . . # # . . # . . # . # # # . .
+"""
+    )

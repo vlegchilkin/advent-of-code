@@ -1,23 +1,36 @@
 from aoc_2022 import Input
 
 ROCK, PAPER, SCISSORS = 0, 1, 2
-loss_tie_win = {ROCK: [SCISSORS, ROCK, PAPER], PAPER: [ROCK, PAPER, SCISSORS], SCISSORS: [PAPER, SCISSORS, ROCK]}
+LOSS_TIE_WIN = {ROCK: [SCISSORS, ROCK, PAPER], PAPER: [ROCK, PAPER, SCISSORS], SCISSORS: [PAPER, SCISSORS, ROCK]}
 
 
-def part_a(his, mine) -> int:
-    return 1 + mine + loss_tie_win[his].index(mine) * 3
+class Solution:
+    def __init__(self, inp: Input):
+        self.games = [(ord(line[0]) - ord("A"), ord(line[2]) - ord("X")) for line in inp.get_lines()]
+
+    def score(self, his, mine) -> int:
+        return 1 + mine + LOSS_TIE_WIN[his].index(mine) * 3
+
+    def part_a(self):
+        score_a = 0
+        for his, mine in self.games:
+            score_a += self.score(his, mine)
+        return score_a
+
+    def part_b(self):
+        score_b = 0
+        for his, strategy in self.games:
+            score_b += self.score(his, LOSS_TIE_WIN[his][strategy])
+        return score_b
 
 
-def part_b(his, st) -> int:
-    return part_a(his, loss_tie_win[his][st])
+def test_simple():
+    solution = Solution(Input(0))
+    assert solution.part_a() == 15
+    assert solution.part_b() == 12
 
 
-if __name__ == "__main__":
-    score_a = score_b = 0
-    for line in Input().get_lines():
-        first, second = ord(line[0]) - ord("A"), ord(line[2]) - ord("X")
-        score_a += part_a(first, second)
-        score_b += part_b(first, second)
-
-    print(f"part_a: {score_a}")
-    print(f"part_b: {score_b}")
+def test_challenge():
+    solution = Solution(Input())
+    assert solution.part_a() == 13052
+    assert solution.part_b() == 13693

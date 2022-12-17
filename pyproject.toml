@@ -30,5 +30,5 @@ target-version = ['py310']
 [tool.pytest.ini_options]
 python_files = "day_*.py"
 python_functions = "test_*"
-addopts = "--ignore=utils --color=yes --tb=short -vvv -s"
-asyncio_mode = "auto"
+addopts = "--ignore=utils --color=yes"
+#asyncio_mode = "auto"
