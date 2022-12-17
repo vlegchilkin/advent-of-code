@@ -5,18 +5,36 @@ from functools import reduce
 from aoc_2022 import Input
 
 
-def sol(items) -> int:
-    def f(s) -> int:
-        return reduce(lambda x, y: x | y, [1 << string.ascii_letters.index(c) for c in s])
+class Solution:
+    def __init__(self, inp: Input):
+        self.lines = inp.get_lines()
 
-    return int(math.log(reduce(lambda x, y: x & y, [f(item) for item in items]), 2)) + 1
+    def sol(self, items) -> int:
+        def f(s) -> int:
+            return reduce(lambda x, y: x | y, [1 << string.ascii_letters.index(c) for c in s])
+
+        return int(math.log(reduce(lambda x, y: x & y, [f(item) for item in items]), 2)) + 1
+
+    def part_a(self):
+        result = 0
+        for line in self.lines:
+            result += self.sol([line[: len(line) // 2], line[len(line) // 2 :]])
+        return result
+
+    def part_b(self):
+        result = 0
+        for i in range(0, len(self.lines), 3):
+            result += self.sol(self.lines[i : i + 3])
+        return result
 
 
-if __name__ == "__main__":
-    lines = Input().get_lines()
+def test_simple():
+    solution = Solution(Input(0))
+    assert solution.part_a() == 157
+    assert solution.part_b() == 70
 
-    total_a = sum([sol([line[: len(line) // 2], line[len(line) // 2 :]]) for line in lines])
-    total_b = sum([sol(lines[i : i + 3]) for i in range(0, len(lines), 3)])
 
-    print(f"part_a: {total_a}")
-    print(f"part_b: {total_b}")
+def test_challenge():
+    solution = Solution(Input())
+    assert solution.part_a() == 8072
+    assert solution.part_b() == 2567
