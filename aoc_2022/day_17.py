@@ -65,8 +65,8 @@ class Solution:
     @staticmethod
     def _find_cycle(d) -> Optional[tuple[int, int]]:
         """
-        Finds 4x repeated sequence at the end of deltas list [_XXXX]
-        :return sequence length and total of sequence.
+        Finds a four times repeated sequence (X) at the end of deltas list [_XXXX]
+        :return a sequence's length and a total height of the sequence.
         """
         if len(d) < 10:
             return
