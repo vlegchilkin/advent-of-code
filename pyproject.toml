@@ -19,6 +19,7 @@ markdownify = "^0.11.6"
 pytest = "^7.2.0"
 pre-commit = { version = "*", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
+coverage = { version = "^6.4.2", source = "pypi" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
