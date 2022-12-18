@@ -18,10 +18,10 @@ jobs:
           name: Run tests
           command: |
             set -e
-            TEST_FILES=$(circleci tests glob "aoc/day_*.py" | circleci tests split --split-by=timings)
+            TEST_FILES=$(circleci tests glob "aoc/day_*.py" | circleci tests split)
             mkdir -p test-results
             mkdir -p coverage-reports
-            echo $TEST_FILES
+            eval "echo $TEST_FILES"
             poetry run coverage run -m pytest --verbose --junitxml=test-results/junit.xml $TEST_FILES
             poetry run coverage report
             poetry run coverage xml -o coverage-reports/coverage-overall.xml
