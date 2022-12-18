@@ -18,7 +18,7 @@ jobs:
           name: Run tests
           command: |
             set -e
-            TEST_FILES=$(circleci tests glob "aoc/day_*.py")
+            TEST_FILES=$(circleci tests glob "aoc_2022/day_*.py" | circleci tests split --split-by=timings)
             echo "$TEST_FILES"
             mkdir -p test-results
             mkdir -p coverage-reports
