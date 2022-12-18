@@ -3,6 +3,7 @@ import os
 import shutil
 import sys
 from pathlib import Path
+from markdownify import markdownify as md
 
 import requests as requests
 
@@ -79,6 +80,9 @@ if __name__ == "__main__":
         task_file.write(main_content)
     else:
         main_content = task_file.read()
+
+    if not (readme_file := context.resource("README.md")).exists():
+        readme_file.write(md(main_content[: main_content.find("<p>At this point, you should")]))
 
     for i, pre_content in enumerate(slice_content(main_content, "<pre><code>", "</code></pre>")):
         if not (input_i_file := context.resource(f"{i}.in")).exists():
