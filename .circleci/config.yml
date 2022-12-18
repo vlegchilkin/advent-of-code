@@ -6,7 +6,7 @@ orbs:
 
 jobs:
   build-test-sonar:
-    parallelism: 2
+    parallelism: 1
     executor:
       name: python/default
       tag: "3.10"
