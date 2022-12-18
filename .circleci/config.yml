@@ -6,7 +6,7 @@ orbs:
 
 jobs:
   build-test-sonar:
-    parallelism: 5
+    parallelism: 2
     executor:
       name: python/default
       tag: "3.10"
@@ -21,6 +21,7 @@ jobs:
             TEST_FILES=$(circleci tests glob "aoc/day_*.py" | circleci tests split --split-by=timings)
             mkdir -p test-results
             mkdir -p coverage-reports
+            echo $TEST_FILES
             poetry run coverage run -m pytest --verbose --junitxml=test-results/junit.xml $TEST_FILES
             poetry run coverage report
             poetry run coverage xml -o coverage-reports/coverage-overall.xml
