@@ -260,6 +260,3 @@ With the elephant helping, after 26 minutes, the best you could do would release
 
 Your puzzle answer was `2520`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

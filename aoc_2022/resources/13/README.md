@@ -187,6 +187,3 @@ Organize all of the packets into the correct order. *What is the decoder key for
 
 Your puzzle answer was `20280`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

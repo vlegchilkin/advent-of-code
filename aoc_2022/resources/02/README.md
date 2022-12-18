@@ -70,6 +70,3 @@ Following the Elf's instructions for the second column, *what would your total s
 
 Your puzzle answer was `13693`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

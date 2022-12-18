@@ -76,6 +76,3 @@ Here are the first positions of start-of-message markers for all of the above ex
 
 Your puzzle answer was `2250`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

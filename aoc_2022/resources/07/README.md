@@ -139,6 +139,3 @@ Find the smallest directory that, if deleted, would free up enough space on the 
 
 Your puzzle answer was `3636703`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

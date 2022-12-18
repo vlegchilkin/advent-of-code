@@ -356,6 +356,3 @@ Worry levels are no longer divided by three after each item is inspected; you'll
 
 Your puzzle answer was `18085004878`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

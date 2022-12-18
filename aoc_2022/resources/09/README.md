@@ -753,6 +753,3 @@ Simulate your complete series of motions on a larger rope with ten knots. *How m
 
 Your puzzle answer was `2578`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

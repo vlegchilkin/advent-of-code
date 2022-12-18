@@ -95,6 +95,3 @@ This path reaches the goal in only `*29*` steps, the fewest possible.
 
 Your puzzle answer was `512`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

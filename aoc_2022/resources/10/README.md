@@ -371,6 +371,3 @@ Render the image given by your program. *What eight capital letters appear on yo
 
 Your puzzle answer was `EZFCHJAB`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

@@ -82,7 +82,7 @@ if __name__ == "__main__":
         main_content = task_file.read()
 
     if not (readme_file := context.resource("README.md")).exists():
-        readme_file.write(md(main_content[: main_content.find("<p>At this point, you should")]))
+        readme_file.write(md(main_content[: main_content.find('<p class="day-success">')]))
 
     for i, pre_content in enumerate(slice_content(main_content, "<pre><code>", "</code></pre>")):
         if not (input_i_file := context.resource(f"{i}.in")).exists():

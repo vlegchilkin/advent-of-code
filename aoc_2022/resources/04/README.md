@@ -87,6 +87,3 @@ So, in this example, the number of overlapping assignment pairs is `*4*`.
 
 Your puzzle answer was `865`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-

@@ -229,6 +229,3 @@ Using your scan, simulate the falling sand until the source of the sand becomes 
 
 Your puzzle answer was `27324`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
-
-
