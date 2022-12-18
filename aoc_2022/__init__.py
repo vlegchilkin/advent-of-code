@@ -163,3 +163,29 @@ def t_sum(x, y):
             return x[0] + y[0], x[1] + y[1], x[2] + y[2]
         case _:
             return tuple(map(sum, zip(x, y)))  # slow
+
+
+def t_inside_array(pos, n):
+    """is positions within dimension"""
+    return (0 <= pos[0] < n[0]) and (0 <= pos[1] < n[1]) and (0 <= pos[2] < n[2])
+
+
+def t_minmax(items):
+    if len(items) == 0:
+        return None
+
+    match len(next(iter(items))):
+        case 1:
+            return min(items), max(items)
+        case 2:
+            return (
+                (min([item[0] for item in items]), min([item[1] for item in items])),
+                (max([item[0] for item in items]), max([item[1] for item in items])),
+            )
+        case 3:
+            return (
+                (min([item[0] for item in items]), min([item[1] for item in items]), min([item[2] for item in items])),
+                (max([item[0] for item in items]), max([item[1] for item in items]), max([item[2] for item in items])),
+            )
+        case _:
+            raise ValueError("Not implemented for dimension")
