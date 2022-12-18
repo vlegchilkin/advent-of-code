@@ -99,7 +99,7 @@ def test_simple():
     assert solution.part_b() == 1514285714288
 
 
-def test_challenge():
+def test_puzzle():
     solution = Solution(Input())
     assert solution.part_a() == 3239
     assert solution.part_b() == 1594842406882

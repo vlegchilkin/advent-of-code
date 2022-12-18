@@ -34,7 +34,7 @@ def test_simple():
     assert solution.part_b() == 70
 
 
-def test_challenge():
+def test_puzzle():
     solution = Solution(Input())
     assert solution.part_a() == 8072
     assert solution.part_b() == 2567
