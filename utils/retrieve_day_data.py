@@ -65,7 +65,7 @@ if __name__ == "__main__":
     if not (source_file := context.source()).exists():
         source_file.copy(day_template.__file__)
 
-    if not (input_file := context.resource("task.in")).exists():
+    if not (input_file := context.resource("puzzle.in")).exists():
         resp = context.request("/input")
         if resp.status_code < 300:
             input_file.write(resp.text)

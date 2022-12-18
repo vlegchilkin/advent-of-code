@@ -40,7 +40,7 @@ def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
 
 
 class Input:
-    def __init__(self, test_case: Union[str, int] = "task"):
+    def __init__(self, test_case: Union[str, int] = "puzzle"):
         caller_filename = inspect.stack()[1].filename
         day = DAY_SOURCE_REG.match(caller_filename).groups()[0]
         with open(RESOURCES_ROOT / day / f"{test_case}.in", "r") as file:

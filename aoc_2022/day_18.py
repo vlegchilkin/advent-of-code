@@ -102,7 +102,7 @@ def test_ideal():
     assert solution.part_b_graphs() == solution.part_b_bfs() == 30
 
 
-def test_challenge():
+def test_puzzle():
     solution = Solution(Input())
     assert solution.part_a() == 4364
     assert solution.part_b_graphs() == solution.part_b_bfs() == 2508

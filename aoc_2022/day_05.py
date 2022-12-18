@@ -42,7 +42,7 @@ def test_simple():
     assert solution.part_b() == "MCD"
 
 
-def test_challenge():
+def test_puzzle():
     solution = Solution(Input())
     assert solution.part_a() == "VPCDMSLWJ"
     assert solution.part_b() == "TPWCGNCCG"
