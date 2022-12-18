@@ -170,6 +170,15 @@ def t_inside_array(pos, n):
     return (0 <= pos[0] < n[0]) and (0 <= pos[1] < n[1]) and (0 <= pos[2] < n[2])
 
 
+def t_inside(pos, limits):
+    """is positions within dimension"""
+    return (
+        (limits[0][0] <= pos[0] <= limits[1][0])
+        and (limits[0][1] <= pos[1] <= limits[1][1])
+        and (limits[0][2] <= pos[2] <= limits[1][2])
+    )
+
+
 def t_minmax(items):
     if len(items) == 0:
         return None

@@ -3,9 +3,8 @@ from itertools import combinations
 from typing import Optional
 
 import networkx as nx
-import numpy as np
 
-from aoc_2022 import Input, t_sum, t_delta, t_minmax, t_inside_array
+from aoc_2022 import Input, t_sum, t_delta, t_minmax, t_inside
 
 # 6 cube sides with 4 vertexes of each side
 SIDE_VERTEXES = {
@@ -73,22 +72,20 @@ class Solution:
 
     def part_b_bfs(self):
         mm = t_minmax(self.cubes)
-        real_zero = t_sum(mm[0], (-1, -1, -1))
-        visited = np.zeros(t_sum(t_delta(*mm), (3, 3, 3)), dtype=int)
-
-        queue, visible, source = deque(), 0, (0, 0, 0)
-        visited[source] = 1
+        limits = t_sum(mm[0], (-1, -1, -1)), t_sum(mm[1], (1, 1, 1))
+        queue, visible, source = deque(), 0, limits[0]
+        visited = {source}
         queue.append(source)
 
         while queue:
             pos = queue.popleft()
             for side in SIDE_VERTEXES:
                 next_pos = t_sum(pos, side)
-                if t_inside_array(next_pos, visited.shape) and not visited[next_pos]:
-                    if t_sum(next_pos, real_zero) in self.cubes:
+                if t_inside(next_pos, limits) and next_pos not in visited:
+                    if next_pos in self.cubes:
                         visible += 1
                     else:
-                        visited[next_pos] = 1
+                        visited.add(next_pos)
                         queue.append(next_pos)
         return visible
 
