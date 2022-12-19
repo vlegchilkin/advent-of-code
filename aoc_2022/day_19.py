@@ -2,7 +2,7 @@ import time
 
 import math
 
-from aoc_2022 import Input, t_sum, t_koef
+from aoc_2022 import Input, t_sum, t_koef, t_sub
 
 TTP_TEMPLATE = """\
 Blueprint {{ id | to_int}}: \
@@ -44,10 +44,9 @@ class Solution:
             workdays = _workdays(robo[1], resources, robots)
             if workdays >= days:
                 return 0
-            new_resources = t_sum(resources, t_koef(-1, robo[1]))
-            new_resources = t_sum(new_resources, t_koef(workdays, robots))
+            new_resources = t_sub(t_sum(resources, t_koef(workdays, robots)), robo[1])
             new_robots = t_sum(robots, robo[0])
-            new_robo_limits = t_sum(robo_limit, t_koef(-1, robo[0]))
+            new_robo_limits = t_sub(robo_limit, robo[0])
             return self.f(bp, new_robots, new_resources, days - workdays, warmup - 1, new_robo_limits)
 
         best = max(best, _try_robo(1), _try_robo(0))
