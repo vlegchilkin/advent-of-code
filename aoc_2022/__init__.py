@@ -161,8 +161,24 @@ def t_sum(x, y):
             return x[0] + y[0], x[1] + y[1]
         case 3:
             return x[0] + y[0], x[1] + y[1], x[2] + y[2]
+        case 4:
+            return x[0] + y[0], x[1] + y[1], x[2] + y[2], x[3] + y[3]
         case _:
             return tuple(map(sum, zip(x, y)))  # slow
+
+
+def t_koef(x: int, y):
+    match len(y):
+        case 1:
+            return x * y
+        case 2:
+            return x * y[0], x * y[1]
+        case 3:
+            return x * y[0], x * y[1], x * y[2]
+        case 4:
+            return x * y[0], x * y[1], x * y[2], x * y[3]
+        case _:
+            raise ValueError("not implemented")
 
 
 def t_inside_array(pos, n):
