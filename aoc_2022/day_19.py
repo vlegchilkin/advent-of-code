@@ -15,58 +15,39 @@ Each geode robot costs {{ geode_ore | to_int }} ore and {{ geode_obs | to_int }}
 
 class Solution:
     def __init__(self, inp: Input):
-        self.blueprints = inp.get_objects(TTP_TEMPLATE)
+        self.blueprints = {}
+        for blueprint in inp.get_objects(TTP_TEMPLATE):
+            self.blueprints[blueprint.id] = [
+                [(1, 0, 0, 0), (blueprint.ore_ore, 0, 0, 0)],
+                [(0, 1, 0, 0), (blueprint.clay_ore, 0, 0, 0)],
+                [(0, 0, 1, 0), (blueprint.obs_ore, blueprint.obs_clay, 0, 0)],
+                [(0, 0, 0, 1), (blueprint.geode_ore, 0, blueprint.geode_obs, 0)],
+            ]
 
     def f(self, bp, robots, resources, days, warmup, robo_limit) -> int:
         best = resources[3] + (days * robots[3])
 
-        def _workdays(need_a, robot_a, need_b=None, robot_b=None):
-            if need_a > 0:
-                return 1 + max(math.ceil(need_a / robot_a), math.ceil(need_b / robot_b) if need_b and need_b > 0 else 0)
-            elif need_b > 0:
-                return 1 + math.ceil(need_b / robot_b)
-            else:
-                return 1
+        def _workdays(required, resources, robots):
+            r_max = 0
+            for i in range(4):
+                if required[i] and required[i] > resources[i]:
+                    if not robots[i]:
+                        return 999
+                    r_max = max(r_max, math.ceil((required[i] - resources[i]) / robots[i]))
+
+            return r_max + 1
 
         def _try_robo(id):
             if not robo_limit[id]:
                 return 0
-
-            match id:
-                case 0:
-                    workdays = _workdays(bp.ore_ore - resources[0], robots[0], 0, 0)
-                    if workdays > days:
-                        return 0
-                    new_resources = t_sum(resources, (-bp.ore_ore, 0, 0, 0))
-                    robo_delta = (1, 0, 0, 0)
-                case 1:
-                    workdays = _workdays(bp.clay_ore - resources[0], robots[0], 0, 0)
-                    if workdays > days:
-                        return 0
-                    new_resources = t_sum(resources, (-bp.clay_ore, 0, 0, 0))
-                    robo_delta = (0, 1, 0, 0)
-                case 2:
-                    if robots[1] == 0:
-                        return 0
-                    workdays = _workdays(bp.obs_clay - resources[1], robots[1], bp.obs_ore - resources[0], robots[0])
-                    if workdays > days:
-                        return 0
-                    new_resources = t_sum(resources, (-bp.obs_ore, -bp.obs_clay, 0, 0))
-                    robo_delta = (0, 0, 1, 0)
-                case 3:
-                    if robots[2] == 0:
-                        return 0
-                    workdays = _workdays(bp.geode_obs - resources[2], robots[2], bp.geode_ore - resources[0], robots[0])
-                    if workdays > days:
-                        return 0
-                    new_resources = t_sum(resources, (-bp.geode_ore, 0, -bp.geode_obs, 0))
-                    robo_delta = (0, 0, 0, 1)
-                case _:
-                    raise ValueError
-
+            robo = bp[id]
+            workdays = _workdays(robo[1], resources, robots)
+            if workdays >= days:
+                return 0
+            new_resources = t_sum(resources, t_koef(-1, robo[1]))
             new_resources = t_sum(new_resources, t_koef(workdays, robots))
-            new_robots = t_sum(robots, robo_delta)
-            new_robo_limits = t_sum(robo_limit, t_koef(-1, robo_delta))
+            new_robots = t_sum(robots, robo[0])
+            new_robo_limits = t_sum(robo_limit, t_koef(-1, robo[0]))
             return self.f(bp, new_robots, new_resources, days - workdays, warmup - 1, new_robo_limits)
 
         best = max(best, _try_robo(1), _try_robo(0))
@@ -82,28 +63,29 @@ class Solution:
         print("Part A:")
         values = []
         result = 0
-        for i, blueprint in enumerate(self.blueprints):
-            warmup = math.ceil((blueprint.geode_obs + blueprint.obs_clay) // 8)
-            robot_limits = (3, 9 if blueprint.clay_ore < 3 else 8, 6, 6)
-            value = self.check_conditions(blueprint, robot_limits, warmup=warmup, length=24)
+        for id, blueprint in self.blueprints.items():
+            warmup = math.ceil((blueprint[3][1][1] + blueprint[2][1][1]) // 8)
+            robot_limits = (3, 9 if blueprint[1][1][1] < 3 else 8, 6, 6)
+            value = self.check_conditions(id, blueprint, robot_limits, warmup=warmup, length=24)
             values.append(value)
-            result += value * blueprint.id
+            result += value * id
         return result, values
 
     def part_b(self) -> tuple[int, list[int]]:
         print("Part B:")
         result = 1
         values = []
-        for blueprint in self.blueprints[:3]:
-            value = self.check_conditions(blueprint, robo_limit=(3, 11, 10, 10), warmup=9, length=32)
+        for id in list(self.blueprints)[:3]:
+            blueprint = self.blueprints.get(id)
+            value = self.check_conditions(id, blueprint, robo_limit=(3, 11, 10, 10), warmup=9, length=32)
             result *= value
             values.append(value)
         return result, values
 
-    def check_conditions(self, blueprint, robo_limit, warmup, length):
+    def check_conditions(self, id, blueprint, robo_limit, warmup, length):
         start_time = time.time()
         value = self.f(blueprint, (1, 0, 0, 0), (0, 0, 0, 0), length, warmup, robo_limit)
-        print(f"{blueprint.id}: {value} at {time.time() - start_time}")
+        print(f"{id}: {value} at {time.time() - start_time}")
         return value
 
 
@@ -125,4 +107,4 @@ def test_challenge():
         1418,
         [0, 1, 0, 0, 1, 2, 2, 11, 0, 12, 0, 0, 0, 0, 0, 3, 0, 2, 3, 5, 2, 2, 4, 1, 9, 12, 3, 0, 4, 0],
     )
-    # assert solution.part_b() == (4114, [11, 22, 17])
+    assert solution.part_b() == (4114, [11, 22, 17])
