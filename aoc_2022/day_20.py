@@ -13,7 +13,7 @@ class Solution:
             self.n = len(input_values)
 
         def mix(self, steps=1) -> int:
-            for step in range(steps):
+            for _ in range(steps):
                 for i in range(self.n):
                     pos = next(index for index, el in enumerate(self.data) if el[0] == i)
                     item = self.data[pos]
