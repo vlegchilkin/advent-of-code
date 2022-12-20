@@ -73,13 +73,9 @@ if __name__ == "__main__":
             print(resp.text)
             exit(0)
 
-    if not (task_file := context.resource("task.html")).exists():
-        r_src = context.request()
-        page = r_src.text
-        main_content = slice_content(page, "<main>", "</main>")[0].strip()
-        task_file.write(main_content)
-    else:
-        main_content = task_file.read()
+    r_src = context.request()
+    page = r_src.text
+    main_content = slice_content(page, "<main>", "</main>")[0].strip()
 
     if not (readme_file := context.resource("README.md")).exists():
         readme_file.write(md(main_content[: main_content.find('<p class="day-success">')]))
