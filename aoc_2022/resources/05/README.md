@@ -87,9 +87,6 @@ The Elves just need to know *which crate will end up on top of each stack*; in t
 *After the rearrangement procedure completes, what crate ends up on top of each stack?*
 
 
-
-Your puzzle answer was `VPCDMSLWJ`.
-
 --- Part Two ---
 ----------------
 
@@ -170,7 +167,4 @@ In this example, the CrateMover 9001 has put the crates in a totally different o
 
 Before the rearrangement process finishes, update your simulation so that the Elves know where they should stand to be ready to unload the final supplies. *After the rearrangement procedure completes, what crate ends up on top of each stack?*
 
-
-
-Your puzzle answer was `TPWCGNCCG`.
 

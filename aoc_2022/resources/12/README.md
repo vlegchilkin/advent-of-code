@@ -48,9 +48,6 @@ This path reaches the goal in `*31*` steps, the fewest possible.
 *What is the fewest steps required to move from your current position to the location that should get the best signal?*
 
 
-
-Your puzzle answer was `517`.
-
 --- Part Two ---
 ----------------
 
@@ -91,7 +88,4 @@ This path reaches the goal in only `*29*` steps, the fewest possible.
 
 *What is the fewest steps required to move starting from any square with elevation `a` to the location that should get the best signal?*
 
-
-
-Your puzzle answer was `512`.
 

@@ -60,9 +60,6 @@ Some of the pairs have noticed that one of their assignments *fully contains* th
 *In how many assignment pairs does one range fully contain the other?*
 
 
-
-Your puzzle answer was `466`.
-
 --- Part Two ---
 ----------------
 
@@ -83,7 +80,4 @@ So, in this example, the number of overlapping assignment pairs is `*4*`.
 
 *In how many assignment pairs do the ranges overlap?*
 
-
-
-Your puzzle answer was `865`.
 

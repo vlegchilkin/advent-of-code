@@ -1,5 +1,6 @@
 import html
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -77,8 +78,20 @@ if __name__ == "__main__":
     page = r_src.text
     main_content = slice_content(page, "<main>", "</main>")[0].strip()
 
-    if not (readme_file := context.resource("README.md")).exists():
-        readme_file.write(md(main_content[: main_content.find('<p class="day-success">')]))
+    r = re.compile(
+        r"^<article class=\"day-desc\">(.*)</article>\n"
+        r"<p>Your puzzle answer was <code>(.*)</code>.</p>"
+        r"<article class=\"day-desc\">(.*)</article>\n"
+        r"<p>Your puzzle answer was <code>(.*)</code>.</p>.*$",
+        re.DOTALL,
+    )
+    groups = r.match(main_content).groups()
+    if not groups:
+        print("Puzzle wasn't solved yet!")
+        groups = [main_content, None, "", None]
+
+    context.resource("README.md").write(md(groups[0] + groups[2]))
+    context.resource("puzzle.out").write(groups[1] + "\n" + groups[3] + "\n")
 
     for i, pre_content in enumerate(slice_content(main_content, "<pre><code>", "</code></pre>")):
         if not (input_i_file := context.resource(f"{i}.in")).exists():

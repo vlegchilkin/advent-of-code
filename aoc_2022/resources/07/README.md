@@ -106,9 +106,6 @@ To begin, find all of the directories with a total size of *at most 100000*, the
 Find all of the directories with a total size of at most 100000. *What is the sum of the total sizes of those directories?*
 
 
-
-Your puzzle answer was `1845346`.
-
 --- Part Two ---
 ----------------
 
@@ -135,7 +132,4 @@ Directories `e` and `a` are both too small; deleting them would not free up enou
 
 Find the smallest directory that, if deleted, would free up enough space on the filesystem to run the update. *What is the total size of that directory?*
 
-
-
-Your puzzle answer was `3636703`.
 

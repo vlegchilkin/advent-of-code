@@ -253,9 +253,6 @@ In this example, the two most active monkeys inspected items 101 and 105 times. 
 Figure out which monkeys to chase by counting how many items they inspect over 20 rounds. *What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans?*
 
 
-
-Your puzzle answer was `119715`.
-
 --- Part Two ---
 ----------------
 
@@ -352,7 +349,4 @@ After 10000 rounds, the two most active monkeys inspected items 52166 and 52013 
 
 Worry levels are no longer divided by three after each item is inspected; you'll need to find another way to keep your worry levels manageable. Starting again from the initial state in your puzzle input, *what is the level of monkey business after 10000 rounds?*
 
-
-
-Your puzzle answer was `18085004878`.
 

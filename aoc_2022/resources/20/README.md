@@ -77,9 +77,6 @@ Then, the grove coordinates can be found by looking at the 1000th, 2000th, and 3
 Mix your encrypted file exactly once. *What is the sum of the three numbers that form the grove coordinates?*
 
 
-
-Your puzzle answer was `9687`.
-
 --- Part Two ---
 ----------------
 
@@ -137,7 +134,4 @@ The grove coordinates can still be found in the same way. Here, the 1000th numbe
 
 Apply the decryption key and mix your encrypted file ten times. *What is the sum of the three numbers that form the grove coordinates?*
 
-
-
-Your puzzle answer was `1338310513297`.
 
