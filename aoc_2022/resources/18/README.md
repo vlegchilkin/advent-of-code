@@ -43,9 +43,6 @@ In the above example, after counting up all the sides that aren't connected to a
 *What is the surface area of your scanned lava droplet?*
 
 
-
-Your puzzle answer was `4364`.
-
 --- Part Two ---
 ----------------
 
@@ -60,7 +57,4 @@ In the larger example above, exactly one cube of air is trapped within the lava 
 
 *What is the exterior surface area of your scanned lava droplet?*
 
-
-
-Your puzzle answer was `2508`.
 

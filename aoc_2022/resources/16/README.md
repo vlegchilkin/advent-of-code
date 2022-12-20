@@ -164,9 +164,6 @@ This approach lets you release the most pressure possible in 30 minutes with thi
 Work out the steps to release the most pressure in 30 minutes. *What is the most pressure you can release?*
 
 
-
-Your puzzle answer was `1880`.
-
 --- Part Two ---
 ----------------
 
@@ -256,7 +253,4 @@ With the elephant helping, after 26 minutes, the best you could do would release
 
 *With you and an elephant working together for 26 minutes, what is the most pressure you could release?*
 
-
-
-Your puzzle answer was `2520`.
 

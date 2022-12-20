@@ -128,9 +128,6 @@ In this example, in the row where `y=10`, there are `*26*` positions where a bea
 Consult the report from the sensors you just deployed. *In the row where `y=2000000`, how many positions cannot contain a beacon?*
 
 
-
-Your puzzle answer was `5144286`.
-
 --- Part Two ---
 ----------------
 
@@ -145,7 +142,4 @@ In the example above, the search space is smaller: instead, the `x` and `y` coor
 
 Find the only possible position for the distress beacon. *What is its tuning frequency?*
 
-
-
-Your puzzle answer was `10229191267339`.
 
