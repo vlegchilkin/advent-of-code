@@ -85,10 +85,9 @@ if __name__ == "__main__":
         r"<p>Your puzzle answer was <code>(.*)</code>.</p>.*$",
         re.DOTALL,
     )
-    groups = r.match(main_content).groups()
-    if not groups:
+    if not (matcher := r.match(main_content)) or not (groups := matcher.groups()):
         print("Puzzle wasn't solved yet!")
-        groups = [main_content, None, "", None]
+        groups = [main_content, "", "", ""]
 
     context.resource("README.md").write(md(groups[0] + groups[2]))
     context.resource("puzzle.out").write(groups[1] + "\n" + groups[3] + "\n")
