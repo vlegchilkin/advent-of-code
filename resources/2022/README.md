@@ -1,11 +1,13 @@
-$${\color{red}Welcome \space \color{lightblue}To \space \color{orange}Stackoverflow}$$
-
-<span aria-hidden="true" class="calendar-day25">  - /\ -  -        -       -     -      -    -          
+$$
+  - /\ -  -        -       -     -      -    -          
  - /  \/\  -    -     -  -    -   -  /\   -     -       
-@@@@##@@#@#@@@@@@@@@#@@@#@@@@@#@#@@@###@#@@@@####  <span class="calendar-day">25</span></span>
-<span aria-hidden="true" class="calendar-day24">#@@@#@@@#@@###@@##@@@@@#@@@@##@@@@##@@##@#@@@@@@@  <span class="calendar-day">24</span></span>
-<span aria-hidden="true" class="calendar-day23">#@@@@@@@#@@@#@#@@@#@###@@@@#@@@@@@@@@@@@#@@@#@@@@  <span class="calendar-day">23</span></span>
-<span aria-hidden="true" class="calendar-day22">@##@@@@##@@@@@#@@@##@#@#@@@##@@#@@@##@@@#@#@#@#@#  <span class="calendar-day">22</span></span>
+@@@@##@@#@#@@@@@@@@@#@@@#@@@@@#@#@@@###@#@@@@####
+#@@@#@@@#@@###@@##@@@@@#@@@@##@@@@##@@##@#@@@@@@@ 
+#@@@@@@@#@@@#@#@@@#@###@@@@#@@@@@@@@@@@@#@@@#@@@@
+@##@@@@##@@@@@#@@@##@#@#@@@##@@#@@@##@@@#@#@#@#@#
+{\color{red}Welcome \space \color{lightblue}To \space \color{orange}Stackoverflow}
+$$
+
 <span aria-hidden="true" class="calendar-day21">@#@@@##@@###@@@#@@#@#@<span style="color:#01461f">#</span><span style="color:#427322">@</span><span style="color:#488813">@@</span><span style="color:#427322">#</span><span style="color:#4d8b03">#@</span><span style="color:#427322">@</span><span style="color:#7fbd39">#</span><span style="color:#488813">@</span><span style="color:#4d8b03">@</span><span style="color:#427322">#@</span><span style="color:#488813">#</span><span style="color:#01461f">@</span><span style="color:#427322">@</span><span style="color:#488813">#</span>@#@#@##@#@  <span class="calendar-day">21</span></span>
 
 <a aria-label="Day 20, two stars" href="/2022/day/20" class="calendar-day20 calendar-verycomplete">@@###@##@@#@<span style="color:#488813">@</span><span style="color:#4d8b03">@</span><span style="color:#427322">#</span><span style="color:#488813">@</span><span style="color:#7fbd39">@</span><span style="color:#4d8b03">@</span><span style="color:#488813">@</span><span style="color:#7fbd39">@@</span><span style="color:#4d8b03">@</span><span style="color:#427322">#</span><span style="color:#7fbd39">#</span><span style="color:#d0b376">.</span><span style="color:#7fbd39">@</span><span style="color:#4d8b03">@</span><span style="color:#427322">#</span><span style="color:#5eabb4">~~</span><span style="color:#01461f">@</span><span style="color:#488813">@</span><span style="color:#427322">##@</span><span style="color:#488813">@</span><span style="color:#427322">#</span><span style="color:#488813">@</span><span style="color:#427322">@</span><span style="color:#488813">@</span>@#@@@#@@@  <span class="calendar-day">20</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
