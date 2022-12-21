@@ -1,3 +1,10 @@
+<html lang="en-us">
+<head>
+<meta charset="utf-8"/>
+<title>Advent of Code 2022</title>
+<link href='//fonts.googleapis.com/css?family=Source+Code+Pro:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'/>
+</head>
+<body>
 <main>
 <style>
 .calendar .calendar-color-a { color:#aaaaaa; }
@@ -43,3 +50,5 @@
 <a aria-label="Day 1, two stars" href="/2022/day/1" class="calendar-day1 calendar-verycomplete"><span class="calendar-color-u">  ~    ~  ~      ~     ~ ~   ~     ~  ~  ~   ~   </span>  <span class="calendar-day"> 1</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
 </pre>
 </main>
+</body>
+</html>
