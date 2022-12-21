@@ -42,7 +42,7 @@ class Solution:
         return self.pre_solve(copy.deepcopy(self.inputs), "root")
 
     def solve(self, eq, match=None):
-        if eq == "X":
+        if type(eq) != list:
             return match
         first_known = type(eq[1]) == int
         next_eq = eq[2] if first_known else eq[1]
@@ -64,7 +64,7 @@ class Solution:
 
     def part_b(self):
         monkeys = copy.deepcopy(self.inputs)
-        monkeys["humn"] = "X"
+        monkeys["humn"] = "UNKNOWN"
         monkeys["root"] = (monkeys["root"][0], "=", monkeys["root"][2])
         equation = self.pre_solve(monkeys, "root")
         return self.solve(equation)
