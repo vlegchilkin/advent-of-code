@@ -11,7 +11,7 @@ from addict import Dict
 from ttp import ttp
 
 RESOURCES_ROOT = Path(__file__).parent.parent / "resources"
-DAY_SOURCE_REG = re.compile(r"^.*/year_(\d+)/day_(\d+)(.*)?.py$")
+DAY_SOURCE_REG = re.compile(r"^.*/year_(\d+)/day_(\d+)(_+)?.py$")
 
 
 def to_str_list(data, sep=","):
