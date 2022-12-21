@@ -4,7 +4,7 @@ from typing import Optional
 
 import networkx as nx
 
-from aoc_2022 import Input, t_sum, t_delta, t_minmax, t_inside
+from aoc import Input, t_sum, t_delta, t_minmax, t_inside
 
 # 6 cube sides with 4 vertexes of each side
 SIDE_VERTEXES = {

@@ -1,8 +1,10 @@
 [tool.poetry]
 name = "advent-of-code"
 version = "0.1.0"
-description = ""
+description = "My 'Advent of Code' solutions"
 authors = ["Vitaly Legchilkin <vlegchilkin@gmail.com>"]
+license = "MIT"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"

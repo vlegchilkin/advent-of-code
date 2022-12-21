@@ -10,8 +10,8 @@ from addict import Dict
 
 from ttp import ttp
 
-RESOURCES_ROOT = Path(__file__).parent / "resources"
-DAY_SOURCE_REG = re.compile(r"^.*day_(\d+)(_)?.py$")
+RESOURCES_ROOT = Path(__file__).parent.parent / "resources"
+DAY_SOURCE_REG = re.compile(r"^.*/year_(\d+)/day_(\d+)(_+)?.py$")
 
 
 def to_str_list(data, sep=","):
@@ -42,8 +42,8 @@ def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
 class Input:
     def __init__(self, test_case: Union[str, int] = "puzzle"):
         caller_filename = inspect.stack()[1].filename
-        day = DAY_SOURCE_REG.match(caller_filename).groups()[0]
-        with open(RESOURCES_ROOT / day / f"{test_case}.in", "r") as file:
+        groups = DAY_SOURCE_REG.match(caller_filename).groups()
+        with open(RESOURCES_ROOT / groups[0] / "day" / groups[1] / f"{test_case}.in", "r") as file:
             self._text = file.read()
 
     def get_lines(self) -> list:

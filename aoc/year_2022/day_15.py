@@ -1,4 +1,4 @@
-from aoc_2022 import Input, dist
+from aoc import Input, dist
 
 TTP_TEMPLATE = """\
 Sensor at x={{ sx | to_int }}, y={{ sy | to_int }}: closest beacon is at x={{ bx | to_int }}, y={{ by | to_int }}
