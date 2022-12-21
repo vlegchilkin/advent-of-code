@@ -2,7 +2,7 @@ import time
 
 import math
 
-from aoc_2022 import Input, t_sum, t_koef, t_sub
+from aoc import Input, t_sum, t_koef, t_sub
 
 TTP_TEMPLATE = """\
 Blueprint {{ id | to_int}}: \

@@ -1,6 +1,6 @@
 from collections import deque
 
-from aoc_2022 import Input, Spacer, D_BORDERS
+from aoc import Input, Spacer, D_BORDERS
 
 
 class Solution:

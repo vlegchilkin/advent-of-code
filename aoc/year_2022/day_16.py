@@ -1,7 +1,7 @@
 from typing import Optional
 import networkx as nx
 
-from aoc_2022 import Input
+from aoc import Input
 
 TTP_TEMPLATE = """\
 Valve {{ src }} has flow rate={{ rate | to_int }}; \

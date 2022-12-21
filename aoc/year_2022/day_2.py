@@ -1,4 +1,4 @@
-from aoc_2022 import Input
+from aoc import Input
 
 ROCK, PAPER, SCISSORS = 0, 1, 2
 LOSS_TIE_WIN = {ROCK: [SCISSORS, ROCK, PAPER], PAPER: [ROCK, PAPER, SCISSORS], SCISSORS: [PAPER, SCISSORS, ROCK]}

@@ -1,6 +1,6 @@
 import copy
 
-from aoc_2022 import Input
+from aoc import Input
 
 TTP_TEMPLATE = """{{ monkey }}: {{ operation | ORPHRASE  | split(" ")}}"""
 

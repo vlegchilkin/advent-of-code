@@ -1,4 +1,4 @@
-from aoc_2022 import Input
+from aoc import Input
 
 
 class Solution:

@@ -1,7 +1,7 @@
 import copy
 import math
 
-from aoc_2022 import Input
+from aoc import Input
 
 TTP_TEMPLATE = """\
 Monkey {{ id | to_int | let(turns, 0) }}: 

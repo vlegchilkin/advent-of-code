@@ -1,4 +1,4 @@
-from aoc_2022 import Input, Direction
+from aoc import Input, Direction
 
 DIRECTIONS = {"U": Direction.NORTH, "D": Direction.SOUTH, "R": Direction.EAST, "L": Direction.WEST}
 

@@ -3,7 +3,7 @@ from functools import cmp_to_key
 
 import math
 
-from aoc_2022 import Input
+from aoc import Input
 
 
 class Solution:

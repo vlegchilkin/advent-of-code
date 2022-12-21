@@ -1,4 +1,4 @@
-from aoc_2022 import Input, Spacer, Direction
+from aoc import Input, Spacer, Direction
 
 DIRECTIONS = [Direction.SOUTH, Direction.SOUTH_WEST, Direction.SOUTH_EAST]
 

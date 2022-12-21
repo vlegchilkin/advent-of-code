@@ -2,7 +2,7 @@ import math
 import string
 from functools import reduce
 
-from aoc_2022 import Input
+from aoc import Input
 
 
 class Solution:
