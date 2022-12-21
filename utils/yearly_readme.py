@@ -74,7 +74,6 @@ if __name__ == "__main__":
     for day, value in parser.days.items():
         v = value["data"]
         v = v[:-3] if v.endswith("**") else v
-        v = "\t" + v.replace("\n", "\n\t")
         if day in captions:
             v += f"\t{captions[day]}"
         print(v)
