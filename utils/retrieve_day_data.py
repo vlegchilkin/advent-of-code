@@ -33,18 +33,19 @@ class Resource:
 
 class Context:
     def __init__(self, year: str, day: str):
-        self.formatted_day = f"{int(day):02d}"
+        self.year = year
+        self.day = day
         self.session_cookie = os.getenv("SESSION")
         self.base_url = f"https://adventofcode.com/{year}/day/{day}"
         self.sources_root = Path(__file__).parent.parent / f"aoc_{year}"
-        self.resources_root = self.sources_root / "resources" / self.formatted_day
+        self.resources_root = Path(__file__).parent.parent / "resources" / year / "day" / day
         self.resources_root.mkdir(exist_ok=True, parents=True)
 
     def resource(self, name) -> Resource:
         return Resource(self.resources_root / name)
 
     def source(self) -> Resource:
-        return Resource(self.sources_root / f"day_{self.formatted_day}.py")
+        return Resource(self.sources_root / f"day_{self.day}.py")
 
     def request(self, action: str = ""):
         return requests.get(self.base_url + action, cookies={"session": self.session_cookie})

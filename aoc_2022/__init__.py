@@ -10,7 +10,7 @@ from addict import Dict
 
 from ttp import ttp
 
-RESOURCES_ROOT = Path(__file__).parent / "resources"
+RESOURCES_ROOT = Path(__file__).parent.parent / "resources" / "2022" / "day"
 DAY_SOURCE_REG = re.compile(r"^.*day_(\d+)(_)?.py$")
 
 
