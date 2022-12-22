@@ -5,7 +5,7 @@ from enum import Enum
 
 import numpy as np
 from pathlib import Path
-from typing import Union, Iterator, Any, Tuple, Iterable, Callable
+from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional
 from addict import Dict
 
 from ttp import ttp
@@ -101,6 +101,20 @@ D_TURNS = {
     D.NORTH: {"R": D.EAST, "L": D.WEST},
 }
 
+D_OPPOSITE = {D.EAST: D.WEST, D.WEST: D.EAST, D.NORTH: D.SOUTH, D.SOUTH: D.NORTH}
+
+
+class IT(Enum):
+    TOP_LR: Callable = lambda j, n, m: (0, j)
+    TOP_RL: Callable = lambda j, n, m: (0, m - j - 1)
+    BOTTOM_LR: Callable = lambda j, n, m: (n - 1, j)
+    BOTTOM_RL: Callable = lambda j, n, m: (n - 1, m - j - 1)
+
+    LEFT_TB: Callable = lambda i, n, m: (i, 0)
+    LEFT_BT: Callable = lambda i, n, m: (n - i - 1, 0)
+    RIGHT_TB: Callable = lambda i, n, m: (i, m - 1)
+    RIGHT_BT: Callable = lambda i, n, m: (n - i - 1, m - 1)
+
 
 class Spacer:
     def __init__(self, n, m, *, default_directions: Iterable[tuple] = D_ALL):
@@ -122,12 +136,19 @@ class Spacer:
                 continue
             yield to_pos
 
-    def iter(self, test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
-        for i in range(self.n):
-            for j in range(self.m):
-                if test and not test((i, j)):
+    def iter(self, test: Callable[[tuple], bool] = None, *, it: Optional[IT] = None) -> Iterator[tuple]:
+        if it is None:
+            for i in range(self.n):
+                for j in range(self.m):
+                    if test and not test((i, j)):
+                        continue
+                    yield i, j
+        else:
+            for x in range(self.n if it in [IT.LEFT_BT, IT.LEFT_TB, IT.RIGHT_BT, IT.RIGHT_BT] else self.m):
+                pos = it(x, self.n, self.m)
+                if test and not test(pos):
                     continue
-                yield i, j
+                yield pos
 
     def new_array(self, fill_value, *, dtype=int):
         return np.full(

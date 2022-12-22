@@ -1,27 +1,47 @@
 import numpy as np
 
-from aoc import Input, D, t_sum, Spacer, D_TURNS
+from aoc import Input, D, t_sum, Spacer, D_TURNS, D_OPPOSITE, IT
 
 SIDES = [D.EAST, D.SOUTH, D.WEST, D.NORTH]
 
 
 class Cube:
-    def __init__(self, pattern, data, portal_builder):
-        self.sides = {}
+    def __init__(self, pattern, data, links):
+        self.offsets = {}
         self.dim = len(data) // len(pattern)
         for off_i, v in enumerate(pattern):
-            for off_j, c in enumerate(v):
-                if not c:
+            for off_j, side in enumerate(v):
+                if not side:
                     continue
-                self.sides[c] = (self.dim * off_i, self.dim * off_j)
-        self.portals = portal_builder(data, self.dim, self.sides)
+                self.offsets[side] = (self.dim * off_i, self.dim * off_j)
+        self.portals = self._build_portals(data.shape, links)
+
+    def _build_portals(self, shape, links):
+        portals = np.empty(shape, dtype=object)
+        for i in range(portals.shape[0]):
+            for j in range(portals.shape[1]):
+                portals[i, j] = {side: (t_sum((i, j), side), side) for side in SIDES}
+
+        s = Spacer(self.dim, self.dim)
+
+        def make_link(side_a, dir_a, it_a: IT, side_b, dir_b, it_b: IT):
+            for x, y in zip(s.iter(it=it_a), s.iter(it=it_b)):
+                sa_pos = t_sum(self.offsets[side_a], x)
+                sb_pos = t_sum(self.offsets[side_b], y)
+                portals[sa_pos][dir_a] = (sb_pos, D_OPPOSITE[dir_b])
+                portals[sb_pos][dir_b] = (sa_pos, D_OPPOSITE[dir_a])
+
+        for link in links:
+            make_link(*link)
+
+        return portals
 
     def move(self, pos: tuple[int, int], direction: D) -> (tuple[int, int], D):
         return self.portals[pos][direction]
 
 
 class Solution:
-    def __init__(self, inp: Input, cube_pattern: list[list], portal_builder):
+    def __init__(self, inp: Input, cube_pattern: list[list], links):
         area_data = []
         inp_iter = inp.get_iter()
         while line := next(inp_iter):
@@ -33,7 +53,7 @@ class Solution:
             for j, c in enumerate(row):
                 self.area[i, j] = -1 if c == "." else 1 if c == "#" else 0
 
-        self.cube = Cube(cube_pattern, self.area, portal_builder)
+        self.cube = Cube(cube_pattern, self.area, links)
 
         self.moves = []
         for c in next(inp_iter):
@@ -89,57 +109,17 @@ def test_simple():
         [0, 0, 6, 3],
     ]
 
-    def _build_portals(data, dim, sides):
-        portals = np.empty_like(data, dtype=object)
-        for i in range(portals.shape[0]):
-            for j in range(portals.shape[1]):
-                portals[i, j] = {side: (t_sum((i, j), side), side) for side in SIDES}
-        # 1 <-> 5
-        for x in range(dim):
-            s1_pos = t_sum(sides[1], (0, x))
-            s5_pos = t_sum(sides[5], (0, dim - x - 1))
-            portals[s1_pos][D.NORTH] = (s5_pos, D.SOUTH)
-            portals[s5_pos][D.NORTH] = (s1_pos, D.SOUTH)
-        # 1 <-> 4
-        for x in range(dim):
-            s1_pos = t_sum(sides[1], (x, 0))
-            s4_pos = t_sum(sides[4], (0, x))
-            portals[s1_pos][D.WEST] = (s4_pos, D.SOUTH)
-            portals[s4_pos][D.NORTH] = (s1_pos, D.EAST)
-        # 1 <-> 3
-        for x in range(dim):
-            s1_pos = t_sum(sides[1], (x, dim - 1))
-            s3_pos = t_sum(sides[3], (x, dim - 1))
-            portals[s1_pos][D.EAST] = (s3_pos, D.WEST)
-            portals[s3_pos][D.EAST] = (s1_pos, D.WEST)
-        # 2 <-> 3
-        for x in range(dim):
-            s2_pos = t_sum(sides[2], (x, dim - 1))
-            s3_pos = t_sum(sides[3], (0, dim - x - 1))
-            portals[s2_pos][D.EAST] = (s3_pos, D.SOUTH)
-            portals[s3_pos][D.NORTH] = (s2_pos, D.WEST)
-        # 4 <-> 6
-        for x in range(dim):
-            s4_pos = t_sum(sides[4], (dim - 1, x))
-            s6_pos = t_sum(sides[6], (dim - x - 1, 0))
-            portals[s4_pos][D.SOUTH] = (s6_pos, D.EAST)
-            portals[s6_pos][D.WEST] = (s4_pos, D.NORTH)
-        # 5 <-> 6
-        for x in range(dim):
-            s5_pos = t_sum(sides[5], (dim - 1, x))
-            s6_pos = t_sum(sides[6], (dim - 1, dim - x - 1))
-            portals[s5_pos][D.SOUTH] = (s6_pos, D.NORTH)
-            portals[s6_pos][D.SOUTH] = (s5_pos, D.NORTH)
-        # 5 <-> 3
-        for x in range(dim):
-            s5_pos = t_sum(sides[5], (x, 0))
-            s3_pos = t_sum(sides[3], (dim - 1, dim - x - 1))
-            portals[s5_pos][D.WEST] = (s3_pos, D.NORTH)
-            portals[s3_pos][D.SOUTH] = (s5_pos, D.EAST)
+    links = [
+        (1, D.NORTH, IT.TOP_LR, 5, D.NORTH, IT.TOP_RL),
+        (1, D.WEST, IT.LEFT_TB, 4, D.NORTH, IT.TOP_LR),
+        (1, D.EAST, IT.RIGHT_TB, 3, D.EAST, IT.RIGHT_TB),
+        (2, D.EAST, IT.RIGHT_TB, 3, D.NORTH, IT.TOP_RL),
+        (4, D.SOUTH, IT.BOTTOM_LR, 6, D.WEST, IT.LEFT_BT),
+        (5, D.SOUTH, IT.BOTTOM_LR, 6, D.SOUTH, IT.BOTTOM_RL),
+        (5, D.WEST, IT.LEFT_TB, 3, D.SOUTH, IT.BOTTOM_RL),
+    ]
 
-        return portals
-
-    solution = Solution(Input(0), cube_pattern, _build_portals)
+    solution = Solution(Input(0), cube_pattern, links)
     assert solution.part_a() == 6032
     assert solution.part_b() == 5031
 
@@ -152,56 +132,16 @@ def test_challenge():
         [5, 0, 0],
     ]
 
-    def _build_portals(data, dim, sides):
-        portals = np.empty_like(data, dtype=object)
-        for i in range(portals.shape[0]):
-            for j in range(portals.shape[1]):
-                portals[i, j] = {side: (t_sum((i, j), side), side) for side in SIDES}
-        # 1 <-> 5
-        for x in range(dim):
-            s1_pos = t_sum(sides[1], (0, x))
-            s5_pos = t_sum(sides[5], (x, 0))
-            portals[s1_pos][D.NORTH] = (s5_pos, D.EAST)
-            portals[s5_pos][D.WEST] = (s1_pos, D.SOUTH)
-        # 1 <-> 4
-        for x in range(dim):
-            s1_pos = t_sum(sides[1], (x, 0))
-            s4_pos = t_sum(sides[4], (dim - 1 - x, 0))
-            portals[s1_pos][D.WEST] = (s4_pos, D.EAST)
-            portals[s4_pos][D.WEST] = (s1_pos, D.EAST)
-        # 2 <-> 4
-        for x in range(dim):
-            s2_pos = t_sum(sides[2], (x, 0))
-            s4_pos = t_sum(sides[4], (0, x))
-            portals[s2_pos][D.WEST] = (s4_pos, D.SOUTH)
-            portals[s4_pos][D.NORTH] = (s2_pos, D.EAST)
-        # 2 <-> 3
-        for x in range(dim):
-            s2_pos = t_sum(sides[2], (x, dim - 1))
-            s3_pos = t_sum(sides[3], (dim - 1, x))
-            portals[s2_pos][D.EAST] = (s3_pos, D.NORTH)
-            portals[s3_pos][D.SOUTH] = (s2_pos, D.WEST)
-        # 6 <-> 3
-        for x in range(dim):
-            s6_pos = t_sum(sides[6], (x, dim - 1))
-            s3_pos = t_sum(sides[3], (dim - 1 - x, dim - 1))
-            portals[s6_pos][D.EAST] = (s3_pos, D.WEST)
-            portals[s3_pos][D.EAST] = (s6_pos, D.WEST)
-        # 5 <-> 3
-        for x in range(dim):
-            s5_pos = t_sum(sides[5], (dim - 1, x))
-            s3_pos = t_sum(sides[3], (0, x))
-            portals[s5_pos][D.SOUTH] = (s3_pos, D.SOUTH)
-            portals[s3_pos][D.NORTH] = (s5_pos, D.NORTH)
-        # 5 <-> 6
-        for x in range(dim):
-            s5_pos = t_sum(sides[5], (x, dim - 1))
-            s6_pos = t_sum(sides[6], (dim - 1, x))
-            portals[s5_pos][D.EAST] = (s6_pos, D.NORTH)
-            portals[s6_pos][D.SOUTH] = (s5_pos, D.WEST)
+    links = [
+        (1, D.NORTH, IT.TOP_LR, 5, D.WEST, IT.LEFT_TB),
+        (1, D.WEST, IT.LEFT_TB, 4, D.WEST, IT.LEFT_BT),
+        (2, D.WEST, IT.LEFT_TB, 4, D.NORTH, IT.TOP_LR),
+        (2, D.EAST, IT.RIGHT_TB, 3, D.SOUTH, IT.BOTTOM_LR),
+        (6, D.EAST, IT.RIGHT_TB, 3, D.EAST, IT.RIGHT_BT),
+        (5, D.SOUTH, IT.BOTTOM_LR, 3, D.NORTH, IT.TOP_LR),
+        (5, D.EAST, IT.RIGHT_TB, 6, D.SOUTH, IT.BOTTOM_LR),
+    ]
 
-        return portals
-
-    solution = Solution(Input(), cube_pattern, _build_portals)
+    solution = Solution(Input(), cube_pattern, links)
     assert solution.part_a() == 26558
     assert solution.part_b() == 110400
