@@ -1,6 +1,6 @@
-from aoc import Input, Spacer, Direction
+from aoc import Input, Spacer, D
 
-DIRECTIONS = [Direction.SOUTH, Direction.SOUTH_WEST, Direction.SOUTH_EAST]
+DIRECTIONS = [D.SOUTH, D.SOUTH_WEST, D.SOUTH_EAST]
 
 
 class Solution:
