@@ -72,10 +72,14 @@ class Input:
         objects = self.get_objects(ttp_template)
         return [list(o.values()) for o in objects]
 
-    def get_array(self, sep: str = None) -> (np.ndarray, Tuple):
+    def get_array(self, decoder: Optional[dict] = None, *, sep: str = None) -> np.ndarray:
         lines = self._text.splitlines()
-        array = np.array([list(line) if not sep else line.split(sep) for line in lines])
-        return array, array.shape
+
+        def decode(line: str) -> list:
+            characters = list(line) if not sep else line.split(sep)
+            return [decoder[c] for c in characters] if decoder else characters
+
+        return np.array([decode(line) for line in lines])
 
     def get_text(self) -> str:
         return self._text
