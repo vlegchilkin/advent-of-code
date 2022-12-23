@@ -19,7 +19,7 @@ jobs:
           name: Run AOC tests
           command: |
             set -e
-            TEST_FILES=$(circleci tests glob "aoc/year_201*/day_*.py" | circleci tests split --split-by=timings)
+            TEST_FILES=$(circleci tests glob "**/*.py" | circleci tests split --split-by=timings)
             mkdir -p test-results
             mkdir -p coverage-results
             poetry run coverage run -m pytest --log-cli-level=INFO --junitxml=test-results/junit.xml $TEST_FILES
