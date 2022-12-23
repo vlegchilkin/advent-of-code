@@ -1,4 +1,6 @@
-from aoc import Input
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
@@ -17,7 +19,6 @@ class Solution:
         return i
 
 
-def test_challenge():
-    solution = Solution(Input())
-    assert solution.part_a() == 280
-    assert solution.part_b() == 1797
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

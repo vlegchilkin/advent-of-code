@@ -65,8 +65,7 @@ def get_puzzles():
 class Input:
     def __init__(self, test_case: Union[str, int] = "puzzle", year=None, day=None):
         if year is None:
-            caller_filename = inspect.stack()[1].filename
-            year, day, _ = DAY_SOURCE_REG.match(caller_filename).groups()
+            year, day = _resolve_year_day()
         with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.in", "r") as file:
             self._text = file.read()
 
