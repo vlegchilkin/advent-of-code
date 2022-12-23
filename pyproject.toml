@@ -1,8 +1,10 @@
 [tool.poetry]
 name = "advent-of-code"
 version = "0.1.0"
-description = ""
+description = "My 'Advent of Code' solutions"
 authors = ["Vitaly Legchilkin <vlegchilkin@gmail.com>"]
+license = "MIT"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -32,6 +34,10 @@ target-version = ['py310']
 [tool.pytest.ini_options]
 python_files = "day_*.py"
 python_functions = "test_*"
-addopts = "--ignore=utils --color=yes"
+addopts = "--ignore=utils --color=yes -s"
+log_cli = "true"
+log_cli_level = "debug"
+log_format = "%(asctime)s | %(levelname)-7s | [%(name)s] %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
 junit_family = "xunit1"
 #asyncio_mode = "auto"
