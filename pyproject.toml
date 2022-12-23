@@ -21,6 +21,7 @@ markdownify = "^0.11.6"
 pytest = "^7.2.0"
 pre-commit = { version = "*", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
+coverage = { version = "^6.4.2", source = "pypi" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -38,5 +39,5 @@ log_cli = "true"
 log_cli_level = "debug"
 log_format = "%(asctime)s | %(levelname)-7s | [%(name)s] %(message)s"
 log_date_format = "%Y-%m-%d %H:%M:%S"
-
+junit_family = "xunit1"
 #asyncio_mode = "auto"
