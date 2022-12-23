@@ -39,22 +39,20 @@ jobs:
       - attach_workspace:
           at: test-results
       - run:
-          name: Run AOC tests
+          name: Build Coverage Report
           command: |
             set -e
-            ls test-results
-            ls coverages            
             mkdir -p coverage-reports
+            poetry run coverage combine .coverage.0 .coverage.1 .coverage.2 .coverage.3
+            poetry run coverage report
+            poetry run coverage xml -o coverage-reports/coverage.xml
       - store_test_results:
           path: test-results
       - store_artifacts:
           path: test-results
       - store_artifacts:
           path: coverage-reports
-#      - sonarcloud/scan
-#            coverage combine --append << parameters.coverage-remote-file >>
-#            poetry run coverage report
-#            poetry run coverage xml -o "coverage-reports/coverage-$CIRCLE_NODE_INDEX.xml"
+      - sonarcloud/scan
 
 workflows:
   main:
