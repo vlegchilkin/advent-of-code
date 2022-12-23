@@ -45,7 +45,7 @@ jobs:
             mkdir -p coverage-reports
             poetry run coverage combine test-results/.coverage.0 test-results/.coverage.1 test-results/.coverage.2 test-results/.coverage.3
             poetry run coverage report
-            poetry run coverage xml -o coverage-reports/coverage.xml
+            poetry run coverage xml -o coverage-reports/coverage-overall.xml
       - store_test_results:
           path: test-results
       - store_artifacts:
