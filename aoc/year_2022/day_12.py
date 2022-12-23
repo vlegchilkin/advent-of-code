@@ -5,8 +5,8 @@ from aoc import Input, Spacer, D_BORDERS
 
 class Solution:
     def __init__(self, inp: Input):
-        arr, (n, m) = inp.get_array()
-        self.spacer = Spacer(n, m, default_directions=D_BORDERS)
+        arr = inp.get_array()
+        self.spacer = Spacer(*arr.shape, default_directions=D_BORDERS)
 
         self.a = self.spacer.new_array(0)
         self.start = self.finish = None
