@@ -16,22 +16,23 @@ jobs:
       - python/install-packages:
           pkg-manager: poetry
       - run:
-          name: Run tests
+          name: Run AOC tests
           command: |
             set -e
             TEST_FILES=$(circleci tests glob "aoc/year_*/day_*.py" | circleci tests split --split-by=timings)
             mkdir -p test-results
-            mkdir -p coverage-reports
-            poetry run pytest --log-cli-level=INFO --junitxml=test-results/junit.xml $TEST_FILES
-#            coverage run -m
+            poetry run coverage run -m pytest --log-cli-level=INFO --junitxml=test-results/junit-$CIRCLE_NODE_INDEX.xml $TEST_FILES
+            mkdir -p coverages
+            cp .coverage coverages/.coverage.$CIRCLE_NODE_INDEX
+#            coverage combine --append << parameters.coverage-remote-file >>
 #            poetry run coverage report
-#            poetry run coverage xml -o "coverage-reports/coverage-{$CIRCLE_NODE_INDEX}.xml"
+#            poetry run coverage xml -o "coverage-reports/coverage-$CIRCLE_NODE_INDEX.xml"
       - store_test_results:
           path: test-results
       - store_artifacts:
           path: test-results
       - store_artifacts:
-          path: coverage-reports
+          path: coverages
 #      - sonarcloud/scan
 
 workflows:
