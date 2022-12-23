@@ -14,12 +14,14 @@ class Solution:
         return None
 
 
-if __name__ == "__main__":  # Playground here
+@pytest.mark.skip(reason="solution template, not a test")
+def test_playground():  # Playground here
     solution = Solution(Input(0))
     assert solution.part_a() is None
     assert solution.part_b() is None
 
 
-# @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
-# def test_case(pd: PuzzleData):
-#     pd.check_solution(Solution)
+@pytest.mark.skip(reason="solution template, not a test")
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)
