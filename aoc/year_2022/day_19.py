@@ -1,8 +1,9 @@
+import logging
 import time
 
 import math
 
-from aoc import Input, t_sum, t_koef, t_sub
+from aoc import Input, t_sum, t_koef, t_sub, PuzzleData
 
 TTP_TEMPLATE = """\
 Blueprint {{ id | to_int}}: \
@@ -59,7 +60,7 @@ class Solution:
         return best
 
     def part_a(self) -> tuple[int, list[int]]:
-        print("Part A:")
+        logging.debug("Part A:")
         values = []
         result = 0
         for id, blueprint in self.blueprints.items():
@@ -71,7 +72,7 @@ class Solution:
         return result, values
 
     def part_b(self) -> tuple[int, list[int]]:
-        print("Part B:")
+        logging.debug("Part B:")
         result = 1
         values = []
         for id in list(self.blueprints)[:3]:
@@ -84,7 +85,7 @@ class Solution:
     def check_conditions(self, id, blueprint, robo_limit, warmup, length):
         start_time = time.time()
         value = self.f(blueprint, (1, 0, 0, 0), (0, 0, 0, 0), length, warmup, robo_limit)
-        print(f"{id}: {value} at {time.time() - start_time}")
+        logging.debug(f"{id}: {value} at {time.time() - start_time}")
         return value
 
 
@@ -95,15 +96,17 @@ def test_simple():
         'Day: 18, geode', 'Day: 19, obs', 'Day: 20, geode', 'Day: 22, geode']
     :return:
     """
-    solution = Solution(Input(0))
-    assert solution.part_a() == (33, [9, 12])
-    # assert solution.part_b() == (3472, [56, 62])
+    pd = PuzzleData("0")
+    solution = Solution(pd.inp)
+    assert solution.part_a() == (int(pd.out.a), [9, 12])
+    # assert solution.part_b() == (int(pd.out.b), [56, 62])
 
 
 def test_challenge():
-    solution = Solution(Input())
+    pd = PuzzleData("puzzle")
+    solution = Solution(pd.inp)
     assert solution.part_a() == (
-        1418,
+        int(pd.out.a),
         [0, 1, 0, 0, 1, 2, 2, 11, 0, 12, 0, 0, 0, 0, 0, 3, 0, 2, 3, 5, 2, 2, 4, 1, 9, 12, 3, 0, 4, 0],
     )
-    assert solution.part_b() == (4114, [11, 22, 17])
+    assert solution.part_b() == (int(pd.out.b), [11, 22, 17])

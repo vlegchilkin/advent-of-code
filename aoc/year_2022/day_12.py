@@ -1,12 +1,14 @@
 from collections import deque
 
-from aoc import Input, Spacer, D_BORDERS
+import pytest
+
+from aoc import Input, Spacer, D_BORDERS, get_puzzles, PuzzleData
 
 
 class Solution:
     def __init__(self, inp: Input):
-        arr, (n, m) = inp.get_array()
-        self.spacer = Spacer(n, m, default_directions=D_BORDERS)
+        arr = inp.get_array()
+        self.spacer = Spacer(*arr.shape, default_directions=D_BORDERS)
 
         self.a = self.spacer.new_array(0)
         self.start = self.finish = None
@@ -42,13 +44,6 @@ class Solution:
         return min([self.paths[x] for x in self.spacer.iter(lambda pos: self.paths[pos] != -1 and self.a[pos] == 0)])
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 31
-    assert solution.part_b() == 29
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 517
-    assert solution.part_b() == 512
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

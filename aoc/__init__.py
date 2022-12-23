@@ -1,11 +1,16 @@
 import inspect
+import os
+from itertools import product
+
 import math
 import re
 from enum import Enum
 
 import numpy as np
 from pathlib import Path
-from typing import Union, Iterator, Any, Tuple, Iterable, Callable
+from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
+
+import pytest
 from addict import Dict
 
 from ttp import ttp
@@ -39,11 +44,31 @@ def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
     return [Dict(obj) for obj in objects]
 
 
+def _resolve_year_day():
+    for s in inspect.stack():
+        if match := DAY_SOURCE_REG.match(s.filename):
+            groups = match.groups()
+            return int(groups[0]), int(groups[1])
+
+
+def get_puzzles():
+    result = []
+    if not (period := _resolve_year_day()):
+        return result
+    year, day = period
+    for root, dirs, file_names in sorted(os.walk(RESOURCES_ROOT / f"{year}" / "day" / f"{day}")):
+        for file_name in sorted(file_names):
+            if file_name.endswith(".out"):
+                test_case = file_name[:-4]
+                result.append(PuzzleData(test_case, year, day))
+    return result
+
+
 class Input:
-    def __init__(self, test_case: Union[str, int] = "puzzle"):
-        caller_filename = inspect.stack()[1].filename
-        groups = DAY_SOURCE_REG.match(caller_filename).groups()
-        with open(RESOURCES_ROOT / groups[0] / "day" / groups[1] / f"{test_case}.in", "r") as file:
+    def __init__(self, test_case: Union[str, int] = "puzzle", year=None, day=None):
+        if year is None:
+            year, day = _resolve_year_day()
+        with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.in", "r") as file:
             self._text = file.read()
 
     def get_lines(self) -> list:
@@ -70,16 +95,49 @@ class Input:
         objects = self.get_objects(ttp_template)
         return [list(o.values()) for o in objects]
 
-    def get_array(self, sep: str = None) -> (np.ndarray, Tuple):
+    def get_array(self, decoder: Optional[dict] = None, *, sep: str = None) -> np.ndarray:
         lines = self._text.splitlines()
-        array = np.array([list(line) if not sep else line.split(sep) for line in lines])
-        return array, array.shape
+
+        def decode(line: str) -> list:
+            characters = list(line) if not sep else line.split(sep)
+            return [decoder[c] for c in characters] if decoder else characters
+
+        return np.array([decode(line) for line in lines])
 
     def get_text(self) -> str:
         return self._text
 
 
-class Direction(Tuple, Enum):
+class Output:
+    def __init__(self, year: int, day: int, test_case: str):
+        with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.out", "r") as file:
+            self.a = file.readline().strip()
+            self.b = file.read().strip()
+
+
+class PuzzleData:
+    def __init__(self, test_case: str, year: int = None, day: int = None):
+        if year is None:
+            year, day = _resolve_year_day()
+        self.test_case = test_case
+        self.inp = Input(test_case, year, day)
+        self.out = Output(year, day, test_case)
+
+    def check_solution(self, solution_class):
+        solution = solution_class(self.inp)
+        if hasattr(solution, "part_a_b"):
+            res_a, res_b = solution.part_a_b()
+        else:
+            res_a = solution.part_a()
+            res_b = solution.part_b()
+        assert str(res_a).strip() == self.out.a
+        assert str(res_b).strip() == self.out.b
+
+    def __str__(self) -> str:
+        return self.test_case
+
+
+class D(Tuple, Enum):
     NORTH = (-1, 0)
     NORTH_EAST = (-1, 1)
     EAST = (0, 1)
@@ -90,19 +148,40 @@ class Direction(Tuple, Enum):
     NORTH_WEST = (-1, -1)
 
 
-D_DIAGONALS = (Direction.NORTH_EAST, Direction.SOUTH_EAST, Direction.SOUTH_WEST, Direction.NORTH_WEST)
-D_BORDERS = (Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST)
-D_ALL = tuple(Direction)
+D_DIAGONALS = (D.NORTH_EAST, D.SOUTH_EAST, D.SOUTH_WEST, D.NORTH_WEST)
+D_BORDERS = (D.NORTH, D.SOUTH, D.WEST, D.EAST)
+D_ALL = tuple(D)
+
+D_TURNS = {
+    D.EAST: {"R": D.SOUTH, "L": D.NORTH},
+    D.SOUTH: {"R": D.WEST, "L": D.EAST},
+    D.WEST: {"R": D.NORTH, "L": D.SOUTH},
+    D.NORTH: {"R": D.EAST, "L": D.WEST},
+}
+
+D_OPPOSITE = {D.EAST: D.WEST, D.WEST: D.EAST, D.NORTH: D.SOUTH, D.SOUTH: D.NORTH}
+
+ItFunc: TypeAlias = Callable[[int, int, int], tuple[int, int]]
+
+
+class IT:
+    TOP_LR: ItFunc = lambda x, n, m: (0, x)
+    TOP_RL: ItFunc = lambda x, n, m: (0, m - x - 1)
+
+    BOTTOM_LR: ItFunc = lambda x, n, m: (n - 1, x)
+    BOTTOM_RL: ItFunc = lambda x, n, m: (n - 1, m - x - 1)
+
+    LEFT_TB: ItFunc = lambda x, n, m: (x, 0)
+    LEFT_BT: ItFunc = lambda x, n, m: (n - x - 1, 0)
+
+    RIGHT_TB: ItFunc = lambda x, n, m: (x, m - 1)
+    RIGHT_BT: ItFunc = lambda x, n, m: (n - x - 1, m - 1)
 
 
 class Spacer:
-    def __init__(
-        self, south, east, north_inclusive=0, west_inclusive=0, *, default_directions: Iterable[tuple] = D_ALL
-    ):
-        self.south = south
-        self.east = east
-        self.north_inclusive = north_inclusive
-        self.west_inclusive = west_inclusive
+    def __init__(self, n, m, *, default_directions: Iterable[tuple] = D_ALL):
+        self.n = n
+        self.m = m
         self.default_directions = D_ALL if default_directions is None else default_directions
 
     def get_links(
@@ -113,25 +192,51 @@ class Spacer:
 
         for direct in directions:
             to_pos = from_pos[0] + direct[0], from_pos[1] + direct[1]
-            if not self.north_inclusive <= to_pos[0] < self.south or not self.west_inclusive <= to_pos[1] < self.east:
+            if not 0 <= to_pos[0] < self.n or not 0 <= to_pos[1] < self.m:
                 continue
             if test and not test(to_pos):
                 continue
             yield to_pos
 
-    def iter(self, test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
-        for i in range(self.north_inclusive, self.south):
-            for j in range(self.west_inclusive, self.east):
-                if test and not test((i, j)):
+    def iter(self, test: Callable[[tuple], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[tuple]:
+        def full_iter():
+            for i, j in product(range(self.n), range(self.m)):
+                if not test or test((i, j)):
+                    yield i, j
+
+        def it_func_iter():
+            for x in range(self.n if it in [IT.LEFT_BT, IT.LEFT_TB, IT.RIGHT_BT, IT.RIGHT_BT] else self.m):
+                pos = it(x, self.n, self.m)
+                if test and not test(pos):
                     continue
-                yield i, j
+                yield pos
+
+        return full_iter() if it is None else it_func_iter()
 
     def new_array(self, fill_value, *, dtype=int):
         return np.full(
-            shape=(self.south, self.east),
+            shape=(self.n, self.m),
             fill_value=fill_value,
             dtype=dtype,
         )
+
+    def move(self, pos: tuple[int, int], direction: D, *, cyclic=True):
+        next_pos = t_sum(pos, direction)
+        if 0 <= next_pos[0] < self.n and 0 <= next_pos[1] < self.m:
+            return next_pos
+        else:
+            if not cyclic:
+                raise OverflowError("Got out of dimensions")
+
+            x = next_pos[0] % self.n
+            if x < 0:
+                x += self.n
+
+            y = next_pos[1] % self.m
+            if y < 0:
+                y += self.m
+
+            return x, y
 
 
 def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:

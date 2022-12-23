@@ -1,7 +1,8 @@
 from typing import Optional
 import networkx as nx
+import pytest
 
-from aoc import Input
+from aoc import Input, get_puzzles, PuzzleData
 
 TTP_TEMPLATE = """\
 Valve {{ src }} has flow rate={{ rate | to_int }}; \
@@ -41,13 +42,6 @@ class Solution:
         return self.f(0, 26, 26)
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 1651
-    assert solution.part_b() == 1707
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 1880
-    assert solution.part_b() == 2520
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

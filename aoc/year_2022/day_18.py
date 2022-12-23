@@ -3,8 +3,9 @@ from itertools import combinations
 from typing import Optional
 
 import networkx as nx
+import pytest
 
-from aoc import Input, t_sum, t_delta, t_minmax, t_inside
+from aoc import Input, t_sum, t_delta, t_minmax, t_inside, get_puzzles, PuzzleData
 
 # 6 cube sides with 4 vertexes of each side
 SIDE_VERTEXES = {
@@ -89,20 +90,11 @@ class Solution:
                         queue.append(next_pos)
         return visible
 
-
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 64
-    assert solution.part_b_graphs() == solution.part_b_bfs() == 58
+    def part_b(self):
+        assert (result := self.part_b_bfs()) == self.part_b_graphs()
+        return result
 
 
-def test_ideal():
-    solution = Solution(Input("ideal"))
-    assert solution.part_a() == 36
-    assert solution.part_b_graphs() == solution.part_b_bfs() == 30
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 4364
-    assert solution.part_b_graphs() == solution.part_b_bfs() == 2508
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)
