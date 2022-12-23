@@ -54,9 +54,8 @@ class Solution:
         return result
 
     def part_b(self):
-        need = 30000000 - (70000000 - self.root["total"])
-        print(f"need space: {need}")
-        return self._part_b_sol(self.root, need)
+        need_space = 30000000 - (70000000 - self.root["total"])
+        return self._part_b_sol(self.root, need_space)
 
     def _part_b_sol(self, node, goal) -> int:
         best = t if (t := node["total"]) >= goal else None

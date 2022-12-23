@@ -121,12 +121,12 @@ class TestCase:
     def assertion(self, solution_class):
         solution = solution_class(self.inp)
         if hasattr(solution, "part_a_b"):
-            assert solution.part_a_b() == self.out.a + self.out.b
+            res_a, res_b = solution.part_a_b()
         else:
-            res_a = str(solution.part_a()).strip()
-            res_b = str(solution.part_b()).strip()
-            assert res_a == self.out.a
-            assert res_b == self.out.b
+            res_a = solution.part_a()
+            res_b = solution.part_b()
+        assert str(res_a).strip() == self.out.a
+        assert str(res_b).strip() == self.out.b
 
     def __str__(self) -> str:
         return self.test_case
