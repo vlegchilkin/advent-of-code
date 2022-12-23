@@ -52,8 +52,10 @@ def _resolve_year_day():
 
 
 def get_puzzles():
-    year, day = _resolve_year_day()
     result = []
+    if not (period := _resolve_year_day()):
+        return result
+    year, day = period
     for root, dirs, file_names in sorted(os.walk(RESOURCES_ROOT / f"{year}" / "day" / f"{day}")):
         for file_name in sorted(file_names):
             if file_name.endswith(".out"):
