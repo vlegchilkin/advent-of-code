@@ -1,6 +1,8 @@
+from typing import Iterator
+
 import numpy as np
 
-from aoc import Input, D, t_sum, Spacer, D_TURNS, D_OPPOSITE, IT
+from aoc import Input, D, t_sum, Spacer, D_TURNS, D_OPPOSITE, IT, ItFunc
 
 SIDES = [D.EAST, D.SOUTH, D.WEST, D.NORTH]
 
@@ -24,7 +26,7 @@ class Cube:
 
         s = Spacer(self.dim, self.dim)
 
-        def make_link(side_a, dir_a, it_a: IT, side_b, dir_b, it_b: IT):
+        def make_link(side_a, dir_a, it_a: ItFunc, side_b, dir_b, it_b: ItFunc):
             for x, y in zip(s.iter(it=it_a), s.iter(it=it_b)):
                 sa_pos = t_sum(self.offsets[side_a], x)
                 sb_pos = t_sum(self.offsets[side_b], y)
@@ -42,31 +44,39 @@ class Cube:
 
 class Solution:
     def __init__(self, inp: Input, cube_pattern: list[list], links):
-        area_data = []
         inp_iter = inp.get_iter()
+        self.area = self._build_area(inp_iter)
+        self.cube = Cube(cube_pattern, self.area, links)
+        self.moves = self._build_moves(inp_iter)
+        self.init_pos = (0, 0)
+        self.init_direction = D.EAST
+
+    @staticmethod
+    def _build_area(inp_iter: Iterator[str]):
+        area_data = []
         while line := next(inp_iter):
             area_data.append(list(line))
 
         shape = len(area_data), max([len(r) for r in area_data])
-        self.area = np.full(shape, dtype=int, fill_value=0)
+        area = np.full(shape, dtype=int, fill_value=0)
+        cross = {".": -1, "#": 1, " ": 0}
         for i, row in enumerate(area_data):
             for j, c in enumerate(row):
-                self.area[i, j] = -1 if c == "." else 1 if c == "#" else 0
+                area[i, j] = cross[c]
+        return area
 
-        self.cube = Cube(cube_pattern, self.area, links)
-
-        self.moves = []
+    @staticmethod
+    def _build_moves(inp_iter: Iterator[str]):
+        moves = []
         for c in next(inp_iter):
             if c in ["L", "R"]:
-                self.moves.append(c)
+                moves.append(c)
             else:
-                if self.moves and type(self.moves[-1]) == int:
-                    self.moves[-1] = self.moves[-1] * 10 + int(c)
+                if moves and type(moves[-1]) == int:
+                    moves[-1] = moves[-1] * 10 + int(c)
                 else:
-                    self.moves.append(int(c))
-
-        self.init_pos = (0, 0)
-        self.init_direction = D.EAST
+                    moves.append(int(c))
+        return moves
 
     def single_move(self, pos, d, move, handler):
         if type(move) == str:

@@ -1,11 +1,13 @@
 import inspect
+from itertools import product
+
 import math
 import re
 from enum import Enum
 
 import numpy as np
 from pathlib import Path
-from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional
+from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
 from addict import Dict
 
 from ttp import ttp
@@ -103,17 +105,21 @@ D_TURNS = {
 
 D_OPPOSITE = {D.EAST: D.WEST, D.WEST: D.EAST, D.NORTH: D.SOUTH, D.SOUTH: D.NORTH}
 
+ItFunc: TypeAlias = Callable[[int, int, int], tuple[int, int]]
 
-class IT(Enum):
-    TOP_LR: Callable = lambda j, n, m: (0, j)
-    TOP_RL: Callable = lambda j, n, m: (0, m - j - 1)
-    BOTTOM_LR: Callable = lambda j, n, m: (n - 1, j)
-    BOTTOM_RL: Callable = lambda j, n, m: (n - 1, m - j - 1)
 
-    LEFT_TB: Callable = lambda i, n, m: (i, 0)
-    LEFT_BT: Callable = lambda i, n, m: (n - i - 1, 0)
-    RIGHT_TB: Callable = lambda i, n, m: (i, m - 1)
-    RIGHT_BT: Callable = lambda i, n, m: (n - i - 1, m - 1)
+class IT:
+    TOP_LR: ItFunc = lambda x, n, m: (0, x)
+    TOP_RL: ItFunc = lambda x, n, m: (0, m - x - 1)
+
+    BOTTOM_LR: ItFunc = lambda x, n, m: (n - 1, x)
+    BOTTOM_RL: ItFunc = lambda x, n, m: (n - 1, m - x - 1)
+
+    LEFT_TB: ItFunc = lambda x, n, m: (x, 0)
+    LEFT_BT: ItFunc = lambda x, n, m: (n - x - 1, 0)
+
+    RIGHT_TB: ItFunc = lambda x, n, m: (x, m - 1)
+    RIGHT_BT: ItFunc = lambda x, n, m: (n - x - 1, m - 1)
 
 
 class Spacer:
@@ -136,19 +142,20 @@ class Spacer:
                 continue
             yield to_pos
 
-    def iter(self, test: Callable[[tuple], bool] = None, *, it: Optional[IT] = None) -> Iterator[tuple]:
-        if it is None:
-            for i in range(self.n):
-                for j in range(self.m):
-                    if test and not test((i, j)):
-                        continue
+    def iter(self, test: Callable[[tuple], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[tuple]:
+        def full_iter():
+            for i, j in product(range(self.n), range(self.m)):
+                if not test or test((i, j)):
                     yield i, j
-        else:
+
+        def it_func_iter():
             for x in range(self.n if it in [IT.LEFT_BT, IT.LEFT_TB, IT.RIGHT_BT, IT.RIGHT_BT] else self.m):
                 pos = it(x, self.n, self.m)
                 if test and not test(pos):
                     continue
                 yield pos
+
+        return full_iter() if it is None else it_func_iter()
 
     def new_array(self, fill_value, *, dtype=int):
         return np.full(
@@ -164,10 +171,16 @@ class Spacer:
         else:
             if not cyclic:
                 raise OverflowError("Got out of dimensions")
-            return (
-                0 if next_pos[0] == self.n else self.n - 1 if next_pos[0] == -1 else next_pos[0],
-                0 if next_pos[1] == self.m else self.m - 1 if next_pos[1] == -1 else next_pos[1],
-            )
+
+            x = next_pos[0] % self.n
+            if x < 0:
+                x += self.n
+
+            y = next_pos[1] % self.m
+            if y < 0:
+                y += self.m
+
+            return x, y
 
 
 def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
