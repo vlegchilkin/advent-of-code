@@ -1,4 +1,6 @@
-from aoc import Input
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
@@ -24,33 +26,6 @@ class Solution:
         return "\n".join([" ".join(line) for line in crt]) + "\n"
 
 
-def test_simple():
-    solution = Solution(Input(1))
-    assert solution.part_a() == 13140
-    assert (
-        solution.part_b()
-        == """\
-# # . . # # . . # # . . # # . . # # . . # # . . # # . . # # . . # # . . # # . .
-# # # . . . # # # . . . # # # . . . # # # . . . # # # . . . # # # . . . # # # .
-# # # # . . . . # # # # . . . . # # # # . . . . # # # # . . . . # # # # . . . .
-# # # # # . . . . . # # # # # . . . . . # # # # # . . . . . # # # # # . . . . .
-# # # # # # . . . . . . # # # # # # . . . . . . # # # # # # . . . . . . # # # #
-# # # # # # # . . . . . . . # # # # # # # . . . . . . . # # # # # # # . . . . .
-"""
-    )
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 13180
-    assert (
-        solution.part_b()
-        == """\
-# # # # . # # # # . # # # # . . # # . . # . . # . . . # # . . # # . . # # # . .
-# . . . . . . . # . # . . . . # . . # . # . . # . . . . # . # . . # . # . . # .
-# # # . . . . # . . # # # . . # . . . . # # # # . . . . # . # . . # . # # # . .
-# . . . . . # . . . # . . . . # . . . . # . . # . . . . # . # # # # . # . . # .
-# . . . . # . . . . # . . . . # . . # . # . . # . # . . # . # . . # . # . . # .
-# # # # . # # # # . # . . . . . # # . . # . . # . . # # . . # . . # . # # # . .
-"""
-    )
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

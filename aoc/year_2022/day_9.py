@@ -1,4 +1,6 @@
-from aoc import Input, D
+import pytest
+
+from aoc import Input, D, get_puzzles, PuzzleData
 
 DIRECTIONS = {"U": D.NORTH, "D": D.SOUTH, "R": D.EAST, "L": D.WEST}
 
@@ -42,19 +44,6 @@ class Solution:
         return self.count(10)
 
 
-def test_simple():
-    solution = Solution(Input(3))
-    assert solution.part_a() == 13
-    assert solution.part_b() == 1
-
-
-def test_advanced():
-    solution = Solution(Input(7))
-    assert solution.part_a() == 88
-    assert solution.part_b() == 36
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 6175
-    assert solution.part_b() == 2578
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

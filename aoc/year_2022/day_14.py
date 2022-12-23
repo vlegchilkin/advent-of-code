@@ -1,4 +1,6 @@
-from aoc import Input, Spacer, D
+import pytest
+
+from aoc import Input, Spacer, D, get_puzzles, PuzzleData
 
 DIRECTIONS = [D.SOUTH, D.SOUTH_WEST, D.SOUTH_EAST]
 
@@ -42,13 +44,6 @@ class Solution:
         return part_a, count
 
 
-def test_simple():
-    part_a, part_b = Solution(Input(0)).part_a_b()
-    assert part_a == 24
-    assert part_b == 93
-
-
-def test_puzzle():
-    part_a, part_b = Solution(Input()).part_a_b()
-    assert part_a == 644
-    assert part_b == 27324
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

@@ -1,7 +1,9 @@
 from itertools import cycle
 from typing import Optional
 
-from aoc import Input
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Simulation:
@@ -93,13 +95,6 @@ class Solution:
             return top_height
 
 
-def test_simple():
-    solution = Solution(Input(1))
-    assert solution.part_a() == 3068
-    assert solution.part_b() == 1514285714288
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 3239
-    assert solution.part_b() == 1594842406882
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

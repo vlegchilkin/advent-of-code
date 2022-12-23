@@ -1,6 +1,8 @@
 from itertools import cycle
 
-from aoc import Input
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
@@ -20,7 +22,6 @@ class Solution:
         return current
 
 
-def test_challenge():
-    solution = Solution(Input())
-    assert solution.part_a() == 569
-    assert solution.part_b() == 77666
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

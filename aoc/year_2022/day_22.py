@@ -2,7 +2,7 @@ from typing import Iterator
 
 import numpy as np
 
-from aoc import Input, D, t_sum, Spacer, D_TURNS, D_OPPOSITE, IT, ItFunc
+from aoc import Input, D, t_sum, Spacer, D_TURNS, D_OPPOSITE, IT, ItFunc, PuzzleData
 
 SIDES = [D.EAST, D.SOUTH, D.WEST, D.NORTH]
 
@@ -113,6 +113,7 @@ class Solution:
 
 
 def test_simple():
+    pd = PuzzleData("0")
     cube_pattern = [
         [0, 0, 1, 0],
         [5, 4, 2, 0],
@@ -129,12 +130,13 @@ def test_simple():
         (5, D.WEST, IT.LEFT_TB, 3, D.SOUTH, IT.BOTTOM_RL),
     ]
 
-    solution = Solution(Input(0), cube_pattern, links)
-    assert solution.part_a() == 6032
-    assert solution.part_b() == 5031
+    solution = Solution(pd.inp, cube_pattern, links)
+    assert solution.part_a() == int(pd.out.a)
+    assert solution.part_b() == int(pd.out.b)
 
 
 def test_challenge():
+    pd = PuzzleData("puzzle")
     cube_pattern = [
         [0, 1, 3],
         [0, 2, 0],
@@ -153,5 +155,5 @@ def test_challenge():
     ]
 
     solution = Solution(Input(), cube_pattern, links)
-    assert solution.part_a() == 26558
-    assert solution.part_b() == 110400
+    assert solution.part_a() == int(pd.out.a)
+    assert solution.part_b() == int(pd.out.b)

@@ -1,4 +1,6 @@
-from aoc import Input
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
@@ -52,9 +54,8 @@ class Solution:
         return result
 
     def part_b(self):
-        need = 30000000 - (70000000 - self.root["total"])
-        print(f"need space: {need}")
-        return self._part_b_sol(self.root, need)
+        need_space = 30000000 - (70000000 - self.root["total"])
+        return self._part_b_sol(self.root, need_space)
 
     def _part_b_sol(self, node, goal) -> int:
         best = t if (t := node["total"]) >= goal else None
@@ -66,13 +67,6 @@ class Solution:
         return best
 
 
-def test_simple():
-    solution = Solution(Input(1))
-    assert solution.part_a() == 95437
-    assert solution.part_b() == 24933642
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 1845346
-    assert solution.part_b() == 3636703
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

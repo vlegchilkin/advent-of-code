@@ -1,4 +1,6 @@
-from aoc import Input, D, t_sum, t_koef, dist
+import pytest
+
+from aoc import Input, D, t_sum, t_koef, dist, get_puzzles, PuzzleData
 
 ROTATE = {
     D.NORTH: {"R": D.EAST, "L": D.WEST},
@@ -33,7 +35,6 @@ class Solution:
                 visited.add(pos)
 
 
-def test_challenge():
-    solution = Solution(Input())
-    assert solution.part_a() == 239
-    assert solution.part_b() == 141
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

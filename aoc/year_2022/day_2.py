@@ -1,4 +1,6 @@
-from aoc import Input
+import pytest
+
+from aoc import Input, PuzzleData, get_puzzles
 
 ROCK, PAPER, SCISSORS = 0, 1, 2
 LOSS_TIE_WIN = {ROCK: [SCISSORS, ROCK, PAPER], PAPER: [ROCK, PAPER, SCISSORS], SCISSORS: [PAPER, SCISSORS, ROCK]}
@@ -24,13 +26,6 @@ class Solution:
         return score_b
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 15
-    assert solution.part_b() == 12
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 13052
-    assert solution.part_b() == 13693
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

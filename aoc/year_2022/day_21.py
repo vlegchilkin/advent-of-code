@@ -1,6 +1,8 @@
 import copy
 
-from aoc import Input
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData
 
 TTP_TEMPLATE = """{{ monkey }}: {{ operation | ORPHRASE  | split(" ")}}"""
 
@@ -70,13 +72,6 @@ class Solution:
         return self.solve(equation)
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 152
-    assert solution.part_b() == 301
-
-
-def test_challenge():
-    solution = Solution(Input())
-    assert solution.part_a() == 70674280581468
-    assert solution.part_b() == 3243420789721
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

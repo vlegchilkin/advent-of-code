@@ -2,8 +2,9 @@ import json
 from functools import cmp_to_key
 
 import math
+import pytest
 
-from aoc import Input
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
@@ -38,13 +39,6 @@ class Solution:
         return math.prod([(i + 1) for i, v in enumerate(lists) if v in markers])
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 13
-    assert solution.part_b() == 140
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 5003
-    assert solution.part_b() == 20280
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

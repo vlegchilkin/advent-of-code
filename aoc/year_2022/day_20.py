@@ -1,6 +1,8 @@
 from collections import deque
 
-from aoc import Input
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
@@ -34,13 +36,6 @@ class Solution:
         return self.Mixer(self.input_values, key=811589153).mix(steps=10)
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 3
-    assert solution.part_b() == 1623178306
-
-
-def test_challenge():
-    solution = Solution(Input())
-    assert solution.part_a() == 9687
-    assert solution.part_b() == 1338310513297
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

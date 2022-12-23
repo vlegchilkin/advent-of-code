@@ -229,7 +229,7 @@ jobs:
                         - << parameters.pkg-manager >>
                 steps:
                   - run:
-                      command: <<parameters.pkg-manager>> run pytest --junit-xml=test-report/report.xml << parameters.test-tool-args >>
+                      command: <<parameters.pkg-manager>> run pytest --log-cli-level=INFO --junit-xml=test-report/report.xml << parameters.test-tool-args >>
                       name: Run tests with <<parameters.pkg-manager>> run
                       working_directory: <<parameters.app-dir>>
             - when:

@@ -1,4 +1,5 @@
 import inspect
+import os
 from itertools import product
 
 import math
@@ -8,6 +9,8 @@ from enum import Enum
 import numpy as np
 from pathlib import Path
 from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
+
+import pytest
 from addict import Dict
 
 from ttp import ttp
@@ -41,11 +44,29 @@ def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
     return [Dict(obj) for obj in objects]
 
 
+def _resolve_year_day():
+    for s in inspect.stack():
+        if match := DAY_SOURCE_REG.match(s.filename):
+            groups = match.groups()
+            return int(groups[0]), int(groups[1])
+
+
+def get_puzzles():
+    year, day = _resolve_year_day()
+    result = []
+    for root, dirs, file_names in sorted(os.walk(RESOURCES_ROOT / f"{year}" / "day" / f"{day}")):
+        for file_name in sorted(file_names):
+            if file_name.endswith(".out"):
+                test_case = file_name[:-4]
+                result.append(PuzzleData(test_case, year, day))
+    return result
+
+
 class Input:
-    def __init__(self, test_case: Union[str, int] = "puzzle"):
-        caller_filename = inspect.stack()[1].filename
-        groups = DAY_SOURCE_REG.match(caller_filename).groups()
-        with open(RESOURCES_ROOT / groups[0] / "day" / groups[1] / f"{test_case}.in", "r") as file:
+    def __init__(self, test_case: Union[str, int] = "puzzle", year=None, day=None):
+        if year is None:
+            year, day = _resolve_year_day()
+        with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.in", "r") as file:
             self._text = file.read()
 
     def get_lines(self) -> list:
@@ -83,6 +104,35 @@ class Input:
 
     def get_text(self) -> str:
         return self._text
+
+
+class Output:
+    def __init__(self, year: int, day: int, test_case: str):
+        with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.out", "r") as file:
+            self.a = file.readline().strip()
+            self.b = file.read().strip()
+
+
+class PuzzleData:
+    def __init__(self, test_case: str, year: int = None, day: int = None):
+        if year is None:
+            year, day = _resolve_year_day()
+        self.test_case = test_case
+        self.inp = Input(test_case, year, day)
+        self.out = Output(year, day, test_case)
+
+    def check_solution(self, solution_class):
+        solution = solution_class(self.inp)
+        if hasattr(solution, "part_a_b"):
+            res_a, res_b = solution.part_a_b()
+        else:
+            res_a = solution.part_a()
+            res_b = solution.part_b()
+        assert str(res_a).strip() == self.out.a
+        assert str(res_b).strip() == self.out.b
+
+    def __str__(self) -> str:
+        return self.test_case
 
 
 class D(Tuple, Enum):

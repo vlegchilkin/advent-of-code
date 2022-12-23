@@ -1,6 +1,8 @@
 from itertools import product
 
-from aoc import Input
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
@@ -41,11 +43,6 @@ class Solution:
         return part_a, part_b
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a_b() == (21, 8)
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a_b() == (1823, 211680)
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)
