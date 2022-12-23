@@ -11,9 +11,11 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=bugs)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
 
-</div>
 # Advent of Code
 My https://adventofcode.com/ solutions
+
+</div>
+
 
 ## Puzzles
 
