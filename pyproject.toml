@@ -35,7 +35,7 @@ python_files = "day_*.py"
 python_functions = "test_*"
 addopts = "--ignore=utils --color=yes -s"
 log_cli = "true"
-log_cli_level = "info"
+log_cli_level = "debug"
 log_format = "%(asctime)s | %(levelname)-7s | [%(name)s] %(message)s"
 log_date_format = "%Y-%m-%d %H:%M:%S"
 

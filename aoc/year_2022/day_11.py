@@ -1,4 +1,6 @@
 import copy
+import logging
+
 import math
 import pytest
 
@@ -43,6 +45,9 @@ class Solution:
     def simulate(self, monkeys, iterations, reduce_factor: int = None):
         for i in range(iterations):
             self.turn(monkeys, reduce_factor)
+            if i == 19 or (i + 1) % 1000 == 0:
+                turns = [m.turns for m in monkeys]
+                logging.debug(f"{i + 1}: {turns}")
 
         turns = sorted([m.turns for m in monkeys], reverse=True)
         return turns[0] * turns[1]
