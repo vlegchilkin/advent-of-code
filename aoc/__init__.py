@@ -1,11 +1,13 @@
 import inspect
+from itertools import product
+
 import math
 import re
 from enum import Enum
 
 import numpy as np
 from pathlib import Path
-from typing import Union, Iterator, Any, Tuple, Iterable, Callable
+from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
 from addict import Dict
 
 from ttp import ttp
@@ -79,7 +81,7 @@ class Input:
         return self._text
 
 
-class Direction(Tuple, Enum):
+class D(Tuple, Enum):
     NORTH = (-1, 0)
     NORTH_EAST = (-1, 1)
     EAST = (0, 1)
@@ -90,19 +92,40 @@ class Direction(Tuple, Enum):
     NORTH_WEST = (-1, -1)
 
 
-D_DIAGONALS = (Direction.NORTH_EAST, Direction.SOUTH_EAST, Direction.SOUTH_WEST, Direction.NORTH_WEST)
-D_BORDERS = (Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST)
-D_ALL = tuple(Direction)
+D_DIAGONALS = (D.NORTH_EAST, D.SOUTH_EAST, D.SOUTH_WEST, D.NORTH_WEST)
+D_BORDERS = (D.NORTH, D.SOUTH, D.WEST, D.EAST)
+D_ALL = tuple(D)
+
+D_TURNS = {
+    D.EAST: {"R": D.SOUTH, "L": D.NORTH},
+    D.SOUTH: {"R": D.WEST, "L": D.EAST},
+    D.WEST: {"R": D.NORTH, "L": D.SOUTH},
+    D.NORTH: {"R": D.EAST, "L": D.WEST},
+}
+
+D_OPPOSITE = {D.EAST: D.WEST, D.WEST: D.EAST, D.NORTH: D.SOUTH, D.SOUTH: D.NORTH}
+
+ItFunc: TypeAlias = Callable[[int, int, int], tuple[int, int]]
+
+
+class IT:
+    TOP_LR: ItFunc = lambda x, n, m: (0, x)
+    TOP_RL: ItFunc = lambda x, n, m: (0, m - x - 1)
+
+    BOTTOM_LR: ItFunc = lambda x, n, m: (n - 1, x)
+    BOTTOM_RL: ItFunc = lambda x, n, m: (n - 1, m - x - 1)
+
+    LEFT_TB: ItFunc = lambda x, n, m: (x, 0)
+    LEFT_BT: ItFunc = lambda x, n, m: (n - x - 1, 0)
+
+    RIGHT_TB: ItFunc = lambda x, n, m: (x, m - 1)
+    RIGHT_BT: ItFunc = lambda x, n, m: (n - x - 1, m - 1)
 
 
 class Spacer:
-    def __init__(
-        self, south, east, north_inclusive=0, west_inclusive=0, *, default_directions: Iterable[tuple] = D_ALL
-    ):
-        self.south = south
-        self.east = east
-        self.north_inclusive = north_inclusive
-        self.west_inclusive = west_inclusive
+    def __init__(self, n, m, *, default_directions: Iterable[tuple] = D_ALL):
+        self.n = n
+        self.m = m
         self.default_directions = D_ALL if default_directions is None else default_directions
 
     def get_links(
@@ -113,25 +136,51 @@ class Spacer:
 
         for direct in directions:
             to_pos = from_pos[0] + direct[0], from_pos[1] + direct[1]
-            if not self.north_inclusive <= to_pos[0] < self.south or not self.west_inclusive <= to_pos[1] < self.east:
+            if not 0 <= to_pos[0] < self.n or not 0 <= to_pos[1] < self.m:
                 continue
             if test and not test(to_pos):
                 continue
             yield to_pos
 
-    def iter(self, test: Callable[[tuple], bool] = None) -> Iterator[tuple]:
-        for i in range(self.north_inclusive, self.south):
-            for j in range(self.west_inclusive, self.east):
-                if test and not test((i, j)):
+    def iter(self, test: Callable[[tuple], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[tuple]:
+        def full_iter():
+            for i, j in product(range(self.n), range(self.m)):
+                if not test or test((i, j)):
+                    yield i, j
+
+        def it_func_iter():
+            for x in range(self.n if it in [IT.LEFT_BT, IT.LEFT_TB, IT.RIGHT_BT, IT.RIGHT_BT] else self.m):
+                pos = it(x, self.n, self.m)
+                if test and not test(pos):
                     continue
-                yield i, j
+                yield pos
+
+        return full_iter() if it is None else it_func_iter()
 
     def new_array(self, fill_value, *, dtype=int):
         return np.full(
-            shape=(self.south, self.east),
+            shape=(self.n, self.m),
             fill_value=fill_value,
             dtype=dtype,
         )
+
+    def move(self, pos: tuple[int, int], direction: D, *, cyclic=True):
+        next_pos = t_sum(pos, direction)
+        if 0 <= next_pos[0] < self.n and 0 <= next_pos[1] < self.m:
+            return next_pos
+        else:
+            if not cyclic:
+                raise OverflowError("Got out of dimensions")
+
+            x = next_pos[0] % self.n
+            if x < 0:
+                x += self.n
+
+            y = next_pos[1] % self.m
+            if y < 0:
+                y += self.m
+
+            return x, y
 
 
 def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
