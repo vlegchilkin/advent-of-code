@@ -58,7 +58,7 @@ def get_puzzles():
         for file_name in sorted(file_names):
             if file_name.endswith(".out"):
                 test_case = file_name[:-4]
-                result.append(PuzzleData(year, day, test_case))
+                result.append(PuzzleData(test_case, year, day))
     return result
 
 
@@ -115,7 +115,9 @@ class Output:
 
 
 class PuzzleData:
-    def __init__(self, year: int, day: int, test_case: str):
+    def __init__(self, test_case: str, year: int = None, day: int = None):
+        if year is None:
+            year, day = _resolve_year_day()
         self.test_case = test_case
         self.inp = Input(test_case, year, day)
         self.out = Output(year, day, test_case)

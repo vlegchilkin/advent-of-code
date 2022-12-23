@@ -1,4 +1,4 @@
-from aoc import Input, dist
+from aoc import Input, dist, PuzzleData
 
 TTP_TEMPLATE = """\
 Sensor at x={{ sx | to_int }}, y={{ sy | to_int }}: closest beacon is at x={{ bx | to_int }}, y={{ by | to_int }}
@@ -41,12 +41,14 @@ class Solution:
 
 
 def test_simple():
-    solution = Solution(Input(0), 10)
-    assert solution.part_a() == 26
-    assert solution.part_b() == 56000011
+    pd = PuzzleData("0")
+    solution = Solution(pd.inp, 10)
+    assert str(solution.part_a()) == pd.out.a
+    assert str(solution.part_b()) == pd.out.b
 
 
 def test_puzzle():
-    solution = Solution(Input(), 2000000)
-    assert solution.part_a() == 5144286
-    assert solution.part_b() == 10229191267339
+    pd = PuzzleData("puzzle")
+    solution = Solution(pd.inp, 2000000)
+    assert str(solution.part_a()) == pd.out.a
+    assert str(solution.part_b()) == pd.out.b
