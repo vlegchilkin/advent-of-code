@@ -21,8 +21,8 @@ jobs:
             TEST_FILES=$(circleci tests glob "aoc/year_*/day_*.py" | circleci tests split --split-by=timings)
             mkdir -p test-results
             mkdir -p coverage-reports
-            poetry run -m pytest --log-cli-level=INFO --junitxml=test-results/junit.xml $TEST_FILES
-#            coverage run
+            poetry run pytest --log-cli-level=INFO --junitxml=test-results/junit.xml $TEST_FILES
+#            coverage run -m
 #            poetry run coverage report
 #            poetry run coverage xml -o "coverage-reports/coverage-{$CIRCLE_NODE_INDEX}.xml"
       - store_test_results:
