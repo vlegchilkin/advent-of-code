@@ -9,6 +9,8 @@ from enum import Enum
 import numpy as np
 from pathlib import Path
 from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
+
+import pytest
 from addict import Dict
 
 from ttp import ttp
@@ -49,14 +51,14 @@ def _resolve_year_day():
             return int(groups[0]), int(groups[1])
 
 
-def get_test_cases():
+def get_puzzles():
     year, day = _resolve_year_day()
     result = []
     for root, dirs, file_names in sorted(os.walk(RESOURCES_ROOT / f"{year}" / "day" / f"{day}")):
         for file_name in sorted(file_names):
             if file_name.endswith(".out"):
                 test_case = file_name[:-4]
-                result.append(TestCase(year, day, test_case))
+                result.append(PuzzleData(year, day, test_case))
     return result
 
 
@@ -112,13 +114,13 @@ class Output:
             self.b = file.read().strip()
 
 
-class TestCase:
+class PuzzleData:
     def __init__(self, year: int, day: int, test_case: str):
         self.test_case = test_case
         self.inp = Input(test_case, year, day)
         self.out = Output(year, day, test_case)
 
-    def assertion(self, solution_class):
+    def check_solution(self, solution_class):
         solution = solution_class(self.inp)
         if hasattr(solution, "part_a_b"):
             res_a, res_b = solution.part_a_b()

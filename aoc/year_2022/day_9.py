@@ -1,6 +1,6 @@
 import pytest
 
-from aoc import Input, D, get_test_cases, TestCase
+from aoc import Input, D, get_puzzles, PuzzleData
 
 DIRECTIONS = {"U": D.NORTH, "D": D.SOUTH, "R": D.EAST, "L": D.WEST}
 
@@ -44,6 +44,6 @@ class Solution:
         return self.count(10)
 
 
-@pytest.mark.parametrize("tc", get_test_cases(), ids=str)
-def test_case(tc: TestCase):
-    tc.assertion(Solution)
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)

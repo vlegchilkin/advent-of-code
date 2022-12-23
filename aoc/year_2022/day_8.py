@@ -2,7 +2,7 @@ from itertools import product
 
 import pytest
 
-from aoc import Input, get_test_cases, TestCase
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
@@ -43,6 +43,6 @@ class Solution:
         return part_a, part_b
 
 
-@pytest.mark.parametrize("tc", get_test_cases(), ids=str)
-def test_case(tc: TestCase):
-    tc.assertion(Solution)
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)
