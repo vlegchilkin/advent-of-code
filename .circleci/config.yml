@@ -28,7 +28,7 @@ jobs:
       - persist_to_workspace:
           root: test-results
 
-  sonarcloud:
+  aggregate-sonar:
     resource_class: small
     executor:
       name: python/default
@@ -59,7 +59,7 @@ workflows:
   main:
     jobs:
       - build-aoc-tests:
-      - sonarcloud:
+      - aggregate-sonar:
           context: SonarCloud
           requires:
             - build-aoc-tests
