@@ -1,4 +1,6 @@
-from aoc import Input
+import pytest
+
+from aoc import Input, get_test_cases, TestCase
 
 
 class Solution:
@@ -20,13 +22,6 @@ class Solution:
         return sum(self.top3)
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 24000
-    assert solution.part_b() == 45000
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 72017
-    assert solution.part_b() == 212520
+@pytest.mark.parametrize("tc", get_test_cases(), ids=str)
+def test_case(tc: TestCase):
+    tc.assertion(Solution)

@@ -1,4 +1,5 @@
 import inspect
+import os
 from itertools import product
 
 import math
@@ -39,6 +40,24 @@ def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
     parser.parse()
     objects = parser.result(structure="flat_list")
     return [Dict(obj) for obj in objects]
+
+
+def _resolve_year_day():
+    for s in inspect.stack():
+        if match := DAY_SOURCE_REG.match(s.filename):
+            groups = match.groups()
+            return int(groups[0]), int(groups[1])
+
+
+def get_test_cases():
+    year, day = _resolve_year_day()
+    result = []
+    for root, dirs, file_names in sorted(os.walk(RESOURCES_ROOT / f"{year}" / "day" / f"{day}")):
+        for file_name in sorted(file_names):
+            if file_name.endswith(".out"):
+                test_case = file_name[:-4]
+                result.append(TestCase(year, day, test_case))
+    return result
 
 
 class Input:
@@ -84,6 +103,33 @@ class Input:
 
     def get_text(self) -> str:
         return self._text
+
+
+class Output:
+    def __init__(self, year: int, day: int, test_case: str):
+        with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.out", "r") as file:
+            self.a = file.readline().strip()
+            self.b = file.read().strip()
+
+
+class TestCase:
+    def __init__(self, year: int, day: int, test_case: str):
+        self.test_case = test_case
+        self.inp = Input(test_case, year, day)
+        self.out = Output(year, day, test_case)
+
+    def assertion(self, solution_class):
+        solution = solution_class(self.inp)
+        if hasattr(solution, "part_a_b"):
+            assert solution.part_a_b() == self.out.a + self.out.b
+        else:
+            res_a = str(solution.part_a()).strip()
+            res_b = str(solution.part_b()).strip()
+            assert res_a == self.out.a
+            assert res_b == self.out.b
+
+    def __str__(self) -> str:
+        return self.test_case
 
 
 class D(Tuple, Enum):
