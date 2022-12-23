@@ -7,6 +7,7 @@ orbs:
 jobs:
   build-test-sonar:
     parallelism: 4
+    resource_class: small
     executor:
       name: python/default
       tag: "3.10"
@@ -31,7 +32,7 @@ jobs:
           path: test-results
       - store_artifacts:
           path: coverage-reports
-      - sonarcloud/scan
+#      - sonarcloud/scan
 
 workflows:
   main:
