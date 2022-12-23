@@ -27,7 +27,8 @@ jobs:
           path: test-results
       - persist_to_workspace:
           root: test-results
-
+          paths:
+            - "*"
   aggregate-sonar:
     resource_class: small
     executor:
@@ -58,7 +59,7 @@ jobs:
 workflows:
   main:
     jobs:
-      - build-aoc-tests:
+      - build-aoc-tests
       - aggregate-sonar:
           context: SonarCloud
           requires:
