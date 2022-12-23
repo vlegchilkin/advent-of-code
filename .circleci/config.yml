@@ -6,7 +6,7 @@ orbs:
 
 jobs:
   build-aoc-tests:
-    parallelism: 4
+    parallelism: 5
     resource_class: small
     executor:
       name: python/default
