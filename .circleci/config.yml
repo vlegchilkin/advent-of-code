@@ -5,7 +5,7 @@ orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.3
 
 jobs:
-  build-test-sonar:
+  build-aoc-tests:
     parallelism: 4
     resource_class: small
     executor:
@@ -22,21 +22,44 @@ jobs:
             TEST_FILES=$(circleci tests glob "aoc/year_*/day_*.py" | circleci tests split --split-by=timings)
             mkdir -p test-results
             poetry run coverage run -m pytest --log-cli-level=INFO --junitxml=test-results/junit-$CIRCLE_NODE_INDEX.xml $TEST_FILES
-            mkdir -p coverages
-            cp .coverage coverages/.coverage.$CIRCLE_NODE_INDEX
+            cp .coverage test-results/.coverage.$CIRCLE_NODE_INDEX
+      - store_test_results:
+          path: test-results
+      - persist_to_workspace:
+          root: test-results
+
+  sonarcloud:
+    resource_class: small
+    executor:
+      name: python/default
+      tag: "3.10"
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - attach_workspace:
+          at: /test-results
+      - run:
+          name: Run AOC tests
+          command: |
+            set -e
+            ls /test-results
+            ls /coverages            
+            mkdir -p coverage-reports
+      - store_artifacts:
+          path: test-results
+      - store_artifacts:
+          path: coverage-reports
+#      - sonarcloud/scan
 #            coverage combine --append << parameters.coverage-remote-file >>
 #            poetry run coverage report
 #            poetry run coverage xml -o "coverage-reports/coverage-$CIRCLE_NODE_INDEX.xml"
-      - store_test_results:
-          path: test-results
-      - store_artifacts:
-          path: test-results
-      - store_artifacts:
-          path: coverages
-#      - sonarcloud/scan
 
 workflows:
   main:
     jobs:
-      - build-test-sonar:
+      - build-aoc-tests:
+      - sonarcloud:
           context: SonarCloud
+          requires:
+            - build-aoc-tests
