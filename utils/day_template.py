@@ -20,6 +20,6 @@ if __name__ == "__main__":  # Playground here
     assert solution.part_b() is None
 
 
-@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
-def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+# @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+# def test_case(pd: PuzzleData):
+#     pd.check_solution(Solution)
