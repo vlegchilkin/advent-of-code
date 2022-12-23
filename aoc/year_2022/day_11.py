@@ -1,7 +1,8 @@
 import copy
 import math
+import pytest
 
-from aoc import Input
+from aoc import Input, get_puzzles, PuzzleData
 
 TTP_TEMPLATE = """\
 Monkey {{ id | to_int | let(turns, 0) }}: 
@@ -42,9 +43,6 @@ class Solution:
     def simulate(self, monkeys, iterations, reduce_factor: int = None):
         for i in range(iterations):
             self.turn(monkeys, reduce_factor)
-            if i == 19 or (i + 1) % 1000 == 0:
-                turns = [m.turns for m in monkeys]
-                print(f"{i + 1}: {turns}")
 
         turns = sorted([m.turns for m in monkeys], reverse=True)
         return turns[0] * turns[1]
@@ -56,13 +54,6 @@ class Solution:
         return self.simulate(copy.deepcopy(self.input_monkeys), 10000)
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == 10605
-    assert solution.part_b() == 2713310158
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 119715
-    assert solution.part_b() == 18085004878
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Solution)
