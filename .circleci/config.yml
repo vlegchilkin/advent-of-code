@@ -43,7 +43,7 @@ jobs:
           command: |
             set -e
             mkdir -p coverage-reports
-            poetry run coverage combine .coverage.0 .coverage.1 .coverage.2 .coverage.3
+            poetry run coverage combine test-results/.coverage.0 test-results/.coverage.1 test-results/.coverage.2 test-results/.coverage.3
             poetry run coverage report
             poetry run coverage xml -o coverage-reports/coverage.xml
       - store_test_results:
