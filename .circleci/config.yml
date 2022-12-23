@@ -19,12 +19,10 @@ jobs:
           name: Run AOC tests
           command: |
             set -e
-            TEST_FILES=$(circleci tests glob "aoc/year_*/day_*.py" | circleci tests split --split-by=timings)
+            TEST_FILES=$(circleci tests glob "aoc/year_201*/day_*.py" | circleci tests split --split-by=timings)
             mkdir -p test-results
             poetry run coverage run -m pytest --log-cli-level=INFO --junitxml=test-results/junit-$CIRCLE_NODE_INDEX.xml $TEST_FILES
             cp .coverage test-results/.coverage.$CIRCLE_NODE_INDEX
-      - store_test_results:
-          path: test-results
       - persist_to_workspace:
           root: test-results
           paths:
@@ -39,14 +37,16 @@ jobs:
       - python/install-packages:
           pkg-manager: poetry
       - attach_workspace:
-          at: /test-results
+          at: test-results
       - run:
           name: Run AOC tests
           command: |
             set -e
-            ls /test-results
-            ls /coverages            
+            ls test-results
+            ls coverages            
             mkdir -p coverage-reports
+      - store_test_results:
+          path: test-results
       - store_artifacts:
           path: test-results
       - store_artifacts:
