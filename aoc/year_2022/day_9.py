@@ -1,6 +1,6 @@
-from aoc import Input, Direction
+from aoc import Input, D
 
-DIRECTIONS = {"U": Direction.NORTH, "D": Direction.SOUTH, "R": Direction.EAST, "L": Direction.WEST}
+DIRECTIONS = {"U": D.NORTH, "D": D.SOUTH, "R": D.EAST, "L": D.WEST}
 
 
 class Solution:

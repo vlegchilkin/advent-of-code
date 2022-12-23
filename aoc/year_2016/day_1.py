@@ -1,10 +1,10 @@
-from aoc import Input, Direction, t_sum, t_koef, dist
+from aoc import Input, D, t_sum, t_koef, dist
 
 ROTATE = {
-    Direction.NORTH: {"R": Direction.EAST, "L": Direction.WEST},
-    Direction.SOUTH: {"R": Direction.WEST, "L": Direction.EAST},
-    Direction.WEST: {"R": Direction.NORTH, "L": Direction.SOUTH},
-    Direction.EAST: {"R": Direction.SOUTH, "L": Direction.NORTH},
+    D.NORTH: {"R": D.EAST, "L": D.WEST},
+    D.SOUTH: {"R": D.WEST, "L": D.EAST},
+    D.WEST: {"R": D.NORTH, "L": D.SOUTH},
+    D.EAST: {"R": D.SOUTH, "L": D.NORTH},
 }
 
 
@@ -14,7 +14,7 @@ class Solution:
 
     def part_a(self):
         start = pos = (0, 0)
-        direction = Direction.NORTH
+        direction = D.NORTH
         for move in self.moves:
             direction = ROTATE[direction][move[0]]
             pos = t_sum(pos, t_koef(move[1], direction))
@@ -23,7 +23,7 @@ class Solution:
     def part_b(self):
         start = pos = (0, 0)
         visited = {start}
-        direction = Direction.NORTH
+        direction = D.NORTH
         for move in self.moves:
             direction = ROTATE[direction][move[0]]
             for step in range(move[1]):
