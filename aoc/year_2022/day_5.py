@@ -2,7 +2,9 @@ import copy
 import re
 import string
 
-from aoc import Input
+import pytest
+
+from aoc import Input, get_test_cases, TestCase
 
 
 class Solution:
@@ -36,13 +38,6 @@ class Solution:
         return "".join([stack[-1] for stack in part_b if stack])
 
 
-def test_simple():
-    solution = Solution(Input(0))
-    assert solution.part_a() == "CMZ"
-    assert solution.part_b() == "MCD"
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == "VPCDMSLWJ"
-    assert solution.part_b() == "TPWCGNCCG"
+@pytest.mark.parametrize("tc", get_test_cases(), ids=str)
+def test_case(tc: TestCase):
+    tc.assertion(Solution)

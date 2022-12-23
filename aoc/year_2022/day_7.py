@@ -1,4 +1,6 @@
-from aoc import Input
+import pytest
+
+from aoc import Input, get_test_cases, TestCase
 
 
 class Solution:
@@ -66,13 +68,6 @@ class Solution:
         return best
 
 
-def test_simple():
-    solution = Solution(Input(1))
-    assert solution.part_a() == 95437
-    assert solution.part_b() == 24933642
-
-
-def test_puzzle():
-    solution = Solution(Input())
-    assert solution.part_a() == 1845346
-    assert solution.part_b() == 3636703
+@pytest.mark.parametrize("tc", get_test_cases(), ids=str)
+def test_case(tc: TestCase):
+    tc.assertion(Solution)
