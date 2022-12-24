@@ -1,8 +1,10 @@
 import html
 import re
+import shutil
 from html.parser import HTMLParser
 
 from utils import Context, slice_content
+from html2image import Html2Image
 
 
 class AoCHTMLParser(HTMLParser):
@@ -64,11 +66,14 @@ def build_year(year, src=None):
             src = f.read()
     main_content = slice_content(src, "<main>", "</main>")[0].strip()
     groups = (
-        re.compile(r"^(<style>(.*)</style>\s)?<pre class=\"calendar\">(.*)</pre>.*$", re.DOTALL)
+        re.compile(
+            r"^(<style>(.*)</style>\s)?(<pre class=\"calendar\">.*</pre>)(\s<div class=\"calendar-bkg\">.*</div>)?$",
+            re.DOTALL,
+        )
         .match(main_content)
         .groups()
     )
-    _ = groups[0]  # styles
+    styles = groups[1]  # styles
     calendar = groups[2]
     match = re.compile(r"^(.*)<span id=\"calendar-countdown\"></span><script>(.*)</script>(.*)$", re.DOTALL).match(
         calendar
@@ -79,26 +84,42 @@ def build_year(year, src=None):
     else:
         days = calendar
 
+    # filtered = re.sub(
+    #     r"<a .* class=\"calendar-(.*)\">",
+    #     "",
+    #     days
+    # )
+    # filtered = filtered.replace("</a>", "")
+    styles = (styles or "") + "a:link {text-decoration: none; color: grey;}"
+    hti = Html2Image()
+    if year == 2015:
+        height = 430
+    elif year == 2016:
+        height = 520
+    else:
+        height = 420
+    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(400, height))
+    shutil.copyfile(path[0], f"../resources/{year}/progress.png")
+
     captions = get_day_captions(year)
     parser = AoCHTMLParser()
     parser.feed(days)
 
-    readme = '<pre class="calendar">\n'
-    if parser.headers:
-        readme += "\n".join([h["data"] for h in parser.headers]) + "\n"
+    readme = '<img align="left" style="float: left;" src="progress.png" width="530px">\n\n<pre>\n'
     for day, value in parser.days.items():
-        v = value["data"]
-        v = v[:-3] if v.endswith("**") else v
-        v = html.escape(v)
+        v = ""
+        lines = value["data"].split("\n")
+        for _ in range(len(lines) - 3):
+            v += "&nbsp;\n"
         if day in captions:
-            v += f"\t{captions[day]}"
+            v += captions[day]
+        else:
+            v += "&nbsp;"
         readme += v + "\n"
-    if parser.footers:
-        readme += "\n".join([f["data"] for f in parser.footers]) + "\n"
     readme += "</pre>\n"
     with open(f"../resources/{year}/README.md", "w") as f:
         f.write(readme)
 
 
 if __name__ == "__main__":
-    build_year(2015)
+    build_year(2022)
