@@ -1,10 +1,6 @@
-<div>
-&nbsp;
-<img align="left" style="float: left;" src="progress.png" width="530px">
-</div>
+<img align="left" src="progress.png" width="530px">
 
 <pre>
-&nbsp;
 &nbsp;
 &nbsp;
 <a href='day/24'>Day 24: Blizzard Basin</a>

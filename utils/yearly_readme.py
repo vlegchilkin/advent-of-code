@@ -95,6 +95,9 @@ def build_year(year, src=None):
     readme = '<img align="left" style="float: left;" src="progress.png" width="530px">\n\n<pre>\n'
     for day, value in parser.days.items():
         v = ""
+        lines = value["data"].split("\n")
+        for _ in range(len(lines) - 3):
+            v += "&nbsp;\n"
         if day in captions:
             v += captions[day]
         else:
@@ -106,4 +109,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2021)
+    build_year(2020)
