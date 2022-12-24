@@ -92,11 +92,11 @@ def build_year(year, src=None):
     parser = AoCHTMLParser()
     parser.feed(days)
 
-    readme = '<img align="left" style="float: left;" src="progress.png" width="500px">\n\n<pre class="calendar">\n'
+    readme = '<img align="left" style="float: left;" src="progress.png" width="525px">\n\n<pre>\n'
     for day, value in parser.days.items():
         v = ""
         if day in captions:
-            v += f"\t{captions[day]}"
+            v += f"{captions[day]}"
         readme += v + "\n"
     readme += "</pre>\n"
     with open(f"../resources/{year}/README.md", "w") as f:
