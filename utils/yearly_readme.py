@@ -64,6 +64,10 @@ def build_year(year, src=None):
     if not src:
         with open(f"../resources/{year}/readme.src") as f:
             src = f.read()
+    else:
+        with open(f"../resources/{year}/readme.src", "w") as f:
+            f.write(src)
+
     main_content = slice_content(src, "<main>", "</main>")[0].strip()
     groups = (
         re.compile(
@@ -122,4 +126,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2022)
+    build_year(2016)

@@ -48,4 +48,4 @@ if __name__ == "__main__":
             input_i_file.write(parser.output)
 
     year_page = context.request_year().content.decode("utf-8")
-    build_year(context.year, year_page)
+    build_year(int(context.year), year_page)
