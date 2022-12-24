@@ -1,6 +1,6 @@
 <img align="left" style="float: left;" src="progress.png" width="530px">
 
-<pre>
+<pre style="background-color: transparent;">
 &nbsp;
 &nbsp;
 &nbsp;
