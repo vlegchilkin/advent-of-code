@@ -65,7 +65,14 @@ def build_year(year, src=None):
         with open(f"../resources/{year}/readme.src") as f:
             src = f.read()
     main_content = slice_content(src, "<main>", "</main>")[0].strip()
-    groups = re.compile(r"^(<style>(.*)</style>\s)?(.*)$", re.DOTALL).match(main_content).groups()
+    groups = (
+        re.compile(
+            r"^(<style>(.*)</style>\s)?(<pre class=\"calendar\">.*</pre>)(\s<div class=\"calendar-bkg\">.*</div>)?$",
+            re.DOTALL,
+        )
+        .match(main_content)
+        .groups()
+    )
     styles = groups[1]  # styles
     calendar = groups[2]
     match = re.compile(r"^(.*)<span id=\"calendar-countdown\"></span><script>(.*)</script>(.*)$", re.DOTALL).match(
@@ -83,9 +90,15 @@ def build_year(year, src=None):
     #     days
     # )
     # filtered = filtered.replace("</a>", "")
-    styles = styles + "a:link {text-decoration: none; color: grey;}"
+    styles = (styles or "") + "a:link {text-decoration: none; color: grey;}"
     hti = Html2Image()
-    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(400, 420))
+    if year == 2015:
+        height = 430
+    elif year == 2016:
+        height = 520
+    else:
+        height = 420
+    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(400, height))
     shutil.copyfile(path[0], f"../resources/{year}/progress.png")
 
     captions = get_day_captions(year)
@@ -109,4 +122,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2020)
+    build_year(2022)
