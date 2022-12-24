@@ -1,4 +1,4 @@
-<img align="left" style="float: left;" src="progress.png" width="525px">
+<img align="left" style="float: left;" src="progress.png" width="530px">
 
 <pre>
 &nbsp;
