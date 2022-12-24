@@ -1,4 +1,4 @@
-<img align="left" style="float: left;" src="progress.png" width="500px">
+<img align="left" style="float: left;" src="progress.png" width="550px">
 
 <pre class="calendar">
 
