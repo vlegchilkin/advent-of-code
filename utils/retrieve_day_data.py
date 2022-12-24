@@ -11,9 +11,6 @@ from utils.yearly_readme import build_year
 if __name__ == "__main__":
     context = Context(*sys.argv[1:])
 
-    year_page = context.request_year().content.decode("utf-8")
-    build_year(context.year, year_page)
-
     if not (source_file := context.source(f"day_{context.day}.py")).exists():
         source_file.copy(day_template.__file__)
 
@@ -49,3 +46,6 @@ if __name__ == "__main__":
             parser = AoCHTMLParser()
             parser.feed(unescaped)
             input_i_file.write(parser.output)
+
+    year_page = context.request_year().content.decode("utf-8")
+    build_year(context.year, year_page)
