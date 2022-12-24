@@ -85,7 +85,7 @@ def build_year(year, src=None):
     # filtered = filtered.replace("</a>", "")
     styles = styles + "a:link {text-decoration: none; color: grey;}"
     hti = Html2Image()
-    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(400, 400))
+    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(300, 300))
     shutil.copyfile(path[0], f"../resources/{year}/progress.png")
 
     captions = get_day_captions(year)
