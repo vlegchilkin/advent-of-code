@@ -1,8 +1,6 @@
-<img align="left" style="float: left;" src="progress.png">
+<img align="left" style="float: left;" src="progress.png" width="500px">
 
 <pre class="calendar">
-
-
 
 	<a href='day/24'>Day 24: Blizzard Basin</a>
 	<a href='day/23'>Day 23: Unstable Diffusion</a>

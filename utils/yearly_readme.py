@@ -85,14 +85,14 @@ def build_year(year, src=None):
     # filtered = filtered.replace("</a>", "")
     styles = styles + "a:link {text-decoration: none; color: grey;}"
     hti = Html2Image()
-    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(300, 300))
+    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(400, 420))
     shutil.copyfile(path[0], f"../resources/{year}/progress.png")
 
     captions = get_day_captions(year)
     parser = AoCHTMLParser()
     parser.feed(days)
 
-    readme = '<img align="left" style="float: left;" src="progress.png" width="500">\n\n<pre class="calendar">\n'
+    readme = '<img align="left" style="float: left;" src="progress.png" width="500px">\n\n<pre class="calendar">\n'
     for day, value in parser.days.items():
         v = ""
         if day in captions:
