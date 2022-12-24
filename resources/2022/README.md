@@ -1,9 +1,9 @@
 <img align="left" style="float: left;" src="progress.png" width="525px">
 
 <pre>
-
-
-
+&nbsp;
+&nbsp;
+&nbsp;
 <a href='day/24'>Day 24: Blizzard Basin</a>
 <a href='day/23'>Day 23: Unstable Diffusion</a>
 <a href='day/22'>Day 22: Monkey Map</a>
