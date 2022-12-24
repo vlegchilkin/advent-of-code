@@ -111,6 +111,11 @@ def build_year(year, src=None):
     parser.feed(days)
 
     readme = '<img align="left" style="float: left;" src="progress.png" width="530px">\n\n<pre>\n'
+
+    for h in parser.headers:
+        for _ in range(len(h["data"].split("\n")) - 1):
+            readme += "&nbsp;\n"
+
     for day, value in parser.days.items():
         v = ""
         lines = value["data"].split("\n")
@@ -121,10 +126,15 @@ def build_year(year, src=None):
         else:
             v += "&nbsp;"
         readme += v + "\n"
+
+    for h in parser.footers:
+        for _ in range(len(h["data"].split("\n")) - 1):
+            readme += "&nbsp;\n"
+
     readme += "</pre>\n"
     with open(f"../resources/{year}/README.md", "w") as f:
         f.write(readme)
 
 
 if __name__ == "__main__":
-    build_year(2022)
+    build_year(2015)
