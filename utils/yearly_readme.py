@@ -96,13 +96,14 @@ def build_year(year, src=None):
     # filtered = filtered.replace("</a>", "")
     styles = (styles or "") + "a:link {text-decoration: none; color: grey;}"
     hti = Html2Image()
+    height = 440
     if year == 2015:
-        height = 430
+        height += 10
     elif year == 2016:
-        height = 520
-    else:
-        height = 420
-    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(400, height))
+        height += 100
+    s = len('<pre class="calender">')
+    html_str = days[:s] + "&nbsp;\n" + days[s:]
+    path = hti.screenshot(html_str=html_str, css_str=styles, save_as=f"{year}.png", size=(400, height))
     shutil.copyfile(path[0], f"../resources/{year}/progress.png")
 
     captions = get_day_captions(year)
@@ -113,7 +114,7 @@ def build_year(year, src=None):
     for day, value in parser.days.items():
         v = ""
         lines = value["data"].split("\n")
-        for _ in range(len(lines) - 3):
+        for _ in range(len(lines) - 2):
             v += "&nbsp;\n"
         if day in captions:
             v += captions[day]
@@ -126,4 +127,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2016)
+    build_year(2022)
