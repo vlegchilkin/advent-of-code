@@ -1,4 +1,4 @@
-<img align="left" style="float: left;" src="progress.png" width="640px">
+<img align="left" style="float: left;" src="progress.png" width="645px">
 
 \
 \
