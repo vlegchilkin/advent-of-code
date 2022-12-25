@@ -1,4 +1,3 @@
-import html
 import re
 import shutil
 from html.parser import HTMLParser
@@ -119,7 +118,7 @@ def build_year(year, src=None):
     for day, value in parser.days.items():
         v = ""
         lines = value["data"].split("\n")
-        for _ in range(len(lines) - 2):
+        for _ in range(len(lines) - 3):
             v += "&nbsp;\n"
         if day in captions:
             v += captions[day]
