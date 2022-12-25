@@ -161,6 +161,13 @@ D_TURNS = {
 
 D_OPPOSITE = {D.EAST: D.WEST, D.WEST: D.EAST, D.NORTH: D.SOUTH, D.SOUTH: D.NORTH}
 
+D_MOVES = {
+    "<": D.WEST,
+    ">": D.EAST,
+    "^": D.NORTH,
+    "v": D.SOUTH,
+}
+
 ItFunc: TypeAlias = Callable[[int, int, int], tuple[int, int]]
 
 

@@ -1,8 +1,6 @@
 import pytest
 import numpy as np
-from aoc import Input, get_puzzles, PuzzleData, D, Spacer, D_BORDERS, t_sum
-
-DIRECTIONS = {">": D.EAST, "<": D.WEST, "^": D.NORTH, "v": D.SOUTH}
+from aoc import Input, get_puzzles, PuzzleData, D, Spacer, D_BORDERS, t_sum, D_MOVES
 
 
 class Solution:
@@ -19,11 +17,11 @@ class Solution:
         else:
             raise ValueError("Wrong exit configuration (multiple or none)")
 
-        self.blizzards = {d: set() for d in DIRECTIONS.values()}
+        self.blizzards = {d: set() for d in D_MOVES.values()}
         maze = data[1:-1, 1:-1]
         for pos, c in np.ndenumerate(maze):
-            if c in DIRECTIONS:
-                self.blizzards[DIRECTIONS[c]].add(pos)
+            if c in D_MOVES:
+                self.blizzards[D_MOVES[c]].add(pos)
         self.spacer = Spacer(*maze.shape, default_directions=D_BORDERS)
 
     def blizzards_step(self, blizzards):
