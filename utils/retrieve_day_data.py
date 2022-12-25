@@ -41,7 +41,7 @@ if __name__ == "__main__":
         groups = [main_content, "", "", ""]
 
     context.resource("README.md").write(md(groups[0] + groups[2]))
-    context.resource("puzzle.out").write((groups[1] or "") + "\n" + (groups[3] or "") + "\n")
+    context.resource("puzzle.out").write((groups[1] or "") + "\n" + (groups[4] or "") + "\n")
 
     for i, pre_content in enumerate(slice_content(main_content, "<pre><code>", "</code></pre>")):
         if not (input_i_file := context.resource(f"{i}.in")).exists():
