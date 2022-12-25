@@ -1,5 +1,6 @@
-<img align="left" style="float: left;" src="progress.png" width="630px">
+<img align="left" style="float: left;" src="progress.png" width="700px">
 
+\
 \
 [Day 25: Full of Hot Air](day/25)\
 [Day 24: Blizzard Basin](day/24)\
