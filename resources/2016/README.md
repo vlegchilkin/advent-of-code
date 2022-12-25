@@ -29,5 +29,10 @@
 &nbsp;
 &nbsp;
 &nbsp;
+&nbsp;
 <a href='day/1'>Day 1: No Time for a Taxicab</a>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 </pre>

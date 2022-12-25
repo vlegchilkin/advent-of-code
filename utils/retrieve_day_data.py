@@ -25,12 +25,15 @@ if __name__ == "__main__":
     r_src = context.request_day()
     page = r_src.content.decode("utf-8")
     main_content = slice_content(page, "<main>", "</main>")[0].strip()
+    r = re.compile(r"^<style>(.*)</style>(.*)$", re.DOTALL)
+    if (matcher := r.match(main_content)) and (groups := matcher.groups()):
+        main_content = groups[1]
 
     r = re.compile(
         r"^<article class=\"day-desc\">(.*)</article>\n"
         r"<p>Your puzzle answer was <code>(.*)</code>.</p>"
         r"<article class=\"day-desc\">(.*)</article>\n"
-        r"<p>Your puzzle answer was <code>(.*)</code>.</p>.*$",
+        r"(<p>Your puzzle answer was <code>(.*)</code>.</p>)?.*$",
         re.DOTALL,
     )
     if not (matcher := r.match(main_content)) or not (groups := matcher.groups()):
@@ -38,7 +41,7 @@ if __name__ == "__main__":
         groups = [main_content, "", "", ""]
 
     context.resource("README.md").write(md(groups[0] + groups[2]))
-    context.resource("puzzle.out").write(groups[1] + "\n" + groups[3] + "\n")
+    context.resource("puzzle.out").write((groups[1] or "") + "\n" + (groups[3] or "") + "\n")
 
     for i, pre_content in enumerate(slice_content(main_content, "<pre><code>", "</code></pre>")):
         if not (input_i_file := context.resource(f"{i}.in")).exists():

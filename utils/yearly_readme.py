@@ -71,7 +71,7 @@ def build_year(year, src=None):
     main_content = slice_content(src, "<main>", "</main>")[0].strip()
     groups = (
         re.compile(
-            r"^(<style>(.*)</style>\s)?(<pre class=\"calendar\">.*</pre>)(\s<div class=\"calendar-bkg\">.*</div>)?$",
+            r"^(<style>(.*)</style>\s)?(<pre class=\"calendar.*</pre>)(\s<div class=\"calendar-bkg\">.*</div>)?$",
             re.DOTALL,
         )
         .match(main_content)
@@ -96,13 +96,14 @@ def build_year(year, src=None):
     # filtered = filtered.replace("</a>", "")
     styles = (styles or "") + "a:link {text-decoration: none; color: grey;}"
     hti = Html2Image()
+    height = 440
     if year == 2015:
-        height = 430
+        height += 10
     elif year == 2016:
-        height = 520
-    else:
-        height = 420
-    path = hti.screenshot(html_str=days, css_str=styles, save_as=f"{year}.png", size=(400, height))
+        height += 100
+    s = len('<pre class="calender">')
+    html_str = days[:s] + "&nbsp;\n" + days[s:]
+    path = hti.screenshot(html_str=html_str, css_str=styles, save_as=f"{year}.png", size=(400, height))
     shutil.copyfile(path[0], f"../resources/{year}/progress.png")
 
     captions = get_day_captions(year)
@@ -110,20 +111,30 @@ def build_year(year, src=None):
     parser.feed(days)
 
     readme = '<img align="left" style="float: left;" src="progress.png" width="530px">\n\n<pre>\n'
+
+    for h in parser.headers:
+        for _ in range(len(h["data"].split("\n")) - 1):
+            readme += "&nbsp;\n"
+
     for day, value in parser.days.items():
         v = ""
         lines = value["data"].split("\n")
-        for _ in range(len(lines) - 3):
+        for _ in range(len(lines) - 2):
             v += "&nbsp;\n"
         if day in captions:
             v += captions[day]
         else:
             v += "&nbsp;"
         readme += v + "\n"
+
+    for h in parser.footers:
+        for _ in range(len(h["data"].split("\n")) - 1):
+            readme += "&nbsp;\n"
+
     readme += "</pre>\n"
     with open(f"../resources/{year}/README.md", "w") as f:
         f.write(readme)
 
 
 if __name__ == "__main__":
-    build_year(2016)
+    build_year(2022)
