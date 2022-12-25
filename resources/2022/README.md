@@ -1,4 +1,4 @@
-<img align="left" style="float: left;" src="progress.png" width="530px">
+<img align="left" style="float: left;" src="progress.png" width="630px">
 
 \
 [Day 25: Full of Hot Air](day/25)\
