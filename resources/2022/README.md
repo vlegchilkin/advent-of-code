@@ -2,7 +2,6 @@
 
 <pre>
 &nbsp;
-&nbsp;
 <a href='day/25'>Day 25: Full of Hot Air</a>
 <a href='day/24'>Day 24: Blizzard Basin</a>
 <a href='day/23'>Day 23: Unstable Diffusion</a>
