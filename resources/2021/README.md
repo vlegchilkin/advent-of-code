@@ -1,4 +1,4 @@
-<img align="left" style="float: left;" src="progress.png" width="530px">
+<img align="left" style="float: left;" src="progress.png" width="550px">
 
 <pre>
 <a href='day/1'>Day 1: Sonar Sweep</a>
