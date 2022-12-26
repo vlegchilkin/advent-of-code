@@ -99,7 +99,7 @@ def test_simple():
     pd = PuzzleData("0")
     solution = Solution(pd.inp)
     assert solution.part_a() == (int(pd.out.a), [9, 12])
-    # assert solution.part_b() == (int(pd.out.b), [56, 62])
+    # part b needs to be adjusted, doesn't fit time limits now [assert solution.part_b() == (int(pd.out.b), [56, 62])]
 
 
 def test_challenge():

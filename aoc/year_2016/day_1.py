@@ -28,7 +28,7 @@ class Solution:
         direction = D.NORTH
         for move in self.moves:
             direction = ROTATE[direction][move[0]]
-            for step in range(move[1]):
+            for _ in range(move[1]):
                 pos = t_sum(pos, direction)
                 if pos in visited:
                     return dist(start, pos)
