@@ -19,7 +19,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/7'>Day 7: Some Assembly Required</a>
 <a href='day/6'>Day 6: Probably a Fire Hazard</a>
 <a href='day/5'>Day 5: Doesn't He Have Intern-Elves For This?</a>
 <a href='day/4'>Day 4: The Ideal Stocking Stuffer</a>
