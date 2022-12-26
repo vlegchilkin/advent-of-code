@@ -17,7 +17,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/9'>Day 9: All in a Single Night</a>
 <a href='day/8'>Day 8: Matchsticks</a>
 <a href='day/7'>Day 7: Some Assembly Required</a>
 <a href='day/6'>Day 6: Probably a Fire Hazard</a>
