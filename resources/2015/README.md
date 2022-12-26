@@ -16,7 +16,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/10'>Day 10: Elves Look, Elves Say</a>
 <a href='day/9'>Day 9: All in a Single Night</a>
 <a href='day/8'>Day 8: Matchsticks</a>
 <a href='day/7'>Day 7: Some Assembly Required</a>
