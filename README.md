@@ -19,11 +19,15 @@ My https://adventofcode.com/ solutions
 
 ## [2022](resources/2022)
 
-[<img align="left" src="resources/2022/progress.png" width="530px">](resources/2022)
+[<img src="resources/2022/progress.png" width="530px">](resources/2022)
+
+xxx
 
 ## [2021](resources/2021)
 
-[<img align="right" src="resources/2021/progress.png" width="530px">](resources/2021)
+[<img src="resources/2021/progress.png" width="530px">](resources/2021)
+
+xxxx
 
 ## [2020](resources/2020)
 
