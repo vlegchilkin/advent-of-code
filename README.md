@@ -25,7 +25,7 @@ xxx
 
 ## [2021](resources/2021)
 
-[<img src="resources/2021/progress.png" width="530px">](resources/2021)
+[<img align="right" src="resources/2021/progress.png" width="530px">](resources/2021)
 
 xxxx
 
