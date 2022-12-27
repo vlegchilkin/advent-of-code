@@ -24,36 +24,54 @@ My https://adventofcode.com/ solutions
 </div>
 
 
-<div align="right">
+<div align="center">
 
 ## [2021](resources/2021)
 [<img src="resources/2021/progress.png" width="530px">](resources/2021)
 
 </div>
 
-## [2020](resources/2020)
+<div align="right">
 
-[<img align="left" src="resources/2020/progress.png" width="530px">](resources/2020)
+## [2020](resources/2020)
+[<img src="resources/2020/progress.png" width="530px">](resources/2020)
+
+</div>
+
+<div align="center">
 
 ## [2019](resources/2019)
+[<img src="resources/2019/progress.png" width="530px">](resources/2019)
 
-[<img align="right" src="resources/2019/progress.png" width="530px">](resources/2019)
+</div>
+
+<div align="left">
 
 ## [2018](resources/2018)
+[<img src="resources/2018/progress.png" width="530px">](resources/2018)
 
-[<img align="left" src="resources/2018/progress.png" width="530px">](resources/2018)
+</div>
+
+<div align="center">
 
 ## [2017](resources/2017)
+[<img src="resources/2017/progress.png" width="530px">](resources/2017)
 
-[<img align="right" src="resources/2017/progress.png" width="530px">](resources/2017)
+</div>
 
-## [2016](resources/2016) 
+<div align="right">
 
-[<img align="left" src="resources/2016/progress.png" width="530px">](resources/2016)
+## [2016](resources/2016)
+[<img src="resources/2016/progress.png" width="530px">](resources/2016)
 
-## [2015](resources/2015) 
+</div>
 
-[<img align="right" src="resources/2015/progress.png" width="530px">](resources/2015)
+<div align="center">
+
+## [2015](resources/2015)
+[<img src="resources/2015/progress.png" width="530px">](resources/2015)
+
+</div>
 
 
 ## Solutions
