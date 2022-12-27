@@ -10,7 +10,6 @@ import numpy as np
 from pathlib import Path
 from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
 
-import pytest
 from addict import Dict
 
 from ttp import ttp
@@ -71,8 +70,8 @@ class Input:
         with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.in", "r") as file:
             self._text = file.read()
 
-    def get_lines(self) -> list:
-        return self._text.splitlines()
+    def get_lines(self, func=lambda x: x) -> list:
+        return [func(line) for line in self._text.splitlines()]
 
     def get_iter(self) -> Iterator[str]:
         return iter(self.get_lines())
