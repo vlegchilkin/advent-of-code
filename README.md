@@ -22,7 +22,7 @@ My https://adventofcode.com/ solutions
 
 
 ## [2021](resources/2021)
-[<img align="left" style="float: left;" src="resources/2021/progress.png" width="530px">](resources/2021)
+[<img align="left" style="float: right;" src="resources/2021/progress.png" width="530px">](resources/2021)
 
 ## [2020](resources/2020)
 <img align="left" style="float: left;" src="resources/2020/progress.png" width="530px">
