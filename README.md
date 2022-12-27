@@ -17,9 +17,9 @@ My https://adventofcode.com/ solutions
 </div>
 
 
-## [2022](resources/2022)
-
 <div>
+
+## [2022](resources/2022)
 
 [<img align="left" src="resources/2022/progress.png" width="530px">](resources/2022)
 
