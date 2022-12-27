@@ -1,5 +1,6 @@
 import inspect
 import os
+from functools import reduce
 from itertools import product
 
 import math
@@ -344,3 +345,9 @@ def t_minmax(items):
             )
         case _:
             raise ValueError("Not implemented for dimension")
+
+
+class AocMath:
+    @staticmethod
+    def factors(n):
+        return set(reduce(list.__add__, ([i, n // i] for i in range(1, int(n**0.5) + 1) if n % i == 0)))
