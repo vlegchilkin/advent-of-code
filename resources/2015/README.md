@@ -7,7 +7,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/19'>Day 19: Medicine for Rudolph</a>
 <a href='day/18'>Day 18: Like a GIF For Your Yard</a>
 <a href='day/17'>Day 17: No Such Thing as Too Much</a>
 <a href='day/16'>Day 16: Aunt Sue</a>
