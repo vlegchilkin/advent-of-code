@@ -17,16 +17,29 @@ My https://adventofcode.com/ solutions
 </div>
 
 
-## Puzzles
+## [2022](resources/2022)
+<img align="left" style="float: left;" src="resources/2022/progress.png" width="530px">
 
-[2015](resources/2015) 
-[2016](resources/2016) 
-[2017](resources/2017)
-[2018](resources/2018)
-[2019](resources/2019)
-[2020](resources/2020)
-[2021](resources/2021)
-[2022](resources/2022)
+## [2021](resources/2021)
+<img align="left" style="float: left;" src="resources/2021/progress.png" width="530px">
+
+## [2020](resources/2020)
+<img align="left" style="float: left;" src="resources/2020/progress.png" width="530px">
+
+## [2019](resources/2019)
+<img align="left" style="float: left;" src="resources/2019/progress.png" width="530px">
+
+## [2018](resources/2018)
+<img align="left" style="float: left;" src="resources/2018/progress.png" width="530px">
+
+## [2017](resources/2017)
+<img align="left" style="float: left;" src="resources/2017/progress.png" width="530px">
+
+## [2016](resources/2016) 
+<img align="left" style="float: left;" src="resources/2016/progress.png" width="530px">
+
+## [2015](resources/2015) 
+<img align="left" style="float: left;" src="resources/2015/progress.png" width="530px">
 
 
 ## Solutions
