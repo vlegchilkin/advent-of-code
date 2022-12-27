@@ -12,30 +12,82 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
 
 # Advent of Code
+
 My https://adventofcode.com/ solutions
 
-</div>
-
-
-## Puzzles
-
-[2015](resources/2015) 
-[2016](resources/2016) 
-[2017](resources/2017)
-[2018](resources/2018)
-[2019](resources/2019)
-[2020](resources/2020)
-[2021](resources/2021)
-[2022](resources/2022)
-
-
-## Solutions
-
-[2015](aoc/year_2015) 
-[2016](aoc/year_2016) 
+Python:
+[2015](aoc/year_2015)
+[2016](aoc/year_2016)
 [2017](aoc/year_2017)
 [2018](aoc/year_2018)
 [2019](aoc/year_2019)
 [2020](aoc/year_2020)
 [2021](aoc/year_2021)
 [2022](aoc/year_2022)
+
+</div>
+
+<div align="left">
+
+## [2022](resources/2022)
+
+[<img src="resources/2022/progress.png" width="530px">](resources/2022)
+
+</div>
+
+<div align="center">
+
+## [2021](resources/2021)
+
+[<img src="resources/2021/progress.png" width="530px">](resources/2021)
+
+</div>
+
+<div align="right">
+
+## [2020](resources/2020)
+
+[<img src="resources/2020/progress.png" width="530px">](resources/2020)
+
+</div>
+
+<div align="center">
+
+## [2019](resources/2019)
+
+[<img src="resources/2019/progress.png" width="530px">](resources/2019)
+
+</div>
+
+<div align="left">
+
+## [2018](resources/2018)
+
+[<img src="resources/2018/progress.png" width="530px">](resources/2018)
+
+</div>
+
+<div align="center">
+
+## [2017](resources/2017)
+
+[<img src="resources/2017/progress.png" width="530px">](resources/2017)
+
+</div>
+
+<div align="right">
+
+## [2016](resources/2016)
+
+[<img src="resources/2016/progress.png" width="530px">](resources/2016)
+
+</div>
+
+<div align="center">
+
+## [2015](resources/2015)
+
+[<img src="resources/2015/progress.png" width="530px">](resources/2015)
+
+</div>
+
