@@ -94,12 +94,12 @@ class Input:
         objects = self.get_objects(ttp_template)
         return [list(o.values()) for o in objects]
 
-    def get_array(self, decoder: Optional[dict] = None, *, sep: str = None) -> np.ndarray:
+    def get_array(self, decoder: Optional[Callable[[str], Any]] = None, *, sep: str = None) -> np.ndarray:
         lines = self._text.splitlines()
 
         def decode(line: str) -> list:
             characters = list(line) if not sep else line.split(sep)
-            return [decoder[c] for c in characters] if decoder else characters
+            return [decoder(c) for c in characters] if decoder else characters
 
         return np.array([decode(line) for line in lines])
 
@@ -167,21 +167,23 @@ D_MOVES = {
     "v": D.SOUTH,
 }
 
-ItFunc: TypeAlias = Callable[[int, int, int], tuple[int, int]]
+ItFunc: TypeAlias = Callable[[int, int], Iterable[tuple[int, int]]]
 
 
 class IT:
-    TOP_LR: ItFunc = lambda x, n, m: (0, x)
-    TOP_RL: ItFunc = lambda x, n, m: (0, m - x - 1)
+    TOP_LR: ItFunc = lambda n, m: [(0, x) for x in range(m)]
+    TOP_RL: ItFunc = lambda n, m: [(0, m - x - 1) for x in range(m)]
 
-    BOTTOM_LR: ItFunc = lambda x, n, m: (n - 1, x)
-    BOTTOM_RL: ItFunc = lambda x, n, m: (n - 1, m - x - 1)
+    BOTTOM_LR: ItFunc = lambda n, m: [(n - 1, x) for x in range(m)]
+    BOTTOM_RL: ItFunc = lambda n, m: [(n - 1, m - x - 1) for x in range(m)]
 
-    LEFT_TB: ItFunc = lambda x, n, m: (x, 0)
-    LEFT_BT: ItFunc = lambda x, n, m: (n - x - 1, 0)
+    LEFT_TB: ItFunc = lambda n, m: [(x, 0) for x in range(n)]
+    LEFT_BT: ItFunc = lambda n, m: [(n - x - 1, 0) for x in range(n)]
 
-    RIGHT_TB: ItFunc = lambda x, n, m: (x, m - 1)
-    RIGHT_BT: ItFunc = lambda x, n, m: (n - x - 1, m - 1)
+    RIGHT_TB: ItFunc = lambda n, m: [(x, m - 1) for x in range(n)]
+    RIGHT_BT: ItFunc = lambda n, m: [(n - x - 1, m - 1) for x in range(n)]
+
+    CORNERS: ItFunc = lambda n, m: [(0, 0), (0, m - 1), (n - 1, m - 1), (n - 1, 0)]
 
 
 class Spacer:
@@ -211,8 +213,7 @@ class Spacer:
                     yield i, j
 
         def it_func_iter():
-            for x in range(self.n if it in [IT.LEFT_BT, IT.LEFT_TB, IT.RIGHT_BT, IT.RIGHT_BT] else self.m):
-                pos = it(x, self.n, self.m)
+            for pos in it(self.n, self.m):
                 if test and not test(pos):
                     continue
                 yield pos
@@ -243,6 +244,10 @@ class Spacer:
                 y += self.m
 
             return x, y
+
+    @staticmethod
+    def filter(array: np.ndarray, criteria: Callable[[tuple[int, int]], set] = lambda v: v) -> set:
+        return {pos for pos, value in np.ndenumerate(array) if criteria(value)}
 
 
 def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:

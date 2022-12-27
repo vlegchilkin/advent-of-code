@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 
 from aoc import Input, D, Spacer, t_sum, t_minmax, get_puzzles, PuzzleData
@@ -7,9 +6,9 @@ from aoc import Input, D, Spacer, t_sum, t_minmax, get_puzzles, PuzzleData
 class Solution:
     def __init__(self, inp: Input, max_rounds=1000):
         self.max_rounds = max_rounds
-        inp_arr = inp.get_array({"#": 1, ".": 0})
+        inp_arr = inp.get_array(lambda c: c == "#")
         self.spacer = Spacer(*t_sum(inp_arr.shape, (2 * max_rounds, 2 * max_rounds)))
-        self.elves = {(x + max_rounds, y + max_rounds) for (x, y), value in np.ndenumerate(inp_arr) if value}
+        self.elves = {(x + max_rounds, y + max_rounds) for x, y in Spacer.filter(inp_arr)}
         self.turns = [
             (D.NORTH, [D.NORTH_WEST, D.NORTH, D.NORTH_EAST]),
             (D.SOUTH, [D.SOUTH_WEST, D.SOUTH, D.SOUTH_EAST]),
