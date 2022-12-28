@@ -7,7 +7,7 @@
 &nbsp;
 <a href='day/21'>Day 21: RPG Simulator 20XX</a>
 <a href='day/20'>Day 20: Infinite Elves and Infinite Houses</a>
-&nbsp;
+<a href='day/19'>Day 19: Medicine for Rudolph</a>
 <a href='day/18'>Day 18: Like a GIF For Your Yard</a>
 <a href='day/17'>Day 17: No Such Thing as Too Much</a>
 <a href='day/16'>Day 16: Aunt Sue</a>
