@@ -2,41 +2,17 @@ import pytest
 
 from aoc import Input, get_puzzles, PuzzleData
 
-SNAFU = ["=", "-", "0", "1", "2"]
+SNAFU = "=-012"
 
 
 class Solution:
     def __init__(self, inp: Input):
         self.snafu_numbers = inp.get_lines()
-        self.limits = []
-        x, b = 2, 1
-        while len(self.limits) < 21:
-            self.limits.append(x)
-            b *= 5
-            x += 2 * b
-
-    def _to_snafu_arr(self, number: int) -> list[int]:
-        pos, base = 0, 1
-        while self.limits[pos] < abs(number):
-            pos += 1
-            base *= 5
-
-        if pos == 0:
-            return [number] + [0] * (len(self.limits) - 1)
-
-        for i in range(-2, 3):
-            if -self.limits[pos - 1] <= (remains := number - i * base) <= self.limits[pos - 1]:
-                result = self._to_snafu_arr(remains)
-                result[pos] = i
-                return result
 
     def _to_snafu(self, number) -> str:
-        snafu_arr = self._to_snafu_arr(number)
-        snafu_arr.reverse()
-        for i in range(len(self.limits)):
-            if snafu_arr[i] == 0:
-                continue
-            return "".join([SNAFU[c + 2] for c in snafu_arr[i:]])
+        if number == 0:
+            return ""
+        return self._to_snafu((number + 2) // 5) + SNAFU[(number + 2) % 5]
 
     @staticmethod
     def _to_decimal(snafu):
@@ -47,7 +23,7 @@ class Solution:
         return result
 
     def part_a(self):
-        return self._to_snafu(sum([self._to_decimal(snafu) for snafu in self.snafu_numbers]))
+        return self._to_snafu(sum(map(self._to_decimal, self.snafu_numbers)))
 
     def part_b(self):
         return ""
