@@ -3,6 +3,7 @@ import copy
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData
+from aoc.math import INT_OPER
 
 TTP_TEMPLATE = """{{ monkey }}: {{ operation | ORPHRASE  | split(" ")}}"""
 
@@ -23,17 +24,7 @@ class Solution:
         right = self.pre_solve(monkeys, value[2]) if type(value[2]) == str else value[2]
 
         if type(left) == type(right) == int:
-            match value[1]:
-                case "+":
-                    total = left + right
-                case "-":
-                    total = left - right
-                case "*":
-                    total = left * right
-                case "/":
-                    total = left // right
-                case _:
-                    raise ValueError(f"Non-supported operation: {value[1]}")
+            total = INT_OPER[value[1]](left, right)
         else:
             total = [value[1], left, right]
 
