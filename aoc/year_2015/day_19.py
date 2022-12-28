@@ -2,7 +2,7 @@ import string
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, algo
 
 
 class Solution:
@@ -53,43 +53,6 @@ class Solution:
 
         self.molecule = self._normalize([next(inp_iter)])[0]
 
-    def cykParse(self, rules, text):
-        n = len(text)
-
-        # Initialize the table
-        p = [[dict() for _ in range(n)] for _ in range(n)]
-
-        # Filling in the table
-        for j in range(0, n):
-            # Iterate over the rules
-            for lhs, rule in rules.items():
-                for rhs in rule:
-                    # If a terminal is found
-                    if len(rhs) == 1 and rhs[0] == text[j]:
-                        p[j][j][lhs] = 0
-
-            for i in range(j, -1, -1):
-
-                # Iterate over the range i to j + 1
-                for k in range(i, j):
-
-                    # Iterate over the rules
-                    for lhs, rule in rules.items():
-                        rule_weight = 1 if lhs in self.key_nodes else 0
-                        for rhs in rule:
-
-                            # If a terminal is found
-                            if len(rhs) == 2 and rhs[0] in p[i][k] and rhs[1] in p[k + 1][j]:
-                                weight = p[i][k][rhs[0]] + p[k + 1][j][rhs[1]] + rule_weight
-                                if lhs in p[i][j]:
-                                    p[i][j][lhs] = min(p[i][j][lhs], weight)
-                                else:
-                                    p[i][j][lhs] = weight
-
-        # If word can be formed by rules
-        # of given grammar
-        return p[0][n - 1][self.mapping["$"]]
-
     def get_mapped(self, st) -> str:
         if not st:
             return ""
@@ -134,14 +97,17 @@ class Solution:
 
     def part_b(self):
         molecule = self.molecule.lower()
-        return self.cykParse(self.replacements, molecule)
+        rule_weights = {r: 1 for r in self.key_nodes}
+        results = algo.cyk(self.replacements, molecule, rule_weights)
+        print(results)
+        return results[self.mapping["$"]]["weight"]
 
 
 def test_playground():  # Playground here
     solution = Solution(Input())
     # solution = Solution(Input("a"))
     # assert solution.part_a() == 509
-    assert solution.part_b() is None
+    assert solution.part_b() == 195
 
 
 @pytest.mark.skip(reason="solution template, not a test")
