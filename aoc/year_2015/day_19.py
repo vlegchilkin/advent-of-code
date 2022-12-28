@@ -98,9 +98,8 @@ class Solution:
     def part_b(self):
         molecule = self.molecule.lower()
         rule_weights = {r: 1 for r in self.key_nodes}
-        results = algo.cyk(self.replacements, molecule, rule_weights)
-        print(results)
-        return results[self.mapping["$"]]["weight"]
+        weights, _ = algo.cyk(self.replacements, molecule, rule_weights)
+        return weights[self.mapping["$"]]
 
 
 def test_playground():  # Playground here
