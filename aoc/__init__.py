@@ -44,6 +44,10 @@ def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
     return [Dict(obj) for obj in objects]
 
 
+def dataclass_by_template(data_cls, text: str, ttp_template: str):
+    return data_cls(**parse_with_template(text, ttp_template)[0])
+
+
 def _resolve_year_day():
     for s in inspect.stack():
         if match := DAY_SOURCE_REG.match(s.filename):
