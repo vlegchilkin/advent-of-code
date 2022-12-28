@@ -1,3 +1,4 @@
+import copy
 import string
 
 import pytest
@@ -13,43 +14,10 @@ class Solution:
         while line := next(inp_iter).strip():
             rule = self._normalize(line.split(" => "))
             self.replacements.setdefault(rule[0], []).append(rule[1])
+
         for m, v in self.mapping.items():
             if v not in self.replacements:
                 self.replacements[v] = []
-
-        for rep, val in self.replacements.items():
-            if rep != self.mapping["$"]:
-                self.replacements[rep].append(rep.lower())
-
-        self.key_nodes = set(self.replacements)
-        doubles = {}
-        for rep, val in self.replacements.items():
-            for v in val:
-                if len(v) == 2:
-                    doubles[v] = rep
-
-        def split(st):
-            if len(st) > 2:
-                x = split(st[:2]) + split(st[2:])
-                if len(x) > 2:
-                    x = x[0] + split(x[1:])
-                return x
-
-            if st not in doubles:
-                x = self.get_mapped(st)
-                doubles[st] = x
-                self.replacements[x] = [st]
-
-            return doubles[st]
-
-        for rep in list(self.replacements):
-            new_val = []
-            for v in self.replacements[rep]:
-                if len(v) <= 2:
-                    new_val.append(v)
-                else:
-                    new_val.append(split(v))
-            self.replacements[rep] = new_val
 
         self.molecule = self._normalize([next(inp_iter)])[0]
 
@@ -66,7 +34,6 @@ class Solution:
         return self.mapping[st]
 
     def _normalize(self, strs: list[str]) -> list[str]:
-
         result = []
         for s in strs:
             r = ""
@@ -91,25 +58,51 @@ class Solution:
                 for start in range(len(self.molecule) - len(f)):
                     if not self.molecule[start:].startswith(f):
                         continue
-                    all_possible.add(self.molecule[:start] + t + self.molecule[start + len(f) :])
+                    all_possible.add((self.molecule[:start] + t + self.molecule[start + len(f) :]))
 
         return len(all_possible)
 
     def part_b(self):
+        base_rules = set(self.replacements)
+        rules = copy.deepcopy(self.replacements)
+
+        for rep, val in rules.items():
+            if rep != self.mapping["$"]:
+                rules[rep].append(rep.lower())
+
+        doubles = {v: rep for rep, val in rules.items() for v in val if len(v) == 2}
+
+        def split(st):
+            nonlocal doubles
+
+            if len(st) > 2:
+                x = st
+                while len(x) != 2:
+                    x = split(x[:2]) + (split(x[2:]) if len(x) > 3 else x[2])
+                return x
+
+            if st not in doubles:
+                x = self.get_mapped(st)
+                doubles[st] = x
+                rules[x] = [st]
+
+            return doubles[st]
+
+        for rep in list(rules):
+            new_val = []
+            for v in rules[rep]:
+                if len(v) <= 2:
+                    new_val.append(v)
+                else:
+                    new_val.append(split(v))
+            rules[rep] = new_val
+
         molecule = self.molecule.lower()
-        rule_weights = {r: 1 for r in self.key_nodes}
-        weights, _ = algo.cyk(self.replacements, molecule, rule_weights)
+        rule_weights = {r: 1 for r in base_rules}
+        weights, _ = algo.cyk(rules, molecule, rule_weights)
         return weights[self.mapping["$"]]
 
 
-def test_playground():  # Playground here
-    solution = Solution(Input())
-    # solution = Solution(Input("a"))
-    # assert solution.part_a() == 509
-    assert solution.part_b() == 195
-
-
-@pytest.mark.skip(reason="solution template, not a test")
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
     pd.check_solution(Solution)
