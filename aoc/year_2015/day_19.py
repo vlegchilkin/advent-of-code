@@ -52,18 +52,28 @@ class Solution:
         while (finish := self.molecule.find(ending, last)) >= 0:
             subs.append(self.molecule[last : finish + len(ending)])
             last = finish + len(ending)
-        rev = sorted(self.replacements, key=lambda k: len(k[1]))
-
+        rev = sorted(self.replacements, key=lambda k: -1 * (len(k[1]) - len(k[0])))
+        s = [len(r[1]) - len(r[0]) for r in rev]
+        k = sum(s) / len(s)
+        _ = len(self.molecule) / k
         result = 0
-        for mol in subs:
-            result += self.recu(mol, rev)
-
+        mol = self.molecule
+        while len(mol) > 20:
+            print(f"{len(mol)}")
+            for t in rev:
+                if (x := mol.find(t[1])) >= 0:
+                    mol = mol[:x] + t[0] + mol[x + len(t[1]) :]
+                    result += 1
+                    break
+            else:
+                break
+        print(mol)
         return result
 
 
 def test_playground():  # Playground here
     solution = Solution(Input())
-    assert solution.part_a() == 509
+    # assert solution.part_a() == 509
     assert solution.part_b() is None
 
 
