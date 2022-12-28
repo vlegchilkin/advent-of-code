@@ -1,5 +1,6 @@
 import inspect
 import os
+from functools import reduce
 from itertools import product
 
 import math
@@ -41,6 +42,10 @@ def parse_with_template(text: str, ttp_template: str) -> list[Dict]:
     parser.parse()
     objects = parser.result(structure="flat_list")
     return [Dict(obj) for obj in objects]
+
+
+def dataclass_by_template(data_cls, text: str, ttp_template: str):
+    return data_cls(**parse_with_template(text, ttp_template)[0])
 
 
 def _resolve_year_day():
@@ -344,3 +349,9 @@ def t_minmax(items):
             )
         case _:
             raise ValueError("Not implemented for dimension")
+
+
+class AocMath:
+    @staticmethod
+    def factors(n):
+        return set(reduce(list.__add__, ([i, n // i] for i in range(1, int(n**0.5) + 1) if n % i == 0)))
