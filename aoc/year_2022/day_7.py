@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Callable, Any
 
 import pytest
 
@@ -6,78 +7,66 @@ from aoc import Input, get_puzzles, PuzzleData
 
 
 @dataclass
-class Node:
-    parent: "Node" = None
-    children: dict[str, "Node"] = field(default_factory=lambda: dict())
-    files_size: int = 0
-    total: int = 0
+class Dir:
+    parent: "Dir" = None
+    sub_dirs: dict[str, "Dir"] = field(default_factory=lambda: dict())
+    files: dict[str, int] = field(default_factory=lambda: dict())
+
+    def resolve(self, name):
+        if name == "..":
+            return self.parent
+        if name not in self.sub_dirs:
+            self.sub_dirs[name] = Dir(parent=self)
+        return self.sub_dirs[name]
+
+    def total(self, callback: Callable[[int], Any] = None) -> int:
+        size = sum(self.files.values()) + sum([d.total(callback) for d in self.sub_dirs.values()])
+        if callback:
+            callback(size)
+        return size
+
+    @staticmethod
+    def build_fs(input_iter) -> "Dir":
+        genesis = node = Dir()
+        line = next(input_iter)
+        while line:
+            if line.startswith("$ cd"):
+                node = node.resolve(line[5:])
+                line = next(input_iter, None)
+            elif line.startswith("$ ls"):
+                while (line := next(input_iter, None)) and not line.startswith("$"):
+                    if not line.startswith("dir "):
+                        size, name = line.split(" ")
+                        node.files[name] = int(size)
+            else:
+                raise ValueError(f"Wrong Input: {line}")
+        return genesis
 
 
 class Solution:
     def __init__(self, inp: Input):
-        input_iter = inp.get_iter()
-        self.root = node = Node()
-
-        line = next(input_iter)
-        while line:
-            if line.startswith("$ cd"):
-                node = self._cd(line, node)
-                line = next(input_iter, None)
-            elif line.startswith("$ ls"):
-                line = self._ls(input_iter, node)
-            else:
-                raise ValueError(f"Wrong Input: {line}")
-
-        self._count_total(self.root)
-
-    @staticmethod
-    def _ls(input_iter, node):
-        while (line := next(input_iter, None)) and not line.startswith("$"):
-            if not line.startswith("dir "):
-                size, _ = line.split(" ")
-                node.files_size += int(size)
-        return line
-
-    @staticmethod
-    def _cd(line, node):
-        if (name := line[5:]) == "..":
-            return node.parent
-
-        if name not in node.children:
-            node.children[name] = Node(parent=node)
-
-        return node.children[name]
-
-    def _count_total(self, node: Node) -> int:
-        result = node.files_size
-
-        for child_node in node.children.values():
-            result += self._count_total(child_node)
-
-        node.total = result
-        return result
+        self.fs = Dir.build_fs(inp.get_iter())
 
     def part_a(self):
-        return self._part_a_sol(self.root)
+        total_size = 0
 
-    def _part_a_sol(self, node: Node) -> int:
-        result = t if (t := node.total) < 100000 else 0
+        def callback(dir_size):
+            nonlocal total_size
+            total_size += dir_size if dir_size < 100000 else 0
 
-        for v in node.children.values():
-            result += self._part_a_sol(v)
-
-        return result
+        self.fs.total(callback)
+        return total_size
 
     def part_b(self):
-        need_space = 30000000 - (70000000 - self.root.total)
-        return self._part_b_sol(self.root, need_space)
+        need_space = 30000000 - (70000000 - self.fs.total())
+        best = None
 
-    def _part_b_sol(self, node: Node, goal) -> int:
-        best = t if (t := node.total) >= goal else None
+        def callback(dir_size):
+            nonlocal best
+            if need_space <= dir_size and (best is None or dir_size < best):
+                best = dir_size
 
-        for v in node.children.values():
-            if (_best := self._part_b_sol(v, goal)) and (not best or _best < best):
-                best = _best
+        self.fs.total(callback)
 
         return best
 
