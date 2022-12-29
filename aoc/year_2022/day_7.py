@@ -35,9 +35,12 @@ class Dir:
                 line = next(input_iter, None)
             elif line.startswith("$ ls"):
                 while (line := next(input_iter, None)) and not line.startswith("$"):
-                    if not line.startswith("dir "):
-                        size, name = line.split(" ")
-                        node.files[name] = int(size)
+                    desc, name = line.split(" ")
+                    if desc == "dir":
+                        if name not in node.dirs:
+                            node.dirs[name] = Dir(parent=node)
+                    else:
+                        node.files[name] = int(desc)
             else:
                 raise ValueError(f"Wrong Input: {line}")
         return genesis
