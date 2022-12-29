@@ -9,18 +9,18 @@ from aoc import Input, get_puzzles, PuzzleData
 @dataclass
 class Dir:
     parent: "Dir" = None
-    sub_dirs: dict[str, "Dir"] = field(default_factory=lambda: dict())
+    dirs: dict[str, "Dir"] = field(default_factory=lambda: dict())
     files: dict[str, int] = field(default_factory=lambda: dict())
 
     def resolve(self, name):
         if name == "..":
             return self.parent
-        if name not in self.sub_dirs:
-            self.sub_dirs[name] = Dir(parent=self)
-        return self.sub_dirs[name]
+        if name not in self.dirs:
+            self.dirs[name] = Dir(parent=self)
+        return self.dirs[name]
 
     def total(self, callback: Callable[[int], Any] = None) -> int:
-        size = sum(self.files.values()) + sum([d.total(callback) for d in self.sub_dirs.values()])
+        size = sum(self.files.values()) + sum([d.total(callback) for d in self.dirs.values()])
         if callback:
             callback(size)
         return size
@@ -50,25 +50,25 @@ class Solution:
     def part_a(self):
         total_size = 0
 
-        def callback(dir_size):
+        def callback(size):
             nonlocal total_size
-            total_size += dir_size if dir_size < 100000 else 0
+            total_size += size if size < 100000 else 0
 
         self.fs.total(callback)
         return total_size
 
     def part_b(self):
         need_space = 30000000 - (70000000 - self.fs.total())
-        best = None
+        best_size = None
 
-        def callback(dir_size):
-            nonlocal best
-            if need_space <= dir_size and (best is None or dir_size < best):
-                best = dir_size
+        def callback(size):
+            nonlocal best_size
+            if need_space <= size and (best_size is None or size < best_size):
+                best_size = size
 
         self.fs.total(callback)
 
-        return best
+        return best_size
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
