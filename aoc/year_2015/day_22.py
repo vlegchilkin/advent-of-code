@@ -13,16 +13,16 @@ class Spell:
     name: str
     mana: int
     damage: int = 0
-    active_turns: int = None
+    effect_turns: Optional[int] = None
     armor: int = 0
     hp_restore: int = 0
     mana_restore: int = 0
 
 
 SPELLS = [
-    Spell("Poison", 173, damage=3, active_turns=6),
-    Spell("Recharge", 229, mana_restore=101, active_turns=5),
-    Spell("Shield", 113, armor=7, active_turns=6),
+    Spell("Poison", 173, damage=3, effect_turns=6),
+    Spell("Recharge", 229, mana_restore=101, effect_turns=5),
+    Spell("Shield", 113, armor=7, effect_turns=6),
     Spell("Magic Missile", 53, damage=4),
     Spell("Drain", 73, damage=2, hp_restore=2),
 ]
@@ -43,19 +43,19 @@ class Fighter:
         return self.physical_damage + sum(map(lambda s: s.damage, self.effects))
 
     def cast(self, rival: "Fighter", spell: Spell) -> Optional[Tuple["Fighter", "Fighter"]]:
-        if spell.active_turns:
+        if spell.effect_turns:
             if spell in self.effects:
                 return None  # rule: don't apply already applied effects
-            effects = self.effects | {spell: spell.active_turns}
+            effects = self.effects | {spell: spell.effect_turns}
         else:
             effects = self.effects
 
-        insta_damage = spell.damage if not spell.active_turns else 0
+        insta_damage = spell.damage if not spell.effect_turns else 0
         return (
             dataclasses.replace(
                 self,
-                hp=self.hp + (spell.hp_restore if not spell.active_turns else 0),
-                mana=self.mana - spell.mana + (spell.mana_restore if not spell.active_turns else 0),
+                hp=self.hp + (spell.hp_restore if not spell.effect_turns else 0),
+                mana=self.mana - spell.mana + (spell.mana_restore if not spell.effect_turns else 0),
                 effects=effects,
             ),
             rival.bleed(insta_damage) if insta_damage else rival,
@@ -92,8 +92,7 @@ class Solution:
         if boss.hp <= 0:
             return mana_cost
 
-        if not player_turn:
-            player = player.defend(boss)
+        player = player if player_turn else player.defend(boss)
 
         if (player := player.process_effects()).hp <= 0:
             return None
