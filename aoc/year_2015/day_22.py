@@ -43,9 +43,11 @@ class Fighter:
         return self.physical_damage + sum(map(lambda s: s.damage, self.effects))
 
     def cast(self, rival: "Fighter", spell: Spell) -> Optional[Tuple["Fighter", "Fighter"]]:
+        if spell.mana > self.mana:
+            return
         if spell.effect_turns:
             if spell in self.effects:
-                return None  # rule: don't apply already applied effects
+                return  # rule: don't apply already applied effects
             effects = self.effects | {spell: spell.effect_turns}
         else:
             effects = self.effects
@@ -84,26 +86,27 @@ class Solution:
         self.boss = Fighter(hp=boss_stats["Hit Points"], physical_damage=boss_stats["Damage"])
 
     def recu(self, player: Fighter, boss: Fighter, player_turn: bool, mana_cost: int, best) -> Optional[int]:
+        n_player = player
         if player.bleeding and player_turn:
-            if (player := player.bleed()).hp <= 0:
+            if (n_player := n_player.bleed()).hp <= 0:
                 return None
 
-        boss = boss.defend(player)  # effects damage
-        if boss.hp <= 0:
+        n_boss = boss.defend(n_player)  # effects damage
+        if n_boss.hp <= 0:
             return mana_cost
 
-        player = player if player_turn else player.defend(boss)
+        if not player_turn:
+            n_player = n_player.defend(n_boss)
 
-        if (player := player.process_effects()).hp <= 0:
+        if (n_player := n_player.process_effects()).hp <= 0:
             return None
 
         if not player_turn:
-            return self.recu(player, boss, True, mana_cost, best)
+            return self.recu(n_player, n_boss, True, mana_cost, best)
 
-        for spell in SPELLS:
-            if spell.mana > player.mana or (cost := mana_cost + spell.mana) >= best:
-                continue
-            if not (cast_result := player.cast(boss, spell)):
+        good_spells = [(spell, cost) for spell in SPELLS if (cost := mana_cost + spell.mana) < best]
+        for spell, cost in good_spells:
+            if not (cast_result := n_player.cast(n_boss, spell)):
                 continue
 
             if cast_result[1].hp > 0:
