@@ -2,7 +2,7 @@
 
 <pre>
 <a href='day/1'>Day 1: Sonar Sweep</a>
-&nbsp;
+<a href='day/2'>Day 2: Dive!</a>
 &nbsp;
 &nbsp;
 &nbsp;
