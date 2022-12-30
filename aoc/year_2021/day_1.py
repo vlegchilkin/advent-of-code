@@ -5,19 +5,14 @@ from aoc import Input, get_puzzles, PuzzleData
 
 class Solution:
     def __init__(self, inp: Input):
-        self.deeps = [int(line) for line in inp.get_lines()]
+        self.deeps = list(map(int, inp.get_iter()))
 
     def part_a(self):
-        result = 0
-        for i in range(1, len(self.deeps)):
-            result += self.deeps[i] > self.deeps[i - 1]
-        return result
+        return sum(a < b for a, b in zip(self.deeps, self.deeps[1:]))
 
     def part_b(self):
-        result = 0
-        for i in range(3, len(self.deeps)):
-            result += sum(self.deeps[i - 2 : i + 1]) > sum(self.deeps[i - 3 : i])
-        return result
+        """Sliding windows has 2 elements in common (Axx < xxB, xx parts are the same), so have to compare only A & B"""
+        return sum(a < b for a, b in zip(self.deeps, self.deeps[3:]))
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
