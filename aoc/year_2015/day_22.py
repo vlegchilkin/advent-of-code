@@ -45,48 +45,35 @@ class Fighter:
     def cast(self, rival: "Fighter", spell: Spell) -> Optional[Tuple["Fighter", "Fighter"]]:
         if spell.active_turns:
             if spell in self.effects:
-                return None
-            side_effects = {spell: spell.active_turns}
+                return None  # rule: don't apply already applied effects
+            effects = self.effects | {spell: spell.active_turns}
         else:
-            side_effects = {}
+            effects = self.effects
 
         insta_damage = spell.damage if not spell.active_turns else 0
         return (
-            Fighter(
+            dataclasses.replace(
+                self,
                 hp=self.hp + (spell.hp_restore if not spell.active_turns else 0),
-                physical_damage=self.physical_damage,
                 mana=self.mana - spell.mana + (spell.mana_restore if not spell.active_turns else 0),
-                effects=self.effects | side_effects,
-                bleeding=self.bleeding,
+                effects=effects,
             ),
             rival.bleed(insta_damage) if insta_damage else rival,
         )
 
     def defend(self, rival: "Fighter") -> "Fighter":
-        return Fighter(
-            hp=self.hp - max(1 if rival.physical_damage else 0, rival.damage() - self.armor()),
-            physical_damage=self.physical_damage,
-            mana=self.mana,
-            effects=self.effects,
-            bleeding=self.bleeding,
-        )
+        lost_hp = max(1 if rival.physical_damage else 0, rival.damage() - self.armor())
+        return self.bleed(lost_hp)
 
-    def bleed(self, hp=1) -> "Fighter":
-        return Fighter(
-            hp=self.hp - hp,
-            physical_damage=self.physical_damage,
-            mana=self.mana,
-            effects=self.effects,
-            bleeding=self.bleeding,
-        )
+    def bleed(self, hp_loss=1) -> "Fighter":
+        return dataclasses.replace(self, hp=self.hp - hp_loss) if hp_loss > 0 else self
 
     def process_effects(self) -> "Fighter":
-        return Fighter(
+        return dataclasses.replace(
+            self,
             hp=self.hp + sum(map(lambda s: s.hp_restore, self.effects)),
             mana=self.mana + sum(map(lambda s: s.mana_restore, self.effects)),
-            physical_damage=self.physical_damage,
             effects={spell: turns - 1 for spell, turns in self.effects.items() if turns > 1},
-            bleeding=self.bleeding,
         )
 
 
