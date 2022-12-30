@@ -104,8 +104,7 @@ class Solution:
         if not player_turn:
             return self.recu(n_player, n_boss, True, mana_cost, best)
 
-        good_spells = [(spell, cost) for spell in SPELLS if (cost := mana_cost + spell.mana) < best]
-
+        good_spells = ((spell, cost) for spell in SPELLS if (cost := mana_cost + spell.mana) < best)
         for spell, cost in good_spells:
             if not (cr := n_player.cast(n_boss, spell)):
                 continue
