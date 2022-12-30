@@ -89,7 +89,7 @@ class Solution:
         n_player = player
         if player.bleeding and player_turn:
             if (n_player := n_player.bleed()).hp <= 0:
-                return None
+                return best
 
         n_boss = boss.defend(n_player)  # effects damage
         if n_boss.hp <= 0:
@@ -99,23 +99,20 @@ class Solution:
             n_player = n_player.defend(n_boss)
 
         if (n_player := n_player.process_effects()).hp <= 0:
-            return None
+            return best
 
         if not player_turn:
             return self.recu(n_player, n_boss, True, mana_cost, best)
 
         good_spells = [(spell, cost) for spell in SPELLS if (cost := mana_cost + spell.mana) < best]
+
         for spell, cost in good_spells:
-            if not (cast_result := n_player.cast(n_boss, spell)):
+            if not (cr := n_player.cast(n_boss, spell)):
                 continue
-
-            if cast_result[1].hp > 0:
-                current_costs = self.recu(*cast_result, player_turn=False, mana_cost=cost, best=best)
+            if cr[1].hp > 0:
+                best = min(best, self.recu(*cr, player_turn=False, mana_cost=cost, best=best))
             else:
-                current_costs = cost
-
-            if current_costs is not None and best > current_costs:
-                best = current_costs
+                best = min(best, cost)
 
         return best
 
