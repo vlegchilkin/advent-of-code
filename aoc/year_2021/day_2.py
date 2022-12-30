@@ -1,33 +1,26 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, D, t_sum, t_koef
+from aoc import Input, get_puzzles, PuzzleData
+
+C_VECTORS = {"forward": 1j, "down": 1, "up": -1}
 
 
 class Solution:
     def __init__(self, inp: Input):
-        self.actions = inp.get_lists("{{action}} {{steps|to_int}}")
-        self.vectors = {
-            "forward": D.EAST,
-            "down": D.SOUTH,
-            "up": D.NORTH,
-        }
+        self.vectors = [C_VECTORS[action] * steps for action, steps in inp.get_lists("{{action}} {{steps|to_int}}")]
 
     def part_a(self):
-        pos = (0, 0)
-        for action, steps in self.actions:
-            vector = t_koef(steps, self.vectors[action])
-            pos = t_sum(pos, vector)
-        return pos[0] * pos[1]
+        pos = sum(self.vectors)
+        return int(pos.real * pos.imag)
 
     def part_b(self):
-        pos = aim = (0, 0)
-        for action, steps in self.actions:
-            vector = t_koef(steps, self.vectors[action])
-            if vector[0]:
-                aim = t_sum(aim, vector)
+        pos = aim = 0
+        for vector in self.vectors:
+            if vector.real:
+                aim += vector
             else:
-                pos = t_sum(pos, t_sum(vector, t_koef(steps, aim)))
-        return pos[0] * pos[1]
+                pos += vector + vector.imag * aim
+        return int(pos.real * pos.imag)
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
