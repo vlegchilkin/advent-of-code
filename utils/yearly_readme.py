@@ -97,7 +97,7 @@ def build_year(year, src=None):
     hti = Html2Image()
     height = 440
     if year == 2015:
-        height += 10
+        height += 20
     elif year == 2016:
         height += 100
     s = len('<pre class="calender">')
