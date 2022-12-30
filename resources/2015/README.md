@@ -2,6 +2,7 @@
 
 <pre>
 &nbsp;
+<a href='day/25'>Day 25: Let It Snow</a>
 <a href='day/24'>Day 24: It Hangs in the Balance</a>
 <a href='day/23'>Day 23: Opening the Turing Lock</a>
 <a href='day/22'>Day 22: Wizard Simulator 20XX</a>
