@@ -6,7 +6,7 @@ orbs:
 
 jobs:
   build-aoc-tests:
-    parallelism: 4
+    parallelism: 5
     resource_class: small
     executor:
       name: python/default
@@ -51,7 +51,7 @@ jobs:
             mkdir -p test-results
             cp coverage-results/junit*.xml test-results
             mkdir -p coverage-reports
-            poetry run coverage combine coverage-results/.coverage.0 coverage-results/.coverage.1 coverage-results/.coverage.2 coverage-results/.coverage.3
+            poetry run coverage combine coverage-results/.coverage.0 coverage-results/.coverage.1 coverage-results/.coverage.2 coverage-results/.coverage.3 coverage-results/.coverage.4
             poetry run coverage report
             poetry run coverage xml -o coverage-reports/coverage-overall.xml
       - store_artifacts:
