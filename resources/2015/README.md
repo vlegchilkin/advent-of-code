@@ -4,7 +4,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/22'>Day 22: Wizard Simulator 20XX</a>
 <a href='day/21'>Day 21: RPG Simulator 20XX</a>
 <a href='day/20'>Day 20: Infinite Elves and Infinite Houses</a>
 <a href='day/19'>Day 19: Medicine for Rudolph</a>
