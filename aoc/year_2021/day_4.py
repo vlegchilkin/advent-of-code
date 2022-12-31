@@ -1,7 +1,6 @@
 import copy
 import re
 
-import math
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData
@@ -21,10 +20,7 @@ class BingoBoard:
         del self.values[value]
         self.rows[pos[0]] -= 1
         self.columns[pos[1]] -= 1
-        return self.is_complete()
-
-    def is_complete(self):
-        return math.prod(self.rows + self.columns) == 0
+        return self.rows[pos[0]] * self.columns[pos[1]] == 0
 
 
 class Solution:
