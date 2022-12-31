@@ -3,7 +3,7 @@
 <pre>
 <a href='day/1'>Day 1: Sonar Sweep</a>
 <a href='day/2'>Day 2: Dive!</a>
-&nbsp;
+<a href='day/3'>Day 3: Binary Diagnostic</a>
 &nbsp;
 &nbsp;
 &nbsp;
