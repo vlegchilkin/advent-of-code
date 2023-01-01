@@ -8,7 +8,7 @@
 <a href='day/5'>Day 5: Hydrothermal Venture</a>
 <a href='day/6'>Day 6: Lanternfish</a>
 <a href='day/7'>Day 7: The Treachery of Whales</a>
-&nbsp;
+<a href='day/8'>Day 8: Seven Segment Search</a>
 &nbsp;
 &nbsp;
 &nbsp;
