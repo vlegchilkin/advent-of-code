@@ -1,6 +1,7 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, AocMath
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.math import factors
 
 
 class Solution:
@@ -9,7 +10,7 @@ class Solution:
 
     def part_a(self):
         def presents(h):
-            return sum(AocMath.factors(h))
+            return sum(factors(h))
 
         min_presents = self.min_presents // 10
         house = min_presents // 5  # just optimization for tests, looks like enough, but wasn't prove
@@ -20,7 +21,7 @@ class Solution:
     def part_b(self):
         def presents(h):
             min_factor = h // 50
-            return sum({factor for factor in AocMath.factors(h) if factor >= min_factor})
+            return sum({factor for factor in factors(h) if factor >= min_factor})
 
         min_presents = self.min_presents // 11
         house = min_presents // 5  # just optimization for tests, looks like enough, but wasn't prove

@@ -5,7 +5,7 @@
 <a href='day/2'>Day 2: Dive!</a>
 <a href='day/3'>Day 3: Binary Diagnostic</a>
 <a href='day/4'>Day 4: Giant Squid</a>
-&nbsp;
+<a href='day/5'>Day 5: Hydrothermal Venture</a>
 &nbsp;
 &nbsp;
 &nbsp;
