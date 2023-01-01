@@ -7,7 +7,7 @@
 <a href='day/4'>Day 4: Giant Squid</a>
 <a href='day/5'>Day 5: Hydrothermal Venture</a>
 <a href='day/6'>Day 6: Lanternfish</a>
-&nbsp;
+<a href='day/7'>Day 7: The Treachery of Whales</a>
 &nbsp;
 &nbsp;
 &nbsp;
