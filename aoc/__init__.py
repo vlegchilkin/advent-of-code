@@ -1,18 +1,14 @@
 import inspect
 import os
-from functools import reduce
-from itertools import product
-
-import math
 import re
 from enum import Enum
-
-import numpy as np
+from itertools import product
 from pathlib import Path
 from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
 
+import math
+import numpy as np
 from addict import Dict
-
 from ttp import ttp
 
 RESOURCES_ROOT = Path(__file__).parent.parent / "resources"
@@ -141,7 +137,13 @@ class PuzzleData:
         return self.test_case
 
 
-class D(Tuple, Enum):
+XY: TypeAlias = Tuple[int, int]
+XYZ: TypeAlias = Tuple[int, int, int]
+
+Line: TypeAlias = Tuple[XY, XY]
+
+
+class D(XY, Enum):
     NORTH = (-1, 0)
     NORTH_EAST = (-1, 1)
     EAST = (0, 1)
@@ -172,7 +174,7 @@ D_MOVES = {
     "v": D.SOUTH,
 }
 
-ItFunc: TypeAlias = Callable[[int, int], Iterable[tuple[int, int]]]
+ItFunc: TypeAlias = Callable[[int, int], Iterable[XY]]
 
 
 class IT:
@@ -192,13 +194,18 @@ class IT:
 
 
 class Spacer:
-    def __init__(self, n, m, *, default_directions: Iterable[tuple] = D_ALL):
+    def __init__(self, n, m, *, default_directions: Iterable[XY] = D_ALL):
         self.n = n
         self.m = m
         self.default_directions = D_ALL if default_directions is None else default_directions
 
+    @staticmethod
+    def build(points: list[XY]) -> "Spacer":
+        mm = t_minmax(points)
+        return Spacer(mm[1][0] + 1, mm[1][1] + 1)
+
     def get_links(
-        self, from_pos, directions: Iterable[tuple] = None, *, test: Callable[[tuple], bool] = None
+        self, from_pos, directions: Iterable[XY] = None, *, test: Callable[[XY], bool] = None
     ) -> Iterator[tuple]:
         if directions is None:
             directions = self.default_directions
@@ -211,7 +218,7 @@ class Spacer:
                 continue
             yield to_pos
 
-    def iter(self, test: Callable[[tuple], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[tuple]:
+    def iter(self, test: Callable[[XY], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[XY]:
         def full_iter():
             for i, j in product(range(self.n), range(self.m)):
                 if not test or test((i, j)):
@@ -232,7 +239,7 @@ class Spacer:
             dtype=dtype,
         )
 
-    def move(self, pos: tuple[int, int], direction: D, *, cyclic=True):
+    def move(self, pos: XY, direction: D, *, cyclic=True):
         next_pos = t_sum(pos, direction)
         if 0 <= next_pos[0] < self.n and 0 <= next_pos[1] < self.m:
             return next_pos
@@ -251,7 +258,7 @@ class Spacer:
             return x, y
 
     @staticmethod
-    def filter(array: np.ndarray, criteria: Callable[[tuple[int, int]], set] = lambda v: v) -> set:
+    def filter(array: np.ndarray, criteria: Callable[[XY], set] = lambda v: v) -> set:
         return {pos for pos, value in np.ndenumerate(array) if criteria(value)}
 
 
@@ -274,10 +281,10 @@ def t_delta(x, y):
             return tuple(abs(xx - yy) for xx, yy in zip(x, y))  # slow
 
 
-def t_sum(x, y):
+def t_sum(x: tuple, y: tuple):
     match len(x):
         case 1:
-            return x + y
+            return x[0] + y[0]
         case 2:
             return x[0] + y[0], x[1] + y[1]
         case 3:
@@ -288,10 +295,10 @@ def t_sum(x, y):
             return tuple(map(sum, zip(x, y)))  # slow
 
 
-def t_sub(x, y):
+def t_sub(x: tuple, y: tuple):
     match len(x):
         case 1:
-            return x - y
+            return x[0] - y[0]
         case 2:
             return x[0] - y[0], x[1] - y[1]
         case 3:
@@ -302,10 +309,10 @@ def t_sub(x, y):
             return t_sum(x, t_koef(-1, y))  # slow
 
 
-def t_koef(x: int, y):
+def t_koef(x: int, y: tuple):
     match len(y):
         case 1:
-            return x * y
+            return x * y[0]
         case 2:
             return x * y[0], x * y[1]
         case 3:
@@ -316,12 +323,7 @@ def t_koef(x: int, y):
             raise ValueError("not implemented")
 
 
-def t_inside_array(pos, n):
-    """is positions within dimension"""
-    return (0 <= pos[0] < n[0]) and (0 <= pos[1] < n[1]) and (0 <= pos[2] < n[2])
-
-
-def t_inside(pos, limits):
+def t_inside(pos: XYZ, limits: tuple[XYZ, XYZ]):
     """is positions within dimension"""
     return (
         (limits[0][0] <= pos[0] <= limits[1][0])
@@ -330,7 +332,7 @@ def t_inside(pos, limits):
     )
 
 
-def t_minmax(items):
+def t_minmax(items: list[tuple]):
     if len(items) == 0:
         return None
 
@@ -349,9 +351,3 @@ def t_minmax(items):
             )
         case _:
             raise ValueError("Not implemented for dimension")
-
-
-class AocMath:
-    @staticmethod
-    def factors(n):
-        return set(reduce(list.__add__, ([i, n // i] for i in range(1, int(n**0.5) + 1) if n % i == 0)))
