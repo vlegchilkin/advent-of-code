@@ -9,7 +9,7 @@
 <a href='day/6'>Day 6: Lanternfish</a>
 <a href='day/7'>Day 7: The Treachery of Whales</a>
 <a href='day/8'>Day 8: Seven Segment Search</a>
-&nbsp;
+<a href='day/9'>Day 9: Smoke Basin</a>
 &nbsp;
 &nbsp;
 &nbsp;
