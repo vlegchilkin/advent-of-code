@@ -6,7 +6,7 @@
 <a href='day/3'>Day 3: Binary Diagnostic</a>
 <a href='day/4'>Day 4: Giant Squid</a>
 <a href='day/5'>Day 5: Hydrothermal Venture</a>
-&nbsp;
+<a href='day/6'>Day 6: Lanternfish</a>
 &nbsp;
 &nbsp;
 &nbsp;
