@@ -269,15 +269,6 @@ def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
         return math.dist(x, y)
 
 
-def split_to_steps(vector: XY) -> tuple[XY, int]:
-    m = max(map(abs, vector))
-    return (vector[0] // m, vector[1] // m), m
-
-
-def get_vector(a: XY, b: XY) -> XY:
-    return b[0] - a[0], b[1] - a[1]
-
-
 def t_delta(x, y):
     match len(x):
         case 1:
