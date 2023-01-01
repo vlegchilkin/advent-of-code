@@ -1,5 +1,5 @@
 import math
-
+import networkx as nx
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData
@@ -14,19 +14,20 @@ class Solution:
         spacer = Spacer.build(self.a, directions=C_BORDERS)
         result = 0
         for pos, value in spacer:
-            if next(spacer.links(pos, test=lambda link: spacer.at[pos] >= spacer.at[link]), None) is None:
+            if next(spacer.links(pos, has_path=lambda to_pos: spacer.at[pos] >= spacer.at[to_pos]), None) is None:
                 result += value + 1
         return result
 
     def part_b(self):
         spacer = Spacer.build(self.a, directions=C_BORDERS)
-        sizes, visited = [], set()
+        graph = nx.Graph()
         for pos, value in spacer:
-            if value != 9 and pos not in visited:
-                paths, _ = spacer.bfs(pos, has_path=lambda link: spacer.at[link] != 9)
-                visited |= paths.keys()
-                sizes.append(len(paths))
-        return math.prod(sorted(sizes, reverse=True)[:3])
+            if value != 9:
+                for link in spacer.links(pos, has_path=lambda to_pos: spacer.at[to_pos] != 9):
+                    graph.add_edge(pos, link)
+
+        sizes = sorted(map(len, nx.connected_components(graph)), reverse=True)
+        return math.prod(sizes[:3])
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)

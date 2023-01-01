@@ -55,18 +55,13 @@ class Spacer:
         yield from self.at.items()
 
     def links(
-        self, pos, directions: Iterable[complex] = None, *, test: Callable[[complex], bool] = None
+        self, pos, directions: Iterable[complex] = None, *, has_path: Callable[[complex], bool] = lambda x: True
     ) -> Iterator[complex]:
-        if directions is None:
-            directions = self.directions
 
-        for direct in directions:
+        for direct in directions or self.directions:
             to_pos = pos + direct
-            if not 0 <= to_pos.real < self.n or not 0 <= to_pos.imag < self.m:
-                continue
-            if test and not test(to_pos):
-                continue
-            yield to_pos
+            if 0 <= to_pos.real < self.n and 0 <= to_pos.imag < self.m and has_path(to_pos):
+                yield to_pos
 
     def bfs(
         self,
