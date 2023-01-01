@@ -140,7 +140,7 @@ class PuzzleData:
 XY: TypeAlias = Tuple[int, int]
 XYZ: TypeAlias = Tuple[int, int, int]
 
-Vector: TypeAlias = Tuple[XY, XY]
+Line: TypeAlias = Tuple[XY, XY]
 
 
 class D(XY, Enum):
@@ -258,15 +258,6 @@ class Spacer:
             return x, y
 
     @staticmethod
-    def lines_to_vectors(lines: list[Vector]) -> list[Vector]:
-        return [(a, (b[0] - a[0], b[1] - a[1])) for a, b in map(sorted, lines)]
-
-    @staticmethod
-    def to_direction_steps(direction: XY) -> tuple[XY, int]:
-        m = max(map(abs, direction))
-        return (direction[0] // m, direction[1] // m), m
-
-    @staticmethod
     def filter(array: np.ndarray, criteria: Callable[[XY], set] = lambda v: v) -> set:
         return {pos for pos, value in np.ndenumerate(array) if criteria(value)}
 
@@ -276,6 +267,15 @@ def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
         return sum(t_delta(x, y))
     else:
         return math.dist(x, y)
+
+
+def split_to_steps(vector: XY) -> tuple[XY, int]:
+    m = max(map(abs, vector))
+    return (vector[0] // m, vector[1] // m), m
+
+
+def get_vector(a: XY, b: XY) -> XY:
+    return b[0] - a[0], b[1] - a[1]
 
 
 def t_delta(x, y):

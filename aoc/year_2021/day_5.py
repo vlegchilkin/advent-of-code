@@ -1,9 +1,10 @@
+import collections
 import re
 from typing import Callable
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, Spacer, t_koef, t_sum, XY
+from aoc import Input, get_puzzles, PuzzleData, t_koef, t_sum, XY, get_vector, split_to_steps
 
 
 class Solution:
@@ -13,17 +14,17 @@ class Solution:
             return [(n[0], n[1]), (n[2], n[3])]
 
         self.lines = inp.get_lines(parse)
-        self.spacer = Spacer.build([point for line in self.lines for point in line])
 
     def count_intersections(self, filter_func: Callable[[XY], bool] = None):
-        ar = self.spacer.new_array(0)
-        for pos, direction in Spacer.lines_to_vectors(self.lines):
-            if filter_func and not filter_func(direction):
+        ar = collections.defaultdict(int)
+        for a, b in self.lines:
+            vector = get_vector(a, b)
+            if filter_func and not filter_func(vector):
                 continue
-            step, count = Spacer.to_direction_steps(direction)
+            step, count = split_to_steps(vector)
             for i in range(count + 1):
-                ar[t_sum(pos, t_koef(i, step))] += 1
-        return len(ar[ar > 1])
+                ar[t_sum(a, t_koef(i, step))] += 1
+        return sum(x > 1 for x in ar.values())
 
     def part_a(self):
         return self.count_intersections(lambda v: v[0] * v[1] == 0)
