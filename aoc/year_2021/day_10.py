@@ -8,8 +8,8 @@ from aoc import Input, get_puzzles, PuzzleData
 class Solution:
     def __init__(self, inp: Input):
         self.lines = inp.get_lines()
-        self.costs = {"(": 1, ")": 3, "[": 2, "]": 57, "{": 3, "}": 1197, "<": 4, ">": 25137}
-        self.pairs = "{}()[]<>"
+        self.pairs = "()[]{}<>"
+        self.costs = [1, 3, 2, 57, 3, 1197, 4, 25137]
 
     def parse(self, line) -> (int, int):
         """Returns (corrupted costs, incomplete costs)"""
@@ -17,13 +17,13 @@ class Solution:
         for c in line:
             if (pos := self.pairs.index(c)) % 2 == 1:
                 if s.pop() != self.pairs[pos - 1]:
-                    return self.costs[c], 0
+                    return self.costs[pos], 0
             else:
                 s.append(c)
 
         total = 0
         for v in reversed(s):
-            total = 5 * total + self.costs[v]
+            total = 5 * total + self.costs[self.pairs.index(v)]
         return 0, total
 
     def part_a(self):
