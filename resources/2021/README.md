@@ -10,7 +10,7 @@
 <a href='day/7'>Day 7: The Treachery of Whales</a>
 <a href='day/8'>Day 8: Seven Segment Search</a>
 <a href='day/9'>Day 9: Smoke Basin</a>
-&nbsp;
+<a href='day/10'>Day 10: Syntax Scoring</a>
 &nbsp;
 &nbsp;
 &nbsp;
