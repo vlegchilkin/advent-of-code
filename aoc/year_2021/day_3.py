@@ -1,4 +1,3 @@
-import itertools
 from typing import Tuple
 
 import math
@@ -29,9 +28,11 @@ class Solution:
         def rating(rate_id) -> int:
             """Oxygen generator rating uses 'gamma rate' (0), CO2 scrubber rating uses 'epsilon rate' (1)"""
             candidates = self.data
-            for pos in itertools.takewhile(lambda _: len(candidates) > 1, range(len(self.data[0]))):
+            pos = 0
+            while len(candidates) > 1 and pos < len(self.data[0]):
                 rates = self._get_gr_er_rates(candidates)
                 candidates = [r for r in candidates if r[pos] == rates[rate_id][pos]]
+                pos += 1
 
             assert len(candidates) == 1, "In the end, there can be only one. (C) Highlander"
             return self._to_int(candidates[0])

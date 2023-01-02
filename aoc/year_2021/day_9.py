@@ -14,7 +14,7 @@ class Solution:
         spacer = Spacer.build(self.a, directions=C_BORDERS)
         result = 0
         for pos, value in spacer:
-            if next(spacer.links(pos, has_path=lambda to_pos: spacer.at[pos] >= spacer.at[to_pos]), None) is None:
+            if next(spacer.links(pos, has_path=lambda to_pos, p=pos: spacer.at[p] >= spacer.at[to_pos]), None) is None:
                 result += value + 1
         return result
 
