@@ -73,7 +73,7 @@ class Spacer:
         visited = {pos: (0, None)}
         while q:
             p = q.popleft()
-            for link in self.links(p, test=lambda x: has_path(x) and x not in visited):
+            for link in self.links(p, has_path=lambda x: has_path(x) and x not in visited):
                 visited[link] = (visited[p][0] + 1, p)
                 q.append(link)
                 if test and test(link):
