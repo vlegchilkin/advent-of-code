@@ -11,7 +11,7 @@
 <a href='day/8'>Day 8: Seven Segment Search</a>
 <a href='day/9'>Day 9: Smoke Basin</a>
 <a href='day/10'>Day 10: Syntax Scoring</a>
-&nbsp;
+<a href='day/11'>Day 11: Dumbo Octopus</a>
 &nbsp;
 &nbsp;
 &nbsp;
