@@ -1,7 +1,8 @@
 import collections
 from enum import Enum
-from typing import Iterable, Callable, Iterator, Optional
+from typing import Iterable, Callable, Iterator, Optional, Generator
 
+import networkx as nx
 import numpy as np
 
 
@@ -54,8 +55,27 @@ class Spacer:
     def __iter__(self):
         yield from self.at.items()
 
+    def to_digraph(self, weight: Callable[[complex, complex], int] = lambda src, dst: 1):
+        graph = nx.DiGraph()
+        graph.add_weighted_edges_from(self.edges(weight=weight))
+        return graph
+
+    def edges(
+        self,
+        weight: Callable[[complex, complex], int] = lambda src, dst: 1,
+        *,
+        directions: Iterable[complex] = None,
+    ) -> Generator[tuple[complex, complex, int], None, None]:
+        for pos, _ in self:
+            for link in self.links(pos, directions):
+                if (w := weight(self.at[pos], self.at[link])) is not None:
+                    yield pos, link, w
+
     def links(
-        self, pos, directions: Iterable[complex] = None, *, has_path: Callable[[complex], bool] = lambda x: True
+        self,
+        pos,
+        directions: Iterable[complex] = None,
+        has_path: Callable[[complex], bool] = lambda x: True,
     ) -> Iterator[complex]:
 
         for direct in directions or self.directions:

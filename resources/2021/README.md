@@ -15,7 +15,7 @@
 <a href='day/12'>Day 12: Passage Pathing</a>
 <a href='day/13'>Day 13: Transparent Origami</a>
 <a href='day/14'>Day 14: Extended Polymerization</a>
-&nbsp;
+<a href='day/15'>Day 15: Chiton</a>
 &nbsp;
 &nbsp;
 &nbsp;
