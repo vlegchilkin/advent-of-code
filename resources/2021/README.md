@@ -16,7 +16,7 @@
 <a href='day/13'>Day 13: Transparent Origami</a>
 <a href='day/14'>Day 14: Extended Polymerization</a>
 <a href='day/15'>Day 15: Chiton</a>
-&nbsp;
+<a href='day/16'>Day 16: Packet Decoder</a>
 &nbsp;
 &nbsp;
 &nbsp;
