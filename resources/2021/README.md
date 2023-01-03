@@ -17,7 +17,7 @@
 <a href='day/14'>Day 14: Extended Polymerization</a>
 <a href='day/15'>Day 15: Chiton</a>
 <a href='day/16'>Day 16: Packet Decoder</a>
-&nbsp;
+<a href='day/17'>Day 17: Trick Shot</a>
 &nbsp;
 &nbsp;
 &nbsp;
