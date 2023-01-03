@@ -1,7 +1,7 @@
 import collections
 from enum import Enum
-from numbers import Complex
 from typing import Iterable, Callable, Iterator, Optional
+
 import numpy as np
 
 
@@ -38,14 +38,14 @@ C_MOVES = {
 
 
 class Spacer:
-    def __init__(self, shape, *, directions: Iterable[Complex] = C_ALL):
+    def __init__(self, shape, *, directions: Iterable[complex] = C_ALL):
         self.n = shape[0]
         self.m = shape[1]
         self.at = collections.defaultdict(lambda: 0)
         self.directions = C_ALL if directions is None else directions
 
     @staticmethod
-    def build(arr: np.ndarray, *, directions: Iterable[Complex] = C_ALL) -> "Spacer":
+    def build(arr: np.ndarray, *, directions: Iterable[complex] = C_ALL) -> "Spacer":
         s = Spacer(arr.shape, directions=directions)
         for pos, v in np.ndenumerate(arr):
             s.at[complex(*pos)] = v
@@ -81,9 +81,32 @@ class Spacer:
         return visited, None
 
 
-def split_to_steps(vector: Complex) -> tuple[Complex, int]:
+def split_to_steps(vector: complex) -> tuple[complex, int]:
     if vector == 0:
         return vector, 0
 
     m = int(max(abs(vector.real), abs(vector.imag)))
     return vector / m, m
+
+
+def minmax(points: Iterable[complex]) -> (complex, complex):
+    reals, imags = [point.real for point in points], [point.imag for point in points]
+    return complex(min(reals), min(imags)), complex(max(reals), max(imags))
+
+
+def to_array(points: Iterable[complex]) -> np.ndarray:
+    _min, _max = minmax(points)
+    ar = np.zeros((int(_max.imag) + 1, int(_max.real) + 1), dtype=int)
+    for point in points:
+        ar[int(point.imag), int(point.real)] = 1
+    return ar
+
+
+def to_str(points: Iterable[complex]) -> str:
+    ar = to_array(points)
+    result = ""
+    for row in ar:
+        for col in row:
+            result += str(col)
+        result += "\n"
+    return result

@@ -13,7 +13,7 @@
 <a href='day/10'>Day 10: Syntax Scoring</a>
 <a href='day/11'>Day 11: Dumbo Octopus</a>
 <a href='day/12'>Day 12: Passage Pathing</a>
-&nbsp;
+<a href='day/13'>Day 13: Transparent Origami</a>
 &nbsp;
 &nbsp;
 &nbsp;
