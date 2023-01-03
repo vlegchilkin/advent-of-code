@@ -14,7 +14,7 @@
 <a href='day/11'>Day 11: Dumbo Octopus</a>
 <a href='day/12'>Day 12: Passage Pathing</a>
 <a href='day/13'>Day 13: Transparent Origami</a>
-&nbsp;
+<a href='day/14'>Day 14: Extended Polymerization</a>
 &nbsp;
 &nbsp;
 &nbsp;
