@@ -18,7 +18,7 @@
 <a href='day/15'>Day 15: Chiton</a>
 <a href='day/16'>Day 16: Packet Decoder</a>
 <a href='day/17'>Day 17: Trick Shot</a>
-&nbsp;
+<a href='day/18'>Day 18: Snailfish</a>
 &nbsp;
 &nbsp;
 &nbsp;
