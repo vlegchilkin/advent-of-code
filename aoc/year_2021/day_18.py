@@ -42,8 +42,8 @@ class SnailNum:
             big_leaf.value = SnailNum.Leaf(big_leaf().depth + 1, math.floor(big_leaf().val / 2))
             return True
 
-        if explode() or split():
-            self.reduce()
+        while explode() or split():
+            pass
 
     def magnitude(self) -> int:
         q = deque()
