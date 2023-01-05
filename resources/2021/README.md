@@ -21,7 +21,7 @@
 <a href='day/18'>Day 18: Snailfish</a>
 <a href='day/19'>Day 19: Beacon Scanner</a>
 <a href='day/20'>Day 20: Trench Map</a>
-&nbsp;
+<a href='day/21'>Day 21: Dirac Dice</a>
 &nbsp;
 &nbsp;
 &nbsp;
