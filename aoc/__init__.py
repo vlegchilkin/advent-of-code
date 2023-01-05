@@ -77,8 +77,8 @@ class Input:
     def get_iter(self) -> Iterator[str]:
         return iter(self.get_lines())
 
-    def get_blocks(self) -> list[list]:
-        line_iter = self.get_iter()
+    def get_blocks(self, line_iter=None) -> list[list]:
+        line_iter = line_iter or self.get_iter()
         blocks = []
         while line := next(line_iter, None):
             block = []
@@ -95,8 +95,8 @@ class Input:
         objects = self.get_objects(ttp_template)
         return [list(o.values()) for o in objects]
 
-    def get_array(self, decoder: Optional[Callable[[str], Any]] = None, *, sep: str = None) -> np.ndarray:
-        lines = self._text.splitlines()
+    def get_array(self, decoder: Optional[Callable[[str], Any]] = None, *, sep: str = None, lines=None) -> np.ndarray:
+        lines = lines or self._text.splitlines()
 
         def decode(line: str) -> list:
             characters = list(line) if not sep else line.split(sep)
