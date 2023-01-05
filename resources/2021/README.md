@@ -22,7 +22,7 @@
 <a href='day/19'>Day 19: Beacon Scanner</a>
 <a href='day/20'>Day 20: Trench Map</a>
 <a href='day/21'>Day 21: Dirac Dice</a>
-&nbsp;
+<a href='day/22'>Day 22: Reactor Reboot</a>
 &nbsp;
 &nbsp;
 &nbsp;
