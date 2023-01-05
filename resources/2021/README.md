@@ -19,7 +19,7 @@
 <a href='day/16'>Day 16: Packet Decoder</a>
 <a href='day/17'>Day 17: Trick Shot</a>
 <a href='day/18'>Day 18: Snailfish</a>
-&nbsp;
+<a href='day/19'>Day 19: Beacon Scanner</a>
 &nbsp;
 &nbsp;
 &nbsp;
