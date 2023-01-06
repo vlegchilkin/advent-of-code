@@ -97,6 +97,8 @@ class Input:
 
     def get_array(self, decoder: Optional[Callable[[str], Any]] = None, *, sep: str = None, lines=None) -> np.ndarray:
         lines = lines or self._text.splitlines()
+        width = max(map(len, lines))
+        lines = [line.ljust(width) for line in lines]
 
         def decode(line: str) -> list:
             characters = list(line) if not sep else line.split(sep)
@@ -321,6 +323,24 @@ def t_koef(x: int, y: tuple):
             return x * y[0], x * y[1], x * y[2], x * y[3]
         case _:
             raise ValueError("not implemented")
+
+
+def t_add_pos(t, pos, value):
+    return tuple(c if idx != pos else c + value for idx, c in enumerate(t))
+
+
+def t_pop_left(t):
+    for i, v in enumerate(t):
+        if v:
+            return t_add_pos(t, i, -v)
+    return t
+
+
+def t_push_left(t, value):
+    for i, v in enumerate(t):
+        if v:
+            return t_add_pos(t, i - 1, value)
+    return t_add_pos(t, len(t) - 1, value)
 
 
 def t_inside(pos: XYZ, limits: tuple[XYZ, XYZ]):
