@@ -2,37 +2,33 @@ from collections import deque
 
 import pytest
 
-from aoc import Input, Spacer, D_BORDERS, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.space import Spacer, C_BORDERS
 
 
 class Solution:
     def __init__(self, inp: Input):
-        arr = inp.get_array()
-        self.spacer = Spacer(*arr.shape, default_directions=D_BORDERS)
+        arr = inp.get_array(decoder=lambda c: ord(c) - ord("a"))
+        self.spacer = Spacer.build(arr, directions=C_BORDERS)
 
-        self.a = self.spacer.new_array(0)
         self.start = self.finish = None
-        for x in self.spacer.iter():
-            ch = arr[x]
-            if ch == "S":
-                self.start = x
-                ch = "a"
-            elif ch == "E":
-                self.finish = x
-                ch = "z"
-            self.a[x] = ord(ch) - ord("a")
+        for pos, v in self.spacer:
+            if v == -14:
+                self.start = pos
+                self.spacer.at[pos] = 0
+            elif v == -28:
+                self.finish = pos
+                self.spacer.at[pos] = 25
 
         self.paths = self._build_paths()
 
     def _build_paths(self):
-        visited = self.spacer.new_array(-1)
-        visited[self.finish] = 0
-
+        visited = {self.finish: 0}
         queue = deque([self.finish])
         while queue:
             from_pos = queue.popleft()
-            for to_pos in self.spacer.get_links(from_pos):
-                if visited[to_pos] == -1 and self.a[from_pos] <= self.a[to_pos] + 1:
+            for to_pos in self.spacer.links(from_pos):
+                if to_pos not in visited and self.spacer.at[from_pos] <= self.spacer.at[to_pos] + 1:
                     visited[to_pos] = visited[from_pos] + 1
                     queue.append(to_pos)
         return visited
@@ -41,7 +37,7 @@ class Solution:
         return self.paths[self.start]
 
     def part_b(self):
-        return min([self.paths[x] for x in self.spacer.iter(lambda pos: self.paths[pos] != -1 and self.a[pos] == 0)])
+        return min([self.paths[p] for p, v in self.spacer if v == 0 and p in self.paths])
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
