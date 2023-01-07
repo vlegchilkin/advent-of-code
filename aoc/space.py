@@ -9,6 +9,8 @@ import networkx as nx
 import numpy as np
 from numpy import Inf
 
+from aoc import math
+
 
 class C(complex, Enum):
     NORTH = -1 + 0j
@@ -25,6 +27,7 @@ C_DIAGONALS = (C.NORTH_EAST, C.SOUTH_EAST, C.SOUTH_WEST, C.NORTH_WEST)
 C_BORDERS = (C.NORTH, C.SOUTH, C.WEST, C.EAST)
 C_ALL = tuple(C)
 
+C_SIDES = {"U": C.NORTH, "D": C.SOUTH, "R": C.EAST, "L": C.WEST}
 C_TURNS = {
     C.EAST: {"R": C.SOUTH, "L": C.NORTH},
     C.SOUTH: {"R": C.WEST, "L": C.EAST},
@@ -240,3 +243,15 @@ def to_str(points: Union[dict, set], swap_xy=False) -> str:
             result += str(col)
         result += "\n"
     return result
+
+
+def c_delta(x: complex, y: complex):
+    return complex(abs(x.real - y.real), abs(x.imag - y.imag))
+
+
+def c_dist(x: complex, y: complex, *, manhattan: bool = True) -> Union[int, float]:
+    if manhattan:
+        delta = c_delta(x, y)
+        return int(delta.real + delta.imag)
+    else:
+        return math.dist((x.real, x.imag), (y.real, y.imag))

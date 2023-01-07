@@ -1,16 +1,12 @@
 import inspect
 import os
 import re
-from enum import Enum
 from pathlib import Path
-from typing import Union, Iterator, Any, Tuple, Callable, Optional, TypeAlias
+from typing import Union, Iterator, Any, Callable, Optional
 
-import math
 import numpy as np
 from addict import Dict
 from ttp import ttp
-
-from aoc.tpl import t_delta
 
 RESOURCES_ROOT = Path(__file__).parent.parent / "resources"
 DAY_SOURCE_REG = re.compile(r"^.*/year_(\d+)/day_(\d+)(_+)?.py$")
@@ -138,48 +134,3 @@ class PuzzleData:
 
     def __str__(self) -> str:
         return self.test_case
-
-
-XY: TypeAlias = Tuple[int, int]
-XYZ: TypeAlias = Tuple[int, int, int]
-
-Line: TypeAlias = Tuple[XY, XY]
-
-
-class D(XY, Enum):
-    NORTH = (-1, 0)
-    NORTH_EAST = (-1, 1)
-    EAST = (0, 1)
-    SOUTH_EAST = (1, 1)
-    SOUTH = (1, 0)
-    SOUTH_WEST = (1, -1)
-    WEST = (0, -1)
-    NORTH_WEST = (-1, -1)
-
-
-D_DIAGONALS = (D.NORTH_EAST, D.SOUTH_EAST, D.SOUTH_WEST, D.NORTH_WEST)
-D_BORDERS = (D.NORTH, D.SOUTH, D.WEST, D.EAST)
-D_ALL = tuple(D)
-
-D_TURNS = {
-    D.EAST: {"R": D.SOUTH, "L": D.NORTH},
-    D.SOUTH: {"R": D.WEST, "L": D.EAST},
-    D.WEST: {"R": D.NORTH, "L": D.SOUTH},
-    D.NORTH: {"R": D.EAST, "L": D.WEST},
-}
-
-D_OPPOSITE = {D.EAST: D.WEST, D.WEST: D.EAST, D.NORTH: D.SOUTH, D.SOUTH: D.NORTH}
-
-D_MOVES = {
-    "<": D.WEST,
-    ">": D.EAST,
-    "^": D.NORTH,
-    "v": D.SOUTH,
-}
-
-
-def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
-    if manhattan:
-        return sum(t_delta(x, y))
-    else:
-        return math.dist(x, y)

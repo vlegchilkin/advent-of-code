@@ -1,3 +1,8 @@
+from typing import Union
+
+import math
+
+
 def t_minmax(items: list[tuple]):
     if len(items) == 0:
         return None
@@ -106,3 +111,10 @@ def t_delta(x, y):
             return abs(x[0] - y[0]), abs(x[1] - y[1]), abs(x[2] - y[2])
         case _:
             return tuple(abs(xx - yy) for xx, yy in zip(x, y))  # slow
+
+
+def t_dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
+    if manhattan:
+        return sum(t_delta(x, y))
+    else:
+        return math.dist(x, y)

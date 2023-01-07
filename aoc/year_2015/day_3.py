@@ -1,19 +1,19 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, D_MOVES
-from aoc.tpl import t_sum
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.space import C_MOVES
 
 
 class Solution:
     def __init__(self, inp: Input):
-        self.moves = [D_MOVES[c] for c in inp.get_lines()[0]]
+        self.moves = [C_MOVES[c] for c in inp.get_lines()[0]]
 
     @staticmethod
     def run(moves):
-        pos = (0, 0)
+        pos = 0
         houses = {pos}
         for move in moves:
-            pos = t_sum(pos, move)
+            pos += move
             houses.add(pos)
         return houses
 

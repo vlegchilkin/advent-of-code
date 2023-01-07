@@ -1,4 +1,5 @@
-from aoc import Input, dist, PuzzleData
+from aoc import Input, PuzzleData
+from aoc.tpl import t_dist
 
 TTP_TEMPLATE = """\
 Sensor at x={{ sx | to_int }}, y={{ sy | to_int }}: closest beacon is at x={{ bx | to_int }}, y={{ by | to_int }}
@@ -9,7 +10,7 @@ class Solution:
     def __init__(self, inp: Input, part_a_row):
         self.part_a_row = part_a_row
         self.data = [[(r.sx, r.sy), (r.bx, r.by)] for r in inp.get_objects(TTP_TEMPLATE)]
-        self.sensors = [(d[0], dist(*d)) for d in self.data]
+        self.sensors = [(d[0], t_dist(*d)) for d in self.data]
 
     def find_x_areas(self, y):
         areas = []
