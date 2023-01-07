@@ -216,10 +216,6 @@ class Spacer:
 
             return x, y
 
-    @staticmethod
-    def filter(array: np.ndarray, criteria: Callable[[XY], set] = lambda v: v) -> set:
-        return {pos for pos, value in np.ndenumerate(array) if criteria(value)}
-
 
 def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:
     if manhattan:

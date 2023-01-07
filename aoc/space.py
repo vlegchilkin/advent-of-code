@@ -1,4 +1,5 @@
 import collections
+import copy
 from collections.abc import Mapping
 from enum import Enum
 from itertools import product
@@ -6,16 +7,17 @@ from typing import Iterable, Callable, Iterator, Optional, Generator, Union, Typ
 
 import networkx as nx
 import numpy as np
+from numpy import Inf
 
 
 class C(complex, Enum):
-    NORTH = -1
+    NORTH = -1 + 0j
     NORTH_EAST = -1 + 1j
-    EAST = 1j
+    EAST = 0 + 1j
     SOUTH_EAST = 1 + 1j
-    SOUTH = 1
+    SOUTH = 1 + 0j
     SOUTH_WEST = 1 - 1j
-    WEST = -1j
+    WEST = 0 - 1j
     NORTH_WEST = -1 - 1j
 
 
@@ -59,24 +61,36 @@ class IT:
 
 
 class Spacer(Mapping):
-    def __init__(self, shape, *, directions: Iterable[complex] = C_ALL):
-        self.shape = shape
-        self.at = dict()
+    def __init__(self, shape=None, *, ranges=0, at=None, directions: Iterable[complex] = C_ALL):
+        if ranges is None:
+            self.ranges = ((-Inf, -Inf), (Inf, Inf))
+        else:
+            self.ranges = ranges or ((0, 0), shape)
+        self.at = at or dict()
         self.directions = C_ALL if directions is None else directions
 
     @staticmethod
-    def build(arr: np.ndarray, *, directions: Iterable[complex] = C_ALL) -> "Spacer":
-        s = Spacer(arr.shape, directions=directions)
+    def build(arr: np.ndarray, *, ranges=0, directions: Iterable[complex] = C_ALL) -> "Spacer":
+        s = Spacer(arr.shape, ranges=ranges, directions=directions)
         for pos, v in np.ndenumerate(arr):
             if v is not None:
                 s.at[complex(*pos)] = v
         return s
+
+    def __copy__(self):
+        return Spacer(ranges=self.ranges, at=self.at, directions=self.directions)
+
+    def __deepcopy__(self, memo):
+        return Spacer(ranges=self.ranges, at=copy.deepcopy(self.at, memo), directions=copy.deepcopy(self.directions))
 
     def __getitem__(self, __k: complex) -> Any:
         return self.at[__k]
 
     def __setitem__(self, __k: complex, value: Any):
         self.at[__k] = value
+
+    def __delitem__(self, __k: complex):
+        del self.at[__k]
 
     def __len__(self) -> int:
         return len(self.at)
@@ -88,12 +102,16 @@ class Spacer(Mapping):
         return key in self.at
 
     @property
+    def shape(self):
+        return self.ranges[1]
+
+    @property
     def n(self):
-        return self.shape[0]
+        return self.ranges[1][0]
 
     @property
     def m(self):
-        return self.shape[1]
+        return self.ranges[1][1]
 
     def to_digraph(self, weight: Callable[[complex, complex], int] = lambda src, dst: 1):
         graph = nx.DiGraph()
@@ -120,7 +138,11 @@ class Spacer(Mapping):
 
         for direct in directions or self.directions:
             to_pos = pos + direct
-            if 0 <= to_pos.real < self.n and 0 <= to_pos.imag < self.m and has_path(to_pos):
+            if (
+                self.ranges[0][0] <= to_pos.real < self.ranges[1][0]
+                and self.ranges[0][1] <= to_pos.imag < self.ranges[1][1]
+                and has_path(to_pos)
+            ):
                 yield to_pos
 
     def bfs(
@@ -178,6 +200,9 @@ class Spacer(Mapping):
     def __str__(self) -> str:
         return to_str(self.at)
 
+    def minmax(self) -> (complex, complex):
+        return minmax(self.at)
+
 
 def split_to_steps(vector: complex) -> tuple[complex, int]:
     if vector == 0:
@@ -201,9 +226,9 @@ def to_array(points: Union[dict, set], swap_xy=False) -> np.ndarray:
     def get_y(c):
         return int(c.real if swap_xy else c.imag)
 
-    ar = np.zeros((get_x(_max) + 1, get_y(_max) + 1), dtype=int)
+    ar = np.full((get_x(_max - _min) + 1, get_y(_max - _min) + 1), fill_value=".", dtype=str)
     for point in points:
-        ar[get_x(point), get_y(point)] = 1 if type(points) == set else points[point]
+        ar[get_x(point - _min), get_y(point - _min)] = 1 if type(points) == set else points[point]
     return ar
 
 
