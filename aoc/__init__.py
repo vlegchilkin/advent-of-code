@@ -2,7 +2,6 @@ import inspect
 import os
 import re
 from enum import Enum
-from itertools import product
 from pathlib import Path
 from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
 
@@ -178,24 +177,6 @@ D_MOVES = {
     "v": D.SOUTH,
 }
 
-ItFunc: TypeAlias = Callable[[int, int], Iterable[XY]]
-
-
-class IT:
-    TOP_LR: ItFunc = lambda n, m: [(0, x) for x in range(m)]
-    TOP_RL: ItFunc = lambda n, m: [(0, m - x - 1) for x in range(m)]
-
-    BOTTOM_LR: ItFunc = lambda n, m: [(n - 1, x) for x in range(m)]
-    BOTTOM_RL: ItFunc = lambda n, m: [(n - 1, m - x - 1) for x in range(m)]
-
-    LEFT_TB: ItFunc = lambda n, m: [(x, 0) for x in range(n)]
-    LEFT_BT: ItFunc = lambda n, m: [(n - x - 1, 0) for x in range(n)]
-
-    RIGHT_TB: ItFunc = lambda n, m: [(x, m - 1) for x in range(n)]
-    RIGHT_BT: ItFunc = lambda n, m: [(n - x - 1, m - 1) for x in range(n)]
-
-    CORNERS: ItFunc = lambda n, m: [(0, 0), (0, m - 1), (n - 1, m - 1), (n - 1, 0)]
-
 
 class Spacer:
     def __init__(self, n, m, *, default_directions: Iterable[XY] = D_ALL):
@@ -216,20 +197,6 @@ class Spacer:
             if test and not test(to_pos):
                 continue
             yield to_pos
-
-    def iter(self, test: Callable[[XY], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[XY]:
-        def full_iter():
-            for i, j in product(range(self.n), range(self.m)):
-                if not test or test((i, j)):
-                    yield i, j
-
-        def it_func_iter():
-            for pos in it(self.n, self.m):
-                if test and not test(pos):
-                    continue
-                yield pos
-
-        return full_iter() if it is None else it_func_iter()
 
     def move(self, pos: XY, direction: D, *, cyclic=True):
         next_pos = t_sum(pos, direction)

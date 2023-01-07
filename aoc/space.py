@@ -1,7 +1,8 @@
 import collections
+from collections.abc import Mapping
 from enum import Enum
 from itertools import product
-from typing import Iterable, Callable, Iterator, Optional, Generator, Union, TypeAlias
+from typing import Iterable, Callable, Iterator, Optional, Generator, Union, TypeAlias, Any
 
 import networkx as nx
 import numpy as np
@@ -57,10 +58,9 @@ class IT:
     CORNERS: ItFunc = lambda n, m: [complex(0, 0), complex(0, m - 1), complex(n - 1, m - 1), complex(n - 1, 0)]
 
 
-class Spacer:
+class Spacer(Mapping):
     def __init__(self, shape, *, directions: Iterable[complex] = C_ALL):
-        self.n = shape[0]
-        self.m = shape[1]
+        self.shape = shape
         self.at = dict()
         self.directions = C_ALL if directions is None else directions
 
@@ -72,11 +72,28 @@ class Spacer:
                 s.at[complex(*pos)] = v
         return s
 
+    def __getitem__(self, __k: complex) -> Any:
+        return self.at[__k]
+
+    def __setitem__(self, __k: complex, value: Any):
+        self.at[__k] = value
+
+    def __len__(self) -> int:
+        return len(self.at)
+
     def __iter__(self):
         yield from self.at.items()
 
     def __contains__(self, key):
         return key in self.at
+
+    @property
+    def n(self):
+        return self.shape[0]
+
+    @property
+    def m(self):
+        return self.shape[1]
 
     def to_digraph(self, weight: Callable[[complex, complex], int] = lambda src, dst: 1):
         graph = nx.DiGraph()
@@ -145,7 +162,7 @@ class Spacer:
         def full_iter():
             for i, j in product(range(self.n), range(self.m)):
                 if not test or test(complex(i, j)):
-                    yield i, j
+                    yield complex(i, j)
 
         def it_func_iter():
             for pos in it(self.n, self.m):
@@ -154,6 +171,12 @@ class Spacer:
                 yield pos
 
         return full_iter() if it is None else it_func_iter()
+
+    def to_array(self, swap_xy=False):
+        return to_array(self.at, swap_xy)
+
+    def __str__(self) -> str:
+        return to_str(self.at)
 
 
 def split_to_steps(vector: complex) -> tuple[complex, int]:
