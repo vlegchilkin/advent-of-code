@@ -24,6 +24,6 @@
 <a href='day/21'>Day 21: Dirac Dice</a>
 <a href='day/22'>Day 22: Reactor Reboot</a>
 <a href='day/23'>Day 23: Amphipod</a>
-&nbsp;
+<a href='day/24'>Day 24: Arithmetic Logic Unit</a>
 &nbsp;
 </pre>
