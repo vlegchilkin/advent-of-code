@@ -1,6 +1,7 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, D, t_sum, D_MOVES
+from aoc import Input, get_puzzles, PuzzleData, D_MOVES
+from aoc.tpl import t_sum
 
 
 class Solution:

@@ -4,7 +4,8 @@ from functools import cache
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, t_sum
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.tpl import t_sum
 
 
 class Solution:

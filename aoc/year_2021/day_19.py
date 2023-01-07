@@ -6,7 +6,8 @@ from dataclasses import dataclass
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, t_sub, dist, t_sum
+from aoc import Input, get_puzzles, PuzzleData, dist
+from aoc.tpl import t_sub, t_sum
 
 
 def trans_coordinates():

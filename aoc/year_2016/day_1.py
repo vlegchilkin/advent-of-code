@@ -1,6 +1,7 @@
 import pytest
 
-from aoc import Input, D, t_sum, t_koef, dist, get_puzzles, PuzzleData
+from aoc import Input, D, dist, get_puzzles, PuzzleData
+from aoc.tpl import t_koef, t_sum
 
 ROTATE = {
     D.NORTH: {"R": D.EAST, "L": D.WEST},

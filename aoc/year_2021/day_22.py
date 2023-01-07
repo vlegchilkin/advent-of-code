@@ -2,7 +2,8 @@ import logging
 
 import pytest
 import numpy as np
-from aoc import Input, get_puzzles, PuzzleData, t_sum
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.tpl import t_sum
 
 
 class Solution:

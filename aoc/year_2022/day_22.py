@@ -2,7 +2,8 @@ from typing import Iterator
 
 import numpy as np
 
-from aoc import Input, D, t_sum, Spacer, D_TURNS, D_OPPOSITE, IT, ItFunc, PuzzleData
+from aoc import Input, D, Spacer, D_TURNS, D_OPPOSITE, IT, ItFunc, PuzzleData
+from aoc.tpl import t_sum
 
 SIDES = [D.EAST, D.SOUTH, D.WEST, D.NORTH]
 
