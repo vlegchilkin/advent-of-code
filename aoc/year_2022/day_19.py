@@ -3,7 +3,9 @@ import time
 
 import math
 
-from aoc import Input, t_sum, t_koef, t_sub, PuzzleData
+from aoc import Input, PuzzleData
+from aoc.tpl import t_sub, t_koef, t_sum
+
 
 TTP_TEMPLATE = """\
 Blueprint {{ id | to_int}}: \

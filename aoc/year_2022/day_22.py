@@ -2,43 +2,43 @@ from typing import Iterator
 
 import numpy as np
 
-from aoc import Input, D, t_sum, Spacer, D_TURNS, D_OPPOSITE, IT, ItFunc, PuzzleData
+from aoc import Input, PuzzleData
+from aoc.space import C, Spacer, ItFunc, C_OPPOSITE, C_TURNS, IT
 
-SIDES = [D.EAST, D.SOUTH, D.WEST, D.NORTH]
+SIDES = [C.EAST, C.SOUTH, C.WEST, C.NORTH]
 
 
 class Cube:
-    def __init__(self, pattern, data, links):
+    def __init__(self, pattern, data: Spacer, links):
         self.offsets = {}
-        self.dim = len(data) // len(pattern)
+        self.dim = data.n // len(pattern)
         for off_i, v in enumerate(pattern):
             for off_j, side in enumerate(v):
                 if not side:
                     continue
-                self.offsets[side] = (self.dim * off_i, self.dim * off_j)
+                self.offsets[side] = complex(self.dim * off_i, self.dim * off_j)
         self.portals = self._build_portals(data.shape, links)
 
-    def _build_portals(self, shape, links):
-        portals = np.empty(shape, dtype=object)
-        for i in range(portals.shape[0]):
-            for j in range(portals.shape[1]):
-                portals[i, j] = {side: (t_sum((i, j), side), side) for side in SIDES}
+    def _build_portals(self, shape, links) -> Spacer:
+        portals = Spacer(shape)
+        for pos in portals.iter():
+            portals[pos] = {side: (pos + side, side) for side in SIDES}
 
-        s = Spacer(self.dim, self.dim)
+        s = Spacer((self.dim, self.dim))
 
         def make_link(side_a, dir_a, it_a: ItFunc, side_b, dir_b, it_b: ItFunc):
             for x, y in zip(s.iter(it=it_a), s.iter(it=it_b)):
-                sa_pos = t_sum(self.offsets[side_a], x)
-                sb_pos = t_sum(self.offsets[side_b], y)
-                portals[sa_pos][dir_a] = (sb_pos, D_OPPOSITE[dir_b])
-                portals[sb_pos][dir_b] = (sa_pos, D_OPPOSITE[dir_a])
+                sa_pos = self.offsets[side_a] + x
+                sb_pos = self.offsets[side_b] + y
+                portals[sa_pos][dir_a] = (sb_pos, C_OPPOSITE[dir_b])
+                portals[sb_pos][dir_b] = (sa_pos, C_OPPOSITE[dir_a])
 
         for link in links:
             make_link(*link)
 
         return portals
 
-    def move(self, pos: tuple[int, int], direction: D) -> (tuple[int, int], D):
+    def move(self, pos: complex, direction: C) -> (complex, C):
         return self.portals[pos][direction]
 
 
@@ -48,8 +48,8 @@ class Solution:
         self.area = self._build_area(inp_iter)
         self.cube = Cube(cube_pattern, self.area, links)
         self.moves = self._build_moves(inp_iter)
-        self.init_pos = (0, 0)
-        self.init_direction = D.EAST
+        self.init_pos = 0
+        self.init_direction = C.EAST
 
     @staticmethod
     def _build_area(inp_iter: Iterator[str]):
@@ -58,12 +58,12 @@ class Solution:
             area_data.append(list(line))
 
         shape = len(area_data), max([len(r) for r in area_data])
-        area = np.full(shape, dtype=int, fill_value=0)
+        area = np.zeros(shape, dtype=int)
         cross = {".": -1, "#": 1, " ": 0}
         for i, row in enumerate(area_data):
             for j, c in enumerate(row):
                 area[i, j] = cross[c]
-        return area
+        return Spacer.build(area)
 
     @staticmethod
     def _build_moves(inp_iter: Iterator[str]):
@@ -80,7 +80,7 @@ class Solution:
 
     def single_move(self, pos, d, move, handler):
         if type(move) == str:
-            return pos, D_TURNS[d][move]
+            return pos, C_TURNS[d][move]
 
         while move > 0:
             next_pos, next_d = handler(pos, d)
@@ -95,12 +95,12 @@ class Solution:
         return pos, d
 
     @staticmethod
-    def _build_password(pos: tuple[int, int], direction: D) -> int:
-        return 1000 * (pos[0] + 1) + 4 * (pos[1] + 1) + SIDES.index(direction)
+    def _build_password(pos: complex, direction: C) -> int:
+        return 1000 * (int(pos.real) + 1) + 4 * (int(pos.imag) + 1) + SIDES.index(direction)
 
     def part_a(self):
         pos, d = self.init_pos, self.init_direction
-        spacer = Spacer(*self.area.shape)
+        spacer = Spacer(self.area.shape)
         for move in self.moves:
             pos, d = self.single_move(pos, d, move, lambda pp, dd: (spacer.move(pp, dd), dd))
         return self._build_password(pos, d)
@@ -121,13 +121,13 @@ def test_simple():
     ]
 
     links = [
-        (1, D.NORTH, IT.TOP_LR, 5, D.NORTH, IT.TOP_RL),
-        (1, D.WEST, IT.LEFT_TB, 4, D.NORTH, IT.TOP_LR),
-        (1, D.EAST, IT.RIGHT_TB, 3, D.EAST, IT.RIGHT_TB),
-        (2, D.EAST, IT.RIGHT_TB, 3, D.NORTH, IT.TOP_RL),
-        (4, D.SOUTH, IT.BOTTOM_LR, 6, D.WEST, IT.LEFT_BT),
-        (5, D.SOUTH, IT.BOTTOM_LR, 6, D.SOUTH, IT.BOTTOM_RL),
-        (5, D.WEST, IT.LEFT_TB, 3, D.SOUTH, IT.BOTTOM_RL),
+        (1, C.NORTH, IT.TOP_LR, 5, C.NORTH, IT.TOP_RL),
+        (1, C.WEST, IT.LEFT_TB, 4, C.NORTH, IT.TOP_LR),
+        (1, C.EAST, IT.RIGHT_TB, 3, C.EAST, IT.RIGHT_TB),
+        (2, C.EAST, IT.RIGHT_TB, 3, C.NORTH, IT.TOP_RL),
+        (4, C.SOUTH, IT.BOTTOM_LR, 6, C.WEST, IT.LEFT_BT),
+        (5, C.SOUTH, IT.BOTTOM_LR, 6, C.SOUTH, IT.BOTTOM_RL),
+        (5, C.WEST, IT.LEFT_TB, 3, C.SOUTH, IT.BOTTOM_RL),
     ]
 
     solution = Solution(pd.inp, cube_pattern, links)
@@ -145,13 +145,13 @@ def test_challenge():
     ]
 
     links = [
-        (1, D.NORTH, IT.TOP_LR, 5, D.WEST, IT.LEFT_TB),
-        (1, D.WEST, IT.LEFT_TB, 4, D.WEST, IT.LEFT_BT),
-        (2, D.WEST, IT.LEFT_TB, 4, D.NORTH, IT.TOP_LR),
-        (2, D.EAST, IT.RIGHT_TB, 3, D.SOUTH, IT.BOTTOM_LR),
-        (6, D.EAST, IT.RIGHT_TB, 3, D.EAST, IT.RIGHT_BT),
-        (5, D.SOUTH, IT.BOTTOM_LR, 3, D.NORTH, IT.TOP_LR),
-        (5, D.EAST, IT.RIGHT_TB, 6, D.SOUTH, IT.BOTTOM_LR),
+        (1, C.NORTH, IT.TOP_LR, 5, C.WEST, IT.LEFT_TB),
+        (1, C.WEST, IT.LEFT_TB, 4, C.WEST, IT.LEFT_BT),
+        (2, C.WEST, IT.LEFT_TB, 4, C.NORTH, IT.TOP_LR),
+        (2, C.EAST, IT.RIGHT_TB, 3, C.SOUTH, IT.BOTTOM_LR),
+        (6, C.EAST, IT.RIGHT_TB, 3, C.EAST, IT.RIGHT_BT),
+        (5, C.SOUTH, IT.BOTTOM_LR, 3, C.NORTH, IT.TOP_LR),
+        (5, C.EAST, IT.RIGHT_TB, 6, C.SOUTH, IT.BOTTOM_LR),
     ]
 
     solution = Solution(Input(), cube_pattern, links)

@@ -6,7 +6,8 @@ from dataclasses import dataclass
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, t_sub, dist, t_sum
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.tpl import t_sub, t_sum, t_dist
 
 
 def trans_coordinates():
@@ -72,7 +73,7 @@ class Solution:
 
         part_b = 0
         for x, y in itertools.combinations([v.position for v in scanners.values()], 2):
-            part_b = max(part_b, dist(x, y))
+            part_b = max(part_b, t_dist(x, y))
 
         return part_a, part_b
 

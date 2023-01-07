@@ -1,19 +1,25 @@
 import collections
+import copy
+from collections.abc import Mapping
 from enum import Enum
-from typing import Iterable, Callable, Iterator, Optional, Generator, Union
+from itertools import product
+from typing import Iterable, Callable, Iterator, Optional, Generator, Union, TypeAlias, Any
 
 import networkx as nx
 import numpy as np
+from numpy import Inf
+
+from aoc import math
 
 
 class C(complex, Enum):
-    NORTH = -1
+    NORTH = -1 + 0j
     NORTH_EAST = -1 + 1j
-    EAST = 1j
+    EAST = 0 + 1j
     SOUTH_EAST = 1 + 1j
-    SOUTH = 1
+    SOUTH = 1 + 0j
     SOUTH_WEST = 1 - 1j
-    WEST = -1j
+    WEST = 0 - 1j
     NORTH_WEST = -1 - 1j
 
 
@@ -21,6 +27,7 @@ C_DIAGONALS = (C.NORTH_EAST, C.SOUTH_EAST, C.SOUTH_WEST, C.NORTH_WEST)
 C_BORDERS = (C.NORTH, C.SOUTH, C.WEST, C.EAST)
 C_ALL = tuple(C)
 
+C_SIDES = {"U": C.NORTH, "D": C.SOUTH, "R": C.EAST, "L": C.WEST}
 C_TURNS = {
     C.EAST: {"R": C.SOUTH, "L": C.NORTH},
     C.SOUTH: {"R": C.WEST, "L": C.EAST},
@@ -37,24 +44,77 @@ C_MOVES = {
     "v": C.SOUTH,
 }
 
+ItFunc: TypeAlias = Callable[[int, int], Iterable[complex]]
 
-class Spacer:
-    def __init__(self, shape, *, directions: Iterable[complex] = C_ALL):
-        self.n = shape[0]
-        self.m = shape[1]
-        self.at = collections.defaultdict(lambda: 0)
+
+class IT:
+    TOP_LR: ItFunc = lambda n, m: [complex(0, x) for x in range(m)]
+    TOP_RL: ItFunc = lambda n, m: [complex(0, m - x - 1) for x in range(m)]
+
+    BOTTOM_LR: ItFunc = lambda n, m: [complex(n - 1, x) for x in range(m)]
+    BOTTOM_RL: ItFunc = lambda n, m: [complex(n - 1, m - x - 1) for x in range(m)]
+
+    LEFT_TB: ItFunc = lambda n, m: [complex(x, 0) for x in range(n)]
+    LEFT_BT: ItFunc = lambda n, m: [complex(n - x - 1, 0) for x in range(n)]
+
+    RIGHT_TB: ItFunc = lambda n, m: [complex(x, m - 1) for x in range(n)]
+    RIGHT_BT: ItFunc = lambda n, m: [complex(n - x - 1, m - 1) for x in range(n)]
+
+    CORNERS: ItFunc = lambda n, m: [complex(0, 0), complex(0, m - 1), complex(n - 1, m - 1), complex(n - 1, 0)]
+
+
+class Spacer(Mapping):
+    def __init__(self, shape=None, *, ranges=0, at=None, directions: Iterable[complex] = C_ALL):
+        if ranges is None:
+            self.ranges = ((-Inf, -Inf), (Inf, Inf))
+        else:
+            self.ranges = ranges or ((0, 0), shape)
+        self.at = at or dict()
         self.directions = C_ALL if directions is None else directions
 
     @staticmethod
-    def build(arr: np.ndarray, *, directions: Iterable[complex] = C_ALL) -> "Spacer":
-        s = Spacer(arr.shape, directions=directions)
+    def build(arr: np.ndarray, *, ranges=0, directions: Iterable[complex] = C_ALL) -> "Spacer":
+        s = Spacer(arr.shape, ranges=ranges, directions=directions)
         for pos, v in np.ndenumerate(arr):
             if v is not None:
                 s.at[complex(*pos)] = v
         return s
 
+    def __copy__(self):
+        return Spacer(ranges=self.ranges, at=self.at, directions=self.directions)
+
+    def __deepcopy__(self, memo):
+        return Spacer(ranges=self.ranges, at=copy.deepcopy(self.at, memo), directions=copy.deepcopy(self.directions))
+
+    def __getitem__(self, __k: complex) -> Any:
+        return self.at[__k]
+
+    def __setitem__(self, __k: complex, value: Any):
+        self.at[__k] = value
+
+    def __delitem__(self, __k: complex):
+        del self.at[__k]
+
+    def __len__(self) -> int:
+        return len(self.at)
+
     def __iter__(self):
         yield from self.at.items()
+
+    def __contains__(self, key):
+        return key in self.at
+
+    @property
+    def shape(self):
+        return self.ranges[1]
+
+    @property
+    def n(self):
+        return self.ranges[1][0]
+
+    @property
+    def m(self):
+        return self.ranges[1][1]
 
     def to_digraph(self, weight: Callable[[complex, complex], int] = lambda src, dst: 1):
         graph = nx.DiGraph()
@@ -81,7 +141,11 @@ class Spacer:
 
         for direct in directions or self.directions:
             to_pos = pos + direct
-            if 0 <= to_pos.real < self.n and 0 <= to_pos.imag < self.m and has_path(to_pos):
+            if (
+                self.ranges[0][0] <= to_pos.real < self.ranges[1][0]
+                and self.ranges[0][1] <= to_pos.imag < self.ranges[1][1]
+                and has_path(to_pos)
+            ):
                 yield to_pos
 
     def bfs(
@@ -119,6 +183,29 @@ class Spacer:
 
             return complex(x, y)
 
+    def iter(self, test: Callable[[complex], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[complex]:
+        def full_iter():
+            for i, j in product(range(self.n), range(self.m)):
+                if not test or test(complex(i, j)):
+                    yield complex(i, j)
+
+        def it_func_iter():
+            for pos in it(self.n, self.m):
+                if test and not test(pos):
+                    continue
+                yield pos
+
+        return full_iter() if it is None else it_func_iter()
+
+    def to_array(self, swap_xy=False):
+        return to_array(self.at, swap_xy)
+
+    def __str__(self) -> str:
+        return to_str(self.at)
+
+    def minmax(self) -> (complex, complex):
+        return minmax(self.at)
+
 
 def split_to_steps(vector: complex) -> tuple[complex, int]:
     if vector == 0:
@@ -142,9 +229,9 @@ def to_array(points: Union[dict, set], swap_xy=False) -> np.ndarray:
     def get_y(c):
         return int(c.real if swap_xy else c.imag)
 
-    ar = np.zeros((get_x(_max) + 1, get_y(_max) + 1), dtype=int)
+    ar = np.full((get_x(_max - _min) + 1, get_y(_max - _min) + 1), fill_value=".", dtype=str)
     for point in points:
-        ar[get_x(point), get_y(point)] = 1 if type(points) == set else points[point]
+        ar[get_x(point - _min), get_y(point - _min)] = 1 if type(points) == set else points[point]
     return ar
 
 
@@ -156,3 +243,15 @@ def to_str(points: Union[dict, set], swap_xy=False) -> str:
             result += str(col)
         result += "\n"
     return result
+
+
+def c_delta(x: complex, y: complex):
+    return complex(abs(x.real - y.real), abs(x.imag - y.imag))
+
+
+def c_dist(x: complex, y: complex, *, manhattan: bool = True) -> Union[int, float]:
+    if manhattan:
+        delta = c_delta(x, y)
+        return int(delta.real + delta.imag)
+    else:
+        return math.dist((x.real, x.imag), (y.real, y.imag))

@@ -1,7 +1,8 @@
 import pytest
 from numpy import Inf
 
-from aoc import Input, get_puzzles, PuzzleData, t_add_pos, t_pop_left, t_push_left
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.tpl import t_add_pos, t_pop_left, t_push_left
 
 
 class Solution:

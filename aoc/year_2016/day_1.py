@@ -1,13 +1,7 @@
 import pytest
 
-from aoc import Input, D, t_sum, t_koef, dist, get_puzzles, PuzzleData
-
-ROTATE = {
-    D.NORTH: {"R": D.EAST, "L": D.WEST},
-    D.SOUTH: {"R": D.WEST, "L": D.EAST},
-    D.WEST: {"R": D.NORTH, "L": D.SOUTH},
-    D.EAST: {"R": D.SOUTH, "L": D.NORTH},
-}
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.space import C, c_dist, C_TURNS
 
 
 class Solution:
@@ -15,23 +9,23 @@ class Solution:
         self.moves = [(m[0], int(m[1:])) for m in inp.get_text().split(", ")]
 
     def part_a(self):
-        start = pos = (0, 0)
-        direction = D.NORTH
+        start = pos = 0j
+        direction = C.NORTH
         for move in self.moves:
-            direction = ROTATE[direction][move[0]]
-            pos = t_sum(pos, t_koef(move[1], direction))
-        return dist(start, pos)
+            direction = C_TURNS[direction][move[0]]
+            pos += move[1] * direction
+        return c_dist(start, pos)
 
     def part_b(self):
-        start = pos = (0, 0)
+        start = pos = 0j
         visited = {start}
-        direction = D.NORTH
+        direction = C.NORTH
         for move in self.moves:
-            direction = ROTATE[direction][move[0]]
+            direction = C_TURNS[direction][move[0]]
             for _ in range(move[1]):
-                pos = t_sum(pos, direction)
+                pos += direction
                 if pos in visited:
-                    return dist(start, pos)
+                    return c_dist(start, pos)
                 visited.add(pos)
 
 

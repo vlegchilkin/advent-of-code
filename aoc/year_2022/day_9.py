@@ -1,8 +1,7 @@
 import pytest
 
-from aoc import Input, D, get_puzzles, PuzzleData
-
-DIRECTIONS = {"U": D.NORTH, "D": D.SOUTH, "R": D.EAST, "L": D.WEST}
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.space import C_SIDES
 
 
 class Solution:
@@ -11,26 +10,26 @@ class Solution:
 
     @staticmethod
     def calc_move(head, tail):
-        diff = head[0] - tail[0], head[1] - tail[1]
-        abs_diff = abs(diff[0]) + abs(diff[1])
+        diff = head - tail
+        abs_diff = abs(diff.real) + abs(diff.imag)
 
-        if diff[0] * diff[1] == 0 and abs_diff > 1:  # straight
-            return (diff[0] // 2), (diff[1] // 2)
+        if diff.real * diff.imag == 0 and abs_diff > 1:  # straight
+            return diff / 2
         elif abs_diff > 2:  # diagonal
-            return -1 if diff[0] < 0 else 1, -1 if diff[1] < 0 else 1
+            return complex(-1 if diff.real < 0 else 1, -1 if diff.imag < 0 else 1)
 
     def count(self, chains):
         visited = set()
-        rope = [(0, 0) for _ in range(chains)]
+        rope = [0j for _ in range(chains)]
         visited.add(rope[-1])
 
         for direct, steps in self.moves:
-            head_step = DIRECTIONS[direct]
+            head_step = C_SIDES[direct]
             for _ in range(int(steps)):
-                rope[0] = rope[0][0] + head_step[0], rope[0][1] + head_step[1]
+                rope[0] += head_step
                 for chain in range(1, chains):
                     if move := self.calc_move(rope[chain - 1], rope[chain]):
-                        rope[chain] = rope[chain][0] + move[0], rope[chain][1] + move[1]
+                        rope[chain] += move
                     else:
                         break
                 visited.add(rope[-1])

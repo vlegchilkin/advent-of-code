@@ -1,50 +1,53 @@
+import copy
+import itertools
+
 import pytest
 
-from aoc import Input, D, Spacer, t_sum, t_minmax, get_puzzles, PuzzleData
+from aoc.space import Spacer, C
+
+from aoc import Input, get_puzzles, PuzzleData
 
 
 class Solution:
-    def __init__(self, inp: Input, max_rounds=1000):
-        self.max_rounds = max_rounds
-        inp_arr = inp.get_array(lambda c: c == "#")
-        self.spacer = Spacer(*t_sum(inp_arr.shape, (2 * max_rounds, 2 * max_rounds)))
-        self.elves = {(x + max_rounds, y + max_rounds) for x, y in Spacer.filter(inp_arr)}
+    def __init__(self, inp: Input):
+        self.spacer = Spacer.build(inp.get_array(lambda c: "#" if c == "#" else None), ranges=None)
         self.turns = [
-            (D.NORTH, [D.NORTH_WEST, D.NORTH, D.NORTH_EAST]),
-            (D.SOUTH, [D.SOUTH_WEST, D.SOUTH, D.SOUTH_EAST]),
-            (D.WEST, [D.SOUTH_WEST, D.WEST, D.NORTH_WEST]),
-            (D.EAST, [D.SOUTH_EAST, D.EAST, D.NORTH_EAST]),
+            (C.NORTH, [C.NORTH_WEST, C.NORTH, C.NORTH_EAST]),
+            (C.SOUTH, [C.SOUTH_WEST, C.SOUTH, C.SOUTH_EAST]),
+            (C.WEST, [C.SOUTH_WEST, C.WEST, C.NORTH_WEST]),
+            (C.EAST, [C.SOUTH_EAST, C.EAST, C.NORTH_EAST]),
         ]
 
     def _round(self, round_number, elves) -> bool:
         # first half
         shifted_turns = self.turns[round_number % 4 :] + self.turns[: round_number % 4]
         proposals = {}
-        for elf in elves:
-            if next(self.spacer.get_links(elf, test=lambda pos: pos in elves), None):
+        for elf, _ in elves:
+            if next(self.spacer.links(elf, has_path=lambda pos: pos in elves), None) is not None:
                 for turn in shifted_turns:
-                    if not next(self.spacer.get_links(elf, turn[1], test=lambda pos: pos in elves), None):
-                        proposals.setdefault(t_sum(elf, turn[0]), []).append(elf)
+                    if next(self.spacer.links(elf, turn[1], has_path=lambda pos: pos in elves), None) is None:
+                        turn_ = elf + turn[0]
+                        proposals.setdefault(turn_, []).append(elf)
                         break
         # second half
         for proposal, candidates in proposals.items():
             if len(candidates) == 1:
-                elves.add(proposal)
-                elves.remove(candidates[0])
+                elves[proposal] = "#"
+                del elves[candidates[0]]
 
         return bool(proposals)
 
     def part_a(self):
-        _elves = self.elves.copy()
+        _elves = copy.deepcopy(self.spacer)
         for r in range(10):
             self._round(r, _elves)
 
-        mm = t_minmax(_elves)
-        return (mm[1][1] - mm[0][1] + 1) * (mm[1][0] - mm[0][0] + 1) - len(self.elves)
+        mm = _elves.minmax()
+        return int((mm[1].real - mm[0].real + 1) * (mm[1].imag - mm[0].imag + 1)) - len(_elves)
 
     def part_b(self):
-        _elves = self.elves.copy()
-        for r in range(self.max_rounds):
+        _elves = copy.deepcopy(self.spacer)
+        for r in itertools.count(0):
             if not self._round(r, _elves):
                 return r + 1
 
