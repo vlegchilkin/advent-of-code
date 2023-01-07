@@ -3,14 +3,14 @@ import os
 import re
 from enum import Enum
 from pathlib import Path
-from typing import Union, Iterator, Any, Tuple, Iterable, Callable, Optional, TypeAlias
+from typing import Union, Iterator, Any, Tuple, Callable, Optional, TypeAlias
 
 import math
 import numpy as np
 from addict import Dict
 from ttp import ttp
 
-from aoc.tpl import t_sum, t_delta
+from aoc.tpl import t_delta
 
 RESOURCES_ROOT = Path(__file__).parent.parent / "resources"
 DAY_SOURCE_REG = re.compile(r"^.*/year_(\d+)/day_(\d+)(_+)?.py$")
@@ -176,45 +176,6 @@ D_MOVES = {
     "^": D.NORTH,
     "v": D.SOUTH,
 }
-
-
-class Spacer:
-    def __init__(self, n, m, *, default_directions: Iterable[XY] = D_ALL):
-        self.n = n
-        self.m = m
-        self.default_directions = D_ALL if default_directions is None else default_directions
-
-    def get_links(
-        self, from_pos, directions: Iterable[XY] = None, *, test: Callable[[XY], bool] = None
-    ) -> Iterator[tuple]:
-        if directions is None:
-            directions = self.default_directions
-
-        for direct in directions:
-            to_pos = from_pos[0] + direct[0], from_pos[1] + direct[1]
-            if not 0 <= to_pos[0] < self.n or not 0 <= to_pos[1] < self.m:
-                continue
-            if test and not test(to_pos):
-                continue
-            yield to_pos
-
-    def move(self, pos: XY, direction: D, *, cyclic=True):
-        next_pos = t_sum(pos, direction)
-        if 0 <= next_pos[0] < self.n and 0 <= next_pos[1] < self.m:
-            return next_pos
-        else:
-            if not cyclic:
-                raise OverflowError("Got out of dimensions")
-
-            x = next_pos[0] % self.n
-            if x < 0:
-                x += self.n
-
-            y = next_pos[1] % self.m
-            if y < 0:
-                y += self.m
-
-            return x, y
 
 
 def dist(x, y, *, manhattan: bool = True) -> Union[int, float]:

@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
-from aoc import Input, get_puzzles, PuzzleData, Spacer, D_BORDERS, D_MOVES
-from aoc.tpl import t_sum
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.space import C_MOVES, Spacer, C_BORDERS
 
 
 class Solution:
@@ -9,21 +9,21 @@ class Solution:
         data = inp.get_array()
 
         if len(enter_columns := [j for j, v in enumerate(data[0, :]) if v == "."]) == 1:
-            self.start = -1, enter_columns[0] - 1
+            self.start = complex(-1, enter_columns[0] - 1)
         else:
             raise ValueError("Wrong enter configuration (multiple or none)")
 
         if len(exit_columns := [j for j, v in enumerate(data[-1, :]) if v == "."]) == 1:
-            self.finish = data.shape[0] - 2, exit_columns[0] - 1
+            self.finish = complex(data.shape[0] - 2, exit_columns[0] - 1)
         else:
             raise ValueError("Wrong exit configuration (multiple or none)")
 
-        self.blizzards = {d: set() for d in D_MOVES.values()}
+        self.blizzards = {d: set() for d in C_MOVES.values()}
         maze = data[1:-1, 1:-1]
         for pos, c in np.ndenumerate(maze):
-            if c in D_MOVES:
-                self.blizzards[D_MOVES[c]].add(pos)
-        self.spacer = Spacer(*maze.shape, default_directions=D_BORDERS)
+            if c in C_MOVES:
+                self.blizzards[C_MOVES[c]].add(complex(*pos))
+        self.spacer = Spacer(maze.shape, directions=C_BORDERS)
 
     def blizzards_step(self, blizzards):
         for d in list(blizzards.keys()):
@@ -38,14 +38,14 @@ class Solution:
             blocked_positions |= d
 
         for pos in list(positions):
-            links = set(self.spacer.get_links(pos, test=lambda x: x not in blocked_positions))
+            links = set(self.spacer.links(pos, has_path=lambda x: x not in blocked_positions))
             positions |= links
 
         positions -= blocked_positions
 
     def trip(self, blizzards, straight=True):
         positions = {self.start if straight else self.finish}
-        doorway = t_sum(self.finish, (-1, 0)) if straight else t_sum(self.start, (1, 0))
+        doorway = (self.finish - 1) if straight else (self.start + 1)
         time = 0
 
         def step():
