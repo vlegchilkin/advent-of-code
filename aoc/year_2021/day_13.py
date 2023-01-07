@@ -29,7 +29,7 @@ class Solution:
         dots = self.dots
         for fold in self.folds:
             dots = self.fold(dots, fold)
-        return to_str(dots).replace("1", "#").replace("0", ".")
+        return to_str(dots, True).replace("1", "#").replace("0", ".")
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)

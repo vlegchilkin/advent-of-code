@@ -25,5 +25,5 @@
 <a href='day/22'>Day 22: Reactor Reboot</a>
 <a href='day/23'>Day 23: Amphipod</a>
 <a href='day/24'>Day 24: Arithmetic Logic Unit</a>
-&nbsp;
+<a href='day/25'>Day 25: Sea Cucumber</a>
 </pre>
