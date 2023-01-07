@@ -1,7 +1,7 @@
 import pytest
 
-from aoc import Input, D, Spacer, t_sum, get_puzzles, PuzzleData
-from aoc.tpl import t_minmax
+from aoc import Input, D, Spacer, get_puzzles, PuzzleData
+from aoc.tpl import t_minmax, t_sum
 
 
 class Solution:
