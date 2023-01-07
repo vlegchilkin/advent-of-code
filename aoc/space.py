@@ -61,7 +61,7 @@ class Spacer:
     def __init__(self, shape, *, directions: Iterable[complex] = C_ALL):
         self.n = shape[0]
         self.m = shape[1]
-        self.at = collections.defaultdict(lambda: 0)
+        self.at = dict()
         self.directions = C_ALL if directions is None else directions
 
     @staticmethod
@@ -74,6 +74,9 @@ class Spacer:
 
     def __iter__(self):
         yield from self.at.items()
+
+    def __contains__(self, key):
+        return key in self.at
 
     def to_digraph(self, weight: Callable[[complex, complex], int] = lambda src, dst: 1):
         graph = nx.DiGraph()

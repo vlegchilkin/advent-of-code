@@ -11,7 +11,7 @@ import numpy as np
 from addict import Dict
 from ttp import ttp
 
-from aoc.tpl import t_minmax, t_sum, t_delta
+from aoc.tpl import t_sum, t_delta
 
 RESOURCES_ROOT = Path(__file__).parent.parent / "resources"
 DAY_SOURCE_REG = re.compile(r"^.*/year_(\d+)/day_(\d+)(_+)?.py$")
@@ -203,11 +203,6 @@ class Spacer:
         self.m = m
         self.default_directions = D_ALL if default_directions is None else default_directions
 
-    @staticmethod
-    def build(points: list[XY]) -> "Spacer":
-        mm = t_minmax(points)
-        return Spacer(mm[1][0] + 1, mm[1][1] + 1)
-
     def get_links(
         self, from_pos, directions: Iterable[XY] = None, *, test: Callable[[XY], bool] = None
     ) -> Iterator[tuple]:
@@ -235,13 +230,6 @@ class Spacer:
                 yield pos
 
         return full_iter() if it is None else it_func_iter()
-
-    def new_array(self, fill_value, *, dtype=int):
-        return np.full(
-            shape=(self.n, self.m),
-            fill_value=fill_value,
-            dtype=dtype,
-        )
 
     def move(self, pos: XY, direction: D, *, cyclic=True):
         next_pos = t_sum(pos, direction)
