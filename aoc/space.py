@@ -1,6 +1,7 @@
 import collections
 from enum import Enum
-from typing import Iterable, Callable, Iterator, Optional, Generator, Union
+from itertools import product
+from typing import Iterable, Callable, Iterator, Optional, Generator, Union, TypeAlias
 
 import networkx as nx
 import numpy as np
@@ -36,6 +37,24 @@ C_MOVES = {
     "^": C.NORTH,
     "v": C.SOUTH,
 }
+
+ItFunc: TypeAlias = Callable[[int, int], Iterable[complex]]
+
+
+class IT:
+    TOP_LR: ItFunc = lambda n, m: [complex(0, x) for x in range(m)]
+    TOP_RL: ItFunc = lambda n, m: [complex(0, m - x - 1) for x in range(m)]
+
+    BOTTOM_LR: ItFunc = lambda n, m: [complex(n - 1, x) for x in range(m)]
+    BOTTOM_RL: ItFunc = lambda n, m: [complex(n - 1, m - x - 1) for x in range(m)]
+
+    LEFT_TB: ItFunc = lambda n, m: [complex(x, 0) for x in range(n)]
+    LEFT_BT: ItFunc = lambda n, m: [complex(n - x - 1, 0) for x in range(n)]
+
+    RIGHT_TB: ItFunc = lambda n, m: [complex(x, m - 1) for x in range(n)]
+    RIGHT_BT: ItFunc = lambda n, m: [complex(n - x - 1, m - 1) for x in range(n)]
+
+    CORNERS: ItFunc = lambda n, m: [complex(0, 0), complex(0, m - 1), complex(n - 1, m - 1), complex(n - 1, 0)]
 
 
 class Spacer:
@@ -118,6 +137,20 @@ class Spacer:
                 y += self.m
 
             return complex(x, y)
+
+    def iter(self, test: Callable[[complex], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[complex]:
+        def full_iter():
+            for i, j in product(range(self.n), range(self.m)):
+                if not test or test(complex(i, j)):
+                    yield i, j
+
+        def it_func_iter():
+            for pos in it(self.n, self.m):
+                if test and not test(pos):
+                    continue
+                yield pos
+
+        return full_iter() if it is None else it_func_iter()
 
 
 def split_to_steps(vector: complex) -> tuple[complex, int]:

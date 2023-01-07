@@ -1,34 +1,39 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, Spacer, IT
+from aoc import Input, get_puzzles, PuzzleData
+from aoc.space import Spacer, IT
 
 
 class Solution:
     def __init__(self, inp: Input):
-        inp_arr = inp.get_array(lambda c: c == "#")
-        self.spacer = Spacer(*inp_arr.shape)
-        self.on_lamps = Spacer.filter(inp_arr)
+        self.arr = inp.get_array(lambda c: int(c == "#"))
 
-    def switch(self, on_lamps) -> set:
-        result = set()
-        for pos in self.spacer.iter():
-            on_neighbours = sum(1 for _ in self.spacer.get_links(pos, test=lambda p: p in on_lamps))
-            if on_neighbours == 3 or (on_neighbours == 2 and pos in on_lamps):
-                result.add(pos)
-        return result
+    @staticmethod
+    def switch(spacer):
+        result = {}
+        for pos, is_on in spacer:
+            on_neighbours = sum(spacer.at[p] for p in spacer.links(pos))
+            result[pos] = int(on_neighbours == 3 or (on_neighbours == 2 and is_on))
+        spacer.at = result
 
     def part_a(self):
-        on_lamps = self.on_lamps.copy()
+        spacer = Spacer.build(self.arr)
         for _ in range(100):
-            on_lamps = self.switch(on_lamps)
-        return len(on_lamps)
+            self.switch(spacer)
+        return sum(spacer.at.values())
 
     def part_b(self):
-        corners = set(self.spacer.iter(it=IT.CORNERS))
-        lamps = self.on_lamps.copy() | corners
+        def turn_on_corners():
+            for p in spacer.iter(it=IT.CORNERS):
+                spacer.at[p] = 1
+
+        spacer = Spacer.build(self.arr)
+        turn_on_corners()
         for _ in range(100):
-            lamps = self.switch(lamps) | corners
-        return len(lamps)
+            self.switch(spacer)
+            turn_on_corners()
+
+        return sum(spacer.at.values())
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
