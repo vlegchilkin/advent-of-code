@@ -1,6 +1,6 @@
 import collections
 from enum import Enum
-from typing import Iterable, Callable, Iterator, Optional, Generator
+from typing import Iterable, Callable, Iterator, Optional, Generator, Union
 
 import networkx as nx
 import numpy as np
@@ -49,7 +49,8 @@ class Spacer:
     def build(arr: np.ndarray, *, directions: Iterable[complex] = C_ALL) -> "Spacer":
         s = Spacer(arr.shape, directions=directions)
         for pos, v in np.ndenumerate(arr):
-            s.at[complex(*pos)] = v
+            if v is not None:
+                s.at[complex(*pos)] = v
         return s
 
     def __iter__(self):
@@ -100,6 +101,24 @@ class Spacer:
                     return visited, link
         return visited, None
 
+    def move(self, pos: complex, direction: C, *, cyclic=True):
+        next_pos = pos + direction
+        if 0 <= next_pos.real < self.n and 0 <= next_pos.imag < self.m:
+            return next_pos
+        else:
+            if not cyclic:
+                raise OverflowError("Got out of dimensions")
+
+            x = next_pos.real % self.n
+            if x < 0:
+                x += self.n
+
+            y = next_pos.imag % self.m
+            if y < 0:
+                y += self.m
+
+            return complex(x, y)
+
 
 def split_to_steps(vector: complex) -> tuple[complex, int]:
     if vector == 0:
@@ -114,16 +133,23 @@ def minmax(points: Iterable[complex]) -> (complex, complex):
     return complex(min(reals), min(imags)), complex(max(reals), max(imags))
 
 
-def to_array(points: Iterable[complex]) -> np.ndarray:
+def to_array(points: Union[dict, set], swap_xy=False) -> np.ndarray:
     _min, _max = minmax(points)
-    ar = np.zeros((int(_max.imag) + 1, int(_max.real) + 1), dtype=int)
+
+    def get_x(c):
+        return int(c.imag if swap_xy else c.real)
+
+    def get_y(c):
+        return int(c.real if swap_xy else c.imag)
+
+    ar = np.zeros((get_x(_max) + 1, get_y(_max) + 1), dtype=int)
     for point in points:
-        ar[int(point.imag), int(point.real)] = 1
+        ar[get_x(point), get_y(point)] = 1 if type(points) == set else points[point]
     return ar
 
 
-def to_str(points: Iterable[complex]) -> str:
-    ar = to_array(points)
+def to_str(points: Union[dict, set], swap_xy=False) -> str:
+    ar = to_array(points, swap_xy)
     result = ""
     for row in ar:
         for col in row:
