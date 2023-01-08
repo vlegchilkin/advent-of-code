@@ -11,9 +11,6 @@ from utils.yearly_readme import build_year
 if __name__ == "__main__":
     context = Context(*sys.argv[1:])
 
-    if not (source_file := context.source(f"day_{context.day}.py")).exists():
-        source_file.copy(day_template.__file__)
-
     if not (input_file := context.resource("puzzle.in")).exists():
         resp = context.request_day("/input")
         if resp.status_code < 300:
@@ -40,8 +37,16 @@ if __name__ == "__main__":
         print("Puzzle wasn't solved yet!")
         groups = [main_content, "", "", ""]
 
-    context.resource("README.md").write(md(groups[0] + groups[2]))
+    task_md = md(groups[0] + groups[2])
+    context.resource("README.md").write(task_md)
     context.resource("puzzle.out").write((groups[1] or "") + "\n" + (groups[4] or "" if len(groups) > 4 else "") + "\n")
+
+    if not (source_file := context.source(f"day_{context.day}.py")).exists():
+        title = task_md.splitlines()[0].split(": ")[1][:-4]
+        with open(day_template.__file__) as f:
+            tpl = f.read()
+            filtered = tpl.replace("{YEAR}", context.year).replace("{DAY}", context.day).replace("{TITLE}", title)
+        source_file.write(filtered)
 
     for i, pre_content in enumerate(slice_content(main_content, "<pre><code>", "</code></pre>")):
         if not (input_i_file := context.resource(f"{i}.in")).exists():
