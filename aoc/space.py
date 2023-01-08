@@ -165,11 +165,11 @@ class Spacer(Mapping):
                     return visited, link
         return visited, None
 
+    def is_inside_ranges(self, pos: complex) -> bool:
+        return self.ranges[0][0] <= pos.real < self.ranges[1][0] and self.ranges[0][1] <= pos.imag < self.ranges[1][1]
+
     def move(self, pos: complex, direction: C, *, cyclic=True, has_path: Callable[[complex], bool] = None):
-        _pos = pos + direction
-        if self.ranges[0][0] <= _pos.real < self.ranges[1][0] and self.ranges[0][1] <= _pos.imag < self.ranges[1][1]:
-            pass
-        else:
+        if not self.is_inside_ranges(_pos := pos + direction):
             if not cyclic:
                 return None
 
