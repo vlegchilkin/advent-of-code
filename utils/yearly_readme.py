@@ -99,7 +99,7 @@ def build_year(year, src=None):
     if year == 2015:
         height += 20
     elif year == 2016:
-        height += 100
+        height += 90
     s = len('<pre class="calender">')
     html_str = days[:s] + "&nbsp;\n" + days[s:]
     path = hti.screenshot(html_str=html_str, css_str=styles, save_as=f"{year}.png", size=(400, height))
@@ -114,6 +114,9 @@ def build_year(year, src=None):
     for h in parser.headers:
         for _ in range(len(h["data"].split("\n")) - 1):
             readme += "&nbsp;\n"
+
+    if year == 2016:
+        readme += "&nbsp;\n"
 
     for day, value in parser.days.items():
         v = ""
