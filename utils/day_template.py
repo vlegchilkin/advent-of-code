@@ -4,7 +4,7 @@ from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
 class Solution(ISolution):
-    """Year {YEAR} / Day {DAY}: {TITLE}"""
+    """{YEAR}/{DAY}: {TITLE}"""
 
     def __init__(self, inp: Input):
         pass
