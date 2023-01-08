@@ -28,6 +28,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
+<a href='day/3'>Day 3: Squares With Three Sides</a>
 <a href='day/2'>Day 2: Bathroom Security</a>
 <a href='day/1'>Day 1: No Time for a Taxicab</a>
 &nbsp;
