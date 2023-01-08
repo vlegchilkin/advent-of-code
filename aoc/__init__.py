@@ -2,7 +2,7 @@ import inspect
 import os
 import re
 from pathlib import Path
-from typing import Union, Iterator, Any, Callable, Optional
+from typing import Union, Iterator, Any, Callable, Optional, Type
 
 import numpy as np
 from addict import Dict
@@ -92,16 +92,26 @@ class Input:
         objects = self.get_objects(ttp_template)
         return [list(o.values()) for o in objects]
 
-    def get_array(self, decoder: Optional[Callable[[str], Any]] = None, *, sep: str = None, lines=None) -> np.ndarray:
+    def _build_array(self, lines, decode):
         lines = lines or self._text.splitlines()
         width = max(map(len, lines))
         lines = [line.ljust(width) for line in lines]
 
+        return np.array([decode(line) for line in lines])
+
+    def get_matrix(self, size, decoder: Optional[Callable[[str], Any]] = None, *, lines=None) -> np.ndarray:
+        def decode(line: str) -> list:
+            xx = [line[i : i + size].strip() or None for i in range(0, len(line), size)]
+            return [decoder(c) for c in xx] if decoder else xx
+
+        return self._build_array(lines, decode)
+
+    def get_array(self, decoder: Optional[Callable[[str], Any]] = None, *, sep: str = None, lines=None) -> np.ndarray:
         def decode(line: str) -> list:
             characters = list(line) if not sep else line.split(sep)
             return [decoder(c) for c in characters] if decoder else characters
 
-        return np.array([decode(line) for line in lines])
+        return self._build_array(lines, decode)
 
     def get_text(self) -> str:
         return self._text
@@ -114,6 +124,17 @@ class Output:
             self.b = file.read().strip()
 
 
+class ISolution:
+    def part_a(self) -> Any:
+        return ""
+
+    def part_b(self) -> Any:
+        return ""
+
+    def part_a_b(self) -> (Any, Any):
+        return self.part_a(), self.part_b()
+
+
 class PuzzleData:
     def __init__(self, test_case: str, year: int = None, day: int = None):
         if year is None:
@@ -122,7 +143,7 @@ class PuzzleData:
         self.inp = Input(test_case, year, day)
         self.out = Output(year, day, test_case)
 
-    def check_solution(self, solution_class):
+    def check_solution(self, solution_class: Type[ISolution]):
         solution = solution_class(self.inp)
         if hasattr(solution, "part_a_b"):
             res_a, res_b = solution.part_a_b()

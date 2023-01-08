@@ -165,23 +165,26 @@ class Spacer(Mapping):
                     return visited, link
         return visited, None
 
-    def move(self, pos: complex, direction: C, *, cyclic=True):
-        next_pos = pos + direction
-        if 0 <= next_pos.real < self.n and 0 <= next_pos.imag < self.m:
-            return next_pos
+    def move(self, pos: complex, direction: C, *, cyclic=True, has_path: Callable[[complex], bool] = None):
+        _pos = pos + direction
+        if self.ranges[0][0] <= _pos.real < self.ranges[1][0] and self.ranges[0][1] <= _pos.imag < self.ranges[1][1]:
+            pass
         else:
             if not cyclic:
-                raise OverflowError("Got out of dimensions")
+                return None
 
-            x = next_pos.real % self.n
+            x = _pos.real % self.n
             if x < 0:
                 x += self.n
 
-            y = next_pos.imag % self.m
+            y = _pos.imag % self.m
             if y < 0:
                 y += self.m
 
-            return complex(x, y)
+            _pos = complex(x, y)
+
+        if _pos in self.at and (not has_path or has_path(_pos)):
+            return _pos
 
     def iter(self, test: Callable[[complex], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[complex]:
         def full_iter():
