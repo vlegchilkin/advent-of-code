@@ -2,11 +2,11 @@ import itertools
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import Spacer, C
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.ar = inp.get_array(decoder=lambda x: {">": 1, "v": 2, ".": None}.get(x))
 
@@ -17,13 +17,15 @@ class Solution:
             res = {}
             for pos, v in sp.items():
                 if v == 1:
-                    if (next_pos := spacer.move(pos, C.EAST)) not in sp:
+                    if (next_pos := spacer.move(pos, C.EAST, has_path=lambda p: p not in sp)) is not None:
                         res[next_pos] = v
                     else:
                         res[pos] = v
             for pos, v in sp.items():
                 if v == 2:
-                    if (next_pos := spacer.move(pos, C.SOUTH)) not in res and sp.get(next_pos) != 2:
+                    if (
+                        next_pos := spacer.move(pos, C.SOUTH, has_path=lambda p: p not in res and sp.get(p) != 2)
+                    ) is not None:
                         res[next_pos] = v
                     else:
                         res[pos] = v
@@ -35,9 +37,6 @@ class Solution:
             next(counter)
             space = _space
         return next(counter)
-
-    def part_b(self):
-        return ""
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)

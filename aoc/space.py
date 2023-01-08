@@ -183,7 +183,7 @@ class Spacer(Mapping):
 
             _pos = complex(x, y)
 
-        if _pos in self.at and (not has_path or has_path(_pos)):
+        if (has_path or (lambda p: p in self))(_pos):
             return _pos
 
     def iter(self, test: Callable[[complex], bool] = None, *, it: Optional[ItFunc] = None) -> Iterator[complex]:

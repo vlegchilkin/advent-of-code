@@ -2,7 +2,7 @@ from typing import Iterator
 
 import numpy as np
 
-from aoc import Input, PuzzleData
+from aoc import Input, PuzzleData, ISolution
 from aoc.space import C, Spacer, ItFunc, C_OPPOSITE, C_TURNS, IT
 
 SIDES = [C.EAST, C.SOUTH, C.WEST, C.NORTH]
@@ -42,7 +42,7 @@ class Cube:
         return self.portals[pos][direction]
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input, cube_pattern: list[list], links):
         inp_iter = inp.get_iter()
         self.area = self._build_area(inp_iter)
@@ -100,9 +100,8 @@ class Solution:
 
     def part_a(self):
         pos, d = self.init_pos, self.init_direction
-        spacer = Spacer(self.area.shape)
         for move in self.moves:
-            pos, d = self.single_move(pos, d, move, lambda pp, dd: (spacer.move(pp, dd), dd))
+            pos, d = self.single_move(pos, d, move, lambda pp, dd: (self.area.move(pp, dd), dd))
         return self._build_password(pos, d)
 
     def part_b(self):

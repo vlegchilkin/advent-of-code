@@ -1,10 +1,10 @@
 import pytest
 import numpy as np
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import C_MOVES, Spacer, C_BORDERS
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         data = inp.get_array()
 
@@ -29,7 +29,7 @@ class Solution:
         for d in list(blizzards.keys()):
             updated = set()
             for v in blizzards[d]:
-                updated.add(self.spacer.move(v, d))
+                updated.add(self.spacer.move(v, d, has_path=lambda x: True))
             blizzards[d] = updated
 
     def your_step(self, blizzards, positions):
