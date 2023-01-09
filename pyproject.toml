@@ -9,22 +9,22 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.28.1"
-ttp = "*"
-addict = "*"
-numpy = "*"
-networkx = "*"
-matplotlib = "*"
-scipy = "*"
+ttp = "^0.9.2"
+addict = "^2.4.0"
+numpy = "^1.24.1"
+networkx = "^3.0"
+matplotlib = "^3.6.2"
+scipy = "^1.9.3"
 markdownify = "^0.11.6"
 sympy = "^1.11.1"
 llist = "^0.7.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.2.0"
-pre-commit = { version = "*", source = "pypi" }
+pre-commit = { version = "^2.21.0", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
-coverage = { version = "^7.0.4", source = "pypi" }
-html2image = { version = "*", source = "pypi" }
+coverage = { version = "^7.0.3", source = "pypi" }
+html2image = { version = "^2.0.1", source = "pypi" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
