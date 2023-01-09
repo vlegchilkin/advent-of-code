@@ -646,7 +646,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "011c6b936bbf02dbf2ecaed59f0ab6ff2f1d6f2cab679ac7edd009cee45fcbe3"
+content-hash = "a0bb795663d7d5ac70a8df1fcaa58c31e36288ae514e9e96543c2d68ba00ef8b"
 
 [metadata.files]
 addict = [

@@ -23,7 +23,7 @@ llist = "^0.7.1"
 pytest = "^7.2.0"
 pre-commit = { version = "^2.21.0", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
-coverage = { version = "^7.0.3", source = "pypi" }
+coverage = { version = "^7.0.4", source = "pypi" }
 html2image = { version = "^2.0.1", source = "pypi" }
 
 [build-system]

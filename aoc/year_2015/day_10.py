@@ -9,7 +9,7 @@ class Solution(ISolution):
 
     @staticmethod
     def look_and_say(line: str) -> str:
-        result = ""
+        result = []
         digit, count = None, 0
 
         for c in line:
@@ -17,13 +17,13 @@ class Solution(ISolution):
                 count += 1
                 continue
             if count:
-                result += f"{count}{digit}"
+                result.append(f"{count}{digit}")
             digit, count = c, 1
 
         if count:
-            result += f"{count}{digit}"
+            result.append(f"{count}{digit}")
 
-        return result
+        return "".join(result)
 
     def simulate(self, times) -> str:
         line = self.line
