@@ -5,7 +5,7 @@ from typing import Optional, Iterator
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
 @dcs.dataclass
@@ -19,7 +19,7 @@ class Packet:
     def _parse(bin_iter: Iterator[str]) -> Optional["Packet"]:
         def bits(n) -> int:
             res = 0
-            for i in range(n):
+            for _ in range(n):
                 res = (res << 1) + int(next(bin_iter))
             return res
 
@@ -51,7 +51,7 @@ class Packet:
         return Packet._parse(iter(bin_data))
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.data = inp.get_lines()[0]
 

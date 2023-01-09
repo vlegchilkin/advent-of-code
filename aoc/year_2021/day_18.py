@@ -7,7 +7,7 @@ import math
 import pytest
 from llist import dllist
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
 class SnailNum:
@@ -43,7 +43,7 @@ class SnailNum:
             return True
 
         while explode() or split():
-            pass
+            """reduce number till it could explode or split"""
 
     def magnitude(self) -> int:
         q = deque()
@@ -82,7 +82,7 @@ class SnailNum:
         return repr(self.leaves)
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.numbers = list(map(SnailNum.parse, inp.get_lines()))
 
