@@ -1,6 +1,7 @@
 import inspect
 import os
 import re
+from abc import abstractmethod
 from pathlib import Path
 from typing import Union, Iterator, Any, Callable, Optional, Type
 
@@ -125,6 +126,12 @@ class Output:
 
 
 class ISolution:
+    @abstractmethod
+    def __init__(self, inp: Input):
+        """
+        :param inp: puzzle input data
+        """
+
     def part_a(self) -> Any:
         return ""
 
