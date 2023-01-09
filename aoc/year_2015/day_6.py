@@ -1,5 +1,5 @@
 import re
-from enum import Enum
+from enum import StrEnum
 from typing import Callable
 
 import numpy as np
@@ -8,7 +8,7 @@ import pytest
 from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Action(str, Enum):
+class Action(StrEnum):
     TURN_ON = "turn on"
     TURN_OFF = "turn off"
     TOGGLE = "toggle"

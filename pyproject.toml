@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 requests = "^2.28.1"
 ttp = "^0.9.2"
 addict = "^2.4.0"
@@ -23,7 +23,7 @@ llist = "^0.7.1"
 pytest = "^7.2.0"
 pre-commit = { version = "^2.21.0", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
-coverage = { version = "^7.0.3", source = "pypi" }
+coverage = { version = "^7.0.4", source = "pypi" }
 html2image = { version = "^2.0.1", source = "pypi" }
 
 [build-system]
@@ -32,7 +32,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
-target-version = ['py310']
+target-version = ['py311']
 
 [tool.pytest.ini_options]
 python_files = "*.py"
