@@ -2,10 +2,10 @@ import itertools
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.gifts = inp.get_lists("""{{ l | to_int }}x{{ w | to_int }}x{{ h | to_int }}""")
 

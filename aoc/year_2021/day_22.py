@@ -2,11 +2,11 @@ import logging
 
 import pytest
 import numpy as np
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.tpl import t_sum
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         data = inp.get_lists(
             "{{action}} x={{x0|to_int}}..{{x1|to_int}},y={{y0|to_int}}..{{y1|to_int}},z={{z0|to_int}}..{{z1|to_int}}"

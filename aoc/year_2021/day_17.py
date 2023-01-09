@@ -3,10 +3,10 @@ from typing import Optional, Generator
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         groups = tuple(map(int, re.findall(r"-?\d+", inp.get_text())))
         self.x_range = groups[0], groups[1]

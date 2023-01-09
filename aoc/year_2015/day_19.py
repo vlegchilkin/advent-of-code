@@ -3,10 +3,10 @@ import string
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, algo
+from aoc import Input, get_puzzles, PuzzleData, algo, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         inp_iter = inp.get_iter()
         self.mapping = {}

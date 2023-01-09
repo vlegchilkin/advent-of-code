@@ -1,11 +1,11 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 SNAFU = "=-012"
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.snafu_numbers = inp.get_lines()
 

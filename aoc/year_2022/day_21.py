@@ -2,13 +2,13 @@ import copy
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.math import INT_OPER
 
 TTP_TEMPLATE = """{{ monkey }}: {{ operation | ORPHRASE  | split(" ")}}"""
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.inputs = {
             obj.monkey: tuple(obj.operation) if len(obj.operation) > 1 else int(obj.operation[0])

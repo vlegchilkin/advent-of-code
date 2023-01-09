@@ -3,12 +3,12 @@ from typing import Callable
 import pytest
 import networkx as nx
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 TTP_TEMPLATE = "{{ f }} to {{ t }} = {{ length | to_int }}"
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.graph = nx.Graph()
         for o in inp.get_objects(TTP_TEMPLATE):

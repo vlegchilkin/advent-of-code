@@ -3,7 +3,7 @@ from typing import Optional
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
 class Simulation:
@@ -52,7 +52,7 @@ class Simulation:
         return len(self.glass)
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         blocks = Input(0).get_blocks()
         self.rocks = [[[1 if c == "#" else 0 for c in line] for line in reversed(block)] for block in blocks]

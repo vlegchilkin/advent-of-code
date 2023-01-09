@@ -3,7 +3,7 @@ import time
 
 import math
 
-from aoc import Input, PuzzleData
+from aoc import Input, PuzzleData, ISolution
 from aoc.tpl import t_sub, t_koef, t_sum
 
 
@@ -16,7 +16,7 @@ Each geode robot costs {{ geode_ore | to_int }} ore and {{ geode_obs | to_int }}
 """
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.blueprints = {}
         for blueprint in inp.get_objects(TTP_TEMPLATE):

@@ -3,10 +3,10 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         p = re.compile(r"^(\w+) would (lose|gain) (\d+) happiness units by sitting next to (\w+).$")
         data = [p.match(line).groups() for line in inp.get_lines()]

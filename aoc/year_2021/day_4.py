@@ -3,7 +3,7 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
 class BingoBoard:
@@ -23,7 +23,7 @@ class BingoBoard:
         return self.rows[pos[0]] * self.columns[pos[1]] == 0
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         inp_iter = inp.get_iter()
         self.numbers = list(map(int, next(inp_iter).split(",")))

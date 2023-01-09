@@ -1,9 +1,9 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.pairs = inp.get_lists("{{a0|to_int}}-{{a1|to_int}},{{b0|to_int}}-{{b1|to_int}}")
 

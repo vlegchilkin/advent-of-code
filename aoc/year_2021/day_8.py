@@ -2,13 +2,13 @@ import itertools
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 NUMBERS = ["abcefg", "cf", "acdeg", "acdfg", "bcdf", "abdfg", "abdefg", "acf", "abcdefg", "abcdfg"]
 SEGMENTS = NUMBERS[8]
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         def parse(line):
             return [item.split(" ") for item in line.split(" | ")]

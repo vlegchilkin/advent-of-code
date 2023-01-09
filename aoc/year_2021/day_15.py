@@ -2,11 +2,11 @@ import pytest
 import numpy as np
 import networkx as nx
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import Spacer, C_BORDERS, minmax
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.data = inp.get_array(int)
 

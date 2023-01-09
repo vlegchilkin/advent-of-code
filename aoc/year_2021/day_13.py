@@ -1,10 +1,10 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, parse_with_template
+from aoc import Input, get_puzzles, PuzzleData, parse_with_template, ISolution
 from aoc.space import to_str
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         it = inp.get_iter()
         self.dots = set()

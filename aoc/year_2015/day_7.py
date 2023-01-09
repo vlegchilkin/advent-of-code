@@ -3,10 +3,10 @@ import numpy as np
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         line_pattern = re.compile(r"^(.*) -> ([a-z]+)$")
         data = [line_pattern.match(line).groups() for line in inp.get_lines()]

@@ -4,10 +4,10 @@ import math
 import pytest
 from numpy import Inf
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.crabs = [int(pos) for pos in inp.get_lines()[0].split(",")]
 

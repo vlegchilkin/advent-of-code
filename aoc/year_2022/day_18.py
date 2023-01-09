@@ -5,7 +5,7 @@ from typing import Optional
 import networkx as nx
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.tpl import t_minmax, t_inside, t_sum, t_delta
 
 # 6 cube sides with 4 vertexes of each side
@@ -19,7 +19,7 @@ SIDE_VERTEXES = {
 }
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.cubes = set([tuple([int(c) for c in line.split(",")]) for line in inp.get_lines()])
 

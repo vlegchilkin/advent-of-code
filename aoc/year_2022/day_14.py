@@ -1,13 +1,13 @@
 import numpy as np
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import C, Spacer
 
 DIRECTIONS = [C.SOUTH, C.SOUTH_WEST, C.SOUTH_EAST]
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         lines = inp.get_lines()
         self.ar = np.empty(shape=(1000, 1000), dtype=object)

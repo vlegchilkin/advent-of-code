@@ -5,7 +5,7 @@ from typing import Optional
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, dataclass_by_template
+from aoc import Input, get_puzzles, PuzzleData, dataclass_by_template, ISolution
 
 
 @dataclass
@@ -29,7 +29,7 @@ class Stats:
         )
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         def parse(itm: str) -> Item:
             ttp_template = "{{name|ORPHRASE}} {{cost|to_int}} {{damage|to_int}} {{armor|to_int}}"

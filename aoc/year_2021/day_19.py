@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.tpl import t_sub, t_sum, t_dist
 
 
@@ -27,7 +27,7 @@ def possible_rotations(s: set[tuple]) -> list[set[tuple]]:
     return [{translate(trans, pos) for pos in s} for trans in trans_coordinates()]
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.scanner_beacons = {}
         for block in inp.get_blocks():

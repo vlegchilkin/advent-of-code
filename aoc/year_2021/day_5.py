@@ -5,11 +5,11 @@ from typing import Callable
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import split_to_steps
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         def parse(line):
             n = list(map(int, re.findall(r"\d+", line)))

@@ -5,10 +5,10 @@ import pytest
 
 from aoc.space import Spacer, C
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.spacer = Spacer.build(inp.get_array(lambda c: "#" if c == "#" else None), ranges=None)
         self.turns = [

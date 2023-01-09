@@ -1,9 +1,9 @@
 import collections
 import pytest
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.links = collections.defaultdict(lambda: [])
         for line in inp.get_lines(lambda x: x.split("-")):

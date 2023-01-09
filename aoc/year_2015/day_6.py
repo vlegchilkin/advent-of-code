@@ -5,7 +5,7 @@ from typing import Callable
 import numpy as np
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
 class Action(str, Enum):
@@ -14,10 +14,10 @@ class Action(str, Enum):
     TOGGLE = "toggle"
 
 
-ACTION = re.compile(f"^({Action.TURN_ON}|{Action.TURN_OFF}|{Action.TOGGLE}) (\d+),(\d+) through (\d+),(\d+)$")
+ACTION = re.compile(rf"^({Action.TURN_ON}|{Action.TURN_OFF}|{Action.TOGGLE}) (\d+),(\d+) through (\d+),(\d+)$")
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         data = [re.match(ACTION, line).groups() for line in inp.get_lines()]
         self.actions = [(Action(d[0]), int(d[1]), int(d[2]), int(d[3]), int(d[4])) for d in data]

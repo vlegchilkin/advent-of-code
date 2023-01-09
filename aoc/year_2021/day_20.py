@@ -1,10 +1,10 @@
 import numpy as np
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         inp_iter = inp.get_iter()
         self.codec = [int(c == "#") for c in next(inp_iter)]

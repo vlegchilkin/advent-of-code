@@ -4,11 +4,11 @@ from functools import cache
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.tpl import t_sum
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.positions = [p.pos for p in inp.get_objects("Player {{id|to_int}} starting position: {{pos|to_int}}")]
 

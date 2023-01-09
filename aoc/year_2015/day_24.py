@@ -3,10 +3,10 @@ import math
 import pytest
 from numpy import Inf
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.weights = sorted(inp.get_lines(int), reverse=True)
 

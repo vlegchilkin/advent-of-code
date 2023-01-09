@@ -1,11 +1,11 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 C_VECTORS = {"forward": 1j, "down": 1, "up": -1}
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.vectors = [C_VECTORS[action] * steps for action, steps in inp.get_lists("{{action}} {{steps|to_int}}")]
 

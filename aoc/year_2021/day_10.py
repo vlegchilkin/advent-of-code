@@ -2,10 +2,10 @@ from collections import deque
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.lines = inp.get_lines()
         self.pairs = "()[]{}<>"

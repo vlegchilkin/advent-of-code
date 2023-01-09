@@ -1,10 +1,10 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import C, c_dist, C_TURNS
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.moves = [(m[0], int(m[1:])) for m in inp.get_text().split(", ")]
 

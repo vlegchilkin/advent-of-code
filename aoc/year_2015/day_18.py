@@ -1,10 +1,10 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import Spacer, IT
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.arr = inp.get_array(lambda c: int(c == "#"))
 

@@ -1,4 +1,4 @@
-from aoc import Input, PuzzleData
+from aoc import Input, PuzzleData, ISolution
 from aoc.tpl import t_dist
 
 TTP_TEMPLATE = """\
@@ -6,7 +6,7 @@ Sensor at x={{ sx | to_int }}, y={{ sy | to_int }}: closest beacon is at x={{ bx
 """
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input, part_a_row):
         self.part_a_row = part_a_row
         self.data = [[(r.sx, r.sy), (r.bx, r.by)] for r in inp.get_objects(TTP_TEMPLATE)]

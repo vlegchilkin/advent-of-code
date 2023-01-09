@@ -2,11 +2,11 @@ from collections import deque
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import Spacer, C_BORDERS
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         arr = inp.get_array(decoder=lambda c: ord(c) - ord("a"))
         self.spacer = Spacer.build(arr, directions=C_BORDERS)

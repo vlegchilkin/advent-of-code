@@ -2,7 +2,7 @@ from typing import Optional
 import networkx as nx
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 TTP_TEMPLATE = """\
 Valve {{ src }} has flow rate={{ rate | to_int }}; \
@@ -10,7 +10,7 @@ Valve {{ src }} has flow rate={{ rate | to_int }}; \
 """
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         input_data = {d.src: (d.rate, d.dst) for d in inp.get_objects(TTP_TEMPLATE)}
         keys = sorted(input_data)

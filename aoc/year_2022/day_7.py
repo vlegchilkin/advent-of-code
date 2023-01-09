@@ -3,7 +3,7 @@ from typing import Callable, Any
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
 @dataclass
@@ -54,7 +54,7 @@ class Dir:
         return genesis
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.fs = Dir.build_fs(inp.get_iter())
 

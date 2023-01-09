@@ -1,10 +1,10 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 from aoc.space import C_MOVES
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.moves = [C_MOVES[c] for c in inp.get_lines()[0]]
 

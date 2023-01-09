@@ -5,7 +5,7 @@ from typing import Optional, Tuple
 import pytest
 from numpy import PINF
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 
 @dataclass(frozen=True)
@@ -79,7 +79,7 @@ class Fighter:
         )
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         boss_lines = inp.get_objects("{{property|ORPHRASE}}: {{value|to_int}}")
         boss_stats = {line.property: line.value for line in boss_lines}
