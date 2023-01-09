@@ -7,7 +7,7 @@ orbs:
 jobs:
   build-aoc-tests:
     parallelism: 5
-    resource_class: medium+
+    resource_class: large
     executor:
       name: python/default
       tag: "3.11.1"
