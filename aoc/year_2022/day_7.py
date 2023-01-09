@@ -27,20 +27,28 @@ class Dir:
 
     @staticmethod
     def build_fs(input_iter) -> "Dir":
+        def ls():
+            nonlocal line
+            while (line := next(input_iter, None)) and not line.startswith("$"):
+                desc, name = line.split(" ")
+                if desc == "dir":
+                    if name not in node.dirs:
+                        node.dirs[name] = Dir(parent=node)
+                else:
+                    node.files[name] = int(desc)
+
+        def cd():
+            nonlocal node, line
+            node = node.resolve(line[5:])
+            line = next(input_iter, None)
+
         genesis = node = Dir()
         line = next(input_iter)
         while line:
             if line.startswith("$ cd"):
-                node = node.resolve(line[5:])
-                line = next(input_iter, None)
+                cd()
             elif line.startswith("$ ls"):
-                while (line := next(input_iter, None)) and not line.startswith("$"):
-                    desc, name = line.split(" ")
-                    if desc == "dir":
-                        if name not in node.dirs:
-                            node.dirs[name] = Dir(parent=node)
-                    else:
-                        node.files[name] = int(desc)
+                ls()
             else:
                 raise ValueError(f"Wrong Input: {line}")
         return genesis

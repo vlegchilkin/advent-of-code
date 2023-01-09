@@ -87,12 +87,6 @@ def build_year(year, src=None):
     else:
         days = calendar
 
-    # filtered = re.sub(
-    #     r"<a .* class=\"calendar-(.*)\">",
-    #     "",
-    #     days
-    # )
-    # filtered = filtered.replace("</a>", "")
     styles = (styles or "") + "a:link {text-decoration: none; color: grey;}"
     hti = Html2Image()
     height = 440
@@ -101,7 +95,8 @@ def build_year(year, src=None):
     elif year == 2016:
         height += 90
     s = len('<pre class="calender">')
-    html_str = days[:s] + "&nbsp;\n" + days[s:]
+    nbsp_eol = "&nbsp;\n"
+    html_str = days[:s] + nbsp_eol + days[s:]
     path = hti.screenshot(html_str=html_str, css_str=styles, save_as=f"{year}.png", size=(400, height))
     shutil.copyfile(path[0], f"../resources/{year}/progress.png")
 
@@ -113,16 +108,16 @@ def build_year(year, src=None):
 
     for h in parser.headers:
         for _ in range(len(h["data"].split("\n")) - 1):
-            readme += "&nbsp;\n"
+            readme += nbsp_eol
 
     if year == 2016:
-        readme += "&nbsp;\n"
+        readme += nbsp_eol
 
     for day, value in parser.days.items():
         v = ""
         lines = value["data"].split("\n")
         for _ in range(len(lines) - 3):
-            v += "&nbsp;\n"
+            v += nbsp_eol
         if day in captions:
             v += captions[day]
         else:
@@ -131,7 +126,7 @@ def build_year(year, src=None):
 
     for h in parser.footers:
         for _ in range(len(h["data"].split("\n")) - 1):
-            readme += "&nbsp;\n"
+            readme += nbsp_eol
 
     readme += "</pre>\n"
     with open(f"../resources/{year}/README.md", "w") as f:

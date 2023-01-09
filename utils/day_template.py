@@ -7,6 +7,9 @@ class Solution(ISolution):
     """{YEAR}/{DAY}: {TITLE}"""
 
     def __init__(self, inp: Input):
+        """
+        :param inp: puzzle input data
+        """
         pass
 
     def part_a(self):
