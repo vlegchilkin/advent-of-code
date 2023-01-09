@@ -4,7 +4,7 @@ import logging
 import math
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData
+from aoc import Input, get_puzzles, PuzzleData, ISolution
 
 TTP_TEMPLATE = """\
 Monkey {{ id | to_int | let(turns, 0) }}: 
@@ -13,10 +13,10 @@ Monkey {{ id | to_int | let(turns, 0) }}:
   Test: divisible by {{ test | to_int }}
     If true: throw to monkey {{ if_true | to_int }} 
     If false: throw to monkey {{ if_false | to_int }}
-"""
+"""  # noqa: W291
 
 
-class Solution:
+class Solution(ISolution):
     def __init__(self, inp: Input):
         self.input_monkeys = inp.get_objects(TTP_TEMPLATE)
         self.input_monkeys.sort(key=lambda m: m.id)
