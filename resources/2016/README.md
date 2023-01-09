@@ -25,7 +25,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/6'>Day 6: Signals and Noise</a>
 <a href='day/5'>Day 5: How About a Nice Game of Chess?</a>
 <a href='day/4'>Day 4: Security Through Obscurity</a>
 <a href='day/3'>Day 3: Squares With Three Sides</a>

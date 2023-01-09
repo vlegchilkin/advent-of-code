@@ -7,7 +7,7 @@ class Solution(ISolution):
     """{YEAR}/{DAY}: {TITLE}"""
 
     def __init__(self, inp: Input):
-        """parse input here"""
+        self.lines = inp.get_lines()
 
     def part_a(self):
         return None
