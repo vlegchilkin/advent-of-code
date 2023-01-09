@@ -43,7 +43,7 @@ class SnailNum:
             return True
 
         while explode() or split():
-            """reduce number till it could explode or split"""
+            ...
 
     def magnitude(self) -> int:
         q = deque()
