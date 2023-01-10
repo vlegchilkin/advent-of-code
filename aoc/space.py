@@ -204,10 +204,33 @@ class Spacer(Mapping):
         return to_array(self.at, swap_xy)
 
     def __str__(self) -> str:
-        return to_str(self.at)
+        return to_str(self.at, ranges=self.ranges)
 
     def minmax(self) -> (complex, complex):
         return minmax(self.at)
+
+    def rotate(self, count, row=None, col=None):
+        if row is not None and col is None:
+            vect = C.EAST * (count % self.m)
+
+            def it():
+                return (complex(row, j) for j in range(self.m))
+
+        elif row is None and col is not None:
+            vect = C.SOUTH * (count % self.n)
+
+            def it():
+                return (complex(i, col) for i in range(self.n))
+
+        else:
+            raise ValueError("Only one of the {row,col} should be non-None value")
+
+        subs = {}
+        for pos in it():
+            if pos in self:
+                subs[self.move(pos, vect, has_path=lambda _: True)] = self[pos]
+                del self[pos]
+        self.at.update(subs)
 
 
 def split_to_steps(vector: complex) -> tuple[complex, int]:
@@ -223,8 +246,8 @@ def minmax(points: Iterable[complex]) -> (complex, complex):
     return complex(min(reals), min(imags)), complex(max(reals), max(imags))
 
 
-def to_array(points: Union[dict, set], swap_xy=False) -> np.ndarray:
-    _min, _max = minmax(points)
+def to_array(points: Union[dict, set], swap_xy=False, ranges=None) -> np.ndarray:
+    _min, _max = minmax(points) if ranges is None or Inf in ranges[0] else (complex(*ranges[0]), complex(*ranges[1]))
 
     def get_x(c):
         return int(c.imag if swap_xy else c.real)
@@ -238,8 +261,8 @@ def to_array(points: Union[dict, set], swap_xy=False) -> np.ndarray:
     return ar
 
 
-def to_str(points: Union[dict, set], swap_xy=False) -> str:
-    ar = to_array(points, swap_xy)
+def to_str(points: Union[dict, set], swap_xy=False, ranges=None) -> str:
+    ar = to_array(points, swap_xy, ranges)
     result = ""
     for row in ar:
         for col in row:

@@ -3,7 +3,7 @@ import os
 import re
 from abc import abstractmethod
 from pathlib import Path
-from typing import Union, Iterator, Any, Callable, Optional, Type
+from typing import Union, Iterator, Any, Callable, Optional, Type, TypeVar
 
 import numpy as np
 from addict import Dict
@@ -62,6 +62,9 @@ def get_puzzles():
     return result
 
 
+T = TypeVar("T")
+
+
 class Input:
     def __init__(self, test_case: Union[str, int] = "puzzle", year=None, day=None):
         if year is None:
@@ -69,7 +72,7 @@ class Input:
         with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.in", "r") as file:
             self._text = file.read()
 
-    def get_lines(self, func=lambda x: x) -> list:
+    def get_lines(self, func: Callable[[str], T] = lambda x: x) -> list[T]:
         return [func(line) for line in self._text.splitlines()]
 
     def get_iter(self) -> Iterator[str]:
