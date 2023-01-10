@@ -33,38 +33,25 @@ class Solution(ISolution):
                     return False
             return True
 
-        def unpack(v: int) -> list[set]:
-            result = []
-            for off in range(4):
-                items = set()
-                for i in elements.values():
-                    if (1 << (off * 16 + 8 + i)) & v:
-                        items.add(i)
-                    if (1 << off * 16 + i) & v:
-                        items.add(-i)
-                result.append(items)
-            return result
-
-        def pack(grp: list[set]) -> int:
-            result = 0
+        def _hash(grp: list[set], fl: int) -> int:
+            """state of up to 7 elements and 4 floors might be packed into int64"""
+            result = 1 << (14 * 4 + fl)
             for off, s in enumerate(grp):
                 for i in s:
                     if i > 0:
-                        result += 1 << (off * 16 + 8 + i)
+                        result += 1 << (off * 14 + 7 + (i - 1))
                     else:
-                        result += 1 << (off * 16 + -i)
+                        result += 1 << (off * 14 + (-i - 1))
             return result
 
         all_items = set(i * j for i in elements.values() for j in [-1, 1])
-        final_state = (pack([{}, {}, {}, all_items]), len(init_floors) - 1)
+        final_hash = _hash([{}, {}, {}, all_items], len(init_floors) - 1)
 
-        visited = {(pack(init_floors), 0): 0}
-        q = collections.deque(visited.keys())
+        visited = {_hash(init_floors, 0)}
+        q = collections.deque([(init_floors, 0, 0)])
         while q:
-            state, elevator = q.popleft()
-            floors = unpack(state)
+            floors, elevator, depth = q.popleft()
 
-            depth = visited[(state, elevator)]
             # limiting the progress, remove to complete bfs without truncated paths
             if (d := depth // 5) >= 2 and len(floors[-1]) < d + 2:
                 continue
@@ -74,23 +61,21 @@ class Solution(ISolution):
                 if not (0 <= (destination := elevator + direction) < len(floors)):
                     continue
                 dst_floor = floors[destination]
-                _floors = floors.copy()
                 for count in [1, 2]:
                     if count > len(src_floor):
                         continue
                     for group in itertools.combinations(src_floor, count):
                         move_items = set(group)
-                        _src = src_floor - move_items
-                        _dst = dst_floor | move_items
-                        if is_stable(_src) and is_stable(_dst):
+                        if is_stable(_src := src_floor - move_items) and is_stable(_dst := dst_floor | move_items):
+                            _floors = floors.copy()
                             _floors[elevator] = _src
                             _floors[destination] = _dst
-                            if (r := (pack(_floors), destination)) not in visited:
-                                visited[r] = depth + 1
-                                if r == final_state:
+                            if (r := _hash(_floors, destination)) not in visited:
+                                if r == final_hash:
                                     logging.debug(f"Visited {len(visited)} states")
-                                    return visited[r]
-                                q.append(r)
+                                    return depth + 1
+                                visited.add(r)
+                                q.append((_floors, destination, depth + 1))
 
         return None
 
