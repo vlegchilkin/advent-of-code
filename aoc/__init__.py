@@ -89,8 +89,11 @@ class Input:
             blocks.append(block)
         return blocks
 
-    def get_objects(self, ttp_template: str) -> list[Dict]:
+    def get_objects(self, ttp_template: str, dc_class) -> list[Dict]:
         return parse_with_template(self._text, ttp_template)
+
+    def get_dc_list(self, ttp_template: str, dc_class: Type[T]) -> list[T]:
+        return [dc_class(**d) for d in parse_with_template(self._text, ttp_template)]
 
     def get_lists(self, ttp_template: str) -> list[list[Any]]:
         objects = self.get_objects(ttp_template)
