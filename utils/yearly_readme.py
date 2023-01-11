@@ -70,7 +70,11 @@ def build_year(year, src=None):
     main_content = slice_content(src, "<main>", "</main>")[0].strip()
     groups = (
         re.compile(
-            r"^(<style>(.*)</style>\s)?(<pre class=\"calendar.*</pre>)(\s<div class=\"calendar-bkg\">.*</div>)?$",
+            r"^(<style>(.*)</style>\s)?"
+            r"(<pre class=\"calendar.*</pre>)"
+            r"(\s<div class=\"calendar-bkg\">.*</div>)?"
+            r"(\s<script>.*</script>)?"
+            r"$",
             re.DOTALL,
         )
         .match(main_content)
@@ -134,4 +138,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2022)
+    build_year(2016)
