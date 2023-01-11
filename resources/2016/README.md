@@ -18,7 +18,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/13'>Day 13: A Maze of Twisty Little Cubicles</a>
 <a href='day/12'>Day 12: Leonardo's Monorail</a>
 <a href='day/11'>Day 11: Radioisotope Thermoelectric Generators</a>
 <a href='day/10'>Day 10: Balance Bots</a>
