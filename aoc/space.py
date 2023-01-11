@@ -136,9 +136,9 @@ class Spacer(Mapping):
         self,
         pos,
         directions: Iterable[complex] = None,
-        has_path: Callable[[complex], bool] = lambda x: True,
+        has_path: Callable[[complex], bool] = None,
     ) -> Iterator[complex]:
-
+        has_path = has_path or (lambda p: p in self)
         for direct in directions or self.directions:
             to_pos = pos + direct
             if (
@@ -151,9 +151,10 @@ class Spacer(Mapping):
     def bfs(
         self,
         pos,
-        has_path: Callable[[complex], bool] = lambda x: True,
+        has_path: Callable[[complex], bool] = None,
         test: Callable[[complex], bool] = None,
     ) -> (dict[complex, tuple[int, complex]], Optional[complex]):
+        has_path = has_path or (lambda x: x in self)
         q = collections.deque([pos])
         visited = {pos: (0, None)}
         while q:
