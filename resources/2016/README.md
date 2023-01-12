@@ -10,7 +10,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/21'>Day 21: Scrambled Letters and Hash</a>
 <a href='day/20'>Day 20: Firewall Rules</a>
 <a href='day/19'>Day 19: An Elephant Named Joseph</a>
 <a href='day/18'>Day 18: Like a Rogue</a>
