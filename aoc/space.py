@@ -77,7 +77,8 @@ class Spacer(Mapping):
         s = Spacer(arr.shape, ranges=ranges, directions=directions)
         for pos, v in np.ndenumerate(arr):
             if v is not None:
-                s.at[complex(*pos)] = v
+                _pos = pos[0] * 1j if len(pos) == 1 else complex(*pos)
+                s.at[_pos] = v
         return s
 
     def __copy__(self):
