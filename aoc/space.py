@@ -10,6 +10,7 @@ import numpy as np
 from numpy import Inf
 
 from aoc import math
+from aoc.tpl import t_minmax
 
 
 class C(complex, Enum):
@@ -73,7 +74,29 @@ class Spacer(Mapping):
         self.directions = C_ALL if directions is None else directions
 
     @staticmethod
-    def build(arr: np.ndarray, *, ranges=0, directions: Iterable[complex] = C_ALL) -> "Spacer":
+    def build(
+        data: Union[np.ndarray, dict[tuple[int, int], Any]], *, ranges=0, directions: Iterable[complex] = C_ALL
+    ) -> "Spacer":
+        if type(data) == dict:
+            return Spacer._build_from_dict(data, ranges, directions)
+        elif type(data) == np.ndarray:
+            return Spacer._build_from_array(data, ranges, directions)
+        else:
+            raise ValueError("Non-supported data object")
+
+    @staticmethod
+    def _build_from_dict(data: dict[tuple[int, int], Any], ranges, directions) -> "Spacer":
+        if ranges == 0:
+            mm = t_minmax(list(data.keys()))
+            ranges = (mm[0], (mm[1][0] + 1, mm[1][1] + 1))
+        s = Spacer(ranges=ranges, directions=directions)
+        for pos, v in data.items():
+            if v is not None:
+                s.at[complex(*pos)] = v
+        return s
+
+    @staticmethod
+    def _build_from_array(arr: np.ndarray, ranges, directions) -> "Spacer":
         s = Spacer(arr.shape, ranges=ranges, directions=directions)
         for pos, v in np.ndenumerate(arr):
             if v is not None:
@@ -116,6 +139,14 @@ class Spacer(Mapping):
     @property
     def m(self):
         return self.ranges[1][1]
+
+    def transform(self, func: Callable):
+        result = Spacer(ranges=self.ranges, directions=self.directions)
+        for pos, value in self:
+            if (new_value := func(pos, value)) is not None:
+                result[pos] = new_value
+
+        return result
 
     def to_digraph(self, weight: Callable[[complex, complex], int] = lambda src, dst: 1):
         graph = nx.DiGraph()
@@ -257,7 +288,7 @@ def to_array(points: Union[dict, set], swap_xy=False, ranges=None) -> np.ndarray
     def get_y(c):
         return int(c.real if swap_xy else c.imag)
 
-    ar = np.full((get_x(_max - _min) + 1, get_y(_max - _min) + 1), fill_value=".", dtype=str)
+    ar = np.full((get_x(_max - _min) + 1, get_y(_max - _min) + 1), fill_value=".", dtype=object)
     for point in points:
         ar[get_x(point - _min), get_y(point - _min)] = 1 if type(points) == set else points[point]
     return ar
