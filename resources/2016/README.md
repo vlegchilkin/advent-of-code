@@ -6,7 +6,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/25'>Day 25: Clock Signal</a>
 <a href='day/24'>Day 24: Air Duct Spelunking</a>
 <a href='day/23'>Day 23: Safe Cracking</a>
 <a href='day/22'>Day 22: Grid Computing</a>

@@ -73,7 +73,7 @@ def build_year(year, src=None):
             r"^(<style>(.*)</style>\s)?"
             r"(<pre class=\"calendar.*</pre>)"
             r"(\s<div class=\"calendar-bkg\">.*</div>)?"
-            r"(\s<script>.*</script>)?"
+            r"(\s<script>.*</script>.*)?"
             r"$",
             re.DOTALL,
         )

@@ -1,3 +1,5 @@
+import itertools
+
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, ISolution
@@ -5,16 +7,16 @@ from aoc.year_2016 import assembunny
 
 
 class Solution(ISolution):
-    """2016/12: Leonardo's Monorail"""
+    """2016/25: Clock Signal"""
 
     def __init__(self, inp: Input):
         self.lines = inp.get_lines()
 
     def part_a(self):
-        return assembunny(self.lines)[0]["a"]
-
-    def part_b(self):
-        return assembunny(self.lines, c=1)[0]["a"]
+        for a in itertools.count():
+            _, out = assembunny(self.lines, a=a, out_limit=10)
+            if out == [0, 1] * 5:
+                return a
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
