@@ -8,7 +8,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/23'>Day 23: Safe Cracking</a>
 <a href='day/22'>Day 22: Grid Computing</a>
 <a href='day/21'>Day 21: Scrambled Letters and Hash</a>
 <a href='day/20'>Day 20: Firewall Rules</a>
