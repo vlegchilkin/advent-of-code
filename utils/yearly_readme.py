@@ -114,7 +114,7 @@ def build_year(year, src=None):
         for _ in range(len(h["data"].split("\n")) - 1):
             readme += nbsp_eol
 
-    if year == 2016:
+    if year == 2016 and 25 not in captions:
         readme += nbsp_eol
 
     for day, value in parser.days.items():
