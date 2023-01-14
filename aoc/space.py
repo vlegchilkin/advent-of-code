@@ -280,7 +280,7 @@ def minmax(points: Iterable[complex]) -> (complex, complex):
 
 
 def to_array(points: Union[dict, set], swap_xy=False, ranges=None) -> np.ndarray:
-    _min, _max = minmax(points) if ranges is None or Inf in ranges[0] else (complex(*ranges[0]), complex(*ranges[1]))
+    _min, _max = minmax(points) if ranges is None or Inf in ranges[1] else (complex(*ranges[0]), complex(*ranges[1]))
 
     def get_x(c):
         return int(c.imag if swap_xy else c.real)
