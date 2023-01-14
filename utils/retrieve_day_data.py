@@ -4,7 +4,7 @@ import sys
 
 from markdownify import markdownify as md
 
-from utils import day_template, Context, slice_content
+from utils import Context, slice_content
 from utils.html_parser import AoCHTMLParser
 from utils.yearly_readme import build_year
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     if not (source_file := context.source(f"day_{context.day}.py")).exists():
         title = task_md.splitlines()[0].split(": ")[1][:-4]
-        with open(day_template.__file__) as f:
+        with open("day_template.py_") as f:
             tpl = f.read()
             filtered = tpl.replace("{YEAR}", context.year).replace("{DAY}", context.day).replace("{TITLE}", title)
         source_file.write(filtered)
