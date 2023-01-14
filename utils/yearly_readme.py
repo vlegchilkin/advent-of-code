@@ -92,7 +92,7 @@ def build_year(year, src=None):
         days = calendar
 
     styles = (styles or "") + "a:link {text-decoration: none; color: grey;}"
-    hti = Html2Image()
+    hti = Html2Image(custom_flags=["--default-background-color=0", "--virtual-time-budget=10000", "--hide-scrollbars"])
     height = 440
     if year == 2015:
         height += 20
@@ -100,7 +100,29 @@ def build_year(year, src=None):
         height += 90
     s = len('<pre class="calender">')
     nbsp_eol = "&nbsp;\n"
-    html_str = days[:s] + nbsp_eol + days[s:]
+    _ = days[:s] + nbsp_eol + days[s:]
+    ga = """
+<!-- ga -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-69522494-1', 'auto');
+ga('set', 'anonymizeIp', true);
+ga('send', 'pageview');
+</script>
+<!-- /ga -->
+    """
+    html_str = (
+        f'<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"/>'
+        f"<link href='//fonts.googleapis.com/css?family=Source+Code+Pro:300&subset=latin,latin-ext' "
+        f"rel='stylesheet' type='text/css'/>"
+        f"</head><body>"
+        f"{main_content}"
+        f"{ga}"
+        f"</body></html>"
+    )
     path = hti.screenshot(html_str=html_str, css_str=styles, save_as=f"{year}.png", size=(400, height))
     shutil.copyfile(path[0], f"../resources/{year}/progress.png")
 
@@ -138,4 +160,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2016)
+    build_year(2017)
