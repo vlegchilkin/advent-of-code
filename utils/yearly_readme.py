@@ -132,7 +132,7 @@ ga('send', 'pageview');
 
     readme = '<img align="left" style="float: left;" src="progress.png" width="530px">\n\n<pre>\n'
 
-    for h in parser.headers:
+    for h in parser.headers[:-1]:
         for _ in range(len(h["data"].split("\n")) - 1):
             readme += nbsp_eol
 
