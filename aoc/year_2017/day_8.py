@@ -25,8 +25,8 @@ class Year2017Day8(ISolution):
             "==": operator.eq,
         }
         commands = {
-            "inc": operator.iadd,
-            "dec": operator.isub,
+            "inc": operator.add,
+            "dec": operator.sub,
         }
 
         absolute_max = 0
