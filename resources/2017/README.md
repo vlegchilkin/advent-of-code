@@ -17,7 +17,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/9'>Day 9: Stream Processing</a>
 <a href='day/8'>Day 8: I Heard You Like Registers</a>
 <a href='day/7'>Day 7: Recursive Circus</a>
 <a href='day/6'>Day 6: Memory Reallocation</a>
