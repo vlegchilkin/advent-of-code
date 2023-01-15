@@ -1,12 +1,21 @@
 import operator
 from functools import reduce
 
-INT_OPER = {
+INT_OPERATOR = {
     "+": operator.add,
     "-": operator.sub,
     "*": operator.mul,
     "/": operator.floordiv,
     "%": operator.mod,
+}
+
+BOOL_OPERATOR = {
+    "<": operator.lt,
+    ">": operator.gt,
+    ">=": operator.ge,
+    "<=": operator.le,
+    "!=": operator.ne,
+    "==": operator.eq,
 }
 
 

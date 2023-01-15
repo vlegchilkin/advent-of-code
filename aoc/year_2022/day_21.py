@@ -3,7 +3,7 @@ import copy
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, ISolution
-from aoc.math import INT_OPER
+from aoc.math import INT_OPERATOR
 
 TTP_TEMPLATE = """{{ monkey }}: {{ operation | ORPHRASE  | split(" ")}}"""
 
@@ -24,7 +24,7 @@ class Solution(ISolution):
         right = self.pre_solve(monkeys, value[2]) if type(value[2]) == str else value[2]
 
         if type(left) == type(right) == int:
-            total = INT_OPER[value[1]](left, right)
+            total = INT_OPERATOR[value[1]](left, right)
         else:
             total = [value[1], left, right]
 

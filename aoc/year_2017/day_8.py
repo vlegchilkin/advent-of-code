@@ -5,6 +5,7 @@ import re
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc.math import BOOL_OPERATOR
 
 
 class Year2017Day8(ISolution):
@@ -16,14 +17,6 @@ class Year2017Day8(ISolution):
 
     def part_a_b(self):
         regs = collections.defaultdict(int)
-        operators = {
-            "<": operator.lt,
-            ">": operator.gt,
-            ">=": operator.ge,
-            "<=": operator.le,
-            "!=": operator.ne,
-            "==": operator.eq,
-        }
         commands = {
             "inc": operator.add,
             "dec": operator.sub,
@@ -31,7 +24,7 @@ class Year2017Day8(ISolution):
 
         absolute_max = 0
         for reg, cmd, value, if_reg, if_op, if_arg in self.lines:
-            if operators[if_op](regs[if_reg], int(if_arg)):
+            if BOOL_OPERATOR[if_op](regs[if_reg], int(if_arg)):
                 regs[reg] = commands[cmd](regs[reg], int(value))
                 absolute_max = max(absolute_max, regs[reg])
 
