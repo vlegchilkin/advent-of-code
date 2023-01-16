@@ -38,10 +38,14 @@ class Year2017Day10(ISolution):
         lengths = list(map(int, re.findall(r"\d+", self.line)))
         return math.prod(self.sparse_hash(lengths, 1)[:2])
 
+    @staticmethod
+    def knot_hash(text: str) -> str:
+        lengths = list(text.encode("utf-8")) + [17, 31, 73, 47, 23]
+        _sparse_hash = Year2017Day10.sparse_hash(lengths, 64)
+        return Year2017Day10.dense_hash(_sparse_hash)
+
     def part_b(self):
-        lengths = list(self.line.encode("utf-8")) + [17, 31, 73, 47, 23]
-        _sparse_hash = self.sparse_hash(lengths, 64)
-        return self.dense_hash(_sparse_hash)
+        return self.knot_hash(self.line)
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)

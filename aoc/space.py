@@ -150,6 +150,9 @@ class Spacer(Mapping):
 
     def to_digraph(self, weight: Callable[[complex, complex], int] = lambda src, dst: 1):
         graph = nx.DiGraph()
+        for pos in self.at:
+            graph.add_node(pos)
+
         graph.add_weighted_edges_from(self.edges(weight=weight))
         return graph
 
