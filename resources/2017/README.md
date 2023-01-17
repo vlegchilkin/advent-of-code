@@ -11,7 +11,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/15'>Day 15: Dueling Generators</a>
 <a href='day/14'>Day 14: Disk Defragmentation</a>
 <a href='day/13'>Day 13: Packet Scanners</a>
 <a href='day/12'>Day 12: Digital Plumber</a>
