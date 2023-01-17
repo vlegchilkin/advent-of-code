@@ -10,7 +10,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/16'>Day 16: Permutation Promenade</a>
 <a href='day/15'>Day 15: Dueling Generators</a>
 <a href='day/14'>Day 14: Disk Defragmentation</a>
 <a href='day/13'>Day 13: Packet Scanners</a>
