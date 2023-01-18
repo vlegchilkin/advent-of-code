@@ -7,7 +7,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/19'>Day 19: A Series of Tubes</a>
 <a href='day/18'>Day 18: Duet</a>
 <a href='day/17'>Day 17: Spinlock</a>
 <a href='day/16'>Day 16: Permutation Promenade</a>
