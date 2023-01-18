@@ -8,7 +8,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/18'>Day 18: Duet</a>
 <a href='day/17'>Day 17: Spinlock</a>
 <a href='day/16'>Day 16: Permutation Promenade</a>
 <a href='day/15'>Day 15: Dueling Generators</a>
