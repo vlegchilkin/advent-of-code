@@ -3,11 +3,11 @@ import math
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import Spacer, C
 
 
-class Year2017Day3(ISolution):
+class Year2017Day3(Solution):
     """2017/3: Spiral Memory"""
 
     def __init__(self, inp: Input):

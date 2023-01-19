@@ -2,13 +2,13 @@ import itertools
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 NUMBERS = ["abcefg", "cf", "acdeg", "acdfg", "bcdf", "abdfg", "abdefg", "acf", "abcdefg", "abcdfg"]
 SEGMENTS = NUMBERS[8]
 
 
-class Solution(ISolution):
+class Year2021Day8(Solution):
     def __init__(self, inp: Input):
         def parse(line):
             return [item.split(" ") for item in line.split(" | ")]
@@ -40,4 +40,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day8)

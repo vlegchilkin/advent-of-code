@@ -1,10 +1,10 @@
 import pytest
 import numpy as np
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import C_MOVES, Spacer, C_BORDERS
 
 
-class Solution(ISolution):
+class Year2022Day24(Solution):
     def __init__(self, inp: Input):
         data = inp.get_array()
 
@@ -69,4 +69,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2022Day24)

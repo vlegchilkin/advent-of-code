@@ -4,10 +4,10 @@ from collections import Counter
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2018Day2(ISolution):
+class Year2018Day2(Solution):
     """2018/2: Inventory Management System"""
 
     def __init__(self, inp: Input):

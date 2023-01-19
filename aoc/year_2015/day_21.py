@@ -5,7 +5,7 @@ from typing import Optional
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, dataclass_by_template, ISolution
+from aoc import Input, get_puzzles, PuzzleData, dataclass_by_template, Solution
 
 
 @dataclass
@@ -29,7 +29,7 @@ class Stats:
         )
 
 
-class Solution(ISolution):
+class Year2015Day21(Solution):
     def __init__(self, inp: Input):
         def parse(itm: str) -> Item:
             ttp_template = "{{name|ORPHRASE}} {{cost|to_int}} {{damage|to_int}} {{armor|to_int}}"
@@ -91,4 +91,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2015Day21)

@@ -1,9 +1,9 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day11(ISolution):
+class Year2017Day11(Solution):
     """2017/11: Hex Ed"""
 
     def __init__(self, inp: Input):

@@ -5,10 +5,10 @@ from collections import Counter
 import pytest
 from addict import Dict
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day7(ISolution):
+class Year2017Day7(Solution):
     """2017/7: Recursive Circus"""
 
     def __init__(self, inp: Input):

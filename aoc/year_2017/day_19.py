@@ -2,11 +2,11 @@ import string
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import Spacer, C_BORDERS, C, C_TURNS
 
 
-class Year2017Day19(ISolution):
+class Year2017Day19(Solution):
     """2017/19: A Series of Tubes"""
 
     def __init__(self, inp: Input):

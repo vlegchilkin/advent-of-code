@@ -1,10 +1,10 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, parse_with_template, ISolution
+from aoc import Input, get_puzzles, PuzzleData, parse_with_template, Solution
 from aoc.space import to_str
 
 
-class Solution(ISolution):
+class Year2021Day13(Solution):
     def __init__(self, inp: Input):
         it = inp.get_iter()
         self.dots = set()
@@ -34,4 +34,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day13)

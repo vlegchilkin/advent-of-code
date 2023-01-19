@@ -5,7 +5,7 @@ import numpy as np
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import Spacer, C, C_TURNS
 from aoc.tpl import t_koef
 
@@ -17,7 +17,7 @@ class State(IntEnum):
     FLAGGED = 3
 
 
-class Year2017Day22(ISolution):
+class Year2017Day22(Solution):
     """2017/22: Sporifica Virus"""
 
     def __init__(self, inp: Input):

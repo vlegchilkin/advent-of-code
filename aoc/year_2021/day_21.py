@@ -4,11 +4,11 @@ from functools import cache
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.tpl import t_sum
 
 
-class Solution(ISolution):
+class Year2021Day21(Solution):
     def __init__(self, inp: Input):
         self.positions = [p.pos for p in inp.get_objects("Player {{id|to_int}} starting position: {{pos|to_int}}")]
 
@@ -49,4 +49,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day21)

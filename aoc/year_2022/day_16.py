@@ -2,7 +2,7 @@ from functools import cache
 import networkx as nx
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 TTP_TEMPLATE = """\
 Valve {{ src }} has flow rate={{ rate | to_int }}; \
@@ -10,7 +10,7 @@ Valve {{ src }} has flow rate={{ rate | to_int }}; \
 """
 
 
-class Solution(ISolution):
+class Year2022Day16(Solution):
     def __init__(self, inp: Input):
         input_data = {d.src: (d.rate, d.dst) for d in inp.get_objects(TTP_TEMPLATE)}
         keys = sorted(input_data)
@@ -45,4 +45,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2022Day16)

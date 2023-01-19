@@ -2,13 +2,13 @@ import copy
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.math import INT_OPERATOR
 
 TTP_TEMPLATE = """{{ monkey }}: {{ operation | ORPHRASE  | split(" ")}}"""
 
 
-class Solution(ISolution):
+class Year2022Day21(Solution):
     def __init__(self, inp: Input):
         self.inputs = {
             obj.monkey: tuple(obj.operation) if len(obj.operation) > 1 else int(obj.operation[0])
@@ -65,4 +65,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2022Day21)

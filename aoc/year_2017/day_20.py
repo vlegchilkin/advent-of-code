@@ -3,11 +3,11 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.tpl import t_sum, t_dist
 
 
-class Year2017Day20(ISolution):
+class Year2017Day20(Solution):
     """2017/20: Particle Swarm"""
 
     def __init__(self, inp: Input):

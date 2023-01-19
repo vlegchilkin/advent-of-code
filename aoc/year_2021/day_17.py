@@ -3,10 +3,10 @@ from typing import Optional, Generator
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2021Day17(Solution):
     def __init__(self, inp: Input):
         groups = tuple(map(int, re.findall(r"-?\d+", inp.get_text())))
         self.x_range = groups[0], groups[1]
@@ -39,4 +39,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day17)

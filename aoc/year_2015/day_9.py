@@ -3,12 +3,12 @@ from typing import Callable
 import pytest
 import networkx as nx
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 TTP_TEMPLATE = "{{ f }} to {{ t }} = {{ length | to_int }}"
 
 
-class Solution(ISolution):
+class Year2015Day9(Solution):
     def __init__(self, inp: Input):
         self.graph = nx.Graph()
         for o in inp.get_objects(TTP_TEMPLATE):
@@ -46,4 +46,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2015Day9)

@@ -3,10 +3,10 @@ from collections import Counter
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day4(ISolution):
+class Year2017Day4(Solution):
     """2017/4: High-Entropy Passphrases"""
 
     def __init__(self, inp: Input):

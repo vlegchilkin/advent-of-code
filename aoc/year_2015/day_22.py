@@ -5,7 +5,7 @@ from typing import Optional, Tuple
 import pytest
 from numpy import PINF
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 @dataclass(frozen=True)
@@ -79,7 +79,7 @@ class Fighter:
         )
 
 
-class Solution(ISolution):
+class Year2015Day22(Solution):
     def __init__(self, inp: Input):
         boss_lines = inp.get_objects("{{property|ORPHRASE}}: {{value|to_int}}")
         boss_stats = {line.property: line.value for line in boss_lines}
@@ -124,4 +124,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2015Day22)

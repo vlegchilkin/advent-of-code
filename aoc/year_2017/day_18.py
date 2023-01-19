@@ -3,10 +3,10 @@ from typing import Optional
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day18(ISolution):
+class Year2017Day18(Solution):
     """2017/18: Duet"""
 
     def __init__(self, inp: Input):

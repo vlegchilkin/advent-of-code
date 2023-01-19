@@ -3,10 +3,10 @@ import numpy as np
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2018Day3(ISolution):
+class Year2018Day3(Solution):
     """2018/3: No Matter How You Slice It"""
 
     def __init__(self, inp: Input):

@@ -1,9 +1,9 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2015Day11(Solution):
     def __init__(self, inp: Input):
         self.password = inp.get_lines()[0]
 
@@ -42,7 +42,7 @@ class Solution(ISolution):
             return password[:pos] + next_digit + password[pos + 1 :]
 
         password = password[:pos] + "a" + password[pos + 1 :]
-        return Solution._increase(password, pos - 1)
+        return Year2015Day11._increase(password, pos - 1)
 
     def _next_password(self, password) -> str:
         while password := self._increase(password, len(password) - 1):
@@ -58,4 +58,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2015Day11)

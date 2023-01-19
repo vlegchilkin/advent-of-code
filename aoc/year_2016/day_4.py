@@ -3,10 +3,10 @@ from collections import Counter
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2016Day4(Solution):
     def __init__(self, inp: Input):
         self.rooms = [
             (x[0], int(x[1]), x[2]) for x in inp.get_lines(lambda x: re.match(r"^(.*)-(\d+)\[(\w+)]$", x).groups())
@@ -29,4 +29,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2016Day4)

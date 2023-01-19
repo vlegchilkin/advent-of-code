@@ -3,7 +3,7 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution, parse_with_template
+from aoc import Input, get_puzzles, PuzzleData, Solution, parse_with_template
 
 TTP_TEMPLATE = """
 <group name="state">
@@ -18,7 +18,7 @@ In state {{name}}:
 """
 
 
-class Year2017Day25(ISolution):
+class Year2017Day25(Solution):
     """2017/25: The Halting Problem"""
 
     def __init__(self, inp: Input):

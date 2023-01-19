@@ -4,11 +4,11 @@ import pytest
 import numpy as np
 from numpy import Inf
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import Spacer, C_BORDERS
 
 
-class Solution(ISolution):
+class Year2016Day24(Solution):
     """2016/24: Air Duct Spelunking"""
 
     def __init__(self, inp: Input):
@@ -32,4 +32,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2016Day24)

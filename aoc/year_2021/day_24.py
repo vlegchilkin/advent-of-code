@@ -3,10 +3,10 @@ import logging
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2021Day24(Solution):
     def __init__(self, inp: Input):
         data = inp.get_lines()
         self.cmds = []
@@ -73,10 +73,10 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day24)
 
 
-# Solution.run function results.
+# Year2021Day24.run function results.
 
 _ = {
     0: {0: {(2, 17), (4, 19), (5, 20), (1, 16), (3, 18)}},

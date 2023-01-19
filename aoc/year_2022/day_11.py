@@ -4,7 +4,7 @@ import logging
 import math
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 TTP_TEMPLATE = """\
 Monkey {{ id | to_int | let(turns, 0) }}: 
@@ -16,7 +16,7 @@ Monkey {{ id | to_int | let(turns, 0) }}:
 """  # noqa: W291
 
 
-class Solution(ISolution):
+class Year2022Day11(Solution):
     def __init__(self, inp: Input):
         self.input_monkeys = inp.get_objects(TTP_TEMPLATE)
         self.input_monkeys.sort(key=lambda m: m.id)
@@ -61,4 +61,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2022Day11)

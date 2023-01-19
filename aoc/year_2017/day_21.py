@@ -4,10 +4,10 @@ import pytest
 import numpy as np
 from numpy import int8
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day21(ISolution):
+class Year2017Day21(Solution):
     """2017/21: Fractal Art"""
 
     def __init__(self, inp: Input):

@@ -1,9 +1,9 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day5(ISolution):
+class Year2017Day5(Solution):
     """2017/5: A Maze of Twisty Trampolines, All Alike"""
 
     def __init__(self, inp: Input):

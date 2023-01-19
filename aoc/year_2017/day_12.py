@@ -2,10 +2,10 @@ import networkx as nx
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day12(ISolution):
+class Year2017Day12(Solution):
     """2017/12: Digital Plumber"""
 
     def __init__(self, inp: Input):

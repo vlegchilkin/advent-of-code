@@ -4,11 +4,11 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.math import BOOL_OPERATOR
 
 
-class Year2017Day8(ISolution):
+class Year2017Day8(Solution):
     """2017/8: I Heard You Like Registers"""
 
     def __init__(self, inp: Input):

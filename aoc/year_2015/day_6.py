@@ -5,7 +5,7 @@ from typing import Callable
 import numpy as np
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Action(StrEnum):
@@ -17,7 +17,7 @@ class Action(StrEnum):
 ACTION = re.compile(rf"^({Action.TURN_ON}|{Action.TURN_OFF}|{Action.TOGGLE}) (\d+),(\d+) through (\d+),(\d+)$")
 
 
-class Solution(ISolution):
+class Year2015Day6(Solution):
     def __init__(self, inp: Input):
         data = [re.match(ACTION, line).groups() for line in inp.get_lines()]
         self.actions = [(Action(d[0]), int(d[1]), int(d[2]), int(d[3]), int(d[4])) for d in data]
@@ -56,4 +56,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2015Day6)

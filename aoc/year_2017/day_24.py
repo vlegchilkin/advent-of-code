@@ -3,10 +3,10 @@ from functools import cache
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day24(ISolution):
+class Year2017Day24(Solution):
     """2017/24: Electromagnetic Moat"""
 
     def __init__(self, inp: Input):

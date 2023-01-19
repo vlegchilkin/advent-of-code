@@ -4,10 +4,10 @@ import math
 import numpy as np
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2021Day3(Solution):
     def __init__(self, inp: Input):
         self.data = [np.array(list(line), dtype=int) for line in inp.get_iter()]
 
@@ -22,7 +22,7 @@ class Solution(ISolution):
         return [int(e >= 0.5) for e in avg], [int(e < 0.5) for e in avg]
 
     def part_a(self):
-        return math.prod(map(Solution._to_int, self._get_gr_er_rates(self.data)))
+        return math.prod(map(Year2021Day3._to_int, self._get_gr_er_rates(self.data)))
 
     def part_b(self):
         def rating(rate_id) -> int:
@@ -42,4 +42,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day3)

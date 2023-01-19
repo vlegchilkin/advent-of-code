@@ -3,7 +3,7 @@ import time
 
 import math
 
-from aoc import Input, PuzzleData, ISolution
+from aoc import Input, PuzzleData, Solution
 from aoc.tpl import t_sub, t_koef, t_sum
 
 
@@ -16,7 +16,7 @@ Each geode robot costs {{ geode_ore | to_int }} ore and {{ geode_obs | to_int }}
 """
 
 
-class Solution(ISolution):
+class Year2022Day19(Solution):
     def __init__(self, inp: Input):
         self.blueprints = {}
         for blueprint in inp.get_objects(TTP_TEMPLATE):
@@ -99,14 +99,14 @@ def test_simple():
     :return:
     """
     pd = PuzzleData("0")
-    solution = Solution(pd.inp)
+    solution = Year2022Day19(pd.inp)
     assert solution.part_a() == (int(pd.out.a), [9, 12])
     # part b needs to be adjusted, doesn't fit time limits now [assert solution.part_b() == (int(pd.out.b), [56, 62])]
 
 
 def test_challenge():
     pd = PuzzleData("puzzle")
-    solution = Solution(pd.inp)
+    solution = Year2022Day19(pd.inp)
     assert solution.part_a() == (
         int(pd.out.a),
         [0, 1, 0, 0, 1, 2, 2, 11, 0, 12, 0, 0, 0, 0, 0, 3, 0, 2, 3, 5, 2, 2, 4, 1, 9, 12, 3, 0, 4, 0],

@@ -5,10 +5,10 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day10(ISolution):
+class Year2017Day10(Solution):
     """2017/10: Knot Hash"""
 
     def __init__(self, inp: Input):

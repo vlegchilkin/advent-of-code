@@ -1,12 +1,12 @@
 import pytest
 import networkx as nx
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import Spacer, C_BORDERS
 from aoc.year_2017.day_10 import Year2017Day10
 
 
-class Year2017Day14(ISolution):
+class Year2017Day14(Solution):
     """2017/14: Disk Defragmentation"""
 
     def __init__(self, inp: Input):

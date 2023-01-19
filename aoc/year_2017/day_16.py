@@ -2,10 +2,10 @@ import string
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day16(ISolution):
+class Year2017Day16(Solution):
     """2017/16: Permutation Promenade"""
 
     def __init__(self, inp: Input):

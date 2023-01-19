@@ -2,11 +2,11 @@ import logging
 
 import pytest
 import numpy as np
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.tpl import t_sum
 
 
-class Solution(ISolution):
+class Year2021Day22(Solution):
     def __init__(self, inp: Input):
         data = inp.get_lists(
             "{{action}} x={{x0|to_int}}..{{x1|to_int}},y={{y0|to_int}}..{{y1|to_int}},z={{z0|to_int}}..{{z1|to_int}}"
@@ -61,4 +61,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day22)

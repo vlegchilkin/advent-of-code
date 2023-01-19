@@ -2,10 +2,10 @@ from itertools import cycle
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2018Day1(ISolution):
+class Year2018Day1(Solution):
     def __init__(self, inp: Input):
         self.lines = [int(line) for line in inp.get_lines()]
 

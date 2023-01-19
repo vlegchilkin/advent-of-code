@@ -131,7 +131,7 @@ class Output:
             self.b = file.read().strip()
 
 
-class ISolution:
+class Solution:
     @abstractmethod
     def __init__(self, inp: Input):
         """
@@ -156,7 +156,7 @@ class PuzzleData:
         self.inp = Input(test_case, year, day)
         self.out = Output(year, day, test_case)
 
-    def check_solution(self, solution_class: Type[ISolution]):
+    def check_solution(self, solution_class: Type[Solution]):
         solution = solution_class(self.inp)
         if hasattr(solution, "part_a_b"):
             res_a, res_b = solution.part_a_b()

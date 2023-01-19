@@ -1,9 +1,9 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day1(ISolution):
+class Year2017Day1(Solution):
     def __init__(self, inp: Input):
         self.data = [int(c) for c in inp.get_text().strip()]
 

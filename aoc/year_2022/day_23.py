@@ -5,10 +5,10 @@ import pytest
 
 from aoc.space import Spacer, C
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2022Day23(Solution):
     def __init__(self, inp: Input):
         self.spacer = Spacer.build(inp.get_array(lambda c: "#" if c == "#" else None), ranges=None)
         self.turns = [
@@ -54,4 +54,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2022Day23)

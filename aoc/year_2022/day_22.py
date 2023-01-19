@@ -2,7 +2,7 @@ from typing import Iterator
 
 import numpy as np
 
-from aoc import Input, PuzzleData, ISolution
+from aoc import Input, PuzzleData, Solution
 from aoc.space import C, Spacer, ItFunc, C_OPPOSITE, C_TURNS, IT
 
 SIDES = [C.EAST, C.SOUTH, C.WEST, C.NORTH]
@@ -42,7 +42,7 @@ class Cube:
         return self.portals[pos][direction]
 
 
-class Solution(ISolution):
+class Year2022Day22(Solution):
     def __init__(self, inp: Input, cube_pattern: list[list], links):
         inp_iter = inp.get_iter()
         self.area = self._build_area(inp_iter)
@@ -129,7 +129,7 @@ def test_simple():
         (5, C.WEST, IT.LEFT_TB, 3, C.SOUTH, IT.BOTTOM_RL),
     ]
 
-    solution = Solution(pd.inp, cube_pattern, links)
+    solution = Year2022Day22(pd.inp, cube_pattern, links)
     assert solution.part_a() == int(pd.out.a)
     assert solution.part_b() == int(pd.out.b)
 
@@ -153,6 +153,6 @@ def test_challenge():
         (5, C.EAST, IT.RIGHT_TB, 6, C.SOUTH, IT.BOTTOM_LR),
     ]
 
-    solution = Solution(Input(), cube_pattern, links)
+    solution = Year2022Day22(Input(), cube_pattern, links)
     assert solution.part_a() == int(pd.out.a)
     assert solution.part_b() == int(pd.out.b)

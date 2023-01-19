@@ -3,10 +3,10 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day2(ISolution):
+class Year2017Day2(Solution):
     """2017/2: Corruption Checksum"""
 
     def __init__(self, inp: Input):

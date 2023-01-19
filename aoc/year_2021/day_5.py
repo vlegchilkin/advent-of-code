@@ -5,11 +5,11 @@ from typing import Callable
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import split_to_steps
 
 
-class Solution(ISolution):
+class Year2021Day5(Solution):
     def __init__(self, inp: Input):
         def parse(line):
             n = list(map(int, re.findall(r"\d+", line)))
@@ -38,4 +38,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day5)

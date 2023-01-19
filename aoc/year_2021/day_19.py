@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.tpl import t_sub, t_sum, t_dist
 
 
@@ -27,7 +27,7 @@ def possible_rotations(s: set[tuple]) -> list[set[tuple]]:
     return [{translate(trans, pos) for pos in s} for trans in trans_coordinates()]
 
 
-class Solution(ISolution):
+class Year2021Day19(Solution):
     def __init__(self, inp: Input):
         self.scanner_beacons = {}
         for block in inp.get_blocks():
@@ -42,17 +42,17 @@ class Solution(ISolution):
     def resolve_in_space(self) -> dict[int, Scanner]:
         scanner_rotations = {s_id: possible_rotations(beacons) for s_id, beacons in self.scanner_beacons.items()}
 
-        def get_possible_shift(real_space: set[tuple], shifted: set[tuple]) -> Solution.Scanner:
+        def get_possible_shift(real_space: set[tuple], shifted: set[tuple]) -> Year2021Day19.Scanner:
             for a in real_space:
                 for b in shifted:
                     zero = t_sub((0, 0, 0), t_sub(b, a))
                     zero_shifted = {t_sum(s, zero) for s in shifted}
                     if len(real_space.intersection(zero_shifted)) >= 12:
-                        return Solution.Scanner(zero, zero_shifted)
+                        return Year2021Day19.Scanner(zero, zero_shifted)
 
         # align space coordinates to the first scanner position for all others
         first = next(iter(self.scanner_beacons))
-        resolved = {first: Solution.Scanner((0, 0, 0), self.scanner_beacons[first])}
+        resolved = {first: Year2021Day19.Scanner((0, 0, 0), self.scanner_beacons[first])}
         q = deque([first])
         while q:
             logging.debug(f"{len(resolved)}/{len(self.scanner_beacons)} resolved")
@@ -80,4 +80,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2021Day19)

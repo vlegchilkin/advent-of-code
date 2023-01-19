@@ -3,10 +3,10 @@ import math
 import pytest
 from numpy import Inf
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2015Day24(Solution):
     def __init__(self, inp: Input):
         self.weights = sorted(inp.get_lines(int), reverse=True)
 
@@ -31,4 +31,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2015Day24)

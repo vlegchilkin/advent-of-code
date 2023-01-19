@@ -3,10 +3,10 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2018Day4(ISolution):
+class Year2018Day4(Solution):
     """2018/4: Repose Record"""
 
     def __init__(self, inp: Input):

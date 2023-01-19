@@ -3,10 +3,10 @@ import dataclasses as dc
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2016Day15(Solution):
     """2016/15: Timing is Everything"""
 
     @dc.dataclass()
@@ -19,7 +19,7 @@ class Solution(ISolution):
         self.disks = inp.get_dc_list(
             "Disc #{{offset|to_int}} has {{positions|to_int}} positions; "
             "at time=0, it is at position {{init_pos|to_int}}.",
-            Solution.Disk,
+            Year2016Day15.Disk,
         )
 
     @staticmethod
@@ -37,4 +37,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2016Day15)

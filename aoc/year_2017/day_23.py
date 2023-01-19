@@ -1,11 +1,11 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.math import factors
 from aoc.year_2017.day_18 import Year2017Day18
 
 
-class Year2017Day23(ISolution):
+class Year2017Day23(Solution):
     """2017/23: Coprocessor Conflagration"""
 
     def __init__(self, inp: Input):

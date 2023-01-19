@@ -3,10 +3,10 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2015Day13(Solution):
     def __init__(self, inp: Input):
         p = re.compile(r"^(\w+) would (lose|gain) (\d+) happiness units by sitting next to (\w+).$")
         data = [p.match(line).groups() for line in inp.get_lines()]
@@ -38,4 +38,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2015Day13)

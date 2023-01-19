@@ -4,10 +4,10 @@ import string
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Solution(ISolution):
+class Year2022Day5(Solution):
     def __init__(self, inp: Input):
         self.stacks = None
         input_iter = inp.get_iter()
@@ -40,4 +40,4 @@ class Solution(ISolution):
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
 def test_case(pd: PuzzleData):
-    pd.check_solution(Solution)
+    pd.check_solution(Year2022Day5)

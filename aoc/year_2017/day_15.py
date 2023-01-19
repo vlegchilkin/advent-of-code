@@ -3,10 +3,10 @@ import re
 
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year2017Day15(ISolution):
+class Year2017Day15(Solution):
     """2017/15: Dueling Generators"""
 
     def __init__(self, inp: Input):
