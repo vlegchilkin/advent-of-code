@@ -99,7 +99,7 @@ def build_year(year, src=None):
     elif year == 2016:
         height += 90
     elif year == 2017:
-        height += 100
+        height += 110
     s = len('<pre class="calender">')
     nbsp_eol = "&nbsp;\n"
     _ = days[:s] + nbsp_eol + days[s:]
@@ -121,7 +121,7 @@ def build_year(year, src=None):
             readme += nbsp_eol
     elif year == 2017:
         if 25 in captions:
-            readme += nbsp_eol + nbsp_eol
+            readme += nbsp_eol
 
     for day, value in parser.days.items():
         v = ""
