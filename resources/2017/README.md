@@ -3,7 +3,7 @@
 <pre>
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/23'>Day 23: Coprocessor Conflagration</a>
 <a href='day/22'>Day 22: Sporifica Virus</a>
 <a href='day/21'>Day 21: Fractal Art</a>
 <a href='day/20'>Day 20: Particle Swarm</a>

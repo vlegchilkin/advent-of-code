@@ -14,14 +14,17 @@ class Year2017Day18(ISolution):
             (cmd, args.split(" ")) for cmd, _, args in [line.partition(" ") for line in inp.get_lines()]
         ]
 
-    def run(self, regs, index=0, inp: Optional[collections.deque] = None) -> (dict, int, collections.deque):
+    def run(
+        self, regs, index=0, inp: Optional[collections.deque] = None, interceptor=None
+    ) -> (dict, int, collections.deque):
         def get_value(reg_or_int) -> int:
             return regs[reg_or_int] if reg_or_int in regs else int(reg_or_int)
 
         snd_buffer = collections.deque()
         while 0 <= index < len(self.instructions):
             cmd, args = self.instructions[index]
-
+            if interceptor:
+                interceptor(index, cmd, args)
             match cmd:
                 case "snd":
                     snd_buffer.append(get_value(args[0]))
@@ -29,6 +32,8 @@ class Year2017Day18(ISolution):
                     regs[args[0]] = get_value(args[1])
                 case "add":
                     regs[args[0]] += get_value(args[1])
+                case "sub":
+                    regs[args[0]] -= get_value(args[1])
                 case "mul":
                     regs[args[0]] *= get_value(args[1])
                 case "mod":
@@ -41,6 +46,9 @@ class Year2017Day18(ISolution):
                         return regs, index, snd_buffer
                 case "jgz":
                     if get_value(args[0]) > 0:
+                        index += get_value(args[1]) - 1
+                case "jnz":
+                    if get_value(args[0]):
                         index += get_value(args[1]) - 1
             index += 1
 
