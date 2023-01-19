@@ -22,7 +22,6 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
 <a href='day/3'>Day 3: No Matter How You Slice It</a>
 <a href='day/2'>Day 2: Inventory Management System</a>
 <a href='day/1'>Day 1: Chronal Calibration</a>
