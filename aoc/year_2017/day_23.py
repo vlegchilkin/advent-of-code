@@ -24,9 +24,14 @@ class Year2017Day23(ISolution):
         return counter
 
     def part_b(self):
-        start = 57 * 100 + 100_000
+        """Count prime numbers in a range with step 17"""
+        regs = {reg: int(reg == "a") for reg in "abcdefgh"}
+
+        # run first 7 steps to get scan range from registers: b..c
+        self.computer.run(regs, interceptor=lambda i, c, a: -1 if i == 8 else None)
+
         h = 0
-        for n in range(start, start + 17_000 + 1, 17):
+        for n in range(regs["b"], regs["c"] + 1, 17):
             if len(factors(n)) > 2:
                 h += 1
         return h

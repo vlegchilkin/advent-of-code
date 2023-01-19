@@ -23,8 +23,10 @@ class Year2017Day18(ISolution):
         snd_buffer = collections.deque()
         while 0 <= index < len(self.instructions):
             cmd, args = self.instructions[index]
-            if interceptor:
-                interceptor(index, cmd, args)
+            if interceptor and (_index := interceptor(index, cmd, args)):
+                index = _index
+                continue
+
             match cmd:
                 case "snd":
                     snd_buffer.append(get_value(args[0]))
