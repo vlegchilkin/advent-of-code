@@ -59,7 +59,7 @@ def t_push_left(t, value):
     return t_add_pos(t, len(t) - 1, value)
 
 
-def t_koef(x: int, y: tuple):
+def t_koef(x, y: tuple):
     match len(y):
         case 1:
             return x * y[0]
