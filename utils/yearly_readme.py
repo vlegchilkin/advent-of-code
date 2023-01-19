@@ -123,6 +123,7 @@ def build_year(year, src=None):
         if 25 in captions:
             readme += nbsp_eol
 
+    pre_block = ""
     for day, value in parser.days.items():
         v = ""
         lines = value["data"].split("\n")
@@ -132,7 +133,10 @@ def build_year(year, src=None):
             v += captions[day]
         else:
             v += "&nbsp;"
-        readme += v + "\n"
+        pre_block += v + "\n"
+    if year == 2018:
+        pre_block = pre_block[7:]
+    readme += pre_block
 
     for h in parser.footers:
         for _ in range(len(h["data"].split("\n")) - 1):
@@ -144,4 +148,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2017)
+    build_year(2018)
