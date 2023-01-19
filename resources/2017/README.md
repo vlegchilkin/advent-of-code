@@ -2,7 +2,7 @@
 
 <pre>
 &nbsp;
-&nbsp;
+<a href='day/24'>Day 24: Electromagnetic Moat</a>
 <a href='day/23'>Day 23: Coprocessor Conflagration</a>
 <a href='day/22'>Day 22: Sporifica Virus</a>
 <a href='day/21'>Day 21: Fractal Art</a>
