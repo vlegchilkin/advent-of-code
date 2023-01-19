@@ -32,7 +32,7 @@ class Year2016Day15(Solution):
         return self.find_time(self.disks)
 
     def part_b(self):
-        return self.find_time(self.disks + [Solution.Disk(len(self.disks) + 1, 11, 0)])
+        return self.find_time(self.disks + [Year2016Day15.Disk(len(self.disks) + 1, 11, 0)])
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
