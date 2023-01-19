@@ -66,7 +66,7 @@ def build_year(year, src=None):
     else:
         with open(f"../resources/{year}/readme.src", "w") as f:
             f.write(src)
-
+    src = src.replace("animation", "x-animation-x")
     main_content = slice_content(src, "<main>", "</main>")[0].strip()
     groups = (
         re.compile(
@@ -103,29 +103,7 @@ def build_year(year, src=None):
     s = len('<pre class="calender">')
     nbsp_eol = "&nbsp;\n"
     _ = days[:s] + nbsp_eol + days[s:]
-    ga = """
-<!-- ga -->
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-69522494-1', 'auto');
-ga('set', 'anonymizeIp', true);
-ga('send', 'pageview');
-</script>
-<!-- /ga -->
-    """
-    html_str = (
-        f'<!DOCTYPE html><html lang="en-us"><head><meta charset="utf-8"/>'
-        f"<link href='//fonts.googleapis.com/css?family=Source+Code+Pro:300&subset=latin,latin-ext' "
-        f"rel='stylesheet' type='text/css'/>"
-        f"</head><body>"
-        f"{main_content}"
-        f"{ga}"
-        f"</body></html>"
-    )
-    path = hti.screenshot(html_str=html_str, css_str=styles, save_as=f"{year}.png", size=(400, height))
+    path = hti.screenshot(html_str=main_content, css_str=styles, save_as=f"{year}.png", size=(400, height))
     shutil.copyfile(path[0], f"../resources/{year}/progress.png")
 
     captions = get_day_captions(year)
@@ -138,8 +116,12 @@ ga('send', 'pageview');
         for _ in range(len(h["data"].split("\n")) - 1):
             readme += nbsp_eol
 
-    if year == 2016 and 25 not in captions:
-        readme += nbsp_eol
+    if year == 2016:
+        if 25 not in captions:
+            readme += nbsp_eol
+    elif year == 2017:
+        if 25 in captions:
+            readme += nbsp_eol + nbsp_eol
 
     for day, value in parser.days.items():
         v = ""

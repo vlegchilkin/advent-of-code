@@ -8,6 +8,8 @@
 &nbsp;
 &nbsp;
 &nbsp;
+&nbsp;
+&nbsp;
 <a href='day/25'>Day 25: The Halting Problem</a>
 <a href='day/24'>Day 24: Electromagnetic Moat</a>
 <a href='day/23'>Day 23: Coprocessor Conflagration</a>
