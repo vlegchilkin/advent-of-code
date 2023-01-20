@@ -127,7 +127,15 @@ class Input:
 class Output:
     def __init__(self, year: int, day: int, test_case: str):
         with open(RESOURCES_ROOT / f"{year}" / "day" / f"{day}" / f"{test_case}.out", "r") as file:
-            self.a_b = file.read().strip()
+            self.a_b = file.read()
+
+    @property
+    def a(self):
+        return self.a_b.split("\n")[0]
+
+    @property
+    def b(self):
+        return "\n".join(self.a_b.split("\n")[1:])
 
 
 class Solution:
@@ -158,7 +166,7 @@ class PuzzleData:
     def check_solution(self, solution_class: Type[Solution]):
         solution = solution_class(self.inp)
         res_a, res_b = solution.part_a_b()
-        assert f"{str(res_a).strip()}\n{str(res_b).strip()}" == self.out.a_b
+        assert f"{str(res_a).strip()}\n{res_b}".strip() == self.out.a_b.strip()
 
     def __str__(self) -> str:
         return self.test_case
