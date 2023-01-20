@@ -15,7 +15,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/10'>Day 10: The Stars Align</a>
 <a href='day/9'>Day 9: Marble Mania</a>
 <a href='day/8'>Day 8: Memory Maneuver</a>
 <a href='day/7'>Day 7: The Sum of Its Parts</a>
