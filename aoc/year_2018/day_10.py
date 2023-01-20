@@ -1,4 +1,3 @@
-import itertools
 import re
 
 import pytest
@@ -19,9 +18,9 @@ class Year2018Day10(Solution):
 
     def part_a_b(self):
         lights = [(complex(p[1], p[0]), complex(v[1], v[0])) for p, v in self.lights]
-        for s in itertools.count():
+        for s in range(0, 100_000):  # 100k limit to avoid an infinite loop
             mm = minmax([a for a, b in lights])
-            if mm[1].real - mm[0].real <= 9:  # characters height is 9
+            if mm[1].real - mm[0].real == 9:  # characters height is 10
                 spacer = Spacer(ranges=None, at={a: "#" for a, b in lights})
                 return str(spacer), s
             lights = [(p + v, v) for p, v in lights]
