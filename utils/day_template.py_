@@ -1,9 +1,9 @@
 import pytest
 
-from aoc import Input, get_puzzles, PuzzleData, ISolution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
-class Year{YEAR}Day{DAY}(ISolution):
+class Year{YEAR}Day{DAY}(Solution):
     """{YEAR}/{DAY}: {TITLE}"""
 
     def __init__(self, inp: Input):
