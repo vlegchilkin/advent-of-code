@@ -2,10 +2,10 @@ import logging
 import time
 
 import math
+from functools import cache
 
 from aoc import Input, PuzzleData, Solution
 from aoc.tpl import t_sub, t_koef, t_sum
-
 
 TTP_TEMPLATE = """\
 Blueprint {{ id | to_int}}: \
@@ -20,13 +20,14 @@ class Year2022Day19(Solution):
     def __init__(self, inp: Input):
         self.blueprints = {}
         for blueprint in inp.get_objects(TTP_TEMPLATE):
-            self.blueprints[blueprint.id] = [
-                [(1, 0, 0, 0), (blueprint.ore_ore, 0, 0, 0)],
-                [(0, 1, 0, 0), (blueprint.clay_ore, 0, 0, 0)],
-                [(0, 0, 1, 0), (blueprint.obs_ore, blueprint.obs_clay, 0, 0)],
-                [(0, 0, 0, 1), (blueprint.geode_ore, 0, blueprint.geode_obs, 0)],
-            ]
+            self.blueprints[blueprint.id] = (
+                ((1, 0, 0, 0), (blueprint.ore_ore, 0, 0, 0)),
+                ((0, 1, 0, 0), (blueprint.clay_ore, 0, 0, 0)),
+                ((0, 0, 1, 0), (blueprint.obs_ore, blueprint.obs_clay, 0, 0)),
+                ((0, 0, 0, 1), (blueprint.geode_ore, 0, blueprint.geode_obs, 0)),
+            )
 
+    @cache
     def f(self, bp, robots, resources, days, warmup, robo_limit) -> int:
         best = resources[3] + (days * robots[3])
 
