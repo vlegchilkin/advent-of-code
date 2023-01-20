@@ -135,7 +135,7 @@ class Output:
 
     @property
     def b(self):
-        return "\n".join(self.a_b.split("\n")[1:])
+        return "\n".join(self.a_b.split("\n")[1:]).strip()
 
 
 class Solution:
