@@ -18,7 +18,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/7'>Day 7: The Sum of Its Parts</a>
 <a href='day/6'>Day 6: Chronal Coordinates</a>
 <a href='day/5'>Day 5: Alchemical Reduction</a>
 <a href='day/4'>Day 4: Repose Record</a>
