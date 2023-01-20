@@ -33,7 +33,7 @@ class Year2021Day22(Solution):
             return result
 
         x, y, z = get_ranges(slice(0, 2)), get_ranges(slice(2, 4)), get_ranges(slice(4, 6))
-        reactor = np.zeros((len(x) + 1, len(y) + 1, len(z) + 1), dtype=np.bool8)
+        reactor = np.zeros((len(x) + 1, len(y) + 1, len(z) + 1), dtype=np.int8)
 
         def rng(ranges, start, finish):
             return slice(ranges.index((start, start, 1)), ranges.index((finish, finish, 1)) + 1)
