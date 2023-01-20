@@ -45,23 +45,28 @@ C_MOVES = {
     "v": C.SOUTH,
 }
 
-ItFunc: TypeAlias = Callable[[int, int], Iterable[complex]]
+ItFunc: TypeAlias = Callable[[int, int, int, int], Iterable[complex]]
 
 
 class IT:
-    TOP_LR: ItFunc = lambda n, m: [complex(0, x) for x in range(m)]
-    TOP_RL: ItFunc = lambda n, m: [complex(0, m - x - 1) for x in range(m)]
+    TOP_LR: ItFunc = lambda n_, m_, _n, _m: [complex(n_, x) for x in range(m_, _m)]
+    TOP_RL: ItFunc = lambda n_, m_, _n, _m: [complex(n_, _m - x - 1) for x in range(m_, _m)]
 
-    BOTTOM_LR: ItFunc = lambda n, m: [complex(n - 1, x) for x in range(m)]
-    BOTTOM_RL: ItFunc = lambda n, m: [complex(n - 1, m - x - 1) for x in range(m)]
+    BOTTOM_LR: ItFunc = lambda n_, m_, _n, _m: [complex(_n - 1, x) for x in range(m_, _m)]
+    BOTTOM_RL: ItFunc = lambda n_, m_, _n, _m: [complex(_n - 1, _m - x - 1) for x in range(m_, _m)]
 
-    LEFT_TB: ItFunc = lambda n, m: [complex(x, 0) for x in range(n)]
-    LEFT_BT: ItFunc = lambda n, m: [complex(n - x - 1, 0) for x in range(n)]
+    LEFT_TB: ItFunc = lambda n_, m_, _n, _m: [complex(x, m_) for x in range(n_, _n)]
+    LEFT_BT: ItFunc = lambda n_, m_, _n, _m: [complex(_n - x - 1, m_) for x in range(n_, _n)]
 
-    RIGHT_TB: ItFunc = lambda n, m: [complex(x, m - 1) for x in range(n)]
-    RIGHT_BT: ItFunc = lambda n, m: [complex(n - x - 1, m - 1) for x in range(n)]
+    RIGHT_TB: ItFunc = lambda n_, m_, _n, _m: [complex(x, _m - 1) for x in range(n_, _n)]
+    RIGHT_BT: ItFunc = lambda n_, m_, _n, _m: [complex(_n - x - 1, _m - 1) for x in range(n_, _n)]
 
-    CORNERS: ItFunc = lambda n, m: [complex(0, 0), complex(0, m - 1), complex(n - 1, m - 1), complex(n - 1, 0)]
+    CORNERS: ItFunc = lambda n_, m_, _n, _m: [
+        complex(n_, m_),
+        complex(n_, _m - 1),
+        complex(_n - 1, _m - 1),
+        complex(_n - 1, m_),
+    ]
 
 
 class Spacer(Mapping):
@@ -229,7 +234,7 @@ class Spacer(Mapping):
                     yield complex(i, j)
 
         def it_func_iter():
-            for pos in it(self.n, self.m):
+            for pos in it(*self.ranges[0], *self.ranges[1]):
                 if test and not test(pos):
                     continue
                 yield pos
