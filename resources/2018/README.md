@@ -17,7 +17,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/8'>Day 8: Memory Maneuver</a>
 <a href='day/7'>Day 7: The Sum of Its Parts</a>
 <a href='day/6'>Day 6: Chronal Coordinates</a>
 <a href='day/5'>Day 5: Alchemical Reduction</a>
