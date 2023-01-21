@@ -30,20 +30,15 @@ C_ALL = tuple(C)
 
 C_SIDES = {"U": C.NORTH, "D": C.SOUTH, "L": C.WEST, "R": C.EAST}
 C_TURNS = {
-    C.EAST: {"R": C.SOUTH, "L": C.NORTH},
-    C.SOUTH: {"R": C.WEST, "L": C.EAST},
-    C.WEST: {"R": C.NORTH, "L": C.SOUTH},
-    C.NORTH: {"R": C.EAST, "L": C.WEST},
+    C.EAST: {"R": C.SOUTH, "L": C.NORTH, "F": C.EAST, "B": C.WEST},
+    C.SOUTH: {"R": C.WEST, "L": C.EAST, "F": C.SOUTH, "B": C.NORTH},
+    C.WEST: {"R": C.NORTH, "L": C.SOUTH, "F": C.WEST, "B": C.EAST},
+    C.NORTH: {"R": C.EAST, "L": C.WEST, "F": C.NORTH, "B": C.SOUTH},
 }
 
-C_OPPOSITE = {C.EAST: C.WEST, C.WEST: C.EAST, C.NORTH: C.SOUTH, C.SOUTH: C.NORTH}
+C_OPPOSITE = {c: C_TURNS[c]["B"] for c in C_TURNS}
 
-C_MOVES = {
-    "<": C.WEST,
-    ">": C.EAST,
-    "^": C.NORTH,
-    "v": C.SOUTH,
-}
+C_MOVES = {"<": C.WEST, ">": C.EAST, "^": C.NORTH, "v": C.SOUTH}
 
 ItFunc: TypeAlias = Callable[[int, int, int, int], Iterable[complex]]
 
@@ -288,7 +283,11 @@ def minmax(points: Iterable[complex]) -> (complex, complex):
 
 
 def to_array(points: Union[dict, set], swap_xy=False, ranges=None) -> np.ndarray:
-    _min, _max = minmax(points) if ranges is None or Inf in ranges[1] else (complex(*ranges[0]), complex(*ranges[1]))
+    _min, _max = (
+        minmax(points)
+        if ranges is None or Inf in ranges[1]
+        else (complex(*ranges[0]), complex(ranges[1][0] - 1, ranges[1][1] - 1))
+    )
 
     def get_x(c):
         return int(c.imag if swap_xy else c.real)
