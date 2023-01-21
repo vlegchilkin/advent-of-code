@@ -11,7 +11,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/14'>Day 14: Chocolate Charts</a>
 <a href='day/13'>Day 13: Mine Cart Madness</a>
 <a href='day/12'>Day 12: Subterranean Sustainability</a>
 <a href='day/11'>Day 11: Chronal Charge</a>
