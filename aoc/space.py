@@ -44,19 +44,19 @@ ItFunc: TypeAlias = Callable[[int, int, int, int], Iterable[complex]]
 
 
 class IT:
-    TOP_LR: ItFunc = lambda n_, m_, _n, _m: [complex(n_, x) for x in range(m_, _m)]
-    TOP_RL: ItFunc = lambda n_, m_, _n, _m: [complex(n_, _m - x - 1) for x in range(m_, _m)]
+    TOP_LR: ItFunc = lambda n_, _n, m_, _m: [complex(n_, x) for x in range(m_, _m)]
+    TOP_RL: ItFunc = lambda n_, _n, m_, _m: [complex(n_, _m - x - 1) for x in range(m_, _m)]
 
-    BOTTOM_LR: ItFunc = lambda n_, m_, _n, _m: [complex(_n - 1, x) for x in range(m_, _m)]
-    BOTTOM_RL: ItFunc = lambda n_, m_, _n, _m: [complex(_n - 1, _m - x - 1) for x in range(m_, _m)]
+    BOTTOM_LR: ItFunc = lambda n_, _n, m_, _m: [complex(_n - 1, x) for x in range(m_, _m)]
+    BOTTOM_RL: ItFunc = lambda n_, _n, m_, _m: [complex(_n - 1, _m - x - 1) for x in range(m_, _m)]
 
-    LEFT_TB: ItFunc = lambda n_, m_, _n, _m: [complex(x, m_) for x in range(n_, _n)]
-    LEFT_BT: ItFunc = lambda n_, m_, _n, _m: [complex(_n - x - 1, m_) for x in range(n_, _n)]
+    LEFT_TB: ItFunc = lambda n_, _n, m_, _m: [complex(x, m_) for x in range(n_, _n)]
+    LEFT_BT: ItFunc = lambda n_, _n, m_, _m: [complex(_n - x - 1, m_) for x in range(n_, _n)]
 
-    RIGHT_TB: ItFunc = lambda n_, m_, _n, _m: [complex(x, _m - 1) for x in range(n_, _n)]
-    RIGHT_BT: ItFunc = lambda n_, m_, _n, _m: [complex(_n - x - 1, _m - 1) for x in range(n_, _n)]
+    RIGHT_TB: ItFunc = lambda n_, _n, m_, _m: [complex(x, _m - 1) for x in range(n_, _n)]
+    RIGHT_BT: ItFunc = lambda n_, _n, m_, _m: [complex(_n - x - 1, _m - 1) for x in range(n_, _n)]
 
-    CORNERS: ItFunc = lambda n_, m_, _n, _m: [
+    CORNERS: ItFunc = lambda n_, _n, m_, _m: [
         complex(n_, m_),
         complex(n_, _m - 1),
         complex(_n - 1, _m - 1),
@@ -67,9 +67,9 @@ class IT:
 class Spacer(Mapping):
     def __init__(self, shape=None, *, ranges=0, at=None, directions: Iterable[complex] = C_ALL):
         if ranges is None:
-            self.ranges = ((-Inf, -Inf), (Inf, Inf))
+            self.ranges = ((-Inf, Inf), (-Inf, Inf))
         else:
-            self.ranges = ranges or ((0, 0), shape)
+            self.ranges = ranges or ((0, shape[0]), (0, shape[1]))
         self.at = at or dict()
         self.directions = C_ALL if directions is None else directions
 
@@ -130,11 +130,11 @@ class Spacer(Mapping):
 
     @property
     def shape(self):
-        return self.ranges[1]
+        return self.n, self.m
 
     @property
     def n(self):
-        return self.ranges[1][0]
+        return self.ranges[0][1]
 
     @property
     def m(self):
@@ -177,8 +177,8 @@ class Spacer(Mapping):
         for direct in directions or self.directions:
             to_pos = pos + direct
             if (
-                self.ranges[0][0] <= to_pos.real < self.ranges[1][0]
-                and self.ranges[0][1] <= to_pos.imag < self.ranges[1][1]
+                self.ranges[0][0] <= to_pos.real < self.ranges[0][1]
+                and self.ranges[1][0] <= to_pos.imag < self.ranges[1][1]
                 and has_path(to_pos)
             ):
                 yield to_pos
@@ -202,7 +202,7 @@ class Spacer(Mapping):
         return visited, None
 
     def is_inside_ranges(self, pos: complex) -> bool:
-        return self.ranges[0][0] <= pos.real < self.ranges[1][0] and self.ranges[0][1] <= pos.imag < self.ranges[1][1]
+        return self.ranges[0][0] <= pos.real < self.ranges[0][1] and self.ranges[1][0] <= pos.imag < self.ranges[1][1]
 
     def move(self, pos: complex, direction: C, *, cyclic=True, has_path: Callable[[complex], bool] = None):
         if not self.is_inside_ranges(_pos := pos + direction):
@@ -245,6 +245,9 @@ class Spacer(Mapping):
     def minmax(self) -> (complex, complex):
         return minmax(self.at)
 
+    def find_ranges(self) -> (tuple[int, int], tuple[int, int]):
+        return ranges(self.at)
+
     def rotate(self, count, row=None, col=None):
         if row is not None and col is None:
             vect = C.EAST * (count % self.m)
@@ -282,11 +285,16 @@ def minmax(points: Iterable[complex]) -> (complex, complex):
     return complex(min(reals), min(imags)), complex(max(reals), max(imags))
 
 
+def ranges(points: Iterable[complex]) -> (tuple[int, int], tuple[int, int]):
+    reals, imags = [int(point.real) for point in points], [int(point.imag) for point in points]
+    return (min(reals), max(reals) + 1), (min(imags), max(imags) + 1)
+
+
 def to_array(points: Union[dict, set], swap_xy=False, ranges=None) -> np.ndarray:
     _min, _max = (
         minmax(points)
-        if ranges is None or Inf in ranges[1]
-        else (complex(*ranges[0]), complex(ranges[1][0] - 1, ranges[1][1] - 1))
+        if ranges is None or Inf in [ranges[0][1], ranges[1][1]]
+        else (complex(ranges[0][0], ranges[1][0]), complex(ranges[0][1] - 1, ranges[1][1] - 1))
     )
 
     def get_x(c):

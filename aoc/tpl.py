@@ -1,9 +1,13 @@
+import math
 from typing import Union
 
-import math
+
+def t_ranges(items):
+    mm = t_minmax(items)
+    return (mm[0][0], mm[1][0] + 1), (mm[0][1], mm[1][1] + 1)
 
 
-def t_minmax(items: list[tuple]):
+def t_minmax(items):
     if len(items) == 0:
         return None
 

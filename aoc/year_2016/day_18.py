@@ -1,23 +1,25 @@
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
-from aoc.space import Spacer, C
-import numpy as np
 
 
 class Year2016Day18(Solution):
     """2016/18: Like a Rogue"""
 
     def __init__(self, inp: Input):
-        self.first_row = np.array([v == "^" or None for v in inp.get_lines()[0]])
+        self.first_row = [v == "^" for v in inp.get_lines()[0]]
 
     def count_traps(self, rows):
-        spacer = Spacer.build(self.first_row, ranges=((0, 0), (rows, len(self.first_row))))
-        for pos in spacer.iter(test=lambda p: p.real > 0):
-            if spacer.at.get(pos + C.NORTH_WEST) != spacer.at.get(pos + C.NORTH_EAST):
-                spacer[pos] = True
+        columns = len(self.first_row)
+        buffer = [[False] + self.first_row + [False], [False] * (columns + 2)]
+        traps = sum(buffer[0])
+        for row in range(1, rows):
+            line = row % 2
+            for i in range(1, columns + 1):
+                buffer[line][i] = buffer[1 - line][i - 1] != buffer[1 - line][i + 1]
+            traps += sum(buffer[line])
 
-        return spacer.n * spacer.m - len(spacer)
+        return rows * columns - traps
 
     def part_a(self):
         return self.count_traps(40)
