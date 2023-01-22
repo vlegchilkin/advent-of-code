@@ -10,7 +10,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/15'>Day 15: Beverage Bandits</a>
 <a href='day/14'>Day 14: Chocolate Charts</a>
 <a href='day/13'>Day 13: Mine Cart Madness</a>
 <a href='day/12'>Day 12: Subterranean Sustainability</a>

@@ -311,6 +311,10 @@ def to_str(points: Union[dict, set], swap_xy=False, ranges=None) -> str:
     return result
 
 
+def to_t(point: complex) -> tuple[int, int]:
+    return int(point.real), int(point.imag)
+
+
 def c_delta(x: complex, y: complex):
     return complex(abs(x.real - y.real), abs(x.imag - y.imag))
 
