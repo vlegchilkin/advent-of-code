@@ -8,7 +8,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/17'>Day 17: Reservoir Research</a>
 <a href='day/16'>Day 16: Chronal Classification</a>
 <a href='day/15'>Day 15: Beverage Bandits</a>
 <a href='day/14'>Day 14: Chocolate Charts</a>
