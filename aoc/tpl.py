@@ -45,6 +45,10 @@ def t_add_pos(t, pos, value):
     return tuple(c if idx != pos else c + value for idx, c in enumerate(t))
 
 
+def t_replace(t, pos, value):
+    return tuple(c if idx != pos else value for idx, c in enumerate(t))
+
+
 def t_pop_left(t):
     for i, v in enumerate(t):
         if v:
