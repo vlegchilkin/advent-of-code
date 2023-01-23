@@ -2,7 +2,7 @@ import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.math import factors
-from aoc.tpl import t_add_pos, t_replace
+from aoc.tpl import t_add_pos
 from aoc.year_2018.day_16 import execute
 
 
@@ -26,7 +26,7 @@ class Year2018Day19(Solution):
         while True:
             index = regs[self.ip]
             if index == 1:
-                regs = t_replace(regs, 0, sum(factors(regs[2])))
+                regs = t_add_pos(regs, 0, sum(factors(regs[2])))
                 break
             regs = execute(regs, *self.instructions[index])
             if 0 <= (regs[self.ip] + 1) < len(self.instructions):
