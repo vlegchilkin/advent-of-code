@@ -5,6 +5,29 @@ import pytest
 from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.tpl import t_replace
 
+OP_FUNCTIONS = {
+    "addr": lambda regs, a, b: regs[a] + regs[b],
+    "addi": lambda regs, a, b: regs[a] + b,
+    "mulr": lambda regs, a, b: regs[a] * regs[b],
+    "muli": lambda regs, a, b: regs[a] * b,
+    "banr": lambda regs, a, b: regs[a] & regs[b],
+    "bani": lambda regs, a, b: regs[a] & b,
+    "borr": lambda regs, a, b: regs[a] | regs[b],
+    "bori": lambda regs, a, b: regs[a] | b,
+    "setr": lambda regs, a, b: regs[a],
+    "seti": lambda regs, a, b: a,
+    "gtir": lambda regs, a, b: int(a > regs[b]),
+    "gtri": lambda regs, a, b: int(regs[a] > b),
+    "gtrr": lambda regs, a, b: int(regs[a] > regs[b]),
+    "eqir": lambda regs, a, b: int(a == regs[b]),
+    "eqri": lambda regs, a, b: int(regs[a] == b),
+    "eqrr": lambda regs, a, b: int(regs[a] == regs[b]),
+}
+
+
+def execute(input_regs, op, a, b, c) -> tuple:
+    return t_replace(input_regs, c, OP_FUNCTIONS[op](input_regs, a, b))
+
 
 class Year2018Day16(Solution):
     """2018/16: Chronal Classification"""
@@ -20,34 +43,13 @@ class Year2018Day16(Solution):
         self.program = [tuple(map(int, line.split(" "))) for line in it]
 
     def part_a_b(self):
-        op_functions = {
-            "addr": lambda regs, a, b: regs[a] + regs[b],
-            "addi": lambda regs, a, b: regs[a] + b,
-            "mulr": lambda regs, a, b: regs[a] * regs[b],
-            "muli": lambda regs, a, b: regs[a] * b,
-            "banr": lambda regs, a, b: regs[a] & regs[b],
-            "bani": lambda regs, a, b: regs[a] & b,
-            "borr": lambda regs, a, b: regs[a] | regs[b],
-            "bori": lambda regs, a, b: regs[a] | b,
-            "setr": lambda regs, a, b: regs[a],
-            "seti": lambda regs, a, b: a,
-            "gtir": lambda regs, a, b: int(a > regs[b]),
-            "gtri": lambda regs, a, b: int(regs[a] > b),
-            "gtrr": lambda regs, a, b: int(regs[a] > regs[b]),
-            "eqir": lambda regs, a, b: int(a == regs[b]),
-            "eqri": lambda regs, a, b: int(regs[a] == b),
-            "eqrr": lambda regs, a, b: int(regs[a] == regs[b]),
-        }
-
-        def execute(input_regs, op_function, a, b, c) -> tuple:
-            return t_replace(input_regs, c, op_function(input_regs, a, b))
 
         part_a = 0
-        possible_codes = {op: set(range(len(op_functions))) for op in iter(op_functions)}
+        possible_codes = {op: set(range(len(OP_FUNCTIONS))) for op in iter(OP_FUNCTIONS)}
         for in_regs, (op_code, *args), out_regs in self.blocks:
             valid_operations = 0
-            for op, func in op_functions.items():
-                if out_regs == execute(in_regs, func, *args):
+            for op in OP_FUNCTIONS:
+                if out_regs == execute(in_regs, op, *args):
                     valid_operations += 1
                 elif op_code in possible_codes[op]:
                     possible_codes[op].remove(op_code)
@@ -66,7 +68,7 @@ class Year2018Day16(Solution):
 
         regs = (0, 0, 0, 0)
         for op_code, *args in self.program:
-            regs = execute(regs, op_functions[op_codes[op_code]], *args)
+            regs = execute(regs, op_codes[op_code], *args)
         part_b = regs[0]
 
         return part_a, part_b

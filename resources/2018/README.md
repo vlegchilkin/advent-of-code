@@ -6,7 +6,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/19'>Day 19: Go With The Flow</a>
 <a href='day/18'>Day 18: Settlers of The North Pole</a>
 <a href='day/17'>Day 17: Reservoir Research</a>
 <a href='day/16'>Day 16: Chronal Classification</a>
