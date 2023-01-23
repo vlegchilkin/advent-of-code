@@ -29,6 +29,8 @@ C_BORDERS = (C.NORTH, C.SOUTH, C.WEST, C.EAST)
 C_ALL = tuple(C)
 
 C_SIDES = {"U": C.NORTH, "D": C.SOUTH, "L": C.WEST, "R": C.EAST}
+C_NSWE = {"N": C.NORTH, "S": C.SOUTH, "W": C.WEST, "E": C.EAST}
+
 C_TURNS = {
     C.EAST: {"R": C.SOUTH, "L": C.NORTH, "F": C.EAST, "B": C.WEST},
     C.SOUTH: {"R": C.WEST, "L": C.EAST, "F": C.SOUTH, "B": C.NORTH},
