@@ -2,7 +2,7 @@ import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.math import factors
-from aoc.tpl import t_add_pos
+from aoc.tpl import t_add_pos, t_replace
 from aoc.year_2018.day_16 import execute
 
 
@@ -14,7 +14,25 @@ class Year2018Day19(Solution):
         self.ip = int(next(it).split(" ")[-1])
         self.instructions = [(r[0], *map(int, r[1:])) for r in map(lambda line: line.split(" "), it)]
 
-    def run(self, regs):
+    def execute(self, regs, interceptor=None):
+        while True:
+            index = regs[self.ip]
+            if interceptor:
+                _index, regs = interceptor(index, regs)
+                if index != _index:
+                    if _index is None:
+                        break
+                    else:
+                        regs = t_replace(regs, self.ip, _index)
+                        continue
+            regs = execute(regs, *self.instructions[index])
+            if 0 <= (regs[self.ip] + 1) < len(self.instructions):
+                regs = t_add_pos(regs, self.ip, 1)
+            else:
+                break
+        return regs[0]
+
+    def optimized_exec(self, regs):
         """
         1..16 steps are just an algorithm for a sum of factors of the register [2] with halt on a line 16:
 
@@ -23,23 +41,19 @@ class Year2018Day19(Solution):
             if [4]*[5] == [2]:
               [0] += [4]
         """
-        while True:
-            index = regs[self.ip]
-            if index == 1:
-                regs = t_add_pos(regs, 0, sum(factors(regs[2])))
-                break
-            regs = execute(regs, *self.instructions[index])
-            if 0 <= (regs[self.ip] + 1) < len(self.instructions):
-                regs = t_add_pos(regs, self.ip, 1)
-            else:
-                break
-        return regs[0]
+
+        def interceptor(index, regs):
+            if index != 1:
+                return index, regs
+            return None, t_add_pos(regs, 0, sum(factors(regs[2])))
+
+        return self.execute(regs, interceptor)
 
     def part_a(self):
-        return self.run((0, 0, 0, 0, 0, 0))
+        return self.optimized_exec((0, 0, 0, 0, 0, 0))
 
     def part_b(self):
-        return self.run((1, 0, 0, 0, 0, 0))
+        return self.optimized_exec((1, 0, 0, 0, 0, 0))
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
