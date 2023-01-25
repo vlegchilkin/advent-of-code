@@ -1,7 +1,7 @@
 <img align="left" style="float: left;" src="progress.png" width="530px">
 
 <pre>
-&nbsp;
+<a href='day/24'>Day 24: Immune System Simulator 20XX</a>
 <a href='day/23'>Day 23: Experimental Emergency Teleportation</a>
 <a href='day/22'>Day 22: Mode Maze</a>
 <a href='day/21'>Day 21: Chronal Conversion</a>
