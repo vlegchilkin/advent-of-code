@@ -125,6 +125,8 @@ def t_delta(x, y):
             return abs(x[0] - y[0]), abs(x[1] - y[1])
         case 3:
             return abs(x[0] - y[0]), abs(x[1] - y[1]), abs(x[2] - y[2])
+        case 4:
+            return abs(x[0] - y[0]), abs(x[1] - y[1]), abs(x[2] - y[2]), abs(x[3] - y[3])
         case _:
             return tuple(abs(xx - yy) for xx, yy in zip(x, y))  # slow
 
