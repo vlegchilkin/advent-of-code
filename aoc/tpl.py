@@ -4,7 +4,15 @@ from typing import Union
 
 def t_ranges(items):
     mm = t_minmax(items)
-    return (mm[0][0], mm[1][0] + 1), (mm[0][1], mm[1][1] + 1)
+    match len(next(iter(items))):
+        case 1:
+            return mm[0], mm[1]
+        case 2:
+            return (mm[0][0], mm[1][0] + 1), (mm[0][1], mm[1][1] + 1)
+        case 3:
+            return (mm[0][0], mm[1][0] + 1), (mm[0][1], mm[1][1] + 1), (mm[0][2], mm[1][2] + 1)
+        case _:
+            raise ValueError("Not implemented for dimension")
 
 
 def t_minmax(items):
@@ -70,13 +78,13 @@ def t_push_left(t, value):
 def t_koef(x, y: tuple):
     match len(y):
         case 1:
-            return x * y[0]
+            return int(x * y[0])
         case 2:
-            return x * y[0], x * y[1]
+            return int(x * y[0]), int(x * y[1])
         case 3:
-            return x * y[0], x * y[1], x * y[2]
+            return int(x * y[0]), int(x * y[1]), int(x * y[2])
         case 4:
-            return x * y[0], x * y[1], x * y[2], x * y[3]
+            return int(x * y[0]), int(x * y[1]), int(x * y[2]), int(x * y[3])
         case _:
             raise ValueError("not implemented")
 

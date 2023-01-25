@@ -2,7 +2,7 @@
 
 <pre>
 &nbsp;
-&nbsp;
+<a href='day/23'>Day 23: Experimental Emergency Teleportation</a>
 <a href='day/22'>Day 22: Mode Maze</a>
 <a href='day/21'>Day 21: Chronal Conversion</a>
 <a href='day/20'>Day 20: A Regular Map</a>
