@@ -134,8 +134,6 @@ def build_year(year, src=None):
         else:
             v += "&nbsp;"
         pre_block += v + "\n"
-    if year == 2018:
-        pre_block = pre_block[7:]
     readme += pre_block
 
     for h in parser.footers:
