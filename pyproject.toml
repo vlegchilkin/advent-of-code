@@ -22,7 +22,7 @@ llist = "^0.7.1"
 [tool.poetry.dev-dependencies]
 aiohttp = "^3.8.3"
 pytest = "^7.2.1"
-pre-commit = { version = "^3.0.0", source = "pypi" }
+pre-commit = { version = "^3.2.2", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
 coverage = { version = "^7.1.0", source = "pypi" }
 html2image = { version = "^2.0.1", source = "pypi" }
