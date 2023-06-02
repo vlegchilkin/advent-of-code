@@ -11,7 +11,7 @@ class Year2018Day4(Solution):
 
     def __init__(self, inp: Input):
         def parse(line):
-            return re.match(r"^\[(.*)] (.*)$", line).groups()
+            return re.match(r"^\[([\d\-:\s]+)] (.*)$", line).groups()
 
         self.records = sorted(inp.get_lines(parse))
 
