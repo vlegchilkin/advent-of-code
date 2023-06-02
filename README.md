@@ -1,15 +1,15 @@
 <div align="center">
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/vlegchilkin/advent-of-code/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/vlegchilkin/advent-of-code/tree/main)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=sqale_rating)](https://sonarcloud.io/summary/overall?id=vlegchilkin_advent-of-code)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=security_rating)](https://sonarcloud.io/summary/overall?id=vlegchilkin_advent-of-code)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=reliability_rating)](https://sonarcloud.io/summary/overall?id=vlegchilkin_advent-of-code)
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=coverage)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=bugs)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=vlegchilkin_advent-of-code)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=ncloc)](https://sonarcloud.io/summary/overall?id=vlegchilkin_advent-of-code)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=coverage)](https://sonarcloud.io/summary/overall?id=vlegchilkin_advent-of-code)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=code_smells)](https://sonarcloud.io/summary/overall?id=vlegchilkin_advent-of-code)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=bugs)](https://sonarcloud.io/summary/overall?id=vlegchilkin_advent-of-code)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=vlegchilkin_advent-of-code&metric=vulnerabilities)](https://sonarcloud.io/summary/overall?id=vlegchilkin_advent-of-code)
 
 # Advent of Code
 
