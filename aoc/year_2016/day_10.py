@@ -19,7 +19,7 @@ class Year2016Day10(Solution):
             kind, num = s.split(" ")
             return kind, int(num)
 
-        m = re.compile(r"^bot (\d+) gives low to (.*) and high to (.*)$")
+        m = re.compile(r"^bot (\d+) gives low to (bot \d+|output \d+) and high to (bot \d+|output \d+)$")
         rules = {
             int(d[0]): (side(d[1]), side(d[2]))
             for d in [m.match(line).groups() for line in self.lines if line.startswith("bot")]
