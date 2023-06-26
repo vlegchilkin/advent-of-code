@@ -1399,13 +1399,13 @@ mpmath = ">=0.19"
 
 [[package]]
 name = "ttp"
-version = "0.9.4"
+version = "0.9.5"
 description = "Template Text Parser"
 optional = false
 python-versions = ">=2.7,<4.0"
 files = [
-    {file = "ttp-0.9.4-py2.py3-none-any.whl", hash = "sha256:550e26fd742703f9fd0fac09e3701766190d4551978fccdead294d49cdec2423"},
-    {file = "ttp-0.9.4.tar.gz", hash = "sha256:44aaef0561f83d588563918157a502fc9f928e5bc3867026c2cc7b5a8c0dc3e1"},
+    {file = "ttp-0.9.5-py2.py3-none-any.whl", hash = "sha256:2c9fcf560b3f696e9fdd3554dc8e4622cbb10cac1d4fca13a7cf608c4a7fd137"},
+    {file = "ttp-0.9.5.tar.gz", hash = "sha256:234414f4d3039d2d1cde09993f89f8db1b34d447f76c6a402555cefac2e59c4e"},
 ]
 
 [package.extras]
@@ -1539,4 +1539,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "1cfa3eb467423eb6cc04b95a63dac404d7f626d40e9e8e624dd38ab63b315ff0"
+content-hash = "0b40fbde86ceb8aa851cac6981c7d82842faa6046637d134363fa5c31f4f586f"
