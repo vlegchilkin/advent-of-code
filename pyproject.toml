@@ -20,7 +20,7 @@ sympy = "^1.12"
 llist = "^0.7.1"
 
 [tool.poetry.dev-dependencies]
-aiohttp = "^3.8.4"
+aiohttp = "^3.8.5"
 pytest = "^7.3.1"
 pre-commit = { version = "^3.3.2", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
