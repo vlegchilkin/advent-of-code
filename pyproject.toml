@@ -9,20 +9,20 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 requests = "^2.31.0"
-ttp = "^0.9.4"
+ttp = "^0.9.5"
 addict = "^2.4.0"
-numpy = "^1.24.3"
+numpy = "^1.25.2"
 networkx = "^3.1"
-matplotlib = "^3.7.1"
+matplotlib = "^3.7.2"
 scipy = "^1.9.3"
 markdownify = "^0.11.6"
 sympy = "^1.12"
 llist = "^0.7.1"
 
 [tool.poetry.dev-dependencies]
-aiohttp = "^3.8.4"
-pytest = "^7.3.1"
-pre-commit = { version = "^3.3.2", source = "pypi" }
+aiohttp = "^3.8.5"
+pytest = "^7.4.0"
+pre-commit = { version = "^3.3.3", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
 coverage = { version = "^7.2.7", source = "pypi" }
 html2image = { version = "^2.0.3", source = "pypi" }
