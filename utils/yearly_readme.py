@@ -92,7 +92,7 @@ def build_year(year, src=None):
         days = calendar
 
     styles = (styles or "") + "a:link {text-decoration: none; color: grey;}"
-    hti = Html2Image(custom_flags=["--default-background-color=0", "--virtual-time-budget=10000", "--hide-scrollbars"])
+    hti = Html2Image(custom_flags=["--default-background-color=0x000000", "--virtual-time-budget=10000", "--hide-scrollbars"])
     height = 440
     if year == 2015:
         height += 20
