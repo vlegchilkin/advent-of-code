@@ -1,0 +1,24 @@
+import pytest
+
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.year_2019 import intcode_computer
+
+
+class Year2019Day5(Solution):
+    """2019/5: Sunny with a Chance of Asteroids"""
+
+    def __init__(self, inp: Input):
+        self.instructions = list(map(int, inp.get_text().split(",")))
+
+    def part_a(self):
+        buffer = self.instructions.copy()
+        return intcode_computer(buffer, inp=[1])[-1]
+
+    def part_b(self):
+        buffer = self.instructions.copy()
+        return intcode_computer(buffer, inp=[5])[-1]
+
+
+@pytest.mark.parametrize("pd", get_puzzles(), ids=str)
+def test_case(pd: PuzzleData):
+    pd.check_solution(Year2019Day5)

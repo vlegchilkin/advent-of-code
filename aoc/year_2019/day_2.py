@@ -1,8 +1,7 @@
-import operator
-
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.year_2019 import intcode_computer
 
 
 class Year2019Day2(Solution):
@@ -14,17 +13,7 @@ class Year2019Day2(Solution):
     def run(self, noun, verb):
         buffer = self.instructions.copy()
         buffer[1], buffer[2] = noun, verb
-        for pos in range(0, len(buffer), 4):
-            match buffer[pos]:
-                case 1:
-                    op = operator.add
-                case 2:
-                    op = operator.mul
-                case 99:
-                    break
-                case _:
-                    raise ValueError()
-            buffer[buffer[pos + 3]] = op(buffer[buffer[pos + 1]], buffer[buffer[pos + 2]])
+        intcode_computer(buffer)
         return buffer[0]
 
     def part_a(self):
