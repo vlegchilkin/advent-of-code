@@ -20,7 +20,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/6'>Day 6: Universal Orbit Map</a>
 <a href='day/5'>Day 5: Sunny with a Chance of Asteroids</a>
 <a href='day/4'>Day 4: Secure Container</a>
 <a href='day/3'>Day 3: Crossed Wires</a>
