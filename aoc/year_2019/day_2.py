@@ -1,7 +1,7 @@
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
-from aoc.year_2019 import intcode_computer
+from aoc.year_2019 import IntcodeComputer
 
 
 class Year2019Day2(Solution):
@@ -13,7 +13,7 @@ class Year2019Day2(Solution):
     def run(self, noun, verb):
         buffer = self.instructions.copy()
         buffer[1], buffer[2] = noun, verb
-        intcode_computer(buffer)
+        IntcodeComputer(buffer).run()
         return buffer[0]
 
     def part_a(self):

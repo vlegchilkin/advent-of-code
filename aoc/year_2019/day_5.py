@@ -1,7 +1,7 @@
 import pytest
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
-from aoc.year_2019 import intcode_computer
+from aoc.year_2019 import IntcodeComputer
 
 
 class Year2019Day5(Solution):
@@ -12,11 +12,11 @@ class Year2019Day5(Solution):
 
     def part_a(self):
         buffer = self.instructions.copy()
-        return intcode_computer(buffer, inp=[1])[-1]
+        return IntcodeComputer(buffer).run([1])[-1]
 
     def part_b(self):
         buffer = self.instructions.copy()
-        return intcode_computer(buffer, inp=[5])[-1]
+        return IntcodeComputer(buffer).run([5])[-1]
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
