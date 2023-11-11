@@ -17,7 +17,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/9'>Day 9: Sensor Boost</a>
 <a href='day/8'>Day 8: Space Image Format</a>
 <a href='day/7'>Day 7: Amplification Circuit</a>
 <a href='day/6'>Day 6: Universal Orbit Map</a>

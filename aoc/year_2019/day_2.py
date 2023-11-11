@@ -13,8 +13,9 @@ class Year2019Day2(Solution):
     def run(self, noun, verb):
         buffer = self.instructions.copy()
         buffer[1], buffer[2] = noun, verb
-        IntcodeComputer(buffer).run()
-        return buffer[0]
+        computer = IntcodeComputer(buffer)
+        computer.run()
+        return computer.memory[0]
 
     def part_a(self):
         return self.run(12, 2)
