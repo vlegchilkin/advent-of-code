@@ -18,7 +18,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/8'>Day 8: Space Image Format</a>
 <a href='day/7'>Day 7: Amplification Circuit</a>
 <a href='day/6'>Day 6: Universal Orbit Map</a>
 <a href='day/5'>Day 5: Sunny with a Chance of Asteroids</a>
