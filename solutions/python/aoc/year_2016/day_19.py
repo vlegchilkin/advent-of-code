@@ -1,7 +1,7 @@
 import pytest
 from llist import dllist
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2016Day19(Solution):

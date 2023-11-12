@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 import numpy as np
 import math
 import collections as cl

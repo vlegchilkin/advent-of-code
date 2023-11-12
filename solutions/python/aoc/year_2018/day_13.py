@@ -3,8 +3,8 @@ from itertools import cycle
 import pytest
 import numpy as np
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import C_MOVES, C, Spacer, C_TURNS
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import C_MOVES, C, Spacer, C_TURNS
 
 
 class Year2018Day13(Solution):

@@ -2,8 +2,8 @@ import re
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import Spacer
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import Spacer
 
 
 class Year2016Day8(Solution):

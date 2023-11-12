@@ -3,9 +3,9 @@ import itertools
 
 import pytest
 
-from solutions.python.aoc.space import Spacer, C
+from aoc.space import Spacer, C
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2022Day23(Solution):

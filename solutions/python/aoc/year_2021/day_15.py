@@ -2,8 +2,8 @@ import pytest
 import numpy as np
 import networkx as nx
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import Spacer, C_BORDERS, minmax
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import Spacer, C_BORDERS, minmax
 
 
 class Year2021Day15(Solution):

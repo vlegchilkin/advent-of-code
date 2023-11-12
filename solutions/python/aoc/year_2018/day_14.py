@@ -3,7 +3,7 @@ from typing import Callable, TypeVar
 import pytest
 from llist import dllist
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 T = TypeVar("T")
 

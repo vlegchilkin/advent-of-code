@@ -3,8 +3,8 @@ import _md5
 import pytest
 import collections as cl
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import C_SIDES, Spacer
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import C_SIDES, Spacer
 
 
 class Year2016Day17(Solution):

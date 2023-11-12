@@ -1,7 +1,7 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import C_SIDES
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import C_SIDES
 
 
 class Year2022Day9(Solution):

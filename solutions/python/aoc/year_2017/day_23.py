@@ -1,8 +1,8 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.math import factors
-from solutions.python.aoc.year_2017.day_18 import Year2017Day18
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.math import factors
+from aoc.year_2017.day_18 import Year2017Day18
 
 
 class Year2017Day23(Solution):

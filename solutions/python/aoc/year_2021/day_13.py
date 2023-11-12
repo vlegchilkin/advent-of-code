@@ -1,7 +1,7 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, parse_with_template, Solution
-from solutions.python.aoc.space import to_str
+from aoc import Input, get_puzzles, PuzzleData, parse_with_template, Solution
+from aoc.space import to_str
 
 
 class Year2021Day13(Solution):

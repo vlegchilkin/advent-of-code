@@ -1,8 +1,8 @@
 import networkx as nx
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import C_NSWE
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import C_NSWE
 
 
 class Year2018Day20(Solution):

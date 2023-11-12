@@ -2,7 +2,7 @@ from itertools import product
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2022Day8(Solution):

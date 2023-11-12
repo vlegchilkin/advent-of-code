@@ -2,8 +2,8 @@ import re
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import Spacer, minmax
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import Spacer, minmax
 
 
 class Year2018Day10(Solution):

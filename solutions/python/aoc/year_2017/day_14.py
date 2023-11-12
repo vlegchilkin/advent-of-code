@@ -1,9 +1,9 @@
 import pytest
 import networkx as nx
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import Spacer, C_BORDERS
-from solutions.python.aoc.year_2017.day_10 import Year2017Day10
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import Spacer, C_BORDERS
+from aoc.year_2017.day_10 import Year2017Day10
 
 
 class Year2017Day14(Solution):

@@ -1,8 +1,8 @@
 import pytest
 import numpy as np
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution, parse_with_template
-from solutions.python.aoc.space import Spacer, C_BORDERS
+from aoc import Input, get_puzzles, PuzzleData, Solution, parse_with_template
+from aoc.space import Spacer, C_BORDERS
 
 
 class Year2016Day22(Solution):

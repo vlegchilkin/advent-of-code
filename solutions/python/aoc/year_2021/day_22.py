@@ -2,8 +2,8 @@ import logging
 
 import pytest
 import numpy as np
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_sum
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.tpl import t_sum
 
 
 class Year2021Day22(Solution):

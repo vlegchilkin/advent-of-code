@@ -3,8 +3,8 @@ import re
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_sum, t_dist
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.tpl import t_sum, t_dist
 
 
 class Year2017Day20(Solution):

@@ -5,7 +5,7 @@ from collections import Counter
 import pytest
 from addict import Dict
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2017Day7(Solution):

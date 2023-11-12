@@ -2,7 +2,7 @@ from functools import cache
 import networkx as nx
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 TTP_TEMPLATE = """\
 Valve {{ src }} has flow rate={{ rate | to_int }}; \

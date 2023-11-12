@@ -2,9 +2,9 @@ import collections
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import Spacer, C_BORDERS
-from solutions.python.aoc.tpl import t_dist, t_minmax
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import Spacer, C_BORDERS
+from aoc.tpl import t_dist, t_minmax
 
 
 class Year2018Day6(Solution):

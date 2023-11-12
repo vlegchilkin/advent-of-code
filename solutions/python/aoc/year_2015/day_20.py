@@ -1,7 +1,7 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.math import factors
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.math import factors
 
 
 class Year2015Day20(Solution):

@@ -1,7 +1,7 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.year_2016 import assembunny
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.year_2016 import assembunny
 
 
 class Year2016Day23(Solution):

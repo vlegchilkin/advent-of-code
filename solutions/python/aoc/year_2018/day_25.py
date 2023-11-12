@@ -4,8 +4,8 @@ import networkx as nx
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_dist
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.tpl import t_dist
 
 
 class Year2018Day25(Solution):

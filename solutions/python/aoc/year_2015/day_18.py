@@ -1,7 +1,7 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import Spacer, IT
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import Spacer, IT
 
 
 class Year2015Day18(Solution):

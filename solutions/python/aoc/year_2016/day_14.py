@@ -3,7 +3,7 @@ import _md5
 import pytest
 import collections as cl
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2016Day14(Solution):

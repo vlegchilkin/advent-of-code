@@ -1,5 +1,5 @@
-from solutions.python.aoc import Input, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_dist
+from aoc import Input, PuzzleData, Solution
+from aoc.tpl import t_dist
 
 TTP_TEMPLATE = """\
 Sensor at x={{ sx | to_int }}, y={{ sy | to_int }}: closest beacon is at x={{ bx | to_int }}, y={{ by | to_int }}

@@ -2,8 +2,8 @@ from typing import Iterator
 
 import numpy as np
 
-from solutions.python.aoc import Input, PuzzleData, Solution
-from solutions.python.aoc.space import C, Spacer, ItFunc, C_OPPOSITE, C_TURNS, IT
+from aoc import Input, PuzzleData, Solution
+from aoc.space import C, Spacer, ItFunc, C_OPPOSITE, C_TURNS, IT
 
 SIDES = [C.EAST, C.SOUTH, C.WEST, C.NORTH]
 

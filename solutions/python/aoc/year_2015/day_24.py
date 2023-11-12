@@ -3,7 +3,7 @@ import math
 import pytest
 from numpy import Inf
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2015Day24(Solution):

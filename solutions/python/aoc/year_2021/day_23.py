@@ -1,8 +1,8 @@
 import pytest
 from numpy import Inf
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_add_pos, t_pop_left, t_push_left
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.tpl import t_add_pos, t_pop_left, t_push_left
 
 
 class Year2021Day23(Solution):

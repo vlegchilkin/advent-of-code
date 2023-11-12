@@ -5,8 +5,8 @@ from typing import Callable
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import split_to_steps
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import split_to_steps
 
 
 class Year2021Day5(Solution):

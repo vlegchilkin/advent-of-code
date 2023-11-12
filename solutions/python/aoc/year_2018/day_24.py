@@ -6,7 +6,7 @@ from enum import StrEnum
 import pytest
 import dataclasses as dc
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Side(StrEnum):

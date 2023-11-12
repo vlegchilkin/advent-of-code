@@ -4,7 +4,7 @@ import logging
 import math
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 TTP_TEMPLATE = """\
 Monkey {{ id | to_int | let(turns, 0) }}: 

@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import C_MOVES, Spacer, C_BORDERS
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import C_MOVES, Spacer, C_BORDERS
 
 
 class Year2022Day24(Solution):

@@ -2,8 +2,8 @@ import re
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_replace
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.tpl import t_replace
 
 OP_FUNCTIONS = {
     "addr": lambda regs, a, b: regs[a] + regs[b],

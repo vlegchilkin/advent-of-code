@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import C, Spacer
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import C, Spacer
 
 DIRECTIONS = [C.SOUTH, C.SOUTH_WEST, C.SOUTH_EAST]
 

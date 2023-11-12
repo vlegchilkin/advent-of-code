@@ -4,7 +4,7 @@ import math
 import numpy as np
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2021Day3(Solution):

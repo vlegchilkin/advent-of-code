@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.python.aoc import Input, PuzzleData, get_puzzles, Solution
+from aoc import Input, PuzzleData, get_puzzles, Solution
 
 ROCK, PAPER, SCISSORS = 0, 1, 2
 LOSS_TIE_WIN = {ROCK: [SCISSORS, ROCK, PAPER], PAPER: [ROCK, PAPER, SCISSORS], SCISSORS: [PAPER, SCISSORS, ROCK]}

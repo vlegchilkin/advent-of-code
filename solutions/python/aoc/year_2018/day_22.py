@@ -4,8 +4,8 @@ from functools import cache
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_sum
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.tpl import t_sum
 
 
 class Year2018Day22(Solution):

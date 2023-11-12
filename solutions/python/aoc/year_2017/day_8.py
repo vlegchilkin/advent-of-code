@@ -4,8 +4,8 @@ import re
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.math import BOOL_OPERATOR
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.math import BOOL_OPERATOR
 
 
 class Year2017Day8(Solution):

@@ -3,7 +3,7 @@ import re
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution, parse_with_template
+from aoc import Input, get_puzzles, PuzzleData, Solution, parse_with_template
 
 TTP_TEMPLATE = """
 <group name="state">

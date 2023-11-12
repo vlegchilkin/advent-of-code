@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 C_VECTORS = {"forward": 1j, "down": 1, "up": -1}
 

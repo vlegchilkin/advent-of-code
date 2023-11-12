@@ -5,8 +5,8 @@ from typing import Optional
 import networkx as nx
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_minmax, t_inside, t_sum, t_delta
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.tpl import t_minmax, t_inside, t_sum, t_delta
 
 # 6 cube sides with 4 vertexes of each side
 SIDE_VERTEXES = {

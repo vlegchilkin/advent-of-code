@@ -2,8 +2,8 @@ import copy
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.math import INT_OPERATOR
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.math import INT_OPERATOR
 
 TTP_TEMPLATE = """{{ monkey }}: {{ operation | ORPHRASE  | split(" ")}}"""
 

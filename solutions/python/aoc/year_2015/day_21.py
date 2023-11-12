@@ -5,7 +5,7 @@ from typing import Optional
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, dataclass_by_template, Solution
+from aoc import Input, get_puzzles, PuzzleData, dataclass_by_template, Solution
 
 
 @dataclass

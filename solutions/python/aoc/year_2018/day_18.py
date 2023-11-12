@@ -2,8 +2,8 @@ from collections import Counter
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import Spacer
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import Spacer
 
 
 class Year2018Day18(Solution):

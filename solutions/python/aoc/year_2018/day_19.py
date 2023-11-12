@@ -1,9 +1,9 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.math import factors
-from solutions.python.aoc.tpl import t_add_pos, t_replace
-from solutions.python.aoc.year_2018.day_16 import execute
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.math import factors
+from aoc.tpl import t_add_pos, t_replace
+from aoc.year_2018.day_16 import execute
 
 
 class Year2018Day19(Solution):

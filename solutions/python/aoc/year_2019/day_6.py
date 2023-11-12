@@ -1,7 +1,7 @@
 import pytest
 
 from enum import StrEnum
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 import collections as cl
 
 

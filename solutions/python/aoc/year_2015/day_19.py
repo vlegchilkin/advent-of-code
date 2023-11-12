@@ -3,7 +3,7 @@ import string
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, algo, Solution
+from aoc import Input, get_puzzles, PuzzleData, algo, Solution
 
 
 class Year2015Day19(Solution):

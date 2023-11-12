@@ -5,7 +5,7 @@ from typing import Optional
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2018Day7(Solution):

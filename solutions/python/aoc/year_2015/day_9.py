@@ -3,7 +3,7 @@ from typing import Callable
 import pytest
 import networkx as nx
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 TTP_TEMPLATE = "{{ f }} to {{ t }} = {{ length | to_int }}"
 

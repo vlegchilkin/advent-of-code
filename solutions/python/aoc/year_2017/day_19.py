@@ -2,8 +2,8 @@ import string
 
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.space import Spacer, C_BORDERS, C, C_TURNS
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.space import Spacer, C_BORDERS, C, C_TURNS
 
 
 class Year2017Day19(Solution):

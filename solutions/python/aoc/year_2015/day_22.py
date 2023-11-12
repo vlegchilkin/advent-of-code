@@ -5,7 +5,7 @@ from typing import Optional, Tuple
 import pytest
 from numpy import PINF
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 @dataclass(frozen=True)

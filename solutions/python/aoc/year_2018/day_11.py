@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from numpy import Inf
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc import Input, get_puzzles, PuzzleData, Solution
 
 
 class Year2018Day11(Solution):

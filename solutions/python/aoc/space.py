@@ -9,8 +9,8 @@ import networkx as nx
 import numpy as np
 from numpy import Inf
 
-from solutions.python.aoc import math
-from solutions.python.aoc.tpl import t_minmax
+from aoc import math
+from aoc.tpl import t_minmax
 
 
 class C(complex, Enum):

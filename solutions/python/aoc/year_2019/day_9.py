@@ -1,7 +1,7 @@
 import pytest
 
-from solutions.python.aoc import Input, get_puzzles, PuzzleData, Solution
-from solutions.python.aoc.year_2019 import IntcodeComputer
+from aoc import Input, get_puzzles, PuzzleData, Solution
+from aoc.year_2019 import IntcodeComputer
 
 
 class Year2019Day9(Solution):

@@ -4,8 +4,8 @@ import time
 import math
 from functools import cache
 
-from solutions.python.aoc import Input, PuzzleData, Solution
-from solutions.python.aoc.tpl import t_sub, t_koef, t_sum
+from aoc import Input, PuzzleData, Solution
+from aoc.tpl import t_sub, t_koef, t_sum
 
 TTP_TEMPLATE = """\
 Blueprint {{ id | to_int}}: \
