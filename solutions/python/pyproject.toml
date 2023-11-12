@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "python-solutions"
+version = "0.1.0"
+description = "My 'Advent of Code' python solutions"
+authors = ["Vitaly Legchilkin <vlegchilkin@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+ttp = "^0.9.5"
+addict = "^2.4.0"
+numpy = { version = "^1.26.0", python = "<3.13" }
+networkx = "^3.1"
+matplotlib = "^3.8.0"
+scipy = { version = "^1.11.3", python = "<3.13" }
+markdownify = "^0.11.6"
+sympy = "^1.12"
+llist = "^0.7.1"
+
+[tool.poetry.dev-dependencies]
+aiohttp = "^3.8.6"
+pytest = "^7.4.2"
+pre-commit = { version = "^3.5.0", source = "pypi" }
+black = { extras = ["d"], version = "*", source = "pypi" }
+coverage = { version = "^7.3.2", source = "pypi" }
+html2image = { version = "^2.0.4", source = "pypi" }
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+
+[tool.pytest.ini_options]
+python_files = "*.py"
+python_functions = "test_*"
+addopts = "--ignore=utils --color=yes -s"
+log_cli = "true"
+log_cli_level = "debug"
+log_format = "%(asctime)s | %(levelname)-7s | [%(name)s] %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
+junit_family = "xunit1"
+#asyncio_mode = "auto"

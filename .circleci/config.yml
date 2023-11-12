@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.1.1
-  sonarcloud: sonarsource/sonarcloud@1.0.3
+  sonarcloud: sonarsource/sonarcloud@2.0.0
 
 jobs:
   build-aoc-tests:
