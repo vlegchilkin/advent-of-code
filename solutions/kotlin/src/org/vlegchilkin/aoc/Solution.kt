@@ -2,12 +2,10 @@ package org.vlegchilkin.aoc
 
 import com.google.common.collect.Sets
 
-abstract class Solution {
-
-  open fun runA(): Any = ""
-  open fun runB(): Any = ""
-  open fun runAB(): Pair<Any, Any> = runA() to runB()
-
+interface Solution {
+  fun runA(): Any = ""
+  fun runB(): Any = ""
+  fun runAB(): Pair<Any, Any> = runA() to runB()
 }
 
 fun <T> Collection<T>.combinations(size: Int) = sequence {

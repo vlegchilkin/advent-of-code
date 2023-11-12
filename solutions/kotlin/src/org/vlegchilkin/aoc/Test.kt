@@ -7,9 +7,9 @@ import java.nio.file.Paths
 import kotlin.io.path.*
 import kotlin.test.assertEquals
 
-abstract class AOCTest(private val year: Int, private val day: Int, val solution: (input: String) -> Solution) {
+abstract class Test(private val year: Int, private val day: Int, val solution: (input: String) -> Solution) {
   companion object {
-    val ROOT_PATH: Path = Paths.get("../../resources")
+    val ROOT_PATH: Path = Paths.get("../../resources").toAbsolutePath()
   }
 
   @Test

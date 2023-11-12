@@ -1,9 +1,10 @@
 package org.vlegchilkin.aoc.year2020
 
+import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.combinations
 
-class Year2020Day1(input: String) : Solution() {
+class Year2020Day1(input: String) : Solution {
   private val numbers = input.trim().split("\n").map { it.toInt() }
   override fun runA(): Any {
     for ((a, b) in numbers.combinations(2)) {
@@ -22,4 +23,6 @@ class Year2020Day1(input: String) : Solution() {
     }
     return Unit
   }
+
+  companion object : Test(2020, 1, { Year2020Day1(it) })
 }
