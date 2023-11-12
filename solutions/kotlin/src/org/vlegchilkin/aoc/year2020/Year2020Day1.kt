@@ -6,7 +6,7 @@ import org.vlegchilkin.aoc.combinations
 
 class Year2020Day1(input: String) : Solution {
   private val numbers = input.trim().split("\n").map { it.toInt() }
-  override fun runA(): Any {
+  override fun partA(): Any {
     for ((a, b) in numbers.combinations(2)) {
       if (a + b == 2020) {
         return a * b
@@ -15,7 +15,7 @@ class Year2020Day1(input: String) : Solution {
     return Unit
   }
 
-  override fun runB(): Any {
+  override fun partB(): Any {
     for ((a, b, c) in numbers.combinations(3)) {
       if (a + b + c == 2020) {
         return a * b * c

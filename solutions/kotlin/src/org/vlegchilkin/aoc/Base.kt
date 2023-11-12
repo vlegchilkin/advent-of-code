@@ -7,6 +7,12 @@ import java.nio.file.Paths
 import kotlin.io.path.*
 import kotlin.test.assertEquals
 
+interface Solution {
+  fun partA(): Any = ""
+  fun partB(): Any = ""
+  fun partAB(): Pair<Any, Any> = partA() to partB()
+}
+
 abstract class Test(private val year: Int, private val day: Int, val solution: (input: String) -> Solution) {
   companion object {
     val ROOT_PATH: Path = Paths.get("../../resources").toAbsolutePath()
@@ -15,7 +21,7 @@ abstract class Test(private val year: Int, private val day: Int, val solution: (
   @Test
   fun test() {
     for ((input, output) in getTestCases()) {
-      val (a, b) = solution(input).runAB()
+      val (a, b) = solution(input).partAB()
       assertEquals(output, a.toString() + "\n" + b.toString() + "\n")
     }
   }
