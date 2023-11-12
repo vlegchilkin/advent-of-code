@@ -16,14 +16,14 @@
 My https://adventofcode.com/ solutions
 
 Python:
-[2015](aoc/year_2015)
-[2016](aoc/year_2016)
-[2017](aoc/year_2017)
-[2018](aoc/year_2018)
-[2019](aoc/year_2019)
-[2020](aoc/year_2020)
-[2021](aoc/year_2021)
-[2022](aoc/year_2022)
+[2015](solutions/python/aoc/year_2015)
+[2016](solutions/python/aoc/year_2016)
+[2017](solutions/python/aoc/year_2017)
+[2018](solutions/python/aoc/year_2018)
+[2019](solutions/python/aoc/year_2019)
+[2020](solutions/python/aoc/year_2020)
+[2021](solutions/python/aoc/year_2021)
+[2022](solutions/python/aoc/year_2022)
 
 </div>
 
