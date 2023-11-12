@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/advent-of-code.iml" filepath="$PROJECT_DIR$/advent-of-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/solutions/kotlin/kotlin-solutions.iml" filepath="$PROJECT_DIR$/solutions/kotlin/kotlin-solutions.iml" />
       <module fileurl="file://$PROJECT_DIR$/solutions/python/python-solutions.iml" filepath="$PROJECT_DIR$/solutions/python/python-solutions.iml" />
     </modules>
   </component>
