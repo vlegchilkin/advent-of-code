@@ -6,3 +6,4 @@ __pycache__/
 
 # temp files
 readme.src
+/solutions/kotlin/target/
