@@ -1,0 +1,16 @@
+package org.vlegchilkin.aoc.year{YEAR}
+
+import org.vlegchilkin.aoc.Test
+import org.vlegchilkin.aoc.Solution
+
+class Year{YEAR}Day{DAY}(input: String) : Solution {
+  override fun partA(): Any {
+    return Unit
+  }
+
+  override fun partB(): Any {
+    return Unit
+  }
+
+  companion object : Test({YEAR}, {DAY}, { Year{YEAR}Day{DAY}(it) })
+}

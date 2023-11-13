@@ -32,8 +32,15 @@ class Context:
         self.year_url = f"https://adventofcode.com/{year}"
         self.day_url = f"{self.year_url}/day/{day}"
 
-        self.sources_root = Path(__file__).parent.parent / "solutions" / "python" / "aoc" / f"year_{year}"
-        self.resources_root = Path(__file__).parent.parent / "resources" / year / "day" / day
+        project_root = Path(__file__).parent.parent
+        solutions_root = project_root / "solutions"
+        self.sources_roots = {
+            "kotlin": solutions_root / "kotlin" / "src" / "org" / "vlegchilkin" / "aoc" / f"year{year}",
+            "python": solutions_root / "python" / "aoc" / f"year_{year}"
+        }
+
+        self.sources_root = self.sources_roots["python"]
+        self.resources_root = project_root / "resources" / year / "day" / day
         if create_roots:
             if not self.sources_root.exists():
                 self.sources_root.mkdir(exist_ok=True, parents=True)
@@ -59,6 +66,6 @@ def slice_content(content: str, from_tags, to_tags) -> list[str]:
     last_pos = 0
     while (start_index := content.find(from_tags, last_pos)) >= 0:
         finish_index = content.find(to_tags, last_pos)
-        result.append(content[start_index + len(from_tags) : finish_index])
+        result.append(content[start_index + len(from_tags): finish_index])
         last_pos = finish_index + len(to_tags)
     return result
