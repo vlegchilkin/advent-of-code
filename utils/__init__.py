@@ -32,7 +32,7 @@ class Context:
         self.year_url = f"https://adventofcode.com/{year}"
         self.day_url = f"{self.year_url}/day/{day}"
 
-        self.sources_root = Path(__file__).parent.parent / "aoc" / f"year_{year}"
+        self.sources_root = Path(__file__).parent.parent / "solutions" / "python" / "aoc" / f"year_{year}"
         self.resources_root = Path(__file__).parent.parent / "resources" / year / "day" / day
         if create_roots:
             if not self.sources_root.exists():

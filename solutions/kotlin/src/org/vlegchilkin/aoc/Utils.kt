@@ -8,3 +8,5 @@ fun <T> Collection<T>.combinations(size: Int) = sequence {
     yield(x.toList())
   }
 }
+
+fun Boolean.toInt() = if (this) 1 else 0
