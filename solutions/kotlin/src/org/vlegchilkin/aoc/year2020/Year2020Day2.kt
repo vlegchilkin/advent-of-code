@@ -17,8 +17,7 @@ class Year2020Day2(input: String) : Solution {
 
   override fun partA(): Int {
     return passwords.count { password ->
-      val count = password.value.count { it == password.char }
-      password.min <= count && count <= password.max
+      password.value.count { it == password.char } in password.min..password.max
     }
   }
 

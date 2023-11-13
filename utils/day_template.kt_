@@ -1,7 +1,6 @@
 package org.vlegchilkin.aoc.year{YEAR}
 
-import org.vlegchilkin.aoc.Test
-import org.vlegchilkin.aoc.Solution
+import org.vlegchilkin.aoc.*
 
 class Year{YEAR}Day{DAY}(input: String) : Solution {
   override fun partA(): Any {
