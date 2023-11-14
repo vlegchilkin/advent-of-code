@@ -5,7 +5,7 @@
 <a href='day/2'>Day 2: Password Philosophy</a>
 <a href='day/3'>Day 3: Toboggan Trajectory</a>
 <a href='day/4'>Day 4: Passport Processing</a>
-&nbsp;
+<a href='day/5'>Day 5: Binary Boarding</a>
 &nbsp;
 &nbsp;
 &nbsp;
