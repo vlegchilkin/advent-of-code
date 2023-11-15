@@ -6,7 +6,7 @@
 <a href='day/3'>Day 3: Toboggan Trajectory</a>
 <a href='day/4'>Day 4: Passport Processing</a>
 <a href='day/5'>Day 5: Binary Boarding</a>
-&nbsp;
+<a href='day/6'>Day 6: Custom Customs</a>
 &nbsp;
 &nbsp;
 &nbsp;
