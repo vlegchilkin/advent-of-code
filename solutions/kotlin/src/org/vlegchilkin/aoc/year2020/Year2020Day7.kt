@@ -38,11 +38,9 @@ class Year2020Day7(input: String) : Solution {
     val cache = mutableMapOf<String, Int>()
 
     fun dfs(bag: String): Int {
-      if (bag in cache) return cache[bag]!!
-      val result = 1 + (rules[bag]?.sumOf { it.first * dfs(it.second) } ?: 0)
-      cache[bag] = result
-      return result
+      return cache.getOrPut(bag) { 1 + (rules[bag]?.sumOf { it.first * dfs(it.second) } ?: 0) }
     }
+
     return dfs(MY_BAG) - 1
   }
 
