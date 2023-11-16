@@ -6,9 +6,8 @@ import java.util.LinkedList
 
 class Year2020Day7(input: String) : Solution {
   private val rules = input.trim().split("\n").associate { rule ->
-    val (bag, innerBags) = rule.split(" bags contain ")
-    bag to """(\d+) (\w+ \w+) bags?[,.]""".toRegex()
-      .findAll(innerBags).map { it.groupValues[1].toInt() to it.groupValues[2] }.toList()
+    val (_, bag, innerBags) = PATTERN_WRAPPER.matchEntire(rule)!!.groupValues
+    bag to PATTERN_INNER_BAGS.findAll(innerBags).map { it.groupValues }.map { it[1].toInt() to it[2] }.toList()
   }
 
 
@@ -49,5 +48,7 @@ class Year2020Day7(input: String) : Solution {
 
   companion object : Test(2020, 7, { Year2020Day7(it) }) {
     const val MY_BAG = "shiny gold"
+    val PATTERN_WRAPPER = """^(\w+ \w+) bags contain (.*)$""".toRegex()
+    val PATTERN_INNER_BAGS = """(\d+) (\w+ \w+) bags?[,.]""".toRegex()
   }
 }
