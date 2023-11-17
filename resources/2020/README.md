@@ -8,7 +8,7 @@
 <a href='day/5'>Day 5: Binary Boarding</a>
 <a href='day/6'>Day 6: Custom Customs</a>
 <a href='day/7'>Day 7: Handy Haversacks</a>
-&nbsp;
+<a href='day/8'>Day 8: Handheld Halting</a>
 &nbsp;
 &nbsp;
 &nbsp;

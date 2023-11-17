@@ -11,5 +11,5 @@
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_20_PREVIEW" project-jdk-name="Poetry (advent-of-code)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (advent-of-code)" project-jdk-type="Python SDK" />
 </project>

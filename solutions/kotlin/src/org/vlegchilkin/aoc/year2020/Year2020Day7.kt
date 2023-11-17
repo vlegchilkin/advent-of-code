@@ -11,7 +11,7 @@ class Year2020Day7(input: String) : Solution {
   }
 
 
-  override fun partA(): Any {
+  override fun partA(): Int {
     val parents = mutableMapOf<String, MutableSet<String>>()
     rules.forEach { (bag, inners) ->
       inners.forEach {
@@ -34,7 +34,7 @@ class Year2020Day7(input: String) : Solution {
     return visited.size - 1
   }
 
-  override fun partB(): Any {
+  override fun partB(): Int {
     val cache = mutableMapOf<String, Int>()
 
     fun dfs(bag: String): Int {
