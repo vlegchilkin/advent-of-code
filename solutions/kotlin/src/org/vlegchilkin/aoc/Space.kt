@@ -57,6 +57,6 @@ operator fun Pair<Pair<Int, Int>, Pair<Int, Int>>.contains(x: Pair<Int, Int>): B
   return x.first in this.first.first..this.second.first &&
          x.second in this.first.second..this.second.second
 }
-infix fun Pair<Int, Int>.distanceTo(other: Pair<Int, Int>): Int {
+infix fun Pair<Int, Int>.manhattanTo(other: Pair<Int, Int>): Int {
   return abs(this.first - other.first) + abs(this.second - other.second)
 }

@@ -11,11 +11,11 @@ class Year2020Day12(input: String) : Solution {
     actions.forEach { (action, steps) ->
       when (action) {
         'F' -> pos += head * steps
-        'L', 'R' -> repeat(steps / 90) {head = head.turn(action)}
+        'L', 'R' -> repeat(steps / 90) { head = head.turn(action) }
         'N', 'S', 'W', 'E' -> pos += Direction.of(action)!! * steps
       }
     }
-    return (0 to 0) distanceTo pos
+    return pos manhattanTo (0 to 0)
   }
 
   override fun partB(): Int {
@@ -24,12 +24,12 @@ class Year2020Day12(input: String) : Solution {
     actions.forEach { (action, steps) ->
       when (action) {
         'F' -> pos += waypoint * steps
-        'L' -> repeat(steps / 90) {waypoint = -waypoint.clockwise()}
-        'R' -> repeat(steps / 90) {waypoint = waypoint.clockwise()}
+        'L' -> repeat(steps / 90) { waypoint = -waypoint.clockwise() }
+        'R' -> repeat(steps / 90) { waypoint = waypoint.clockwise() }
         'N', 'S', 'W', 'E' -> waypoint += Direction.of(action)!! * steps
       }
     }
-    return (0 to 0) distanceTo pos
+    return pos manhattanTo (0 to 0)
   }
 
   companion object : Test(2020, 12, { Year2020Day12(it) })
