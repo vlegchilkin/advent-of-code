@@ -29,7 +29,7 @@ abstract class Test(private val year: Int, private val day: Int, val solution: (
   @OptIn(ExperimentalPathApi::class)
   fun getTestCases(): Sequence<Pair<String, String>> {
     val dayPath = ROOT_PATH / "$year" / "day" / "$day"
-    return dayPath.walk().filter { it.extension == "out" }.map {
+    return dayPath.walk().filter { it.extension == "out" }.sorted().map {
       val input = it.parent / "${it.fileName.name.removeSuffix("out")}in"
       Files.readString(input, Charsets.UTF_8) to Files.readString(it, Charsets.UTF_8)
     }

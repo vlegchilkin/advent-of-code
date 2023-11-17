@@ -18,7 +18,7 @@
 <a href='day/10'>Day 10: Adapter Array</a>
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/11'>Day 11: Seating System</a>
 &nbsp;
 &nbsp;
 &nbsp;
