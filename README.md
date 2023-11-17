@@ -25,6 +25,10 @@ Python:
 [2021](solutions/python/aoc/year_2021)
 [2022](solutions/python/aoc/year_2022)
 
+Kotlin:
+[2020](solutions/kotlin/src/org/vlegchilkin/aoc/year2020)
+
+
 </div>
 
 <div align="left">
