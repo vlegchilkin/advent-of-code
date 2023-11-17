@@ -17,3 +17,5 @@ fun <T> List<T>.toPair(): Pair<T, T> {
   }
   return Pair(this[0], this[1])
 }
+
+fun <R> String.trimSplitMap(delimiters: String = "\n", conv: (String) -> R) = this.trim().split(delimiters).map { conv(it) }

@@ -2,9 +2,10 @@ package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
+import org.vlegchilkin.aoc.trimSplitMap
 
 class Year2020Day5(input: String) : Solution {
-  private val seats = input.trim().split("\n").map {
+  private val seats = input.trimSplitMap {
     it.replace("B", "1")
       .replace("F", "0")
       .replace("R", "1")

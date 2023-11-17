@@ -3,9 +3,10 @@ package org.vlegchilkin.aoc.year2020
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.combinations
+import org.vlegchilkin.aoc.trimSplitMap
 
 class Year2020Day1(input: String) : Solution {
-  private val numbers = input.trim().split("\n").map { it.toInt() }
+  private val numbers = input.trimSplitMap { it.toInt() }
   override fun partA(): Any {
     for ((a, b) in numbers.combinations(2)) {
       if (a + b == 2020) {

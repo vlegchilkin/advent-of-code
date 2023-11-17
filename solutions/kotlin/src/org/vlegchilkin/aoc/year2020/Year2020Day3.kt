@@ -3,9 +3,10 @@ package org.vlegchilkin.aoc.year2020
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.toInt
+import org.vlegchilkin.aoc.trimSplitMap
 
 class Year2020Day3(input: String) : Solution {
-  private val lines = input.trim().split("\n")
+  private val lines = input.trimSplitMap { it }
 
   private fun countTrees(right: Int, down: Int): Int {
     var counter = 0

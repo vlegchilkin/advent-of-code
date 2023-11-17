@@ -2,9 +2,10 @@ package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.Test
+import org.vlegchilkin.aoc.trimSplitMap
 
 class Year2020Day10(input: String) : Solution {
-  private val numbers = input.trim().split("\n").map { it.toInt() }
+  private val numbers = input.trimSplitMap { it.toInt() }
   private fun getJolts() = listOf(0) + numbers.sorted() + (numbers.max() + 3)
   override fun partA(): Int {
     val diffCount = getJolts().zipWithNext { a, b -> b - a }.groupingBy { it }.eachCount()
