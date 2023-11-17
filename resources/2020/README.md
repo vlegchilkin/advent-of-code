@@ -10,7 +10,7 @@
 <a href='day/7'>Day 7: Handy Haversacks</a>
 <a href='day/8'>Day 8: Handheld Halting</a>
 &nbsp;
-&nbsp;
+<a href='day/9'>Day 9: Encoding Error</a>
 &nbsp;
 &nbsp;
 &nbsp;
