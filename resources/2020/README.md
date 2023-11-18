@@ -13,7 +13,7 @@
 <a href='day/9'>Day 9: Encoding Error</a>
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/15'>Day 15: Rambunctious Recitation</a>
 &nbsp;
 <a href='day/10'>Day 10: Adapter Array</a>
 <a href='day/14'>Day 14: Docking Data</a>
