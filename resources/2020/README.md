@@ -19,7 +19,7 @@
 &nbsp;
 &nbsp;
 <a href='day/11'>Day 11: Seating System</a>
-&nbsp;
+<a href='day/13'>Day 13: Shuttle Search</a>
 &nbsp;
 <a href='day/12'>Day 12: Rain Risk</a>
 &nbsp;
