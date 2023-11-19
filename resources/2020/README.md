@@ -12,7 +12,7 @@
 <a href='day/17'>Day 17: Conway Cubes</a>
 <a href='day/9'>Day 9: Encoding Error</a>
 <a href='day/16'>Day 16: Ticket Translation</a>
-&nbsp;
+<a href='day/18'>Day 18: Operation Order</a>
 <a href='day/15'>Day 15: Rambunctious Recitation</a>
 &nbsp;
 <a href='day/10'>Day 10: Adapter Array</a>
