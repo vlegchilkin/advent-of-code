@@ -9,7 +9,7 @@
 <a href='day/6'>Day 6: Custom Customs</a>
 <a href='day/7'>Day 7: Handy Haversacks</a>
 <a href='day/8'>Day 8: Handheld Halting</a>
-&nbsp;
+<a href='day/17'>Day 17: Conway Cubes</a>
 <a href='day/9'>Day 9: Encoding Error</a>
 <a href='day/16'>Day 16: Ticket Translation</a>
 &nbsp;

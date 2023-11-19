@@ -32,7 +32,7 @@ enum class Direction(val vector: Pair<Int, Int>, vararg val aliases: Char) {
     fun borders() = listOf(N, E, S, W)
     fun all(): List<Direction> = Direction.entries
     fun ofVector(vector: Pair<Int, Int>) = Direction.entries.find { it.vector == vector }
-    fun of(direction: Char) = Direction.entries.find { direction in it.aliases}
+    fun of(direction: Char) = Direction.entries.find { direction in it.aliases }
   }
 }
 
@@ -57,6 +57,24 @@ operator fun Pair<Pair<Int, Int>, Pair<Int, Int>>.contains(x: Pair<Int, Int>): B
   return x.first in this.first.first..this.second.first &&
          x.second in this.first.second..this.second.second
 }
+
 infix fun Pair<Int, Int>.manhattanTo(other: Pair<Int, Int>): Int {
   return abs(this.first - other.first) + abs(this.second - other.second)
+}
+
+
+fun wrap3D(pos: Triple<Int, Int, Int>): List<Triple<Int, Int, Int>> {
+  return (pos.first - 1..pos.first + 1).map { x ->
+    (pos.second - 1..pos.second + 1).map { y ->
+      (pos.third - 1..pos.third + 1).filter { pos.first != x || pos.second != y || pos.third != it }.map { z ->
+        Triple(x, y, z)
+      }
+    }.flatten()
+  }.flatten()
+}
+
+fun wrapMultiD(pos: List<Int>): List<List<Int>> {
+  if (pos.isEmpty()) return listOf(listOf())
+  val res = wrapMultiD(pos.drop(1))
+  return (pos[0] - 1..pos[0] + 1).flatMap { c0 -> res.map { cInner -> listOf(c0) + cInner } }
 }
