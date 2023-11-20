@@ -78,3 +78,36 @@ fun wrapMultiD(pos: List<Int>): List<List<Int>> {
   val res = wrapMultiD(pos.drop(1))
   return (pos[0] - 1..pos[0] + 1).flatMap { c0 -> res.map { cInner -> listOf(c0) + cInner } }
 }
+
+
+fun transform(form: Array<IntArray>, func: (Array<IntArray>, Int, Int) -> Int): Array<IntArray> {
+  val m = form.size
+  val res = Array(m) { IntArray(m) { 0 } }
+  for (i in 0..<m) {
+    for (j in 0..<m) {
+      res[i][j] = func(form, i, j)
+    }
+  }
+  return res
+}
+
+fun clockwise(form: Array<IntArray>): Array<IntArray> {
+  return transform(form) { f, i, j -> f[f.size - j - 1][i] }
+}
+
+fun flip(form: Array<IntArray>): Array<IntArray> {
+  return transform(form) { f, i, j -> form[i][f.size - j - 1] }
+}
+
+fun translate(form: Array<IntArray>): List<Array<IntArray>> {
+  val result = mutableListOf<Array<IntArray>>()
+  var base = form
+  repeat(2) {
+    result.add(base)
+    repeat(3) {
+      base = clockwise(base).also { result.add(it) }
+    }
+    base = flip(base)
+  }
+  return result
+}
