@@ -22,7 +22,7 @@
 <a href='day/13'>Day 13: Shuttle Search</a>
 <a href='day/21'>Day 21: Allergen Assessment</a>
 <a href='day/12'>Day 12: Rain Risk</a>
-&nbsp;
+<a href='day/22'>Day 22: Crab Combat</a>
 &nbsp;
 &nbsp;
 &nbsp;
