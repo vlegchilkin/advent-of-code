@@ -24,6 +24,6 @@
 <a href='day/12'>Day 12: Rain Risk</a>
 <a href='day/22'>Day 22: Crab Combat</a>
 <a href='day/23'>Day 23: Crab Cups</a>
-&nbsp;
+<a href='day/24'>Day 24: Lobby Layout</a>
 &nbsp;
 </pre>
