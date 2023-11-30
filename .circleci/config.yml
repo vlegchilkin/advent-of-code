@@ -10,7 +10,7 @@ jobs:
     resource_class: large
     executor:
       name: python/default
-      tag: "3.11.1"
+      tag: "3.12.0"
     steps:
       - checkout
       - python/install-packages:
@@ -37,7 +37,7 @@ jobs:
     resource_class: small
     executor:
       name: python/default
-      tag: "3.11.1"
+      tag: "3.12.0"
     steps:
       - checkout
       - python/install-packages:
