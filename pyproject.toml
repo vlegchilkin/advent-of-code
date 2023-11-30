@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 requests = "^2.31.0"
 ttp = "^0.9.5"
 addict = "^2.4.0"
@@ -33,7 +33,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
-target-version = ['py312']
+target-version = ['py311']
 
 [tool.pytest.ini_options]
 python_files = "*.py"
