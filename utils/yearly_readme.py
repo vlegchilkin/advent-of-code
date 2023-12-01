@@ -24,7 +24,7 @@ class AoCHTMLParser(HTMLParser):
             if clazz.startswith("calendar-day"):
                 if clazz != "calendar-day":
                     self.current_day = {"data": ""}
-            elif clazz.startswith("calendar-") and not any([cls.startswith("calendar-day") for cls in self.classes]):
+            elif (clazz == "" or clazz.startswith("calendar-")) and not any([cls.startswith("calendar-day") for cls in self.classes]):
                 self.current_day = {"data": ""}
                 if self.days:
                     self.footers.append(self.current_day)
@@ -42,8 +42,6 @@ class AoCHTMLParser(HTMLParser):
         if self.classes and self.classes[-1] == "calendar-day":
             self.days[int(data)] = self.current_day
         else:
-            if self.current_day is None:
-                self.current_day = {"data": ""}
             self.current_day["data"] += data
 
 
@@ -148,4 +146,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2018)
+    build_year(2023)
