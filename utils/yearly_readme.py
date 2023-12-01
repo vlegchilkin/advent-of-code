@@ -42,6 +42,8 @@ class AoCHTMLParser(HTMLParser):
         if self.classes and self.classes[-1] == "calendar-day":
             self.days[int(data)] = self.current_day
         else:
+            if self.current_day is None:
+                self.current_day = {"data": ""}
             self.current_day["data"] += data
 
 

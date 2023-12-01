@@ -24,10 +24,20 @@ Python:
 [2020](solutions/python/aoc/year_2020)
 [2021](solutions/python/aoc/year_2021)
 [2022](solutions/python/aoc/year_2022)
+[2023](solutions/python/aoc/year_2023)
 
 Kotlin:
 [2020](solutions/kotlin/src/org/vlegchilkin/aoc/year2020)
+[2023](solutions/kotlin/src/org/vlegchilkin/aoc/year2023)
 
+
+</div>
+
+<div align="center">
+
+## [2023](resources/2023)
+
+[<img src="resources/2023/progress.png" width="530px">](resources/2022)
 
 </div>
 
