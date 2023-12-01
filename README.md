@@ -37,7 +37,7 @@ Kotlin:
 
 ## [2023](resources/2023)
 
-[<img src="resources/2023/progress.png" width="530px">](resources/2022)
+[<img src="resources/2023/progress.png" width="530px">](resources/2023)
 
 </div>
 
