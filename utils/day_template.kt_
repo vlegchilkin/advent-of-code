@@ -2,7 +2,13 @@ package org.vlegchilkin.aoc.year{YEAR}
 
 import org.vlegchilkin.aoc.*
 
+
+/**
+* {YEAR}/{DAY}: {TITLE}
+*/
 class Year{YEAR}Day{DAY}(input: String) : Solution {
+  private val lines = input.trimSplitMap { it }
+
   override fun partA(): Any {
     return Unit
   }

@@ -41,12 +41,18 @@ if __name__ == "__main__":
     context.resource("README.md").write(task_md)
     context.resource("puzzle.out").write((groups[1] or "") + "\n" + (groups[4] or "" if len(groups) > 4 else "") + "\n")
 
-    if not (source_file := context.source(f"day_{context.day}.py")).exists():
+
+    def template(file_name):
         title = task_md.splitlines()[0].split(": ")[1][:-4]
-        with open("day_template.py_") as f:
+        with open(file_name) as f:
             tpl = f.read()
-            filtered = tpl.replace("{YEAR}", context.year).replace("{DAY}", context.day).replace("{TITLE}", title)
-        source_file.write(filtered)
+        return tpl.replace("{YEAR}", context.year).replace("{DAY}", context.day).replace("{TITLE}", title)
+
+
+    if not (source_file := context.source(f"day_{context.day}.py")).exists():
+        source_file.write(template("day_template.py_"))
+    if not (source_file := context.source(f"Year{context.year}Day{context.day}.kt", lang="kotlin")).exists():
+        source_file.write(template("day_template.kt_"))
 
     for i, pre_content in enumerate(slice_content(main_content, "<pre><code>", "</code></pre>")):
         if not (input_i_file := context.resource(f"{i}.in")).exists():

@@ -42,17 +42,19 @@ class Context:
         self.sources_root = self.sources_roots["python"]
         self.resources_root = project_root / "resources" / year / "day" / day
         if create_roots:
-            if not self.sources_root.exists():
-                self.sources_root.mkdir(exist_ok=True, parents=True)
-                self.source("__init__.py").write("")
+            for lang, root in self.sources_roots.items():
+                if not root.exists():
+                    root.mkdir(exist_ok=True, parents=True)
+                    if lang == "python":
+                        self.source("__init__.py").write("")
 
             self.resources_root.mkdir(exist_ok=True, parents=True)
 
     def resource(self, name) -> Resource:
         return Resource(self.resources_root / name)
 
-    def source(self, filename) -> Resource:
-        return Resource(self.sources_root / filename)
+    def source(self, filename, lang="python") -> Resource:
+        return Resource(self.sources_roots[lang] / filename)
 
     def request_day(self, action: str = ""):
         return requests.get(self.day_url + action, cookies={"session": self.session_cookie})
