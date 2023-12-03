@@ -4,6 +4,9 @@ import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.trimSplitMap
 
+/**
+ * 2023/1: Trebuchet?!
+ */
 class Year2023Day1(input: String) : Solution {
   private val lines = input.trimSplitMap { it }
   override fun partA(): Any {

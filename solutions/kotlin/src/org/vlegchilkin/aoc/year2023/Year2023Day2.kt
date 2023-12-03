@@ -5,6 +5,10 @@ import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.trimSplitMap
 import kotlin.math.max
 
+
+/**
+ * 2023/2: Cube Conundrum
+ */
 class Year2023Day2(input: String) : Solution {
   private val games = input.trimSplitMap { game ->
     val regex = """^Game (\d+): (.*)$""".toRegex()
