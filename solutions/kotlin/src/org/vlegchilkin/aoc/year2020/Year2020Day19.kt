@@ -7,7 +7,7 @@ class Year2020Day19(input: String) : Solution {
   private val rules: Map<Int, List<List<Any>>>
 
   init {
-    val (rulesData, messages) = input.trimSplitMap("\n\n") { it.split("\n") }
+    val (rulesData, messages) = input.toList("\n\n") { it.split("\n") }
     this.messages = messages
 
     val pattern = """^(\d+): (.*)$""".toRegex()

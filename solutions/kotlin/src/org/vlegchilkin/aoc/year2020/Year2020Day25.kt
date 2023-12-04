@@ -3,10 +3,10 @@ package org.vlegchilkin.aoc.year2020
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.toPair
-import org.vlegchilkin.aoc.trimSplitMap
+import org.vlegchilkin.aoc.toList
 
 class Year2020Day25(input: String) : Solution {
-  private val values = input.trimSplitMap { it.toInt() }.toPair()
+  private val values = input.toList { it.toInt() }.toPair()
 
   override fun partA(): Int {
     var x = 1

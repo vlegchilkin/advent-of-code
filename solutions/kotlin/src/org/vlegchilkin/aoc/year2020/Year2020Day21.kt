@@ -2,10 +2,10 @@ package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
-import org.vlegchilkin.aoc.trimSplitMap
+import org.vlegchilkin.aoc.toList
 
 class Year2020Day21(input: String) : Solution {
-  private val foods = input.trimSplitMap() {
+  private val foods = input.toList() {
     val (_, ingredientsData, allergensData) = PATTERN.matchEntire(it)!!.groupValues
     ingredientsData.split(' ').toSet() to allergensData.split(", ").toSet()
   }

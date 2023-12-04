@@ -2,7 +2,7 @@ package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
-import org.vlegchilkin.aoc.trimSplitMap
+import org.vlegchilkin.aoc.toList
 
 class Year2020Day16(input: String) : Solution {
   private val fields: List<Pair<String, List<IntRange>>>
@@ -10,7 +10,7 @@ class Year2020Day16(input: String) : Solution {
   private val nearby: List<List<Int>>
 
   init {
-    val (fieldsData, yourData, nearbyData) = input.trimSplitMap("\n\n") { it }
+    val (fieldsData, yourData, nearbyData) = input.toList("\n\n") { it }
 
     val rulesPattern = """^([\w\s]+): (\d+)-(\d+) or (\d+)-(\d+)$""".toRegex()
     fields = fieldsData.split("\n")

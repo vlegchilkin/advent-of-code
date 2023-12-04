@@ -2,10 +2,10 @@ package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
-import org.vlegchilkin.aoc.trimSplitMap
+import org.vlegchilkin.aoc.toList
 
 class Year2020Day15(input: String) : Solution {
-  private val numbers = input.trimSplitMap(",") { it.toInt() }
+  private val numbers = input.toList(",") { it.toInt() }
 
   private fun run(count: Int): Int {
     val cache = hashMapOf(*numbers.dropLast(1).mapIndexed { index, value -> value to index }.toTypedArray())

@@ -2,11 +2,11 @@ package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
-import org.vlegchilkin.aoc.trimSplitMap
+import org.vlegchilkin.aoc.toList
 import java.util.LinkedList
 
 class Year2020Day18(input: String) : Solution {
-  private val expressions = input.trimSplitMap { it }
+  private val expressions = input.toList { it }
 
   private fun eval(expr: String, plusPriority: Boolean = false): Long {
     val arg = LinkedList<Long>()

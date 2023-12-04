@@ -4,7 +4,7 @@ import org.vlegchilkin.aoc.*
 
 class Year2020Day11(input: String) : Solution {
   private val seats = run {
-    val data = input.trimSplitMap { it.toList().map { c -> c == 'L' } }
+    val data = input.toList { it.toList().map { c -> c == 'L' } }
     val result = mutableMapOf<Pair<Int, Int>, Int>()
     data.forEachIndexed { rowId, row ->
       row.forEachIndexed { colId, value ->

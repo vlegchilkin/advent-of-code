@@ -4,7 +4,7 @@ import org.vlegchilkin.aoc.*
 import java.util.*
 
 class Year2020Day24(input: String) : Solution {
-  private val lines = input.trimSplitMap { it }
+  private val lines = input.toList { it }
   override fun partAB(): Pair<Int, Int> {
     fun parse(value: String): Pair<Int, Int> {
       var pos = 0 to 0

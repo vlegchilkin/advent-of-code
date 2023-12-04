@@ -3,7 +3,7 @@ package org.vlegchilkin.aoc.year2020
 import org.vlegchilkin.aoc.*
 
 class Year2020Day17(input: String) : Solution {
-  private val area = input.trimSplitMap { it.map { c -> (c == '#') } }
+  private val area = input.toList { it.map { c -> (c == '#') } }
 
   private fun <T> run(spacer: (Int, Int) -> T, wrapper: (T) -> List<T>): Int {
     var space: Set<T> = area.mapIndexed { x, line ->

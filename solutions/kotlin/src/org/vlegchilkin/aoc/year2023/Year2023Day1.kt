@@ -2,13 +2,13 @@ package org.vlegchilkin.aoc.year2023
 
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.Test
-import org.vlegchilkin.aoc.trimSplitMap
+import org.vlegchilkin.aoc.toList
 
 /**
  * 2023/1: Trebuchet?!
  */
 class Year2023Day1(input: String) : Solution {
-  private val lines = input.trimSplitMap { it }
+  private val lines = input.toList { it }
   override fun partA(): Any {
     return lines.sumOf { line ->
       val digits = line.filter { it.isDigit() }.map { it - '0' }

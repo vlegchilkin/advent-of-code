@@ -24,7 +24,7 @@ data class CSpace<T>(val n: Int, val m: Int, val data: MutableMap<C, T>) {
 }
 
 fun <T> String.toCSpace(mapper: (Char) -> T?): CSpace<T> {
-  val array = this.trimSplitMap { it }
+  val array = this.toList { it }
   val n = array.size
   val m = if (n > 0) array[0].length else 0
   val data = mutableMapOf<C, T>().apply {

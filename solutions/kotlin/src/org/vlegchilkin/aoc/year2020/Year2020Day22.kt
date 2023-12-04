@@ -3,11 +3,11 @@ package org.vlegchilkin.aoc.year2020
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.toPair
-import org.vlegchilkin.aoc.trimSplitMap
+import org.vlegchilkin.aoc.toList
 import java.util.LinkedList
 
 class Year2020Day22(input: String) : Solution {
-  private val cards = input.trimSplitMap("\n\n") { player ->
+  private val cards = input.toList("\n\n") { player ->
     player.split('\n').drop(1).map { it.toInt() }
   }
 

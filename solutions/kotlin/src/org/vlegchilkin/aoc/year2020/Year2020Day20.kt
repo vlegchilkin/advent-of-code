@@ -10,7 +10,7 @@ class Year2020Day20(input: String) : Solution {
 
   init {
     val pattern = """^Tile (\d+):$""".toRegex()
-    files = input.trimSplitMap("\n\n") { it.split("\n") }.associate {
+    files = input.toList("\n\n") { it.split("\n") }.associate {
       pattern.matchEntire(it[0])!!.groupValues[1].toInt() to
         it.drop(1).map { line -> line.map { c -> (c == '#').toInt() }.toIntArray() }.toTypedArray()
     }

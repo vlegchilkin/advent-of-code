@@ -3,7 +3,7 @@ package org.vlegchilkin.aoc.year2020
 import org.vlegchilkin.aoc.*
 
 class Year2020Day14(input: String) : Solution {
-  private val commands = input.trimSplitMap { it.split(" = ").toPair() }
+  private val commands = input.toList { it.split(" = ").toPair() }
 
   fun <T> run(mask: (String) -> T, assignFunction: (Long, Long, T) -> Pair<List<Long>, Long>): Long {
     var m = mask("")

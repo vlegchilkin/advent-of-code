@@ -2,10 +2,10 @@ package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
-import org.vlegchilkin.aoc.trimSplitMap
+import org.vlegchilkin.aoc.toList
 
 class Year2020Day8(input: String) : Solution {
-  private val original = input.trimSplitMap { line ->
+  private val original = input.toList { line ->
     """^(\w+) ([-+]\d+)$""".toRegex().matchEntire(line)!!.groupValues.let { it[1] to it[2].toInt() }
   }
 
