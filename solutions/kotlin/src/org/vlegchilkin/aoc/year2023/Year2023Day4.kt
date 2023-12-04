@@ -9,7 +9,7 @@ import kotlin.math.min
  */
 class Year2023Day4(input: String) : Solution {
   private val cards = input.toList { card ->
-    card.substringAfter(':').split('|').map { it.toList(" ", String::toInt) }
+    card.substringAfter(':').split('|').map { it.toIntList() }
   }
 
   override fun partA(): Any {

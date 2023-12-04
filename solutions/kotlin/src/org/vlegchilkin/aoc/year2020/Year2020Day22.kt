@@ -1,14 +1,11 @@
 package org.vlegchilkin.aoc.year2020
 
-import org.vlegchilkin.aoc.Test
-import org.vlegchilkin.aoc.Solution
-import org.vlegchilkin.aoc.toPair
-import org.vlegchilkin.aoc.toList
+import org.vlegchilkin.aoc.*
 import java.util.LinkedList
 
 class Year2020Day22(input: String) : Solution {
   private val cards = input.toList("\n\n") { player ->
-    player.split('\n').drop(1).map { it.toInt() }
+    player.substringAfter('\n').toIntList()
   }
 
   private fun score(players: Pair<List<Int>, List<Int>>): Int {
