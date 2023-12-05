@@ -11,8 +11,8 @@ import org.vlegchilkin.aoc.toList
 class Year2023Day2(input: String) : Solution {
   private val games = input.toList { game ->
     val regex = """^Game (\d+): (.*)$""".toRegex()
-    val groups = regex.matchEntire(game)!!.groupValues
-    groups[1].toInt() to groups[2].split("; ").map { set ->
+    val (id, details) = regex.matchEntire(game)!!.destructured
+    id.toInt() to details.split("; ").map { set ->
       set.split(", ").associate { cube ->
         val (a, b) = cube.split(" ")
         b to a.toInt()
