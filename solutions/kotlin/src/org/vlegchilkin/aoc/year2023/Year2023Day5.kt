@@ -9,12 +9,12 @@ typealias Converter = Triple<Long, Long, Long>
  * 2023/5: If You Give A Seed A Fertilizer
  */
 class Year2023Day5(input: String) : Solution {
-  private val soil: List<Long>
+  private val seeds: List<Long>
   private val transformers: List<List<Converter>>
 
   init {
     val data = input.toList("\n\n") { it.substringAfter(":") }
-    soil = data[0].toLongList()
+    seeds = data[0].toLongList()
     transformers = data.drop(1).map { block -> block.toList { it.toLongList().toTriple() } }
   }
 
@@ -28,7 +28,7 @@ class Year2023Day5(input: String) : Solution {
       return dfs(nextLevelNum, level + 1)
     }
 
-    return soil.minOf { dfs(it, 0) }
+    return seeds.minOf { dfs(it, 0) }
   }
 
   override fun partB(): Any {
@@ -55,7 +55,7 @@ class Year2023Day5(input: String) : Solution {
       return result
     }
 
-    var intervals = soil.chunked(2).map { it[0] to it[0] + it[1] }
+    var intervals = seeds.chunked(2).map { it[0] to it[0] + it[1] }
     for (transformer in transformers) {
       intervals = intervals.flatMap { transform(it, transformer) }
     }
