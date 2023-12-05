@@ -2,7 +2,6 @@ package org.vlegchilkin.aoc.year2023
 
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.Test
-import org.vlegchilkin.aoc.toIntList
 import org.vlegchilkin.aoc.toList
 
 /**

@@ -1,7 +1,6 @@
 package org.vlegchilkin.aoc.year2023
 
 import org.vlegchilkin.aoc.*
-import kotlin.math.min
 
 
 /**
@@ -23,7 +22,7 @@ class Year2023Day4(input: String) : Solution {
     val counter = IntArray(cards.size) { 1 }
     cards.forEachIndexed { i, (left, right) ->
       val score = right.count { it in left }
-      for (j in (i + 1)..min(i + score, cards.size - 1)) {
+      for (j in (i + 1)..minOf(i + score, cards.size - 1)) {
         counter[j] += counter[i]
       }
     }

@@ -3,7 +3,6 @@ package org.vlegchilkin.aoc.year2023
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.toList
-import kotlin.math.max
 
 
 /**
@@ -33,7 +32,7 @@ class Year2023Day2(input: String) : Solution {
       val best = mutableMapOf<String, Int>()
       sets.forEach { set ->
         set.forEach { (color, count) ->
-          best.compute(color) { _, old -> max((old ?: 0), count) }
+          best.compute(color) { _, old -> maxOf((old ?: 0), count) }
         }
       }
       return best.values.reduce { a, b -> a * b }
