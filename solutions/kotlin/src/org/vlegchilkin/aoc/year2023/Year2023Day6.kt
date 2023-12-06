@@ -1,6 +1,9 @@
 package org.vlegchilkin.aoc.year2023
 
 import org.vlegchilkin.aoc.*
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.sqrt
 
 
 /**
@@ -15,9 +18,18 @@ class Year2023Day6(input: String) : Solution {
   }
 
   override fun partAB(): Pair<Any, Any> {
-    fun calc(games: List<Pair<Long, Long>>): Long {
+    fun calcBruteforce(games: List<Pair<Long, Long>>): Long {
       return games.fold(1L) { acc, (time, distance) ->
         acc * (1..time).count { it * (time - it) > distance }
+      }
+    }
+
+    fun calc(games: List<Pair<Long, Long>>): Long {
+      return games.fold(1L) { acc, (time, distance) ->
+        val sqrtD = sqrt((time * time - 4 * distance).toDouble())
+        val firstX = ceil(((time - sqrtD) / 2) + 1e-10).toLong()
+        val lastX = floor(((time + sqrtD) / 2) - 1e-10).toLong()
+        acc * (lastX - firstX + 1)
       }
     }
 
