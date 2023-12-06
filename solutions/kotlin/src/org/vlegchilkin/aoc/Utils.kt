@@ -25,6 +25,7 @@ fun <T> List<T>.toTriple(): Triple<T, T, T> {
 
 
 fun Boolean.toInt() = if (this) 1 else 0
+fun Pair<String, String>.toLong() = this.first.toLong() to this.second.toLong()
 
 fun <R> String.toList(delimiter: String = "\n",
                       conv: (String) -> R) = this.trim().split(delimiter).filter { it.isNotBlank() }.map { conv(it) }

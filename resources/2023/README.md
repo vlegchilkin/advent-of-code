@@ -14,7 +14,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/6'>Day 6: Wait For It</a>
 <a href='day/5'>Day 5: If You Give A Seed A Fertilizer</a>
 <a href='day/4'>Day 4: Scratchcards</a>
 <a href='day/3'>Day 3: Gear Ratios</a>
