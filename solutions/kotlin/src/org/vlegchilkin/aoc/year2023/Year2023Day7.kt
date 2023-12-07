@@ -7,9 +7,8 @@ import org.vlegchilkin.aoc.*
  * 2023/7: Camel Cards
  */
 class Year2023Day7(input: String) : Solution {
-  private val hands = input.toList {
-    val data = it.split(' ')
-    Hand(data[0], data[1].toInt())
+  private val hands = input.toList { h ->
+    h.toList(" ") { it }.toObject(Hand::class)
   }
 
   data class Hand(val cards: String, val bet: Int)

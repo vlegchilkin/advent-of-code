@@ -1,6 +1,7 @@
 package org.vlegchilkin.aoc
 
 import com.google.common.collect.Sets
+import kotlin.reflect.KClass
 
 fun <T> Collection<T>.combinations(size: Int) = sequence {
   val s: Set<T> = toSet()
@@ -26,6 +27,19 @@ fun <T> List<T>.toTriple(): Triple<T, T, T> {
 
 fun Boolean.toInt() = if (this) 1 else 0
 fun Pair<String, String>.toLong() = this.first.toLong() to this.second.toLong()
+
+fun <T : Any> List<String>.toObject(clazz: KClass<T>): T {
+  val constructor = clazz.constructors.first { it.parameters.size == this.size }
+  val args = constructor.parameters.zip(this).map { (param, value) ->
+    when (param.type.toString()) {
+      "kotlin.Int" -> value.toInt()
+      "kotlin.Long" -> value.toLong()
+      "kotlin.String" -> value
+      else -> throw UnsupportedOperationException("${param.type} is not supported")
+    }
+  }.toTypedArray()
+  return constructor.call(*args)
+}
 
 fun <R> String.toList(delimiter: String = "\n",
                       conv: (String) -> R) = this.trim().split(delimiter).filter { it.isNotBlank() }.map { conv(it) }
