@@ -34,7 +34,7 @@ class Year2023Day7(input: String) : Solution {
     fun powerOf(hand: String): Int {
       val type = typeOf(hand)
       val cp = hand.map { deck.indexOf(it) }
-      return (type.ordinal shl 20) + (cp[0] shl 16) + (cp[1] shl 12) + (cp[2] shl 8) + (cp[3] shl 4) + cp[4]
+      return cp.fold(type.ordinal) { acc, x -> (acc shl 4) + x }
     }
 
     val handPowers = hands.map { it to powerOf(it.cards) }
