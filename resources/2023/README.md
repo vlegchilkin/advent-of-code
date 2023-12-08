@@ -11,7 +11,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/8'>Day 8: Haunted Wasteland</a>
 <a href='day/7'>Day 7: Camel Cards</a>
 <a href='day/6'>Day 6: Wait For It</a>
 <a href='day/5'>Day 5: If You Give A Seed A Fertilizer</a>
