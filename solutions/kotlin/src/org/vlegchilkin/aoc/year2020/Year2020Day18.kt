@@ -3,14 +3,13 @@ package org.vlegchilkin.aoc.year2020
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
 import org.vlegchilkin.aoc.toList
-import java.util.LinkedList
 
 class Year2020Day18(input: String) : Solution {
   private val expressions = input.toList { it }
 
   private fun eval(expr: String, plusPriority: Boolean = false): Long {
-    val arg = LinkedList<Long>()
-    val op = LinkedList<Char>()
+    val arg = ArrayDeque<Long>()
+    val op = ArrayDeque<Char>()
     var num: Long? = null
 
     "($expr)".filter { it != ' ' }.forEach { c ->
@@ -19,32 +18,32 @@ class Year2020Day18(input: String) : Solution {
         return@forEach
       }
       num?.let {
-        arg.push(num)
+        arg.addFirst(it)
         num = null
       }
 
       if (c != '(') {
-        when (op.peek()) {
+        when (op.first()) {
           '+' -> {
-            arg.push(arg.pop() + arg.pop())
-            op.pop()
+            arg.addFirst(arg.removeFirst() + arg.removeFirst())
+            op.removeFirst()
           }
           '*' -> if (!plusPriority) {
-            arg.push(arg.pop() * arg.pop())
-            op.pop()
+            arg.addFirst(arg.removeFirst() * arg.removeFirst())
+            op.removeFirst()
           }
         }
       }
 
       if (c == ')') {
-        while (op.pop() != '(') {
-          arg.push(arg.pop() * arg.pop())
+        while (op.removeFirst() != '(') {
+          arg.addFirst(arg.removeFirst() * arg.removeFirst())
         }
       }
-      else op.push(c)
+      else op.addFirst(c)
     }
 
-    return arg.pop()
+    return arg.removeFirst()
   }
 
   override fun partA(): Long {

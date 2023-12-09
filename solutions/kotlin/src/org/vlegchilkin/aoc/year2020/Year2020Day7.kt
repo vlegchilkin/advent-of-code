@@ -2,7 +2,6 @@ package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.Test
 import org.vlegchilkin.aoc.Solution
-import java.util.LinkedList
 
 class Year2020Day7(input: String) : Solution {
   private val rules = input.trim().split("\n").associate { rule ->
@@ -19,15 +18,15 @@ class Year2020Day7(input: String) : Solution {
       }
     }
 
-    val queue = LinkedList<String>()
-    queue.offer(MY_BAG)
-    val visited = mutableSetOf(queue.first)
+    val queue = ArrayDeque<String>()
+    queue.addLast(MY_BAG)
+    val visited = mutableSetOf(queue.first())
     while (queue.isNotEmpty()) {
-      val bag = queue.pop()
+      val bag = queue.removeFirst()
       parents[bag]?.forEach {
         if (it !in visited) {
           visited.add(it)
-          queue.offer(it)
+          queue.addLast(it)
         }
       }
     }

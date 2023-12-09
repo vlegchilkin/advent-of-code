@@ -1,7 +1,6 @@
 package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.*
-import java.util.LinkedList
 
 class Year2020Day22(input: String) : Solution {
   private val cards = input.toList("\n\n") { player ->
@@ -14,9 +13,9 @@ class Year2020Day22(input: String) : Solution {
   }
 
   override fun partA(): Any {
-    val (first, second) = cards.map { LinkedList(it) }
+    val (first, second) = cards.map { ArrayDeque(it) }
     while (first.isNotEmpty() && second.isNotEmpty()) {
-      (first.pop() to second.pop()).also { (f, s) ->
+      (first.removeFirst() to second.removeFirst()).also { (f, s) ->
         if (f > s) {
           first.add(f)
           first.add(s)
@@ -32,14 +31,14 @@ class Year2020Day22(input: String) : Solution {
 
   override fun partB(): Any {
     fun recursiveCombat(players: Pair<List<Int>, List<Int>>): Pair<Boolean, Pair<List<Int>, List<Int>>?> {
-      val (first, second) = LinkedList(players.first) to LinkedList(players.second)
+      val (first, second) = ArrayDeque(players.first) to ArrayDeque(players.second)
       val cache = mutableSetOf<String>()
       while (first.isNotEmpty() && second.isNotEmpty()) {
         if (!cache.add(first.joinToString(",")) || !cache.add(second.joinToString(","))) {
           return true to null
         }
-        val f = first.pop()
-        val s = second.pop()
+        val f = first.removeFirst()
+        val s = second.removeFirst()
         val winner = if (f <= first.size && s <= second.size) {
           recursiveCombat(first.take(f) to second.take(s)).first
         }

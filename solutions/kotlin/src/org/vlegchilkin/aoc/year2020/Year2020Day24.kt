@@ -1,16 +1,16 @@
 package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.*
-import java.util.*
+import kotlin.collections.ArrayDeque
 
 class Year2020Day24(input: String) : Solution {
   private val lines = input.toList { it }
   override fun partAB(): Pair<Int, Int> {
     fun parse(value: String): Pair<Int, Int> {
       var pos = 0 to 0
-      val buffer = LinkedList(value.toList())
+      val buffer = ArrayDeque(value.toList())
       while (buffer.isNotEmpty()) {
-        val side = buffer.pop().let { if (it == 'e' || it == 'w') "$it" else "$it${buffer.pop()}" }
+        val side = buffer.removeFirst().let { if (it == 'e' || it == 'w') "$it" else "$it${buffer.removeFirst()}" }
         pos += HEXAGONAL[side]!!
       }
       return pos
@@ -33,7 +33,7 @@ class Year2020Day24(input: String) : Solution {
       possibles.addAll(floor)
       return possibles.filter { zero ->
         val neighbours = HEXAGONAL.values.map { zero + it }.count { it in floor }
-        (neighbours == 2) || (neighbours == 1 &&  zero in floor )
+        (neighbours == 2) || (neighbours == 1 && zero in floor)
       }.toSet()
     }
 
