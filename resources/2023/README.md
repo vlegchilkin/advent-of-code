@@ -9,8 +9,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
-&nbsp;
+<a href='day/9'>Day 9: Mirage Maintenance</a>
 <a href='day/8'>Day 8: Haunted Wasteland</a>
 <a href='day/7'>Day 7: Camel Cards</a>
 <a href='day/6'>Day 6: Wait For It</a>
@@ -19,6 +18,7 @@
 <a href='day/3'>Day 3: Gear Ratios</a>
 <a href='day/2'>Day 2: Cube Conundrum</a>
 <a href='day/1'>Day 1: Trebuchet?!</a>
+&nbsp;
 &nbsp;
 &nbsp;
 &nbsp;

@@ -47,5 +47,5 @@ fun <R> String.toList(delimiter: String = "\n",
 fun <R> String.toListIndexed(delimiter: String = "\n",
                              conv: (Int, String) -> R) = this.trim().split(delimiter).filter { it.isNotBlank() }.mapIndexed { i, v -> conv(i, v) }
 
-fun String.toIntList(filter: Regex = """\d+""".toRegex()) = filter.findAll(this).map { it.value.toInt() }.toList()
-fun String.toLongList(filter: Regex = """\d+""".toRegex()) = filter.findAll(this).map { it.value.toLong() }.toList()
+fun String.toIntList(filter: Regex = """-?\d+""".toRegex()) = filter.findAll(this).map { it.value.toInt() }.toList()
+fun String.toLongList(filter: Regex = """-?\d+""".toRegex()) = filter.findAll(this).map { it.value.toLong() }.toList()
