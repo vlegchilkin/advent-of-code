@@ -27,6 +27,9 @@ class Year2023Day10(input: String) : Solution {
     space[start] = possibleJoints.keys.first()
   }
 
+  enum class Zone { F, L, R }
+
+
   override fun partAB(): Pair<Int, Int> {
     var prev: C? = null
     var current: C = start
@@ -43,29 +46,28 @@ class Year2023Day10(input: String) : Solution {
         Direction.E -> Direction.N to Direction.S
         else -> throw IllegalArgumentException()
       }
-      for (pos in listOf(current, current + move)) {
-        left.add(pos + l)
-        right.add(pos + r)
-      }
       prev = current
       current += move
+      listOf(prev, current).forEach {
+        left.add(it + l)
+        right.add(it + r)
+      }
     }
-
     val filler = space.transform { pos, _ ->
       when (pos) {
-        in fence -> 'X'
-        in left -> 'L'
-        in right -> 'R'
+        in fence -> Zone.F
+        in left -> Zone.L
+        in right -> Zone.R
         else -> null
       }
     }
-    filler.filterValues { it in "LR" }.forEach { (pos, c) ->
+    filler.filterValues { it != Zone.F }.forEach { (pos, c) ->
       filler.fill(pos) { c }
     }
-
     val areas = filler.values.groupingBy { it }.eachCount()
-    val partA = fence.size / 2
-    val partB = minOf(areas['L'] ?: 0, areas['R'] ?: 0) // any side might be the inside, but there are only two options
+    val partA = (areas[Zone.F] ?: 0) / 2
+    val partB = minOf(areas[Zone.L] ?: 0, areas[Zone.R] ?: 0) // any side might be the inside, but there are only two options to guess
+
     return partA to partB
   }
 

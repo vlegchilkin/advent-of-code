@@ -4,7 +4,7 @@ import kotlin.math.abs
 
 typealias C = Pair<Int, Int>
 
-data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>): MutableMap<C, T> {
+data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>) : MutableMap<C, T> {
   override operator fun get(key: C): T? = data[key]
   override val size: Int
     get() = data.size
@@ -47,8 +47,8 @@ data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>): 
     }
   }
 
-  fun transform(conv: (C, T?) -> T?): CSpace<T> {
-    val newData = mutableMapOf<C, T>()
+  fun <R : Any> transform(conv: (C, T?) -> R?): CSpace<R> {
+    val newData = mutableMapOf<C, R>()
     for (i in 0..<n) {
       for (j in 0..<m) {
         (i to j).let { pos -> conv(pos, this[pos])?.let { newData[pos] = it } }
@@ -62,7 +62,7 @@ data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>): 
     queue.addLast(start)
     while (queue.isNotEmpty()) {
       val pos = queue.removeFirst()
-      links(pos, directions = Direction.borders()) {isInside(it) && it !in data}.forEach {
+      links(pos, directions = Direction.borders()) { isInside(it) && it !in data }.forEach {
         data[it] = value(it)
         queue.addLast(it)
       }
