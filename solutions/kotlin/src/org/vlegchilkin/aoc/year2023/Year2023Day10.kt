@@ -63,7 +63,7 @@ class Year2023Day10(input: String) : Solution {
     val partA = (areas[Zone.F] ?: 0) / 2
 
     val insideZone = if (filler[-1 to -1] == Zone.L) Zone.R else Zone.L
-    val partB = areas[insideZone]!!
+    val partB = areas[insideZone] ?: 0
 
     return partA to partB
   }
