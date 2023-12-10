@@ -32,7 +32,7 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
   override fun isEmpty() = data.isEmpty()
 
   fun links(pos: C, directions: List<Direction> = Direction.all(), hasPath: ((C) -> Boolean)? = null): List<C> {
-    val pathChecker = hasPath ?: { it in data }
+    val pathChecker = hasPath ?: { isInside(it) }
     return directions.map { pos + it }.filter { pathChecker(it) }
   }
 
