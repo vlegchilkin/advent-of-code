@@ -13,9 +13,9 @@ class Year2023Day3(input: String) : Solution {
     var partA = 0
     val gears = mutableMapOf<C, MutableList<Int>>()
 
-    for (i in 0..<space.n) {
+    for (i in space.rows) {
       var j0: Int? = null
-      for (j1 in 0..space.m) {
+      for (j1 in 0..space.cols.last+1) {
         if (space[i to j1]?.isDigit() == true) {
           if (j0 == null) j0 = j1
           continue

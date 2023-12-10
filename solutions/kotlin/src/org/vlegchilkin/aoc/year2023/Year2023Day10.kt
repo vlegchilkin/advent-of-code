@@ -48,7 +48,7 @@ class Year2023Day10(input: String) : Solution {
         right.add(it + side)
       }
     }
-    val filler = space.transform { pos, _ ->
+    val filler = space.expand(1).transform { pos, _ ->
       when (pos) {
         in fence -> Zone.F
         in left -> Zone.L
@@ -61,7 +61,9 @@ class Year2023Day10(input: String) : Solution {
     }
     val areas = filler.values.groupingBy { it }.eachCount()
     val partA = (areas[Zone.F] ?: 0) / 2
-    val partB = minOf(areas[Zone.L] ?: 0, areas[Zone.R] ?: 0) // any side might be the inside, but there are only two options to guess
+
+    val insideZone = if (filler[-1 to -1] == Zone.L) Zone.R else Zone.L
+    val partB = areas[insideZone]!!
 
     return partA to partB
   }

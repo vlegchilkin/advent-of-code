@@ -4,7 +4,7 @@ import kotlin.math.abs
 
 typealias C = Pair<Int, Int>
 
-data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>) : MutableMap<C, T> {
+data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: MutableMap<C, T>) : MutableMap<C, T> {
   override operator fun get(key: C): T? = data[key]
   override val size: Int
     get() = data.size
@@ -38,8 +38,8 @@ data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>) :
 
   override fun toString(): String {
     return buildString {
-      for (i in 0..<n) {
-        for (j in 0..<m) {
+      for (i in rows) {
+        for (j in cols) {
           append(data[i to j] ?: '.')
         }
         append('\n')
@@ -47,14 +47,20 @@ data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>) :
     }
   }
 
+  fun expand(border: Int): CSpace<T> {
+    val r = this.rows.first - border..this.rows.last + border
+    val c = this.cols.first - border..this.cols.last + border
+    return CSpace(r, c, data.toMutableMap())
+  }
+
   fun <R : Any> transform(conv: (C, T?) -> R?): CSpace<R> {
     val newData = mutableMapOf<C, R>()
-    for (i in 0..<n) {
-      for (j in 0..<m) {
+    for (i in rows) {
+      for (j in cols) {
         (i to j).let { pos -> conv(pos, this[pos])?.let { newData[pos] = it } }
       }
     }
-    return CSpace(this.n, this.m, newData)
+    return CSpace(rows, cols, newData)
   }
 
   fun fill(start: C, value: (C) -> T) {
@@ -69,7 +75,7 @@ data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>) :
     }
   }
 
-  fun isInside(pos: C) = pos.first in 0..<n && pos.second in 0..<m
+  fun isInside(pos: C) = pos.first in rows && pos.second in cols
 }
 
 fun <T : Any> String.toCSpace(mapper: (Char) -> T?): CSpace<T> {
@@ -83,7 +89,7 @@ fun <T : Any> String.toCSpace(mapper: (Char) -> T?): CSpace<T> {
       }
     }
   }
-  return CSpace(n, m, data)
+  return CSpace(0..<n, 0..<m, data)
 }
 
 enum class Side {
