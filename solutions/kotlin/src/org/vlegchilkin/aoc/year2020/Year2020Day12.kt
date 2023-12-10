@@ -1,6 +1,7 @@
 package org.vlegchilkin.aoc.year2020
 
 import org.vlegchilkin.aoc.*
+import org.vlegchilkin.aoc.Side.Companion.toSide
 
 class Year2020Day12(input: String) : Solution {
   private val actions = input.toList { it[0] to it.substring(1).toInt() }
@@ -11,7 +12,7 @@ class Year2020Day12(input: String) : Solution {
     actions.forEach { (action, steps) ->
       when (action) {
         'F' -> pos += head * steps
-        'L', 'R' -> repeat(steps / 90) { head = head.turn(action) }
+        'L', 'R' -> repeat(steps / 90) { head = head.turn(action.toSide()) }
         'N', 'S', 'W', 'E' -> pos += Direction.of(action)!! * steps
       }
     }

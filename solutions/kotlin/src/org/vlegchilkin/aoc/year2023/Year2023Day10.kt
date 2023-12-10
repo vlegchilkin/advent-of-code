@@ -38,19 +38,14 @@ class Year2023Day10(input: String) : Solution {
     val right = mutableSetOf<C>()
     while (current !in fence) {
       fence.add(current)
-      val move = joints[space[current]]?.firstOrNull { (current + it) != prev }
-      val (l, r) = when (move) {
-        Direction.N -> Direction.W to Direction.E
-        Direction.S -> Direction.E to Direction.W
-        Direction.W -> Direction.S to Direction.N
-        Direction.E -> Direction.N to Direction.S
-        else -> throw IllegalArgumentException()
-      }
+      val step = joints[space[current]]!!.first { (current + it) != prev }
       prev = current
-      current += move
+      current += step
+
+      val side = step.turn(Side.R)
       listOf(prev, current).forEach {
-        left.add(it + l)
-        right.add(it + r)
+        left.add(it - side)
+        right.add(it + side)
       }
     }
     val filler = space.transform { pos, _ ->

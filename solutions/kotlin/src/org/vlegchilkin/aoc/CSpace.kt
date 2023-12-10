@@ -86,6 +86,20 @@ fun <T : Any> String.toCSpace(mapper: (Char) -> T?): CSpace<T> {
   return CSpace(n, m, data)
 }
 
+enum class Side {
+  F, B, R, L;
+
+  companion object {
+    fun of(char: Char): Side {
+      return Side.valueOf("$char")
+    }
+
+    fun Char.toSide(): Side {
+      return of(this)
+    }
+  }
+}
+
 enum class Direction(val vector: C, vararg val aliases: Char) {
   N(-1 to 0, '^', 'N'),
   NE(-1 to 1),
@@ -96,13 +110,12 @@ enum class Direction(val vector: C, vararg val aliases: Char) {
   W(0 to -1, '<', 'W'),
   NW(-1 to -1);
 
-  fun turn(action: Char): Direction {
-    return when (action) {
-      'F' -> this
-      'B' -> -this
-      'R' -> ofVector(this.vector.clockwise())!!
-      'L' -> ofVector(-this.vector.clockwise())!!
-      else -> throw IllegalArgumentException("Not supported action: $action")
+  infix fun turn(side: Side): Direction {
+    return when (side) {
+      Side.F -> this
+      Side.B -> -this
+      Side.R -> ofVector(this.vector.clockwise())!!
+      Side.L -> ofVector(-this.vector.clockwise())!!
     }
   }
 
@@ -137,6 +150,7 @@ fun C.clockwise() = this.second to -this.first
 operator fun C.times(steps: Int) = this.first * steps to this.second * steps
 operator fun C.unaryMinus(): C = -this.first to -this.second
 operator fun C.plus(direction: Direction): C = this + direction.vector
+operator fun C.minus(direction: Direction): C = this - direction.vector
 operator fun C.plus(other: C): C = (this.first + other.first) to (this.second + other.second)
 operator fun C.minus(other: C): C = (this.first - other.first) to (this.second - other.second)
 operator fun C.rangeTo(max: C) = this to max
