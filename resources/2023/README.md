@@ -8,7 +8,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/10'>Day 10: Pipe Maze</a>
 <a href='day/9'>Day 9: Mirage Maintenance</a>
 <a href='day/8'>Day 8: Haunted Wasteland</a>
 <a href='day/7'>Day 7: Camel Cards</a>

@@ -4,8 +4,33 @@ import kotlin.math.abs
 
 typealias C = Pair<Int, Int>
 
-data class CSpace<T>(val n: Int, val m: Int, val data: MutableMap<C, T>) {
-  operator fun get(c: C): T? = data[c]
+data class CSpace<T : Any>(val n: Int, val m: Int, val data: MutableMap<C, T>): MutableMap<C, T> {
+  override operator fun get(key: C): T? = data[key]
+  override val size: Int
+    get() = data.size
+  override val entries: MutableSet<MutableMap.MutableEntry<C, T>>
+    get() = data.entries
+  override val keys: MutableSet<C>
+    get() = data.keys
+  override val values: MutableCollection<T>
+    get() = data.values
+
+  override fun clear() {
+    data.clear()
+  }
+
+  override fun put(key: C, value: T) = data.put(key, value)
+
+  override fun putAll(from: Map<out C, T>) = data.putAll(from)
+
+  override fun remove(key: C) = data.remove(key)
+
+  override fun containsKey(key: C) = data.containsKey(key)
+
+  override fun containsValue(value: T) = data.containsValue(value)
+
+  override fun isEmpty() = data.isEmpty()
+
   fun links(pos: C, directions: List<Direction> = Direction.all(), hasPath: ((C) -> Boolean)? = null): List<C> {
     val pathChecker = hasPath ?: { it in data }
     return directions.map { pos + it }.filter { pathChecker(it) }
@@ -21,9 +46,33 @@ data class CSpace<T>(val n: Int, val m: Int, val data: MutableMap<C, T>) {
       }
     }
   }
+
+  fun transform(conv: (C, T?) -> T?): CSpace<T> {
+    val newData = mutableMapOf<C, T>()
+    for (i in 0..<n) {
+      for (j in 0..<m) {
+        (i to j).let { pos -> conv(pos, this[pos])?.let { newData[pos] = it } }
+      }
+    }
+    return CSpace(this.n, this.m, newData)
+  }
+
+  fun fill(start: C, value: (C) -> T) {
+    val queue = ArrayDeque<C>()
+    queue.addLast(start)
+    while (queue.isNotEmpty()) {
+      val pos = queue.removeFirst()
+      links(pos, directions = Direction.borders()) {isInside(it) && it !in data}.forEach {
+        data[it] = value(it)
+        queue.addLast(it)
+      }
+    }
+  }
+
+  fun isInside(pos: C) = pos.first in 0..<n && pos.second in 0..<m
 }
 
-fun <T> String.toCSpace(mapper: (Char) -> T?): CSpace<T> {
+fun <T : Any> String.toCSpace(mapper: (Char) -> T?): CSpace<T> {
   val array = this.toList { it }
   val n = array.size
   val m = if (n > 0) array[0].length else 0
