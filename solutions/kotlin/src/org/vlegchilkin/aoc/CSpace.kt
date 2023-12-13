@@ -32,7 +32,7 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
   override fun isEmpty() = data.isEmpty()
 
   fun links(pos: C, directions: List<Direction> = Direction.all(), hasPath: ((C) -> Boolean)? = null): List<C> {
-    val pathChecker = hasPath ?: { isInside(it) }
+    val pathChecker = hasPath ?: { isBelongs(it) }
     return directions.map { pos + it }.filter { pathChecker(it) }
   }
 
@@ -55,11 +55,7 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
 
   fun <R : Any> transform(conv: (C, T?) -> R?): CSpace<R> {
     val newData = mutableMapOf<C, R>()
-    for (i in rows) {
-      for (j in cols) {
-        (i to j).let { pos -> conv(pos, this[pos])?.let { newData[pos] = it } }
-      }
-    }
+    view().forEach { (pos, value) -> conv(pos, value)?.let { newData[pos] = it } }
     return CSpace(rows, cols, newData)
   }
 
@@ -68,14 +64,23 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
     queue.addLast(start)
     while (queue.isNotEmpty()) {
       val pos = queue.removeFirst()
-      links(pos, directions = Direction.borders()) { isInside(it) && it !in data }.forEach {
+      links(pos, directions = Direction.borders()) { isBelongs(it) && it !in data }.forEach {
         data[it] = value(it)
         queue.addLast(it)
       }
     }
   }
 
-  fun isInside(pos: C) = pos.first in rows && pos.second in cols
+  fun isBelongs(pos: C) = pos.first in rows && pos.second in cols
+
+  fun view(): Sequence<Pair<C, T?>> = sequence {
+    for (row in rows) {
+      for (col in cols) {
+        val pos = row to col
+        yield(pos to data[pos])
+      }
+    }
+  }
 }
 
 fun <T : Any> String.toCSpace(mapper: (Char) -> T?): CSpace<T> {
