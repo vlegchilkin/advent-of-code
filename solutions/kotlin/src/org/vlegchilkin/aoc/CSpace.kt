@@ -19,6 +19,11 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
     data.clear()
   }
 
+  val rowsCount: Int
+    get() = rows.last - rows.first + 1
+  val colsCount: Int
+    get() = cols.last - cols.first + 1
+
   override fun put(key: C, value: T) = data.put(key, value)
 
   override fun putAll(from: Map<out C, T>) = data.putAll(from)
@@ -53,6 +58,10 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
     return CSpace(r, c, data.toMutableMap())
   }
 
+  fun clone(): CSpace<T> {
+    return expand(0)
+  }
+
   fun <R : Any> transform(conv: (C, T?) -> R?): CSpace<R> {
     val newData = mutableMapOf<C, R>()
     view().forEach { (pos, value) -> conv(pos, value)?.let { newData[pos] = it } }
@@ -72,6 +81,8 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
   }
 
   fun isBelongs(pos: C) = pos.first in rows && pos.second in cols
+
+  fun isEmpty(pos: C) = isBelongs(pos) && pos !in this
 
   fun view(): Sequence<Pair<C, T?>> = sequence {
     for (row in rows) {
