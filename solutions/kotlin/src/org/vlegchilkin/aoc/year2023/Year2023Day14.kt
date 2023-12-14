@@ -17,10 +17,8 @@ class Year2023Day14(input: String) : Solution {
       Direction.E -> compareBy<C> { it.second }.reversed()
       else -> throw IllegalArgumentException()
     }
-    val keys = space.filterValues { it == 'O' }.keys.sortedWith(comparator)
-    val queue = ArrayDeque(keys)
-    while (queue.isNotEmpty()) {
-      val initPos = queue.removeFirst()
+    val roundedRocks = space.filterValues { it == 'O' }.keys.sortedWith(comparator)
+    for (initPos in roundedRocks) {
       var endPos = initPos
       while (space.isEmpty(endPos + direction)) endPos += direction
       if (initPos != endPos) {
@@ -53,12 +51,12 @@ class Year2023Day14(input: String) : Solution {
     }
 
     val hashes = mutableMapOf<String, Int>()
-    val cycleWeight = mutableMapOf<Int, Int>()
+    val weights = mutableMapOf<Int, Int>()
     val totalCycles = 1000000000
     var (cycle, hash) = 0 to calcHash()
     while (hash !in hashes && cycle < totalCycles) {
       hashes[hash] = cycle
-      cycleWeight[cycle] = weight(space)
+      weights[cycle] = weight(space)
       runCycle()
       cycle += 1
       hash = calcHash()
@@ -67,7 +65,7 @@ class Year2023Day14(input: String) : Solution {
     val finishWeight = hashes[hash]?.let { prevCycle ->
       val len = cycle - prevCycle
       val destCycle = ((totalCycles - cycle) % len) + prevCycle
-      return cycleWeight[destCycle]!!
+      weights[destCycle]
     } ?: weight(space)
 
     return finishWeight
