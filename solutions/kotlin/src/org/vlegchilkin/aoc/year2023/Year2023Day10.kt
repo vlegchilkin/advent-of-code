@@ -1,6 +1,7 @@
 package org.vlegchilkin.aoc.year2023
 
 import org.vlegchilkin.aoc.*
+import org.vlegchilkin.aoc.Direction.*
 
 
 /**
@@ -10,12 +11,12 @@ class Year2023Day10(input: String) : Solution {
   private val space = input.toCSpace { it.takeIf { c -> c != '.' } }
   private val start = space.filterValues { it == 'S' }.keys.first()
   private val joints = mapOf(
-    '|' to listOf(Direction.N, Direction.S),
-    '-' to listOf(Direction.E, Direction.W),
-    'J' to listOf(Direction.W, Direction.N),
-    'L' to listOf(Direction.E, Direction.N),
-    'F' to listOf(Direction.E, Direction.S),
-    '7' to listOf(Direction.W, Direction.S)
+    '|' to listOf(N, S),
+    '-' to listOf(E, W),
+    'J' to listOf(W, N),
+    'L' to listOf(E, N),
+    'F' to listOf(E, S),
+    '7' to listOf(W, S)
   )
 
   init {

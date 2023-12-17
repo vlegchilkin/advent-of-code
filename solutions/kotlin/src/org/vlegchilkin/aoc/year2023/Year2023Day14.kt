@@ -1,6 +1,7 @@
 package org.vlegchilkin.aoc.year2023
 
 import org.vlegchilkin.aoc.*
+import org.vlegchilkin.aoc.Direction.*
 
 
 /**
@@ -11,10 +12,10 @@ class Year2023Day14(input: String) : Solution {
 
   private fun roll(space: CSpace<Char>, direction: Direction) {
     val comparator = when (direction) {
-      Direction.N -> compareBy { it.first }
-      Direction.S -> compareBy<C> { it.first }.reversed()
-      Direction.W -> compareBy { it.second }
-      Direction.E -> compareBy<C> { it.second }.reversed()
+      N -> compareBy { it.first }
+      S -> compareBy<C> { it.first }.reversed()
+      W -> compareBy { it.second }
+      E -> compareBy<C> { it.second }.reversed()
       else -> throw IllegalArgumentException()
     }
     val roundedRocks = space.filterValues { it == 'O' }.keys.sortedWith(comparator)
@@ -36,14 +37,14 @@ class Year2023Day14(input: String) : Solution {
 
   override fun partA(): Any {
     val space = this.space.clone()
-    roll(space, Direction.N)
+    roll(space, N)
     return weight(space)
   }
 
   override fun partB(): Int {
     val space = this.space.clone()
     fun runCycle() {
-      for (d in listOf(Direction.N, Direction.W, Direction.S, Direction.E)) roll(space, d)
+      for (d in listOf(N, W, S, E)) roll(space, d)
     }
 
     fun calcHash(): String {
