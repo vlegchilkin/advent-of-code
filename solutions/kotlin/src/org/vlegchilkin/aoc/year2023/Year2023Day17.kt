@@ -22,6 +22,7 @@ class Year2023Day17(input: String) : Solution {
     queue.addAll(minPath.map { (k, v) -> v to k })
     while (queue.isNotEmpty()) {
       val (path, state) = queue.poll()
+      if (minPath[state] != path) continue
       val (pos, direction) = state
       if (pos == finish) return path
 
@@ -35,7 +36,7 @@ class Year2023Day17(input: String) : Solution {
 
         sides.forEach { newDirection ->
           val newState = newPos to newDirection
-          if (newState !in minPath || minPath[newState]!! > newPath) {
+          if (minPath[newState]?.let { it <= newPath } != true) {
             minPath[newState] = newPath
             queue.offer(newPath to newState)
           }
