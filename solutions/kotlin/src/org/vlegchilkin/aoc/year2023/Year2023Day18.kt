@@ -11,23 +11,13 @@ class Year2023Day18(input: String) : Solution {
 
   private val records = input.toList { it.split(' ').toObject(Record::class) }
 
-  private fun fence(commands: List<Pair<Direction, Int>>): List<C> {
-    var pos = 0 to 0
-    val fence = mutableListOf(pos)
-    commands.mapTo(fence) { (dir, steps) ->
-      pos += dir * steps
-      pos
-    }
-    return fence
-  }
-
-  private fun capacity(fence: List<C>): Long {
-    return fence.area() + fence.path() / 2 + 1
+  private fun capacity(fence: CPath): Long {
+    return fence.area() + fence.length() / 2 + 1
   }
 
   override fun partA(): Any {
     val commands = records.map { Direction.of(it.cmd)!! to it.steps }
-    return capacity(fence(commands))
+    return capacity(commands.toPath())
   }
 
   override fun partB(): Any {
@@ -39,7 +29,7 @@ class Year2023Day18(input: String) : Solution {
     }
 
     val commands = records.map { parse(it.color) }
-    return capacity(fence(commands))
+    return capacity(commands.toPath())
   }
 
   companion object : Test(2023, 18, { Year2023Day18(it) })

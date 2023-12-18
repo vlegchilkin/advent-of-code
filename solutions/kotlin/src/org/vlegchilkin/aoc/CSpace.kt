@@ -3,6 +3,8 @@ package org.vlegchilkin.aoc
 import kotlin.math.abs
 
 typealias C = Pair<Int, Int>
+typealias CPath = List<C>
+typealias CMove = Pair<Direction, Int>
 
 data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: MutableMap<C, T>) : MutableMap<C, T> {
   override operator fun get(key: C): T? = data[key]
@@ -145,7 +147,6 @@ enum class Direction(val vector: C, vararg val aliases: Char) {
   operator fun times(steps: Int) = vector * steps
   operator fun plus(coordinate: C) = this.vector + coordinate
 
-
   companion object {
     fun diagonals() = listOf(NE, SE, SW, NW)
     fun borders() = listOf(N, E, S, W)
@@ -154,6 +155,17 @@ enum class Direction(val vector: C, vararg val aliases: Char) {
     fun of(direction: Char) = Direction.entries.find { direction in it.aliases }
   }
 }
+
+fun List<CMove>.toPath(start: C = 0 to 0): CPath {
+  var pos = start
+  val path = mutableListOf(pos)
+  this.mapTo(path) { (dir, steps) ->
+    pos += dir * steps
+    pos
+  }
+  return path
+}
+
 
 fun List<Int>.toC(): C {
   if (this.size != 2) {
@@ -171,7 +183,7 @@ fun Collection<C>.minmax(): Pair<C, C> {
 /**
  * https://en.wikipedia.org/wiki/Shoelace_formula#Trapezoid_formula
  */
-fun Collection<C>.areaByTrapezoid(): Long {
+fun CPath.areaByTrapezoid(): Long {
   val polygon = this.map { it.first.toLong() to it.second.toLong() }
   var area = 0L
   var j = polygon.indices.last
@@ -185,14 +197,14 @@ fun Collection<C>.areaByTrapezoid(): Long {
 /**
  *  https://en.wikipedia.org/wiki/Shoelace_formula#Shoelace_formula
  */
-fun Collection<C>.area(): Long {
+fun CPath.area(): Long {
   val area = this.windowed(2).fold(0L) { acc, (a, b) ->
     acc + 1L * a.first * b.second - 1L * a.second * b.first
   }
   return abs(area / 2)
 }
 
-fun Collection<C>.path(): Long {
+fun CPath.length(): Long {
   return this.windowed(2).fold(0L) { acc, (a, b) ->
     acc + abs(a.first - b.first) + abs(a.second - b.second)
   }
