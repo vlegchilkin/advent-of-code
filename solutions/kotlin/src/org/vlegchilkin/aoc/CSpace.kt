@@ -123,13 +123,13 @@ enum class Side {
 }
 
 enum class Direction(val vector: C, vararg val aliases: Char) {
-  N(-1 to 0, '^', 'N'),
+  N(-1 to 0, '^', 'N', 'U'),
   NE(-1 to 1),
-  E(0 to 1, '>', 'E'),
+  E(0 to 1, '>', 'E', 'R'),
   SE(1 to 1),
-  S(1 to 0, 'v', 'S'),
+  S(1 to 0, 'v', 'S', 'D'),
   SW(1 to -1),
-  W(0 to -1, '<', 'W'),
+  W(0 to -1, '<', 'W', 'L'),
   NW(-1 to -1);
 
   infix fun turn(side: Side): Direction {
@@ -143,7 +143,7 @@ enum class Direction(val vector: C, vararg val aliases: Char) {
 
   operator fun unaryMinus(): Direction = ofVector(-this.vector.first to -this.vector.second)!!
   operator fun times(steps: Int) = vector * steps
-  operator fun plus(coordinate: Pair<Int, Int>) = this.vector + coordinate
+  operator fun plus(coordinate: C) = this.vector + coordinate
 
 
   companion object {
@@ -162,10 +162,21 @@ fun List<Int>.toC(): C {
   return Pair(this[0], this[1])
 }
 
-fun Collection<C>.area(): Pair<C, C> {
+fun Collection<C>.minmax(): Pair<C, C> {
   val low = this.minOf { it.first } to this.minOf { it.second }
   val high = this.maxOf { it.first } to this.maxOf { it.second }
   return low to high
+}
+
+fun Collection<C>.area(): Long {
+  val polygon = this.map { it.first.toLong() to it.second.toLong() }
+  var area = 0L
+  var j = polygon.indices.last
+  for (i in polygon.indices) {
+    area += (polygon[j].first + polygon[i].first) * (polygon[j].second - polygon[i].second)
+    j = i
+  }
+  return abs(area / 2)
 }
 
 fun C.clockwise() = this.second to -this.first

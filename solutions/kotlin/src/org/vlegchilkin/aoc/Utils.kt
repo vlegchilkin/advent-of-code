@@ -35,6 +35,7 @@ fun <T : Any> List<String>.toObject(clazz: KClass<T>): T {
     when (param.type.toString()) {
       "kotlin.Int" -> value.toInt()
       "kotlin.Long" -> value.toLong()
+      "kotlin.Char" -> value.first()
       "kotlin.String" -> value
       else -> throw UnsupportedOperationException("${param.type} is not supported")
     }

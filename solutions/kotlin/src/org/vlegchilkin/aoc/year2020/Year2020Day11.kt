@@ -34,7 +34,7 @@ class Year2020Day11(input: String) : Solution {
   }
 
   override fun partB(): Int {
-    val area = seats.keys.area()
+    val area = seats.keys.minmax()
     return simulate { seats ->
       seats.entries.associate { (seat, occupied) ->
         val neighbours = Direction.all().count {

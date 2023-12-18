@@ -15,7 +15,7 @@ fun List<Int>.toD(): D {
   return Triple(this[0], this[1], this[2])
 }
 
-fun Collection<D>.area(): Pair<D, D> {
+fun Collection<D>.minmax(): Pair<D, D> {
   val low = Triple(this.minOf { it.first }, this.minOf { it.second }, this.minOf { it.third })
   val high = Triple(this.maxOf { it.first }, this.maxOf { it.second }, this.maxOf { it.third })
   return low to high

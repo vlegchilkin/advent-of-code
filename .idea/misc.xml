@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
     <option name="sdkName" value="Poetry (advent-of-code)" />
@@ -9,6 +10,7 @@
         <option value="$PROJECT_DIR$/solutions/kotlin/pom.xml" />
       </list>
     </option>
+    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (advent-of-code)" project-jdk-type="Python SDK" />
   <component name="SuppressKotlinCodeStyleNotification">
