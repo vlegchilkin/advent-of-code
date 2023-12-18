@@ -168,7 +168,10 @@ fun Collection<C>.minmax(): Pair<C, C> {
   return low to high
 }
 
-fun Collection<C>.area(): Long {
+/**
+ * https://en.wikipedia.org/wiki/Shoelace_formula#Trapezoid_formula
+ */
+fun Collection<C>.areaByTrapezoid(): Long {
   val polygon = this.map { it.first.toLong() to it.second.toLong() }
   var area = 0L
   var j = polygon.indices.last
@@ -178,6 +181,17 @@ fun Collection<C>.area(): Long {
   }
   return abs(area / 2)
 }
+
+/**
+ *  https://en.wikipedia.org/wiki/Shoelace_formula#Shoelace_formula
+ */
+fun Collection<C>.area(): Long {
+  val area = this.windowed(2).fold(0L) { acc, (a, b) ->
+    acc + 1L * a.first * b.second - 1L * a.second * b.first
+  }
+  return abs(area / 2)
+}
+
 fun Collection<C>.path(): Long {
   return this.windowed(2).fold(0L) { acc, (a, b) ->
     acc + abs(a.first - b.first) + abs(a.second - b.second)
