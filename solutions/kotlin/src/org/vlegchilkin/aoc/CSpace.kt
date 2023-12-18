@@ -178,6 +178,11 @@ fun Collection<C>.area(): Long {
   }
   return abs(area / 2)
 }
+fun Collection<C>.path(): Long {
+  return this.windowed(2).fold(0L) { acc, (a, b) ->
+    acc + abs(a.first - b.first) + abs(a.second - b.second)
+  }
+}
 
 fun C.clockwise() = this.second to -this.first
 operator fun C.times(steps: Int) = this.first * steps to this.second * steps

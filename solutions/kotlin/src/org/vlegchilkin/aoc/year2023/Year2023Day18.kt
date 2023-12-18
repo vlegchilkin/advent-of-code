@@ -1,7 +1,6 @@
 package org.vlegchilkin.aoc.year2023
 
 import org.vlegchilkin.aoc.*
-import kotlin.math.absoluteValue
 
 
 /**
@@ -23,11 +22,7 @@ class Year2023Day18(input: String) : Solution {
   }
 
   private fun capacity(fence: List<C>): Long {
-    val area = fence.area()
-    val perimeter = fence.windowed(2).fold(0L) { acc, (a, b) ->
-      acc + (a.first - b.first).absoluteValue + (a.second - b.second).absoluteValue
-    }
-    return area + perimeter / 2 + 1
+    return fence.area() + fence.path() / 2 + 1
   }
 
   override fun partA(): Any {
