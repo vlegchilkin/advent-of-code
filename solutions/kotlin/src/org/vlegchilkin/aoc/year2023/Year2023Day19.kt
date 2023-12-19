@@ -36,20 +36,20 @@ class Year2023Day19(input: String) : Solution {
     }
   }
 
-  private fun dfs(action: String, ranges: Map<Char, IntRange>): Long {
+  private fun dfs(action: String, available: Map<Char, IntRange>): Long {
     when (action) {
       "R" -> return 0L
-      "A" -> return ranges.values.fold(1L) { acc, c -> acc * (c.last - c.first + 1) }
+      "A" -> return available.values.fold(1L) { acc, c -> acc * (c.last - c.first + 1) }
     }
 
     var result = 0L
-    val nonProcessed = ranges.toMutableMap()
+    val ranges = available.toMutableMap()
     for (rule in workflows[action]!!) {
       if (rule.value == null) {
-        result += dfs(rule.action, nonProcessed)
+        result += dfs(rule.action, ranges)
         break
       }
-      val r = nonProcessed[rule.field!!]!!
+      val r = ranges[rule.field!!]!!
       val (take, remains) = when (rule.sign) {
         '<' -> r.first..minOf(rule.value - 1, r.last) to rule.value..r.last
         '>' -> maxOf(rule.value + 1, r.first)..r.last to r.first..rule.value
@@ -57,11 +57,11 @@ class Year2023Day19(input: String) : Solution {
       }
       if (take.isEmpty()) continue
 
-      val dfsRanges = nonProcessed.toMutableMap().apply { replace(rule.field, take) }
-      result += dfs(rule.action, dfsRanges)
+      ranges[rule.field] = take
+      result += dfs(rule.action, ranges)
 
       if (remains.isEmpty()) break
-      nonProcessed[rule.field] = remains
+      ranges[rule.field] = remains
     }
 
     return result
