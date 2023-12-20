@@ -4,7 +4,7 @@ package org.vlegchilkin.aoc
 /**
  * Least Common Multiple
  */
-fun List<Int>.lcm(): Long {
+fun Collection<Int>.lcm(): Long {
   return this.fold(1L) { acc, c -> acc * c / gcd(acc, c.toLong()) }
 }
 
