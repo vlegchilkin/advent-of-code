@@ -16,13 +16,13 @@
 <a href='day/20'>Day 20: Pulse Propagation</a>
 <a href='day/7'>Day 7: Camel Cards</a>
 <a href='day/6'>Day 6: Wait For It</a>
-&nbsp;
+<a href='day/21'>Day 21: Step Counter</a>
 <a href='day/5'>Day 5: If You Give A Seed A Fertilizer</a>
+&nbsp;
 <a href='day/4'>Day 4: Scratchcards</a>
 <a href='day/3'>Day 3: Gear Ratios</a>
 <a href='day/2'>Day 2: Cube Conundrum</a>
 <a href='day/1'>Day 1: Trebuchet?!</a>
-&nbsp;
 &nbsp;
 &nbsp;
 &nbsp;

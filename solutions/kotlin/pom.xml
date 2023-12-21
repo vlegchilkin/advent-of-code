@@ -44,6 +44,12 @@
             <artifactId>kotlin-reflect</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.ejml</groupId>
+            <artifactId>ejml-simple</artifactId>
+            <version>0.43.1</version>
+        </dependency>
     </dependencies>
 
     <build>
