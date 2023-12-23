@@ -43,19 +43,18 @@ class Year2023Day23(input: String) : Solution {
   enum class Type { X, O }
 
   override fun partB(): Any {
-    val space = space.transform { pos, c ->
-      if (pos == start || pos == finish) Type.X else if (c != '#') Type.O else null
-    }
     val graph = mutableMapOf<C, MutableList<Pair<C, Int>>>().apply {
       this[start] = mutableListOf()
       this[finish] = mutableListOf()
+    }
+    val space = space.transform { pos, c ->
+      if (pos in graph) Type.X else if (c != '#') Type.O else null
     }
 
     fun buildGraph(vertex: C, start: C) {
       var length = 1
       var (prev, pos) = vertex to start
-      var crossroad: List<C>? = null
-      while (space[pos] != Type.X) {
+      while (pos !in graph) {
         val links = space.links(pos, directions) { it != prev && it in space }
         if (links.size < 2) {
           space.remove(pos)
@@ -67,14 +66,13 @@ class Year2023Day23(input: String) : Solution {
         else {
           space[pos] = Type.X
           graph[pos] = mutableListOf()
-          crossroad = links
+          links.forEach {
+            buildGraph(pos, it)
+          }
         }
       }
       graph[vertex]!!.add(pos to length)
       graph[pos]!!.add(vertex to length)
-      crossroad?.forEach {
-        buildGraph(pos, it)
-      }
     }
 
     buildGraph(start, start + Direction.S)
