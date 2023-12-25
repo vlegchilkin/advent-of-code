@@ -3,6 +3,8 @@ package org.vlegchilkin.aoc
 import com.google.common.collect.Sets
 import kotlin.reflect.KClass
 
+operator fun <E> List<E>.component6() = this[5]
+
 fun <T> Collection<T>.combinations(size: Int) = sequence {
   val s: Set<T> = toSet()
   for (x in Sets.combinations(s, size)) {
