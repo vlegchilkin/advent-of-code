@@ -50,6 +50,11 @@
             <artifactId>ejml-simple</artifactId>
             <version>0.43.1</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.p-org.solvers</groupId>
+            <artifactId>z3</artifactId>
+            <version>4.8.14-v5</version>
+        </dependency>
     </dependencies>
 
     <build>
