@@ -100,12 +100,6 @@ Before you deploy the robot, you should probably have an estimate of the area it
 Build a new emergency hull painting robot and run the Intcode program on it. *How many panels does it paint at least once?*
 
 
-
-Your puzzle answer was `1932`.
-
-The first half of this puzzle is complete! It provides one gold star: \*
-
-
 --- Part Two ---
 ----------------
 
@@ -117,16 +111,4 @@ Checking your external ship cameras again, you notice a white panel marked "emer
 
 Based on the Space Law Space Brochure that the Space Police attached to one of your windows, a valid registration identifier is always *eight capital letters*. After starting the robot on a single *white panel* instead, *what registration identifier does it paint* on your hull?
 
-
-
-Answer:  
-
-
-Although it hasn't changed, you can still [get your puzzle input](11/input).
-
-
-You can also [Shareon
- [Bluesky](https://bsky.app/intent/compose?text=I%27ve+completed+Part+One+of+%22Space+Police%22+%2D+Day+11+%2D+Advent+of+Code+2019+%23AdventOfCode+https%3A%2F%2Fadventofcode%2Ecom%2F2019%2Fday%2F11)
-[Twitter](https://twitter.com/intent/tweet?text=I%27ve+completed+Part+One+of+%22Space+Police%22+%2D+Day+11+%2D+Advent+of+Code+2019&url=https%3A%2F%2Fadventofcode%2Ecom%2F2019%2Fday%2F11&related=ericwastl&hashtags=AdventOfCode)
-[Mastodon](javascript:void(0);)] this puzzle.
 
