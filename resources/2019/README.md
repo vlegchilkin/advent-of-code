@@ -14,7 +14,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-&nbsp;
+<a href='day/12'>Day 12: The N-Body Problem</a>
 <a href='day/11'>Day 11: Space Police</a>
 <a href='day/10'>Day 10: Monitoring Station</a>
 <a href='day/9'>Day 9: Sensor Boost</a>

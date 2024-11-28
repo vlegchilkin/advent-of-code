@@ -1,0 +1,72 @@
+After 0 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 10 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 20 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 30 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 40 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 50 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 60 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 70 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 80 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 90 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+After 100 steps:
+pos=, vel=
+pos=, vel=
+pos=, vel=
+pos=, vel=
+
+Energy after 100 steps:
+pot:  8 + 12 +  9 = 29;   kin: 7 +  3 + 0 = 10;   total: 29 * 10 = 290
+pot: 13 + 16 +  3 = 32;   kin: 3 + 11 + 5 = 19;   total: 32 * 19 = 608
+pot: 29 + 11 +  1 = 41;   kin: 3 +  7 + 4 = 14;   total: 41 * 14 = 574
+pot: 16 + 13 + 23 = 52;   kin: 7 +  1 + 1 =  9;   total: 52 *  9 = 468
+Sum of total energy: 290 + 608 + 574 + 468 = 1940
