@@ -1,9 +1,11 @@
+from email.policy import default
 from typing import List
+import collections as cl
 
 
 class IntcodeComputer:
     def __init__(self, instructions):
-        self.memory = {}
+        self.memory = cl.defaultdict(int)
         for i, value in enumerate(instructions):
             self.memory[i] = value
         self.pos = 0
