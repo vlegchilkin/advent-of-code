@@ -18,7 +18,7 @@ COMMANDS = {
 class TileType(IntEnum):
     WALL = 0
     EMPTY = 1
-    OXY_GATE = 2
+    OXYGEN = 2
 
 
 class Year2019Day15(Solution):
@@ -31,7 +31,7 @@ class Year2019Day15(Solution):
         spacer = Spacer(ranges=None)
         state = 0j, IntcodeComputer(self.instructions), 0
         queue = cl.deque([state])
-        spacer[state[0]] = 1
+        spacer[state[0]] = TileType.EMPTY
         part_a, oxy_pos = None, None
         while queue:
             pos, computer, steps = queue.popleft()
@@ -41,7 +41,7 @@ class Year2019Day15(Solution):
                 n_computer = copy.deepcopy(computer)
                 tile_type = n_computer.run([command])[0]
                 spacer[n_pos] = tile_type
-                if tile_type == TileType.OXY_GATE:
+                if tile_type == TileType.OXYGEN:
                     part_a = steps + 1
                     oxy_pos = n_pos
                 if tile_type != TileType.WALL:
@@ -52,8 +52,8 @@ class Year2019Day15(Solution):
         while queue:
             steps, pos = queue.popleft()
             part_b = max(part_b, steps)
-            for n_pos in spacer.links(pos, C_BORDERS, has_path=lambda x: spacer[x] == 1):
-                spacer[n_pos] = 2
+            for n_pos in spacer.links(pos, C_BORDERS, has_path=lambda x: spacer[x] == TileType.EMPTY):
+                spacer[n_pos] = TileType.OXYGEN
                 queue.append((steps + 1, n_pos))
 
         return part_a, part_b
