@@ -7,7 +7,7 @@ import org.vlegchilkin.aoc.*
 * {YEAR}/{DAY}: {TITLE}
 */
 class Year{YEAR}Day{DAY}(input: String) : Solution {
-  private val lines = input.trimSplitMap { it }
+  private val lines = input.toList { it }
 
   override fun partA(): Any {
     return Unit
