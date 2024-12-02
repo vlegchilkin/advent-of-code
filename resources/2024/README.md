@@ -2,7 +2,7 @@
 
 <pre>
 <a href='day/1'>Day 1: Historian Hysteria</a>
-&nbsp;
+<a href='day/2'>Day 2: Red-Nosed Reports</a>
 &nbsp;
 &nbsp;
 &nbsp;
