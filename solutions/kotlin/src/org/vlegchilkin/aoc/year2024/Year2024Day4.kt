@@ -10,20 +10,22 @@ class Year2024Day4(input: String) : Solution {
   private val space = input.toCSpace { it }
 
   override fun partA(): Any {
-    fun counter(pos: C): Int {
-      val xmasDirections = "MAS".foldIndexed(Direction.all()) { index, validDirections, nextChar ->
+    fun xmasCount(pos: C): Int {
+      if (space[pos] != 'X') return 0
+
+      val masDirections = "MAS".foldIndexed(Direction.all()) { index, validDirections, nextChar ->
         validDirections.filter { dir ->
           val nextPos = pos + dir.times(index + 1)
           space[nextPos] == nextChar
         }
       }
-      return xmasDirections.size
+      return masDirections.size
     }
 
-    val posCounter = space.filter { (_, c) -> c == 'X' }.map { (pos) -> pos to counter(pos) }
-    val result = posCounter.sumOf { it.second }
+    val posXmasCount = space.map { (pos) -> pos to xmasCount(pos) }
+    val totalXmas = posXmasCount.sumOf { it.second }
 
-    return result
+    return totalXmas
   }
 
   override fun partB(): Any {
