@@ -4,7 +4,7 @@
 <a href='day/1'>Day 1: Historian Hysteria</a>
 <a href='day/2'>Day 2: Red-Nosed Reports</a>
 <a href='day/3'>Day 3: Mull It Over</a>
-&nbsp;
+<a href='day/4'>Day 4: Ceres Search</a>
 &nbsp;
 &nbsp;
 &nbsp;
