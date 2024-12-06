@@ -7,7 +7,7 @@ from typing import Iterable, Callable, Iterator, Optional, Generator, Union, Typ
 
 import networkx as nx
 import numpy as np
-from numpy import Inf
+from numpy import inf
 
 from aoc import math
 from aoc.tpl import t_minmax
@@ -69,7 +69,7 @@ class IT:
 class Spacer(Mapping):
     def __init__(self, shape=None, *, ranges=0, at=None, directions: Iterable[complex] = C_ALL):
         if ranges is None:
-            self.ranges = ((-Inf, Inf), (-Inf, Inf))
+            self.ranges = ((-inf, inf), (-inf, inf))
         else:
             self.ranges = ranges or ((0, shape[0]), (0, shape[1]))
         self.at = at or dict()
@@ -295,7 +295,7 @@ def ranges(points: Iterable[complex]) -> (tuple[int, int], tuple[int, int]):
 def to_array(points: Union[dict, set], swap_xy=False, ranges=None) -> np.ndarray:
     _min, _max = (
         minmax(points)
-        if ranges is None or Inf in [ranges[0][1], ranges[1][1]]
+        if ranges is None or inf in [ranges[0][1], ranges[1][1]]
         else (complex(ranges[0][0], ranges[1][0]), complex(ranges[0][1] - 1, ranges[1][1] - 1))
     )
 

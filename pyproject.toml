@@ -14,7 +14,7 @@ addict = "^2.4.0"
 numpy = { version = "*", python = "<3.13" }
 networkx = "^3.2.1"
 matplotlib = "^3.8.2"
-scipy = { version = "^1.11.4", python = "<3.13" }
+scipy = { version = "*", python = "<3.13" }
 markdownify = "^0.14.1"
 sympy = "^1.12"
 llist = "^0.7.1"
