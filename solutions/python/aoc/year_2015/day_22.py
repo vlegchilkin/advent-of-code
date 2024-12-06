@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Optional, Tuple
 
 import pytest
-from numpy import PINF
+from numpy import inf
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 
@@ -116,10 +116,10 @@ class Year2015Day22(Solution):
         return best
 
     def part_a(self):
-        return self.recu(Fighter(50, mana=500), self.boss, True, 0, PINF)
+        return self.recu(Fighter(50, mana=500), self.boss, True, 0, inf)
 
     def part_b(self):
-        return self.recu(Fighter(50, mana=500, bleeding=True), self.boss, True, 0, PINF)
+        return self.recu(Fighter(50, mana=500, bleeding=True), self.boss, True, 0, inf)
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
