@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from numpy import Inf
+from numpy import inf
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 
@@ -19,7 +19,7 @@ class Year2018Day11(Solution):
                 a[i, j] = int(str((rack_id * (i + 1) + self.serial) * rack_id)[-3]) - 5
 
         def find(s) -> tuple[int, tuple[int, int]]:
-            result = (-Inf, None)
+            result = (-inf, None)
             for i in range(300 - s + 1):
                 for j in range(300 - s + 1):
                     result = max(result, (np.sum(a[i : i + s, j : j + s]), (j + 1, i + 1)))

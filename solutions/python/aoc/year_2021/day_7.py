@@ -2,7 +2,7 @@ import statistics
 
 import math
 import pytest
-from numpy import Inf
+from numpy import inf
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 
@@ -15,7 +15,7 @@ class Year2021Day7(Solution):
         def fuel(x):
             return sum((func(abs(pos - x)) for pos in self.crabs))
 
-        min_fuel = Inf
+        min_fuel = inf
         for consumption in map(fuel, range(min(self.crabs), max(self.crabs) + 1)):
             if consumption > min_fuel:
                 break

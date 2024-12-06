@@ -3,7 +3,7 @@ from enum import StrEnum
 from typing import Optional, Callable
 
 import pytest
-from numpy import Inf
+from numpy import inf
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import Spacer, C, to_t
@@ -50,7 +50,7 @@ class Year2018Day15(Solution):
 
         def find_move(pos, creature) -> Optional[complex]:
             d, _ = maze.bfs(pos, has_path=lambda p: p not in maze and p not in creatures)
-            closest_spot = (Inf, None)
+            closest_spot = (inf, None)
             for enemy_pos in [_pos for _pos, c in creatures.items() if c.race != creature.race]:
                 for link in maze.links(enemy_pos, has_path=lambda p: p in d):
                     if (spot := (d[link][0], to_t(link))) < closest_spot:

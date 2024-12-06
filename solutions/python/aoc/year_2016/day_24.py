@@ -2,7 +2,7 @@ import itertools
 
 import pytest
 import numpy as np
-from numpy import Inf
+from numpy import inf
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.space import Spacer, C_BORDERS
@@ -23,7 +23,7 @@ class Year2016Day24(Solution):
             for _num, end_pos in nums.items():
                 d[(num, _num)] = paths[end_pos][0]
 
-        part_a = part_b = Inf
+        part_a = part_b = inf
         for c in itertools.permutations(set(nums) - {"0"}):
             part_a = min(part_a, d[("0", c[0])] + sum([d[p] for p in itertools.pairwise(c)]))
             part_b = min(part_b, d[("0", c[0])] + sum([d[p] for p in itertools.pairwise(c)]) + d[(c[-1], "0")])

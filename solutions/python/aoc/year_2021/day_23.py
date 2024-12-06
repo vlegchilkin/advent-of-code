@@ -1,5 +1,5 @@
 import pytest
-from numpy import Inf
+from numpy import inf
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 from aoc.tpl import t_add_pos, t_pop_left, t_push_left
@@ -26,7 +26,7 @@ class Year2021Day23(Solution):
         def recu(hall, park) -> int:
             if (cached := shortest.get((hall, park))) is not None:
                 return cached
-            shortest[(hall, park)] = best = Inf
+            shortest[(hall, park)] = best = inf
 
             # 1.from hall to park
             for pos, r_id in enumerate(hall):

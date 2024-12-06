@@ -1,7 +1,7 @@
 import math
 
 import pytest
-from numpy import Inf
+from numpy import inf
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
 
@@ -23,10 +23,10 @@ class Year2015Day24(Solution):
         return best
 
     def part_a(self):
-        return self.recu(sum(self.weights) // 3, [], -1, (Inf, Inf))[1]
+        return self.recu(sum(self.weights) // 3, [], -1, (inf, inf))[1]
 
     def part_b(self):
-        return self.recu(sum(self.weights) // 4, [], -1, (Inf, Inf))[1]
+        return self.recu(sum(self.weights) // 4, [], -1, (inf, inf))[1]
 
 
 @pytest.mark.parametrize("pd", get_puzzles(), ids=str)
