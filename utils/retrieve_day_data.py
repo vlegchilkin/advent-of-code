@@ -37,7 +37,7 @@ if __name__ == "__main__":
         print("Puzzle wasn't solved yet!")
         groups = [main_content, "", "", ""]
 
-    task_md = md(groups[0] + groups[2])
+    task_md = md(groups[0] + groups[2]).strip()
     context.resource("README.md").write(task_md)
     context.resource("puzzle.out").write((groups[1] or "") + "\n" + (groups[4] or "" if len(groups) > 4 else "") + "\n")
 
