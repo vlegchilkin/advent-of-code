@@ -24,8 +24,10 @@ data class Equation(val total: Long, val elements: List<Long>) {
  */
 class Year2024Day7(input: String) : Solution {
   private val equations = input.toList { line ->
-    val values = line.toLongList()
-    Equation(values.first(), values.drop(1))
+    Equation(
+      total = line.substringBefore(":").toLong(),
+      elements = line.substringAfter(":").toLongList()
+    )
   }
 
   override fun partA(): Any {
