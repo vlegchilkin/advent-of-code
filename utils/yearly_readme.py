@@ -20,6 +20,7 @@ class AoCHTMLParser(HTMLParser):
         self.tag_stack.append((tag, attrs))
         clazz = attrs[-1][1] if attrs and attrs[-1][0] == "class" else ""
         self.classes.append(clazz)
+        self.current_day = {"data": ""} # check it, might be wrong
         if tag == "span" or tag == "a":
             if clazz.startswith("calendar-day"):
                 if clazz != "calendar-day":

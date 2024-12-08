@@ -8,7 +8,7 @@
 <a href='day/5'>Day 5: Print Queue</a>
 <a href='day/6'>Day 6: Guard Gallivant</a>
 <a href='day/7'>Day 7: Bridge Repair</a>
-&nbsp;
+<a href='day/8'>Day 8: Resonant Collinearity</a>
 &nbsp;
 &nbsp;
 &nbsp;
