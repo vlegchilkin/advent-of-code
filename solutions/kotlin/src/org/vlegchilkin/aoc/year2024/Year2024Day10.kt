@@ -16,8 +16,9 @@ class Year2024Day10(input: String) : Solution {
     val pathsCounter = map.transform { _, high -> if (high == START) 1 else 0 }
 
     val heightPositions = map.entries.groupBy({ it.value }, { it.key }).toSortedMap()
+    val heightPositionsStepUpSeq = heightPositions.entries.asSequence().dropWhile { (h) -> h <= START }.takeWhile { (h) -> h <= FINISH }
 
-    heightPositions.entries.drop(1).forEach { (height, positions) ->
+    heightPositionsStepUpSeq.forEach { (height, positions) ->
       for (pos in positions) {
         val stepDownNeighbours = map.links(pos, Direction.borders()) { map[it] == height - 1 }
         routesCounter[pos]?.let { posRoutes ->
