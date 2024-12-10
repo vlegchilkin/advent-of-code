@@ -10,7 +10,7 @@
 <a href='day/7'>Day 7: Bridge Repair</a>
 <a href='day/8'>Day 8: Resonant Collinearity</a>
 <a href='day/9'>Day 9: Disk Fragmenter</a>
-&nbsp;
+<a href='day/10'>Day 10: Hoof It</a>
 &nbsp;
 &nbsp;
 &nbsp;
