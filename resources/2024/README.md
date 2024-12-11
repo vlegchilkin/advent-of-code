@@ -11,7 +11,7 @@
 <a href='day/8'>Day 8: Resonant Collinearity</a>
 <a href='day/9'>Day 9: Disk Fragmenter</a>
 <a href='day/10'>Day 10: Hoof It</a>
-&nbsp;
+<a href='day/11'>Day 11: Plutonian Pebbles</a>
 &nbsp;
 &nbsp;
 &nbsp;
