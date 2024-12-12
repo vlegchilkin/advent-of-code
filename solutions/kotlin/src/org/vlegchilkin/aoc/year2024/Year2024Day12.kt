@@ -13,35 +13,33 @@ class Year2024Day12(input: String) : Solution {
   override fun partAB(): Pair<Int, Int> {
     val regions = CSpace<Int>(garden.rows, garden.cols, mutableMapOf())
     var idCounter = 0
-    for ((pos) in garden) {
-      if (pos in regions) continue
+    garden.keys.asSequence().filter { pos -> pos !in regions }.forEach { pos ->
       regions[pos] = ++idCounter
       regions.fillByTemplate(pos, garden)
     }
 
-    val areas = regions.values.groupBy { it }.mapValues { it.value.size }
+    val regionPositions = regions.entries.groupBy({ it.value }, { it.key }).mapValues { it.value.toSet() }
 
-    val perimeters = mutableMapOf<Int, Int>()
-    for ((pos, id) in regions) {
-      val cellPerimeter = Direction.borders().count { regions[pos + it] != id }
-      perimeters[id] = perimeters.getOrDefault(id, 0) + cellPerimeter
+    val regionPerimeter = regionPositions.mapValues { (_, positions) ->
+      positions.sumOf { pos ->
+        Direction.borders().count { (pos + it) !in positions }
+      }
     }
 
     data class Corner(val side: Direction, val outer: Direction, val inner: Direction)
 
     val possibleCorners = listOf(Corner(N, W, NW), Corner(E, N, NE), Corner(S, E, SE), Corner(W, S, SW))
-    val sides = mutableMapOf<Int, Int>()
-    for ((pos, id) in regions) {
-      val corners = possibleCorners.sumOf { (side, outer, inner) ->
-        val isCorner = (regions[pos + side] != id) and ((regions[pos + outer] != id) or (regions[pos + inner] == id))
-        isCorner.toInt()
+
+    val regionSides = regionPositions.mapValues { (_, positions) ->
+      positions.sumOf { pos ->
+        possibleCorners.count { (side, outer, inner) ->
+          ((pos + side) !in positions) and (((pos + outer) !in positions) or ((pos + inner) in positions))
+        }
       }
-      sides[id] = sides.getOrDefault(id, 0) + corners
     }
 
-
-    val partA = areas.entries.sumOf { (id, area) -> area * perimeters.getOrDefault(id, 0) }
-    val partB = areas.entries.sumOf { (id, area) -> area * sides.getOrDefault(id, 0) }
+    val partA = regionPositions.entries.sumOf { (id, region) -> region.size * regionPerimeter.getOrDefault(id, 0) }
+    val partB = regionPositions.entries.sumOf { (id, region) -> region.size * regionSides.getOrDefault(id, 0) }
     return partA to partB
   }
 
