@@ -82,6 +82,19 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
     }
   }
 
+  fun <R : Any> fillByTemplate(start: C, template: CSpace<R>, directions: List<Direction> = Direction.borders()) {
+    val queue = ArrayDeque<C>()
+    queue.addLast(start)
+    while (queue.isNotEmpty()) {
+      val pos = queue.removeFirst()
+      template.links(pos, directions = directions) { isBelongs(it) && template[it] == template[pos] && data[it] != data[pos] }
+        .forEach { nPos ->
+          data[pos]?.also { data[nPos] = it } ?: data.remove(nPos)
+          queue.addLast(nPos)
+        }
+    }
+  }
+
   fun isBelongs(pos: C) = pos.first in rows && pos.second in cols
 
   fun isEmpty(pos: C) = isBelongs(pos) && pos !in this

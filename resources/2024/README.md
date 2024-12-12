@@ -12,7 +12,7 @@
 <a href='day/9'>Day 9: Disk Fragmenter</a>
 <a href='day/10'>Day 10: Hoof It</a>
 <a href='day/11'>Day 11: Plutonian Pebbles</a>
-&nbsp;
+<a href='day/12'>Day 12: Garden Groups</a>
 &nbsp;
 &nbsp;
 &nbsp;
