@@ -224,6 +224,8 @@ fun CPath.length(): Long {
 }
 
 fun C.clockwise() = this.second to -this.first
+fun C.mod(other: C): C = this.first.mod(other.first) to this.second.mod(other.second)
+
 operator fun C.times(steps: Int) = this.first * steps to this.second * steps
 operator fun C.unaryMinus(): C = -this.first to -this.second
 operator fun C.plus(direction: Direction): C = this + direction.vector

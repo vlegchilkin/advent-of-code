@@ -13,17 +13,14 @@ class Year2024Day14(input: String) : Solution {
   private val n = 101
   private val m = 103
 
-  fun List<Robot>.emulate(seconds: Int): List<Robot> {
+  private fun List<Robot>.emulate(seconds: Int): List<Robot> {
     return this.map { (p, v) ->
-      var np = p + v * seconds
-      np = (np.first % n to np.second % m)
-      if (np.first < 0) np = np.first + n to np.second
-      if (np.second < 0) np = np.first to np.second + m
-      Robot(p = np, v = v)
+      val np = p + v * seconds
+      Robot(p = np.mod(n to m), v = v)
     }
   }
 
-  override fun partA(): Any {
+  override fun partA(): Long {
     val robots = this.robots.emulate(100)
 
     val (nn, mm) = n / 2 to m / 2
@@ -33,11 +30,11 @@ class Year2024Day14(input: String) : Solution {
       .groupBy { it }
       .mapValues { it.value.size }
 
-    val safetyFactor = quadrantCounter.values.reduce(Int::times)
+    val safetyFactor = quadrantCounter.values.fold(1L, Long::times)
     return safetyFactor
   }
 
-  override fun partB(): Any {
+  override fun partB(): Int {
     fun printRobots(robots: List<Robot>) {
       val data = robots.map { (p) -> p.second to p.first }.associateWith { '*' }.toMutableMap()
       val space = CSpace(0..m, 0..n, data)
@@ -46,9 +43,9 @@ class Year2024Day14(input: String) : Solution {
 
     for (seconds in 0..100_000_000) {
       val robots = this.robots.emulate(seconds)
-      val scanLines = robots.map { (p) -> p }.groupBy({ it.second }, { it.first })
+      val linePositions = robots.map { (p) -> p }.groupBy({ it.second }, { it.first })
 
-      val anyLineHasPackOfDrones = scanLines.values.any { positions ->
+      val anyLineHasPackOfDrones = linePositions.values.any { positions ->
         var packSize = 0
         var maxPackSize = 0
         positions.sorted().fold(-1) { previousPos, pos ->
