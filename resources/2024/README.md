@@ -14,7 +14,7 @@
 <a href='day/11'>Day 11: Plutonian Pebbles</a>
 <a href='day/12'>Day 12: Garden Groups</a>
 <a href='day/13'>Day 13: Claw Contraption</a>
-&nbsp;
+<a href='day/14'>Day 14: Restroom Redoubt</a>
 &nbsp;
 &nbsp;
 &nbsp;
