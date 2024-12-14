@@ -35,32 +35,19 @@ class Year2024Day14(input: String) : Solution {
   }
 
   override fun partB(): Int {
-    fun printRobots(robots: List<Robot>) {
+    fun view(robots: List<Robot>): String {
       val data = robots.map { (p) -> p.second to p.first }.associateWith { '*' }.toMutableMap()
       val space = CSpace(0..m, 0..n, data)
-      print(space)
+      return space.toString()
     }
 
+    val patterns = listOf("*".repeat(10), "*.".repeat(10), "*..".repeat(10))
     for (seconds in 0..100_000_000) {
       val robots = this.robots.emulate(seconds)
-      val linePositions = robots.map { (p) -> p }.groupBy({ it.second }, { it.first })
+      val picture = view(robots)
 
-      val anyLineHasPackOfDrones = linePositions.values.any { positions ->
-        var packSize = 0
-        var maxPackSize = 0
-        positions.sorted().fold(-1) { previousPos, pos ->
-          if (pos - previousPos == 1) packSize += 1
-          else {
-            maxPackSize = maxOf(maxPackSize, packSize)
-            packSize = 1
-          }
-          pos
-        }
-        maxPackSize > 10
-      }
-
-      if (anyLineHasPackOfDrones) {
-        printRobots(robots)
+      if ( picture.findAnyOf(patterns) != null) {
+        print(picture)
         return seconds
       }
     }
