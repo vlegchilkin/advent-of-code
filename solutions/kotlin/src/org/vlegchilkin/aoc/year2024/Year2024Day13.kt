@@ -15,9 +15,11 @@ class Year2024Day13(input: String) : Solution {
 
   data class Game(val a: CL, val b: CL, val c: CL) {
     fun solve(): Pair<Long, Long>? {
-      val top = c[0] * b[1] - c[1] * b[0]
-      val bottom = b[1] * a[0] - a[1] * b[0]
-      val x = (top / bottom).takeIf { top % bottom == 0L } ?: return null
+      val numerator = c[0] * b[1] - c[1] * b[0]
+      val denominator = (b[1] * a[0] - a[1] * b[0])
+      if (denominator == 0L || numerator % denominator != 0L) return null
+
+      val x = (numerator / denominator)
       val y = (c[0] - a[0] * x) / b[0]
       return x to y
     }
