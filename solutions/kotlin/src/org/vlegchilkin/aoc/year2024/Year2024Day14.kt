@@ -46,7 +46,7 @@ class Year2024Day14(input: String) : Solution {
       val robots = this.robots.emulate(seconds)
       val picture = view(robots)
 
-      if ( picture.findAnyOf(patterns) != null) {
+      if (picture.findAnyOf(patterns) != null) {
         print(picture)
         return seconds
       }
