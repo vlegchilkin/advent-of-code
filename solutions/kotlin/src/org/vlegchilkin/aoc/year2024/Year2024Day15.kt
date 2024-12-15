@@ -37,8 +37,7 @@ class Year2024Day15(input: String) : Solution {
     val wasPushed = haveToBeMoved.isEmpty() || push(haveToBeMoved, dir)
     if (wasPushed) {
       for (p in pos) {
-        this[p + dir] = this[p] ?: error("Nothing to move")
-        this.remove(p)
+        this[p + dir] = this.remove(p) ?: error("Nothing to move")
       }
     }
     return wasPushed
