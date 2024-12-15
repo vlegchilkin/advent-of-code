@@ -19,19 +19,19 @@ class Year2024Day15(input: String) : Solution {
   private fun C.gps() = this.first * 100 + this.second
 
   private fun CSpace<Char>.push(pos: Set<C>, dir: Direction): Boolean {
-    val rePushPositions = pos.map { it + dir }.filter { it in this }
-    if (rePushPositions.any { this[it] == '#' }) return false
+    val blockers = pos.map { it + dir }.filter { it in this }
+    if (blockers.any { this[it] == '#' }) return false
 
     val haveToBeMoved = when (dir) {
-      W, E -> rePushPositions.toSet()
-      S, N -> rePushPositions.flatMap { p ->
-        when (this[p]) {
-          '[' -> listOf(p, p + E)
-          ']' -> listOf(p, p + W)
-          else -> listOf(p)
+      W, E -> blockers.toSet()
+      S, N -> blockers.flatMap {
+        when (this[it]) {
+          '[' -> listOf(it, it + E)
+          ']' -> listOf(it, it + W)
+          else -> listOf(it)
         }
       }.toSet()
-      else -> error("Unknown direction $dir")
+      else -> error("Not supported direction $dir")
     }
 
     val wasPushed = haveToBeMoved.isEmpty() || push(haveToBeMoved, dir)
@@ -45,12 +45,10 @@ class Year2024Day15(input: String) : Solution {
   }
 
   private fun CSpace<Char>.makeMoves(moves: List<Direction>): CSpace<Char> {
-    var currentPos = this.firstNotNullOf { (pos, c) -> pos.takeIf { c == '@' } }
-
-    moves.forEach { direction ->
-      if (this.push(setOf(currentPos), direction)) currentPos += direction
+    val robotPosition = this.firstNotNullOf { (pos, c) -> pos.takeIf { c == '@' } }
+    moves.fold(robotPosition) { pos, direction ->
+      if (push(setOf(pos), direction)) pos + direction else pos
     }
-
     return this
   }
 
@@ -61,23 +59,14 @@ class Year2024Day15(input: String) : Solution {
   }
 
   override fun partB(): Any {
-    val space = CSpace<Char>(space.rows, (0..<space.colsCount * 2), mutableMapOf())
-    for ((pos, c) in this.space) {
-      val nPos = pos.first to pos.second * 2
-      when (c) {
-        '#' -> {
-          space[nPos] = c
-          space[nPos + E] = c
-        }
-        'O' -> {
-          space[nPos] = '['
-          space[nPos + E] = ']'
-        }
-        '@' -> space[nPos] = c
-      }
-    }
-
+    val reMap = space.toString()
+      .replace("O", "[]")
+      .replace("#", "##")
+      .replace(".", "..")
+      .replace("@", "@.")
+    val space = reMap.toCSpace { it.takeIf { it != '.' } }
     space.makeMoves(moves)
+
     val score = space.filterValues { it == '[' }.keys.sumOf { it.gps() }
     return score
   }
