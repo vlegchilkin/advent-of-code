@@ -16,7 +16,7 @@
 <a href='day/13'>Day 13: Claw Contraption</a>
 <a href='day/14'>Day 14: Restroom Redoubt</a>
 <a href='day/15'>Day 15: Warehouse Woes</a>
-&nbsp;
+<a href='day/16'>Day 16: Reindeer Maze</a>
 &nbsp;
 &nbsp;
 &nbsp;
