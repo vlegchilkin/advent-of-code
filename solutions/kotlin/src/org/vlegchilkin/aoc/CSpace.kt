@@ -1,10 +1,18 @@
 package org.vlegchilkin.aoc
 
+import java.util.*
+import kotlin.collections.ArrayDeque
 import kotlin.math.abs
 
 typealias C = Pair<Int, Int>
 typealias CPath = List<C>
 typealias CMove = Pair<Direction, Int>
+
+data class CVector(val pos: C, val direction: Direction, val length: Int = 1)
+
+data class CPaths(val totalCosts: Int, val finishes: List<CVector>, val backtrack: Map<CVector, CostsWithBacktrack>) {
+  data class CostsWithBacktrack(val costs: Int, val backtrack: List<CVector>)
+}
 
 data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: MutableMap<C, T>) : MutableMap<C, T> {
   override operator fun get(key: C): T? = data[key]
@@ -273,3 +281,39 @@ fun translate(form: Array<IntArray>): List<Array<IntArray>> {
   }
   return result
 }
+
+fun findCPaths(
+  startVectors: List<CVector>,
+  finishPositions: List<C>,
+  nextVectors: (Int, CVector) -> List<Pair<CVector, Int>>
+): CPaths {
+  val minCosts = startVectors.associateWith { 0 }.toMutableMap()
+  val backtrack = startVectors.associateWith { mutableListOf<CVector>() }.toMutableMap()
+  val prioQueue = PriorityQueue<Pair<Int, CVector>>(compareBy { it.first })
+  val finishVectors = Direction.borders().flatMap { dir -> finishPositions.map { CVector(it, dir) } }
+
+  prioQueue.addAll(minCosts.map { (k, v) -> v to k })
+  while (prioQueue.isNotEmpty()) {
+    val (costs, state) = prioQueue.poll()
+    if (minCosts[state] != costs) continue
+    if (finishVectors.any { fst -> minCosts[fst]?.let { it < costs } == true }) continue
+
+    val newStateCosts = nextVectors(costs, state)
+    for ((newState, newCosts) in newStateCosts) {
+      val prevCosts = minCosts[newState]
+      if (prevCosts == null || prevCosts > newCosts) {
+        minCosts[newState] = newCosts
+        backtrack[newState] = mutableListOf(state)
+        prioQueue.offer(newCosts to newState)
+      }
+      else if (prevCosts == newCosts) {
+        backtrack[newState]!!.add(state)
+      }
+    }
+  }
+  val minTotal = finishVectors.mapNotNull { minCosts[it] }.minOrNull() ?: error("There is no path")
+  val actualFinishes = finishVectors.filter { minCosts[it] == minTotal }
+  val nodes = minCosts.mapValues { (k, v) -> CPaths.CostsWithBacktrack(v, backtrack[k]!!) }
+  return CPaths(minTotal, actualFinishes, nodes)
+}
+
