@@ -1,63 +1,61 @@
 package org.vlegchilkin.aoc.year2024
 
 import org.vlegchilkin.aoc.*
+import org.vlegchilkin.aoc.year2024.ChronoSpatialComputer.OpCode.*
 
-enum class OpCode(val value: Int) {
-  ADV(0), BXL(1), BST(2), JNZ(3), BXC(4), OUT(5), BDV(6), CDV(7);
-
-  companion object {
-    fun of(value: Int): OpCode {
-      return entries.find { it.value == value }
-             ?: error("Unknown opcode $value")
-    }
-  }
-}
 
 class ChronoSpatialComputer(private val memory: List<Int>) {
+  enum class OpCode(val value: Int) {
+    ADV(0), BXL(1), BST(2), JNZ(3), BXC(4), OUT(5), BDV(6), CDV(7);
 
-  fun run(registers: LongArray): List<Int> {
+    companion object {
+      fun of(value: Int) = entries.find { it.value == value } ?: error("Unknown opcode $value")
+    }
+  }
+
+  fun run(regInitValues: List<Long>): List<Int> {
+    val registers = regInitValues.toLongArray()
     val output: MutableList<Int> = mutableListOf()
     var pointer = 0
-    fun combo(): Long {
-      return when (val value = memory[pointer++]) {
-        0, 1, 2, 3 -> value.toLong()
-        4, 5, 6 -> registers[value - 4]
-        else -> error("Non-supported value $value")
-      }
+
+    fun nextLiteralOperand() = memory[pointer++].toLong()
+    fun nextComboOperand() = when (val operand = nextLiteralOperand()) {
+      in 0..3 -> operand
+      in 4..6 -> registers[operand.toInt() - 4]
+      else -> error("Non-supported combo operand $operand")
     }
+
     while (pointer <= memory.lastIndex) {
-      val opcode = OpCode.of(memory[pointer++])
-      when (opcode) {
-        OpCode.ADV -> {
-          registers[0] = registers[0] shr combo().toInt()
+      when (OpCode.of(memory[pointer++])) {
+        ADV -> {
+          registers[0] = registers[0] shr nextComboOperand().toInt()
         }
-        OpCode.BXL -> {
-          registers[1] = registers[1] xor memory[pointer++].toLong()
+        BXL -> {
+          registers[1] = registers[1] xor nextLiteralOperand()
         }
-        OpCode.BST -> {
-          registers[1] = combo() % 8
+        BST -> {
+          registers[1] = nextComboOperand() % 8
         }
-        OpCode.JNZ -> {
-          if (registers[0] != 0L) pointer = memory[pointer] else pointer++
+        JNZ -> {
+          if (registers[0] != 0L) pointer = nextLiteralOperand().toInt() else pointer++
         }
-        OpCode.BXC -> {
+        BXC -> {
           pointer += 1
           registers[1] = registers[1] xor registers[2]
         }
-        OpCode.OUT -> {
-          output.add(combo().mod(8))
+        OUT -> {
+          output.add(nextComboOperand().mod(8))
         }
-        OpCode.BDV -> {
-          registers[1] = registers[0] shr combo().toInt()
+        BDV -> {
+          registers[1] = registers[0] shr nextComboOperand().toInt()
         }
-        OpCode.CDV -> {
-          registers[2] = registers[0] shr combo().toInt()
+        CDV -> {
+          registers[2] = registers[0] shr nextComboOperand().toInt()
         }
       }
     }
     return output
   }
-
 }
 
 /**
@@ -75,7 +73,7 @@ class Year2024Day17(input: String) : Solution {
 
   override fun partA(): String {
     val computer = ChronoSpatialComputer(program)
-    val output = computer.run(registers.map { it.toLong() }.toLongArray())
+    val output = computer.run(registers.map { it.toLong() })
     return output.joinToString(separator = ",")
   }
 
@@ -86,7 +84,7 @@ class Year2024Day17(input: String) : Solution {
       if (len == program.size) return prefix
       val expected = program.takeLast(len + 1)
       IntRange(0, 7).map { (prefix shl 3) + it }.forEach { regA ->
-        if (computer.run(longArrayOf(regA, 0, 0)) == expected) {
+        if (computer.run(listOf(regA, 0, 0)) == expected) {
           val solution = dfs(regA, len + 1)
           if (solution != null) return solution
         }
