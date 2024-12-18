@@ -18,7 +18,7 @@
 <a href='day/15'>Day 15: Warehouse Woes</a>
 <a href='day/16'>Day 16: Reindeer Maze</a>
 <a href='day/17'>Day 17: Chronospatial Computer</a>
-&nbsp;
+<a href='day/18'>Day 18: RAM Run</a>
 &nbsp;
 &nbsp;
 &nbsp;

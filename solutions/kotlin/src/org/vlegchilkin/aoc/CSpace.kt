@@ -78,6 +78,19 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
     return CSpace(rows, cols, newData)
   }
 
+  fun findMinPaths(start: List<C>): Map<C, Int> {
+    val distances = start.associateWith { 0 }.toMutableMap()
+    val queue = ArrayDeque(start)
+    while (queue.isNotEmpty()) {
+      val pos = queue.removeFirst()
+      links(pos, directions = Direction.borders()) { isBelongs(it) && it !in data && it !in distances }.forEach {
+        distances[it] = distances.getOrDefault(pos, 0) + 1
+        queue.addLast(it)
+      }
+    }
+    return distances
+  }
+
   fun fill(start: C, value: (C) -> T) {
     val queue = ArrayDeque<C>()
     queue.addLast(start)
