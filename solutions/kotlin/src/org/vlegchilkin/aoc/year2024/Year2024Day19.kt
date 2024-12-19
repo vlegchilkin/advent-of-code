@@ -2,7 +2,6 @@ package org.vlegchilkin.aoc.year2024
 
 import org.vlegchilkin.aoc.*
 
-
 /**
  * 2024/19: Linen Layout
  */
@@ -16,7 +15,12 @@ class Year2024Day19(input: String) : Solution {
     this.designs = designs.toList { it }
   }
 
-  override fun partAB(): Pair<Int, Long> {
+  override fun partA(): Int {
+    val pattern = """^(${towels.joinToString("|")})+$""".toRegex()
+    return designs.count { pattern.matches(it) }
+  }
+
+  override fun partB(): Long {
     fun numOfWays(design: String): Long {
       val lengthWays = mutableMapOf(0 to 1L)
       for (towelEnd in 1..design.length) {
@@ -29,10 +33,7 @@ class Year2024Day19(input: String) : Solution {
       return lengthWays.getValue(design.length)
     }
 
-    val designWaysToBuild = designs.map { numOfWays(it) }
-    val partA = designWaysToBuild.count { it > 0 }
-    val partB = designWaysToBuild.sum()
-    return partA to partB
+    return designs.sumOf { numOfWays(it) }
   }
 
   companion object : Test(2024, 19, { Year2024Day19(it) })
