@@ -19,7 +19,7 @@
 <a href='day/16'>Day 16: Reindeer Maze</a>
 <a href='day/17'>Day 17: Chronospatial Computer</a>
 <a href='day/18'>Day 18: RAM Run</a>
-&nbsp;
+<a href='day/19'>Day 19: Linen Layout</a>
 &nbsp;
 &nbsp;
 &nbsp;
