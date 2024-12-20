@@ -23,7 +23,7 @@ class Year2024Day20(input: String) : Solution {
           val (ePos, eSteps) = track[eIdx]
           val cheatSteps = sPos.manhattanTo(ePos)
           if (cheatSteps > cheatsLimit) continue
-          if (sSteps - eSteps + cheatSteps <= -100) counter++
+          if (eSteps - sSteps - cheatSteps >= 100) counter++
         }
       }
       return counter
