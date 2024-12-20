@@ -65,7 +65,7 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
   fun expand(border: Int): CSpace<T> {
     val r = this.rows.first - border..this.rows.last + border
     val c = this.cols.first - border..this.cols.last + border
-    return CSpace(r, c, data.toMutableMap())
+    return CSpace(r, c, data.filterKeys {  it.first in r && it.second in c }.toMutableMap())
   }
 
   fun clone(): CSpace<T> {
@@ -78,12 +78,13 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
     return CSpace(rows, cols, newData)
   }
 
-  fun findMinPaths(start: List<C>): Map<C, Int> {
+  fun findMinPaths(start: List<C>, hasPath: ((C) -> Boolean)? = null): Map<C, Int> {
+    val pathChecker = hasPath ?: { it !in data }
     val distances = start.associateWith { 0 }.toMutableMap()
     val queue = ArrayDeque(start)
     while (queue.isNotEmpty()) {
       val pos = queue.removeFirst()
-      links(pos, directions = Direction.borders()) { isBelongs(it) && it !in data && it !in distances }.forEach {
+      links(pos, directions = Direction.borders()) { isBelongs(it) && pathChecker(it) && it !in distances }.forEach {
         distances[it] = distances.getOrDefault(pos, 0) + 1
         queue.addLast(it)
       }
