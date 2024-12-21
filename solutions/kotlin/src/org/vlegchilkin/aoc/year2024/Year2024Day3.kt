@@ -16,9 +16,16 @@ class Computer(program: List<String>) {
     var result = 0
 
     instructions.filter(filter).forEach { instr ->
-      if (instr == "do()") isActive = true
-      else if (instr == "don't()") isActive = false
-      else if (!isActive) return@forEach
+      when (instr) {
+        "do()" -> true
+        "don't()" -> false
+        else -> null
+      }?.let { activeFlag ->
+        isActive = activeFlag
+        return@forEach
+      }
+
+      if (!isActive) return@forEach
 
       result += when {
         instr.startsWith("mul(") -> instr.toIntList().reduce { a, b -> a * b }

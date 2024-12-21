@@ -21,7 +21,7 @@
 <a href='day/18'>Day 18: RAM Run</a>
 <a href='day/19'>Day 19: Linen Layout</a>
 <a href='day/20'>Day 20: Race Condition</a>
-&nbsp;
+<a href='day/21'>Day 21: Keypad Conundrum</a>
 &nbsp;
 &nbsp;
 &nbsp;

@@ -7,7 +7,7 @@ import org.vlegchilkin.aoc.*
  * 2023/3: Gear Ratios
  */
 class Year2023Day3(input: String) : Solution {
-  private val space = input.toCSpace { it.takeIf { c -> c != '.' } }
+  private val space = input.toCSpace()
 
   override fun partAB(): Pair<Int, Int> {
     var partA = 0

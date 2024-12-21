@@ -7,7 +7,7 @@ import org.vlegchilkin.aoc.*
  * 2024/8: Resonant Collinearity
  */
 class Year2024Day8(input: String) : Solution {
-  private val space = input.toCSpace { it.takeIf { c -> c != '.' } }
+  private val space = input.toCSpace()
 
   private fun CSpace<*>.pairs(): Sequence<Pair<C, C>> {
     return this.keys.combinations(2).map { it.toPair() }.filter { (a, b) -> space[a] == space[b] }

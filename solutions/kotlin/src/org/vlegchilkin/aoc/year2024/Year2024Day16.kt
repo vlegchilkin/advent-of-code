@@ -8,7 +8,7 @@ import kotlin.collections.ArrayDeque
  * 2024/16: Reindeer Maze
  */
 class Year2024Day16(input: String) : Solution {
-  private val map = input.toCSpace { it.takeIf { it != '.' } }
+  private val map = input.toCSpace()
 
   override fun partAB(): Pair<Int, Int> {
     val start = map.firstNotNullOf { (pos, c) -> pos.takeIf { c == 'S' } }

@@ -7,7 +7,7 @@ import org.vlegchilkin.aoc.Direction.*
  * 2023/17: Clumsy Crucible
  */
 class Year2023Day17(input: String) : Solution {
-  private val space = input.toCSpace { it - '0' }
+  private val space = input.toCSpace<Int> { it - '0' }
 
   private fun findMinPath(minSteps: Int = 1, maxSteps: Int): Int {
     val start = 0 to 0

@@ -8,7 +8,7 @@ import kotlin.math.roundToLong
  * 2023/21: Step Counter
  */
 class Year2023Day21(input: String) : Solution {
-  private val space = input.toCSpace { it.takeIf { it != '.' } }
+  private val space = input.toCSpace()
   private val start = space.firstNotNullOf { (pos, v) -> pos.takeIf { v == 'S' } }
 
   init {

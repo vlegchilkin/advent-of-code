@@ -8,7 +8,7 @@ import org.vlegchilkin.aoc.Direction.*
  * 2023/16: The Floor Will Be Lava
  */
 class Year2023Day16(input: String) : Solution {
-  private val space = input.toCSpace { it.takeIf { it != '.' } }
+  private val space = input.toCSpace()
   private val reflector = mapOf(
     '|' to mapOf(N to listOf(N), S to listOf(S), W to listOf(N, S), E to listOf(N, S)),
     '-' to mapOf(E to listOf(E), W to listOf(W), N to listOf(E, W), S to listOf(E, W)),

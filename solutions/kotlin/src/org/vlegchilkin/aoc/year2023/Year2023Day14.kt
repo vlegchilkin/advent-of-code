@@ -8,7 +8,7 @@ import org.vlegchilkin.aoc.Direction.*
  * 2023/14: Parabolic Reflector Dish
  */
 class Year2023Day14(input: String) : Solution {
-  private val space = input.toCSpace { it.takeIf { it != '.' } }
+  private val space = input.toCSpace()
 
   private fun roll(space: CSpace<Char>, direction: Direction) {
     val comparator = when (direction) {

@@ -8,7 +8,7 @@ import org.vlegchilkin.aoc.Direction.*
  * 2024/12: Garden Groups
  */
 class Year2024Day12(input: String) : Solution {
-  private val garden = input.toCSpace { it }
+  private val garden = input.toCSpace(filter = { true })
 
   enum class Corner(private val side: Direction, private val outer: Direction, private val inner: Direction) {
     TOP_LEFT(N, W, NW), TOP_RIGHT(E, N, NE), BOTTOM_RIGHT(S, E, SE), BOTTOM_LEFT(W, S, SW);

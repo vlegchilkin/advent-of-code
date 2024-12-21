@@ -8,7 +8,7 @@ import org.vlegchilkin.aoc.Direction.*
  * 2023/10: Pipe Maze
  */
 class Year2023Day10(input: String) : Solution {
-  private val space = input.toCSpace { it.takeIf { c -> c != '.' } }
+  private val space = input.toCSpace()
   private val start = space.filterValues { it == 'S' }.keys.first()
   private val joints = mapOf(
     '|' to listOf(N, S),

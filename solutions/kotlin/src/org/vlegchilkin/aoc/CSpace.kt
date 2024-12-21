@@ -65,7 +65,7 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
   fun expand(border: Int): CSpace<T> {
     val r = this.rows.first - border..this.rows.last + border
     val c = this.cols.first - border..this.cols.last + border
-    return CSpace(r, c, data.filterKeys {  it.first in r && it.second in c }.toMutableMap())
+    return CSpace(r, c, data.filterKeys { it.first in r && it.second in c }.toMutableMap())
   }
 
   fun clone(): CSpace<T> {
@@ -131,14 +131,18 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
   }
 }
 
-fun <T : Any> String.toCSpace(mapper: (Char) -> T?): CSpace<T> {
+fun String.toCSpace(filter: (Char) -> Boolean = { it != '.' }): CSpace<Char> {
+  return this.toCSpace(filter) { it }
+}
+
+fun <T : Any> String.toCSpace(filter: (Char) -> Boolean = { it != '.' }, mapper: (Char) -> T?): CSpace<T> {
   val array = this.toList { it }
   val n = array.size
   val m = if (n > 0) array[0].length else 0
   val data = mutableMapOf<C, T>().apply {
     array.forEachIndexed { i, line ->
       line.forEachIndexed { j, value ->
-        mapper(value)?.let { put(i to j, it) }
+        if (filter(value)) mapper(value)?.let { put(i to j, it) }
       }
     }
   }

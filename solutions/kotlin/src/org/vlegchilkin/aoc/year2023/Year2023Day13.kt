@@ -7,7 +7,7 @@ import org.vlegchilkin.aoc.*
  * 2023/13: Point of Incidence
  */
 class Year2023Day13(input: String) : Solution {
-  private val spaces = input.toList("\n\n") { s -> s.toCSpace { it.takeIf { it != '.' } } }
+  private val spaces = input.toList("\n\n") { it.toCSpace() }
 
   override fun partAB(): Pair<Int, Int> {
     fun reflections(space: CSpace<Char>): Set<Int> {

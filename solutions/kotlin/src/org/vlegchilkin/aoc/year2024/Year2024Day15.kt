@@ -12,7 +12,7 @@ class Year2024Day15(input: String) : Solution {
 
   init {
     val (spaceData, movesData) = input.toList("\n\n") { it }
-    space = spaceData.toCSpace { it.takeIf { it != '.' } }
+    space = spaceData.toCSpace()
     moves = movesData.split("\n").joinToString("").map { Direction.of(it) ?: error("Unknown move $it") }
   }
 
@@ -63,7 +63,7 @@ class Year2024Day15(input: String) : Solution {
       .replace("#", "##")
       .replace(".", "..")
       .replace("@", "@.")
-    val space = reMap.toCSpace { it.takeIf { it != '.' } }
+    val space = reMap.toCSpace()
     space.makeMoves(moves)
 
     val score = space.filterValues { it == '[' }.keys.sumOf { it.gps() }

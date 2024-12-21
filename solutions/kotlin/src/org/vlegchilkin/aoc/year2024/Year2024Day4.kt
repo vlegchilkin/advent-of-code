@@ -7,7 +7,7 @@ import org.vlegchilkin.aoc.*
  * 2024/4: Ceres Search
  */
 class Year2024Day4(input: String) : Solution {
-  private val space = input.toCSpace { it }
+  private val space = input.toCSpace(filter = { true })
 
   override fun partA(): Any {
     fun xmasCount(pos: C): Int {

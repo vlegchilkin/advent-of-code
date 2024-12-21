@@ -7,7 +7,7 @@ import org.vlegchilkin.aoc.*
  * 2024/20: Race Condition
  */
 class Year2024Day20(input: String) : Solution {
-  private val map = input.toCSpace { it.takeIf { it != '.' } }
+  private val map = input.toCSpace()
 
   override fun partAB(): Pair<Int, Int> {
     val start = map.firstNotNullOf { (pos, c) -> pos.takeIf { c == 'S' } }

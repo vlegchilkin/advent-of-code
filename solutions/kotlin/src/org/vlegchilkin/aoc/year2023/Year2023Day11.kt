@@ -8,7 +8,7 @@ import kotlin.math.absoluteValue
  * 2023/11: Cosmic Expansion
  */
 class Year2023Day11(input: String) : Solution {
-  private val space = input.toCSpace { it.takeIf { it != '.' } }
+  private val space = input.toCSpace()
 
   private fun getExpansion(gravitationEffect: Int): Pair<List<Long>, List<Long>> {
     var total = 0L

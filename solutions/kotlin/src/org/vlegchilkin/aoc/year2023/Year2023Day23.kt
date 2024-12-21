@@ -7,7 +7,7 @@ import org.vlegchilkin.aoc.*
  * 2023/23: A Long Walk
  */
 class Year2023Day23(input: String) : Solution {
-  private val space = input.toCSpace { it.takeIf { it != '.' } }
+  private val space = input.toCSpace()
   private val start = 0 to 1
   private val finish = space.rows.last to space.cols.last - 1
   private val directions = Direction.borders()

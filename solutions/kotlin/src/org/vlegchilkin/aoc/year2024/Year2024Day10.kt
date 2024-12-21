@@ -9,7 +9,7 @@ const val FINISH: Int = 9
  * 2024/10: Hoof It
  */
 class Year2024Day10(input: String) : Solution {
-  private val map = input.toCSpace { it.digitToInt() }
+  private val map = input.toCSpace<Int> { it.digitToInt() }
 
   override fun partAB(): Pair<Int, Int> {
     val routesCounter = map.transform { pos, height -> if (height == START) mutableSetOf(pos) else mutableSetOf() }
