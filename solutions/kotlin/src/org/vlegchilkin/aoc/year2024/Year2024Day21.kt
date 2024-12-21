@@ -15,13 +15,13 @@ class Year2024Day21(input: String) : Solution {
     456
     123
     .0A 
-    """.trimIndent().toCSpace().map { (pos, key) -> key to pos }.toMap()
+    """.trimIndent().toCSpace().uniqueObjects()
 
   private val directionalPad: Map<Char, C> =
     """
     .^A
     <v> 
-    """.trimIndent().toCSpace().map { (pos, key) -> key to pos }.toMap()
+    """.trimIndent().toCSpace().uniqueObjects()
 
   private fun countTotalComplexity(numOfDirPads: Int): Long {
     val pads = buildList {
@@ -43,7 +43,7 @@ class Year2024Day21(input: String) : Solution {
         result += minOf(
           if ((toPos.first to fromPos.second) in pad.values) dfs("$cy${cx}A", index + 1) else Long.MAX_VALUE,
           if ((fromPos.first to toPos.second) in pad.values) dfs("$cx${cy}A", index + 1) else Long.MAX_VALUE,
-        )
+        ).also { check(it < Long.MAX_VALUE) }
         toPos
       }
 

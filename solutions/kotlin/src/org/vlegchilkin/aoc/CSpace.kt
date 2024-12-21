@@ -129,6 +129,9 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
       }
     }
   }
+
+  fun objects(): Map<T, List<C>> = this.entries.groupBy({ it.value }, { it.key })
+  fun uniqueObjects(): Map<T, C> = this.map { (k, v) -> v to k }.toMap()
 }
 
 fun String.toCSpace(filter: (Char) -> Boolean = { it != '.' }): CSpace<Char> {
