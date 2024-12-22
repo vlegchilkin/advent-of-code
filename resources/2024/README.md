@@ -22,7 +22,7 @@
 <a href='day/19'>Day 19: Linen Layout</a>
 <a href='day/20'>Day 20: Race Condition</a>
 <a href='day/21'>Day 21: Keypad Conundrum</a>
-&nbsp;
+<a href='day/22'>Day 22: Monkey Market</a>
 &nbsp;
 &nbsp;
 &nbsp;
