@@ -4,6 +4,8 @@ import itertools as it
 import networkx as nx
 
 from aoc import Input, get_puzzles, PuzzleData, Solution
+
+
 # from aoc.graph import draw
 
 
@@ -28,34 +30,26 @@ class Year2024Day23(Solution):
 
         return len(cliques)
 
-    def part_b_no_cheat(self):
+    def part_b(self):
         graph = cl.defaultdict(set)
         for _from, _to in self.links:
             graph[_from].add(_to)
             graph[_to].add(_from)
 
-        cliques_candidates = dict()
-        for a, b in it.combinations(graph.keys(), 2):
-            if b not in graph[a]: continue
-            cliques_candidates[tuple(sorted([a, b]))] = graph[a].intersection(graph[b])
-
-        def addone():
-            nonlocal cliques_candidates
+        cliques = {(g,): v for g, v in graph.items()}
+        while len(cliques) > 1:
             _cliques = dict()
-            for clique, candidates in cliques_candidates.items():
+            for clique, candidates in cliques.items():
                 for candidate in candidates:
                     _clique = tuple(sorted(list(clique) + [candidate]))
                     _candidates = candidates.intersection(graph[candidate])
                     _cliques[_clique] = _candidates
-            cliques_candidates = _cliques
+            cliques = _cliques
 
-        while len(cliques_candidates) > 1:
-            addone()
-
-        result = ",".join(list(cliques_candidates.keys())[0])
+        result = ",".join(list(cliques.keys())[0])
         return result
 
-    def part_b(self) -> str:
+    def part_b_via_networkx(self) -> str:
         graph = nx.from_edgelist(self.links)
         # draw(graph, "day_23_graph.png")
         cliques = nx.find_cliques(graph)
