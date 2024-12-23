@@ -23,7 +23,7 @@
 <a href='day/20'>Day 20: Race Condition</a>
 <a href='day/21'>Day 21: Keypad Conundrum</a>
 <a href='day/22'>Day 22: Monkey Market</a>
-&nbsp;
+<a href='day/23'>Day 23: LAN Party</a>
 &nbsp;
 &nbsp;
 </pre>
