@@ -47,24 +47,24 @@ class Year2024Day24(input: String) : Solution {
    * N - number of output pins
    * X,Y - input
    * Z - output
-   * R - carry on flag
+   * C - carry flag
    *
    * Xi -----v
    *         AND -> Fi ------------------+
    *         XOR -> Wi --v                \
-   * Yi -----^           XOR -> (Zi)      OR -> (Ri)
+   * Yi -----^           XOR -> (Zi)      OR -> (Ci)
    *                     AND -> Vi -------^
-   * R(i-1)  ------------^
+   * C(i-1)  ------------^
    *
    *
-   * R0 = X0 AND Y0
+   * C0 = X0 AND Y0
    * Z0 = X0 XOR Y0
    * for i>0:
    *   Fi = Xi AND Yi for i>=1,
    *   Wi = Xi XOR Yi for i>=1
-   *   Vi = Wi AND R(i-1)
-   *   Zi = Wi XOR R(i-1)
-   *   Ri = Fi OR Vi
+   *   Vi = Wi AND C(i-1)
+   *   Zi = Wi XOR C(i-1)
+   *   Ci = Fi OR Vi
    *
    */
   override fun partB(): Any {
@@ -74,7 +74,7 @@ class Year2024Day24(input: String) : Solution {
     val f = mutableMapOf<Int, Element>()
     val w = mutableMapOf<Int, Element>()
     val v = mutableMapOf<Int, Element>()
-    val r = mutableMapOf<Int, Element>()
+    val c = mutableMapOf<Int, Element>()
     val z = mutableMapOf<Int, Element>()
     val crosses = elements.flatMap { listOf(it.in1, it.in2, it.out) }.associateWith { it }.toMutableMap()
 
@@ -85,29 +85,29 @@ class Year2024Day24(input: String) : Solution {
       }
     }
 
-    // init F, W, R[0] and Z[0] because they are based on input pins
+    // init F, W, C[0] and Z[0] because they are based on input pins
     for (i in 0..<n) {
       val (x, y) = pin('x', i) to pin('y', i)
       for (instr in find(x to y)) {
         when (instr.logic) {
-          Logic.AND -> if (i > 0) f[i] = instr else r[0] = instr
+          Logic.AND -> if (i > 0) f[i] = instr else c[0] = instr
           Logic.XOR -> if (i > 0) w[i] = instr else z[0] = instr
           Logic.OR -> error("Can't be OR")
         }
       }
     }
 
-    // fill V, R, Z
+    // calculate  V, Z, C
     for (i in 1..<n) {
       val fi = checkNotNull(f[i]).out
       val wi = checkNotNull(w[i]).out
-      val ri1 = checkNotNull(r[i - 1]).out
-      val possible = find(wi to ri1).takeIf { it.isNotEmpty() } ?: run { // Fi crossed with Wi
+      val ci1 = checkNotNull(c[i - 1]).out
+      val possibleZiVi = find(wi to ci1).takeIf { it.isNotEmpty() } ?: run { // Fi crossed with Wi
         crosses[fi] = wi
         crosses[wi] = fi
-        find(wi to ri1)
+        find(wi to ci1)
       }
-      for (instr in possible) {
+      for (instr in possibleZiVi) {
         when (instr.logic) {
           Logic.AND -> v[i] = instr
           Logic.XOR -> {
@@ -122,15 +122,10 @@ class Year2024Day24(input: String) : Solution {
           Logic.OR -> error("Can't be OR")
         }
       }
-
       checkNotNull(z[i])
       val vi = checkNotNull(v[i]).out
-      for (instr in find(fi to vi)) {
-        when (instr.logic) {
-          Logic.OR -> r[i] = instr
-          else -> error("Can't be AND / XOR")
-        }
-      }
+
+      c[i] = find(fi to vi).single().also { check(it.logic == Logic.OR) }
     }
     val result = crosses.entries.filter { it.key != it.value }.map { it.key }.sorted()
     return result.joinToString(",")
