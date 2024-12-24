@@ -24,6 +24,6 @@
 <a href='day/21'>Day 21: Keypad Conundrum</a>
 <a href='day/22'>Day 22: Monkey Market</a>
 <a href='day/23'>Day 23: LAN Party</a>
-&nbsp;
+<a href='day/24'>Day 24: Crossed Wires</a>
 &nbsp;
 </pre>

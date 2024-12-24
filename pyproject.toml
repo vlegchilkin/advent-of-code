@@ -21,7 +21,11 @@ llist = "^0.7.1"
 fonttools = "~4.55.0"
 z3 = "*"
 z3-solver = "*"
-boto = "~2.49.0"
+boto = "~2.48.0"
+pydot = "*"
+
+#export CFLAGS="-I $(brew --prefix graphviz)/include"
+#export LDFLAGS="-L $(brew --prefix graphviz)/lib"
 
 [tool.poetry.dev-dependencies]
 aiohttp = "^3.9.1"
