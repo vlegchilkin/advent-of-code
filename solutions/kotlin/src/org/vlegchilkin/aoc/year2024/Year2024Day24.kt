@@ -59,13 +59,15 @@ class Year2024Day24(input: String) : Solution {
    *
    * C0 = X0 AND Y0
    * Z0 = X0 XOR Y0
-   * for i>0:
-   *   Fi = Xi AND Yi for i>=1,
-   *   Wi = Xi XOR Yi for i>=1
+   *
+   * for 0 < i < N:
+   *   Fi = Xi AND Yi
+   *   Wi = Xi XOR Yi
    *   Vi = Wi AND C(i-1)
    *   Zi = Wi XOR C(i-1)
    *   Ci = Fi OR Vi
    *
+   * ZN = C(N-1)
    */
   override fun partB(): Any {
     val outputs = elements.associateBy { it.out }
@@ -127,6 +129,8 @@ class Year2024Day24(input: String) : Solution {
 
       c[i] = find(fi to vi).single().also { check(it.logic == Logic.OR) }
     }
+    z[n] = checkNotNull(c[n-1]).also { check(it.out == pin('z', n)) }
+
     val result = crosses.entries.filter { it.key != it.value }.map { it.key }.sorted()
     return result.joinToString(",")
   }
