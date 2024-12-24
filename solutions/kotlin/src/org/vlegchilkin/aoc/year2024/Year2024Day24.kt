@@ -45,11 +45,27 @@ class Year2024Day24(input: String) : Solution {
 
   /**
    * N - number of output pins
-   * Fi = Xi AND Yi for i>=1, R0 = X0 AND Y0
-   * Wi = Xi XOR Yi for i>=1, Z0 = X0 XOR Y0
-   * Vi = Wi AND R(i-1)
-   * Zi = Wi XOR R(i-1)
-   * Ri = Fi OR Vi
+   * X,Y - input
+   * Z - output
+   * R - carry on flag
+   *
+   * Xi -----v
+   *         AND -> Fi ------------------+
+   *         XOR -> Wi --v                \
+   * Yi -----^           XOR -> (Zi)      OR -> (Ri)
+   *                     AND -> Vi -------^
+   * R(i-1)  ------------^
+   *
+   *
+   * R0 = X0 AND Y0
+   * Z0 = X0 XOR Y0
+   * for i>0:
+   *   Fi = Xi AND Yi for i>=1,
+   *   Wi = Xi XOR Yi for i>=1
+   *   Vi = Wi AND R(i-1)
+   *   Zi = Wi XOR R(i-1)
+   *   Ri = Fi OR Vi
+   *
    */
   override fun partB(): Any {
     val outputs = elements.associateBy { it.out }
