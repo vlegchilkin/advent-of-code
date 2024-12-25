@@ -25,5 +25,5 @@
 <a href='day/22'>Day 22: Monkey Market</a>
 <a href='day/23'>Day 23: LAN Party</a>
 <a href='day/24'>Day 24: Crossed Wires</a>
-&nbsp;
+<a href='day/25'>Day 25: Code Chronicle</a>
 </pre>

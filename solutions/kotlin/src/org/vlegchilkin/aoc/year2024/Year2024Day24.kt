@@ -129,7 +129,7 @@ class Year2024Day24(input: String) : Solution {
 
       c[i] = find(fi to vi).single().also { check(it.logic == Logic.OR) }
     }
-    z[n] = checkNotNull(c[n-1]).also { check(it.out == pin('z', n)) }
+    z[n] = checkNotNull(c[n - 1]).also { check(it.out == pin('z', n)) }
 
     val result = crosses.entries.filter { it.key != it.value }.map { it.key }.sorted()
     return result.joinToString(",")
