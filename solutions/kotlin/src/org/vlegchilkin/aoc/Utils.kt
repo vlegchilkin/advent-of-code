@@ -1,7 +1,6 @@
 package org.vlegchilkin.aoc
 
 import com.google.common.collect.Sets
-import kotlin.math.max
 import kotlin.reflect.KClass
 
 operator fun <E> List<E>.component6() = this[5]
@@ -60,16 +59,19 @@ fun String.toIntList(filter: Regex = """-?\d+""".toRegex()) = filter.findAll(thi
 fun String.toLongList(filter: Regex = """-?\d+""".toRegex()) = filter.findAll(this).map { it.value.toLong() }.toList()
 
 
-fun List<LongRange>.union(): List<LongRange> {
-  var current: LongRange? = null
-  val result = mutableListOf<LongRange>()
+fun <V : Comparable<V>, T : ClosedRange<V>> Collection<T>.union(rangeBuilder: (V, V) -> T): List<T> {
+  var current: T? = null
+  val result = mutableListOf<T>()
   for (range in sortedBy { it.start }) {
     if (current == null || range.start > current.endInclusive) {
       if (current != null) result.add(current)
       current = range
       continue
     }
-    current = LongRange(current.start, max(current.endInclusive, range.endInclusive))
+    current = rangeBuilder(
+      current.start,
+      if (current.endInclusive > range.endInclusive) current.endInclusive else range.endInclusive
+    )
   }
   current?.let { result.add(it) }
   return result

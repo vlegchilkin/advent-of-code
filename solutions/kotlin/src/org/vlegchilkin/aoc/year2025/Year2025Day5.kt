@@ -23,7 +23,9 @@ class Year2025Day5(input: String) : Solution {
   }
 
   override fun partB(): Any {
-    return ranges.union().sumOf { range -> range.endInclusive - range.start + 1 }
+    return ranges
+      .union { start, endInclusive -> LongRange(start, endInclusive) }
+      .sumOf { range -> range.endInclusive - range.start + 1 }
   }
 
   companion object : Test(2025, 5, { Year2025Day5(it) })
