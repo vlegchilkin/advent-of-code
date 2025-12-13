@@ -147,4 +147,4 @@ def build_year(year, src=None):
 
 
 if __name__ == "__main__":
-    build_year(2023)
+    build_year(2025)

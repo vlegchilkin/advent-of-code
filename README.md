@@ -31,7 +31,16 @@ Kotlin:
 [2020](solutions/kotlin/src/org/vlegchilkin/aoc/year2020)
 [2023](solutions/kotlin/src/org/vlegchilkin/aoc/year2023)
 [2024](solutions/kotlin/src/org/vlegchilkin/aoc/year2024)
+[2025](solutions/kotlin/src/org/vlegchilkin/aoc/year2025)
 
+
+</div>
+
+<div align="center">
+
+## [2025](resources/2025)
+
+[<img src="resources/2025/progress.png" width="530px">](resources/2025)
 
 </div>
 

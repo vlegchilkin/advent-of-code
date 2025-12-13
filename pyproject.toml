@@ -33,7 +33,7 @@ pytest = "^7.4.3"
 pre-commit = { version = "^3.5.0", source = "pypi" }
 black = { extras = ["d"], version = "*", source = "pypi" }
 coverage = { version = "^7.3.2", source = "pypi" }
-html2image = { version = "^2.0.4", source = "pypi" }
+html2image = { version = "*", source = "pypi" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
