@@ -1,6 +1,7 @@
 package org.vlegchilkin.aoc
 
 import com.google.common.collect.Sets
+import kotlin.math.max
 import kotlin.reflect.KClass
 
 operator fun <E> List<E>.component6() = this[5]
@@ -45,11 +46,31 @@ fun <T : Any> List<String>.toObject(clazz: KClass<T>): T {
   return constructor.call(*args)
 }
 
-fun <R> String.toList(delimiter: String = "\n",
-                      conv: (String) -> R) = this.trim().split(delimiter).filter { it.isNotBlank() }.map { conv(it) }
+fun <R> String.toList(
+  delimiter: String = "\n",
+  conv: (String) -> R
+) = this.trim().split(delimiter).filter { it.isNotBlank() }.map { conv(it) }
 
-fun <R> String.toListIndexed(delimiter: String = "\n",
-                             conv: (Int, String) -> R) = this.trim().split(delimiter).filter { it.isNotBlank() }.mapIndexed { i, v -> conv(i, v) }
+fun <R> String.toListIndexed(
+  delimiter: String = "\n",
+  conv: (Int, String) -> R
+) = this.trim().split(delimiter).filter { it.isNotBlank() }.mapIndexed { i, v -> conv(i, v) }
 
 fun String.toIntList(filter: Regex = """-?\d+""".toRegex()) = filter.findAll(this).map { it.value.toInt() }.toList()
 fun String.toLongList(filter: Regex = """-?\d+""".toRegex()) = filter.findAll(this).map { it.value.toLong() }.toList()
+
+
+fun List<LongRange>.union(): List<LongRange> {
+  var current: LongRange? = null
+  val result = mutableListOf<LongRange>()
+  for (range in sortedBy { it.start }) {
+    if (current == null || range.start > current.endInclusive) {
+      if (current != null) result.add(current)
+      current = range
+      continue
+    }
+    current = LongRange(current.start, max(current.endInclusive, range.endInclusive))
+  }
+  current?.let { result.add(it) }
+  return result
+}
