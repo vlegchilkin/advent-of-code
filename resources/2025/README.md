@@ -7,7 +7,7 @@
 <a href='day/4'>Day 4: Printing Department</a>
 <a href='day/5'>Day 5: Cafeteria</a>
 <a href='day/6'>Day 6: Trash Compactor</a>
-&nbsp;
+<a href='day/7'>Day 7: Laboratories</a>
 &nbsp;
 &nbsp;
 &nbsp;
