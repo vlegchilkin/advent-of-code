@@ -9,7 +9,7 @@
 <a href='day/6'>Day 6: Trash Compactor</a>
 <a href='day/7'>Day 7: Laboratories</a>
 <a href='day/8'>Day 8: Playground</a>
-&nbsp;
+<a href='day/9'>Day 9: Movie Theater</a>
 &nbsp;
 &nbsp;
 &nbsp;

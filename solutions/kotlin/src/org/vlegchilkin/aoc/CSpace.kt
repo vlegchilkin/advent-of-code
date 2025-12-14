@@ -93,6 +93,7 @@ data class CSpace<T : Any>(var rows: IntRange, var cols: IntRange, val data: Mut
   }
 
   fun fill(start: C, value: (C) -> T) {
+    data[start] = value(start)
     val queue = ArrayDeque<C>()
     queue.addLast(start)
     while (queue.isNotEmpty()) {
