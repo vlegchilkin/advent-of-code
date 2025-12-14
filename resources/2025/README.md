@@ -12,5 +12,5 @@
 <a href='day/9'>Day 9: Movie Theater</a>
 <a href='day/10'>Day 10: Factory</a>
 <a href='day/11'>Day 11: Reactor</a>
-&nbsp;
+<a href='day/12'>Day 12: Christmas Tree Farm</a>
 </pre>

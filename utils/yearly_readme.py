@@ -73,6 +73,7 @@ def build_year(year, src=None):
         re.compile(
             r"^(<style>(.*)</style>\s)?"
             r"(<pre class=\"calendar.*</pre>)"
+            # r".*$",
             r"(\s<div class=\"calendar-bkg\">.*</div>)?"
             r"(\s<script>.*</script>.*)?"
             r"$",
@@ -101,6 +102,8 @@ def build_year(year, src=None):
         height += 90
     elif year == 2017:
         height += 110
+    elif year == 2025:
+        height += 20
     s = len('<pre class="calender">')
     nbsp_eol = "&nbsp;\n"
     _ = days[:s] + nbsp_eol + days[s:]
