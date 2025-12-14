@@ -1,7 +1,6 @@
 package org.vlegchilkin.aoc.year2025
 
 import org.vlegchilkin.aoc.*
-import java.util.function.LongBinaryOperator
 
 
 /**
@@ -15,8 +14,11 @@ class Year2025Day6(input: String) : Solution {
     val n = parsed[0].size
 
     fun solve(k: Int): Long {
-      val op = if (parsed.last()[k] == "+") LongBinaryOperator { a, b -> a + b } else LongBinaryOperator { a, b -> a * b }
-      return parsed.dropLast(1).map { it[k].toLong() }.reduce { a, b -> op.applyAsLong(a, b) }
+      val numbers = parsed.dropLast(1).map { it[k].toLong() }
+      return when (parsed.last()[k]) {
+        "+" -> numbers.reduce { a, b -> a + b }
+        else -> numbers.reduce { a, b -> a * b }
+      }
     }
 
     return (0 until n).sumOf { i -> solve(i) }
@@ -36,24 +38,15 @@ class Year2025Day6(input: String) : Solution {
       val start = offsets[k]
       val end = (if (k == n - 1) borderOffset else offsets[k + 1])
 
-      var result: Long
-      val op = if (operators[start] == '+') {
-        result = 0L
-        LongBinaryOperator { a, b -> a + b }
-      }
-      else {
-        result = 1L
-        LongBinaryOperator { a, b -> a * b }
+      val numbers = (start until end - 1).map { idx ->
+        val digits = numbers.mapNotNull { line -> line[idx].takeIf { it.isDigit() }?.let { it - '0' } }
+        digits.fold(0L) { acc, num -> acc * 10 + num }
       }
 
-      for (idx in start until end - 1) {
-        val num = numbers
-          .mapNotNull { line -> line[idx].takeIf { it.isDigit() }?.let { it - '0' } }
-          .fold(0L) { acc, num -> acc * 10 + num }
-        result = op.applyAsLong(result, num)
+      return when (operators[start]) {
+        '+' -> numbers.reduce { acc, col -> acc + col }
+        else -> numbers.reduce { acc, col -> acc * col }
       }
-
-      return result
     }
 
     return (0 until n).sumOf { i -> solve(i) }
