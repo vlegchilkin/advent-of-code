@@ -10,7 +10,7 @@
 <a href='day/7'>Day 7: Laboratories</a>
 <a href='day/8'>Day 8: Playground</a>
 <a href='day/9'>Day 9: Movie Theater</a>
-&nbsp;
+<a href='day/10'>Day 10: Factory</a>
 &nbsp;
 &nbsp;
 </pre>
