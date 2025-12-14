@@ -27,6 +27,16 @@ operator fun Pair<D, D>.contains(x: D): Boolean {
          x.third in this.first.third..this.second.third
 }
 
+infix fun D.squaredDistanceTo(other: D): Long {
+  val (dx, dy, dz) = Triple(
+    abs(this.first - other.first).toLong(),
+    abs(this.second - other.second).toLong(),
+    abs(this.third - other.third).toLong()
+  )
+  return dx * dx + dy * dy + dz * dz
+}
+
+
 infix fun D.manhattanTo(other: D): Int {
   return abs(this.first - other.first) + abs(this.second - other.second) + abs(this.third - other.third)
 }

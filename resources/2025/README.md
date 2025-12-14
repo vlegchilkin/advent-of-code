@@ -8,7 +8,7 @@
 <a href='day/5'>Day 5: Cafeteria</a>
 <a href='day/6'>Day 6: Trash Compactor</a>
 <a href='day/7'>Day 7: Laboratories</a>
-&nbsp;
+<a href='day/8'>Day 8: Playground</a>
 &nbsp;
 &nbsp;
 &nbsp;
